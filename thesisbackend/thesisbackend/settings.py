@@ -28,11 +28,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
  "http://localhost:3000",   
+ "http://localhost:8000",
+ "http://127.0.0.1:8000",
+ "127.0.0.1",
+
 ]
 
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+     "http://localhost:8000",
+     "http://127.0.0.1:8000",
     # Agrega otros dominios si es necesario
 ]
 
@@ -160,8 +166,9 @@ SOCIALACCOUNT_PROVIDERS = {
             'secret':'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',
             'key':'',
         },
-        
-        'REDIRECT_URI': 'http://127.0.0.1:8000/accounts/google/login/callback/',
+        # 'OAUTH_PKCE_ENABLED': True,
+
+        # 'REDIRECT_URI': 'http://127.0.0.1:8000/accounts/google/login/callback/',
         
     }
 }
@@ -181,8 +188,8 @@ LOGOUT_REDIRECT_URL = "/"
 #REST FRAMEWORK DJANGO API
 
 CORS_ALLOW_CREDENTIALS = True
-SESSION_COOKIE_SAMESITE = 'None'
-SESSION_COOKIE_SECURE = False  # Cambiar a True en producción con HTTPS
+# SESSION_COOKIE_SAMESITE = 'None'
+# SESSION_COOKIE_SECURE = False  # Cambiar a True en producción con HTTPS
 
 
 ACCOUNT_EMAIL_VERIFICATION = "none"
@@ -191,7 +198,7 @@ SOCIALACCOUNT_QUERY_EMAIL = True
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'dj_rest_auth.authentication.JwtAuthentication',  # JWT Authentication
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # SimpleJWT Authentication
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),

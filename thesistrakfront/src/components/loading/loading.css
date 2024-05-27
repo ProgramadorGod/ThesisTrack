@@ -1,0 +1,35 @@
+/* src/components/loading/LoadingRectangle.css */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 70px;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5; /* Fondo gris claro */
+}
+
+.loading-rectangle {
+  width: 80%;
+  max-width: 600px;
+  height: 50px; /* Ajusta la altura de los rectángulos */
+  margin: 10px 0;
+  background: linear-gradient(90deg, #e2e0e0ea 25%, #f5f5f5 50%, #e2e0e0d7 75%);
+  background-size: 200% 100%;
+  border-radius: 4px;
+  animation: loadingAnimation 3s infinite;
+}
+
+#gordo{
+  height: 120px;
+}
+
+
+@keyframes loadingAnimation {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

@@ -4,9 +4,13 @@ import Login from './components/login';
 import Profile from './components/profile';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import Navbar from './components/navbar';
+import Loadingrectangle from './components/loading/loading';
 
 function App() {
   const [isLogged, setisLogged] = useState(false);
+  const [isloading, setisloading] = useState(true);
+
 
   useEffect(()=>{
     const fetchProfile = async () => {
@@ -21,17 +25,22 @@ function App() {
         if (response.status === 200){
           setisLogged(true);
           console.log("Logged")
+
         }
         else{
           console.log("not logged")
         }
 
-
+      
       
       }catch(error){
         console.error('Error fetching profile:', error);
         setisLogged(false);
         console.log("Not Logged")
+
+      }finally{
+        setisloading(false)
+
       }
       
     };
@@ -43,22 +52,23 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
 
-        </a>
-      </header>
-      {isLogged ? <Profile /> : <Login />}
+
+
+      <div id="body">
+        <header>
+          <Navbar/>
+
+        </header>
+        
+        {isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile /> : <Login />)}
+
+        
+        
+        
+
+
+      </div>
       
 
     </div>

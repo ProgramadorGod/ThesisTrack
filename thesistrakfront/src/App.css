@@ -1,3 +1,29 @@
+/* Definición de colores */
+:root {
+  --color1: #282c34; /* Fondo de App-header */
+  --color2: #61dafb; /* Enlaces */
+  --color3: #e7e7e7; /* Fondo de html y body */
+  --color4: #273475; /* Fondo de navbar */
+  --color5: #c0caf7e0; /* Color del icono en el navbar */
+}
+
+
+@font-face {
+  font-family: 'BabyPanda';
+  src: url('./fonts/Baby Panda.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Runtoe';
+  src: url('./fonts/Runtoe.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
 .App {
   text-align: center;
 }
@@ -14,7 +40,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: var(--color1);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -25,7 +51,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: var(--color2);
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +61,98 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.body {
+  align-items: center;
+  align-content: center;
+  overflow: hidden;
+}
+
+html {
+  background-color: var(--color3);
+  width: 100%;
+}
+
+#body {
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--color3);
+}
+
+#navbar {
+  width: 100%;
+  background-color: var(--color4);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  box-shadow: #031038 1px 0px 3px 3px ;
+  overflow: hidden;
+}
+
+#icon {
+  margin-left: 20px;
+  height: 50px;
+  width: 30px;
+  min-width: 30px;
+  color: var(--color5);
+  cursor: crosshair;
+}
+
+
+#navtext{
+  font-family: "Runtoe";
+  font-size: 1.2rem;
+  /* text-shadow: #000 1px 1px 1px ; */
+  margin: 0px;  
+  color: rgba(244, 250, 252, 0.986);
+  
+}
+
+#navtext2{
+  font-family: "Runtoe";
+  margin: 0px;
+  font-size: 1.2rem;
+  /* text-shadow: #000 1px 1px 1px ; */
+  
+  color: white;
+}
+
+
+#navtextcontainer{
+  padding-left: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-weight: normal;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+#logounipaz{
+  object-fit: cover;
+  height: 64px;
+  color: white;
+  padding-left:40px ;
+
+  @media (max-width:600px){
+    display: none;
+    
+  }
+
+}
+
+#navbariconbutton{
+  background-color: #00000000;
+  border: 0px;
+}
+
+#profilepic{
+  margin-left: auto;
+  height: 56px;
+  margin-right: 20px;
 }

@@ -7,7 +7,7 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const token = localStorage.getItem('authToken');
+      // const token = localStorage.getItem('authToken');
       const response = await axios.get('http://127.0.0.1:8000/profile/', {
         withCredentials: true,  // Importante para enviar cookies de sesión
 
@@ -28,6 +28,18 @@ const Profile = () => {
       ) : (
         <p>Loading...</p>
       )}
+
+      <a href='http://127.0.0.1:8000/logout/'> logout</a>
+      <div>
+        <h4>Change username:</h4>
+        <form>
+        
+        <input></input>
+        <button type='submit'>a</button>
+        </form>
+        
+
+      </div>
     </div>
   );
 };
