@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Navbar from './components/navbar';
 import Loadingrectangle from './components/loading/loading';
+import Files from './components/files/files';
 
 function App() {
   const [isLogged, setisLogged] = useState(false);
@@ -61,8 +62,9 @@ function App() {
 
         </header>
         
-        {isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile /> : <Login />)}
-
+        {/* {isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile /> : <Login />)} */}
+        {isloading ? (<Loadingrectangle/> ): (isLogged ? <Files /> : <Login />)}
+        
         
         
         

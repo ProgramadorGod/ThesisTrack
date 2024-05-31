@@ -1,0 +1,58 @@
+.ThesisContainer{
+    width: 70vw;
+    /* border-top: 1px solid #D7D8DA; */
+    border-bottom: 1px solid #D7D8DA;
+    height: 40vh;
+    background-color: rgba(89, 151, 202, 0);
+    
+}
+
+#FileComponent{
+    /* padding-top: 5vh; */
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-bottom: 30px;
+}
+
+#totaldocumentscontainer{
+    padding-top: 6vh;
+}
+
+#kind{
+    display: flex;
+    align-content: center;
+    font-size: 0.8rem;
+    padding-top: 2vh;
+    color: #67696E;
+}
+
+#logo{
+    padding-top: 1px;
+    color: #FAB73C;
+    /* padding-left: 1px; */
+
+}
+
+.Title{
+    display: flex;
+    padding-top: 8px;
+    font-size: 17px;
+    text-transform: uppercase;
+    color: black;
+    text-shadow: 0.1px 0.1px black;
+    text-align: left;
+}
+
+.DownloadButton{
+    display: flex;
+    margin-top: auto;
+    padding-top:auto ;
+}
+
+.Description{
+    font-size: 15px;
+    text-align: left;
+    color: rgb(80, 80, 80);
+
+}
