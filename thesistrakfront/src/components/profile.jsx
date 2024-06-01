@@ -20,7 +20,7 @@ const Profile = () => {
 
   return (
     <div>
-      {/* {profile ? (
+      {profile ? (
         <div>
           <p>Email: {profile.email}</p>
           <p>Username: {profile.username}</p>
@@ -39,7 +39,7 @@ const Profile = () => {
         </form>
         
 
-      </div> */}
+      </div>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 .ThesisContainer{
     width: 70vw;
+    display: grid;
     /* border-top: 1px solid #D7D8DA; */
     border-bottom: 1px solid #D7D8DA;
     height: 40vh;
@@ -28,7 +29,7 @@
 }
 
 #logo{
-    padding-top: 1px;
+    padding-top: 0.6px;
     color: #FAB73C;
     /* padding-left: 1px; */
 
@@ -37,7 +38,7 @@
 .Title{
     display: flex;
     padding-top: 8px;
-    font-size: 17px;
+    font-size: 1rem;
     text-transform: uppercase;
     color: black;
     text-shadow: 0.1px 0.1px black;
@@ -47,12 +48,43 @@
 .DownloadButton{
     display: flex;
     margin-top: auto;
-    padding-top:auto ;
+    text-decoration: none; /* Sin subrayado */
+    color: #6591D9;
+    padding-bottom: 14px;
+    font-size: 0.8rem;
+
+}
+
+#DownloadText{
+    padding: 10px;
+    border: 1px solid #6591D9;
+    border-radius: 5px;
+    display: flex;
+    box-shadow: 1px 1px 5px 1px#6591d94b;
+    font-size: 0.8rem;
+    
+    
+    
+}
+
+.icondoc{
+    padding-top: 0.5px;
+    padding-right: 5px;
 }
 
 .Description{
-    font-size: 15px;
+    font-size: 0.8rem;
     text-align: left;
-    color: rgb(80, 80, 80);
+    color: rgb(56, 56, 56);
 
+}
+
+.Author{
+    display: flex;
+    font-size: 0.8rem;
+
+}
+
+#authorname{
+    text-transform: uppercase;
 }
