@@ -1,0 +1,26 @@
+#Changer{
+    display: flex;
+    
+    align-self: center;
+    justify-self: center;
+    background-color: #ffffff00;
+    border: 0px;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    
+}
+
+#SideBar{
+    transition: 0.15s ease;
+    display: flex;
+    justify-content: center;
+
+}
+
+#sideicon{
+    width: 2vw;
+    height: 2vw;
+    border-radius: 5px;
+    /* background-color: rgba(7, 134, 81, 0.541); */
+}

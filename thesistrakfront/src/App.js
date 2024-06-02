@@ -7,11 +7,12 @@ import { useEffect, useState } from 'react';
 import Navbar from './components/navbar';
 import Loadingrectangle from './components/loading/loading';
 import Files from './components/files/files';
+import Sidebar from './components/SideBar/Sidebar';
+import Sidemenu from './components/SideMenu/Sidemenu';
 
 function App() {
   const [isLogged, setisLogged] = useState(false);
   const [isloading, setisloading] = useState(true);
-
 
   useEffect(()=>{
     const fetchProfile = async () => {
@@ -58,12 +59,19 @@ function App() {
 
       <div id="body">
         <header>
-          <Navbar/>
-
-        </header>
         
-        {/* {isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile /> : <Login />)} */}
-        {isloading ? (<Loadingrectangle/> ): (isLogged ? <Files /> : <Login />)}
+          <Navbar/>
+          
+        </header>
+
+
+        <div id='BasicGroup'>
+          {/* <Sidebar/> */}
+
+          {/* {isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile /> : <Login />)} */}
+          {isloading ? (<Loadingrectangle/> ): (isLogged ? <Files /> : <Login />)}
+
+        </div>
         
         
         

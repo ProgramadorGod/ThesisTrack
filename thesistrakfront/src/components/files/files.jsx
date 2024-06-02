@@ -36,14 +36,14 @@ const Files = () => {
                 <div id='authorname'> {document.user.username} </div> 
               </div>
 
-              <a 
+              <div 
                 className='DownloadButton'                
-                href={document.filee} 
+                
                 >
                 
-                <div id='DownloadText' onClick={handleDocumentClick(document.id)}> <RxFile className='icondoc'></RxFile>     Accede Ahora (Libro Electrónico) </div>
+                <a id='DownloadText' href={document.filee} onClick={handleDocumentClick(document.id)}> <RxFile className='icondoc'></RxFile>     Accede Ahora (Libro Electrónico) </a>
                 {/* <div>{document.id}</div> */}
-              </a>
+              </div>
 
           </div>
         </div>

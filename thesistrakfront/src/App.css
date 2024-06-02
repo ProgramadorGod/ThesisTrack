@@ -84,16 +84,27 @@ html {
   background-color: var(--color3);
 }
 
+#BasicGroup{
 
+}
+
+#SideBar{
+  position: absolute;
+  width: 13%;
+  height: 100%;
+  background-color: var(--color4);
+}
 
 #navbar {
   width: 100%;
   background-color: var(--color4);
   height: 64px;
+  position: relative;
   display: flex;
   align-items: center;
   box-shadow: #031038 1px 0px 3px 3px ;
   overflow: hidden;
+  z-index: 99;
 }
 
 #icon {
@@ -128,6 +139,7 @@ html {
 #navtextcontainer{
   padding-left: 20px;
   display: flex;
+  user-select: none;
   flex-wrap: wrap;
   justify-content: center;
   font-weight: normal;
@@ -140,6 +152,7 @@ html {
   height: 64px;
   color: white;
   padding-left:40px ;
+  user-select: none;
 
   @media (max-width:600px){
     display: none;
@@ -157,4 +170,6 @@ html {
   margin-left: auto;
   height: 56px;
   margin-right: 20px;
+  user-select: none;
 }
+
