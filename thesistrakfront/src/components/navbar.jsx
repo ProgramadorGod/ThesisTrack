@@ -4,20 +4,14 @@ import logounipaz from "../media/logounipaz-nobg3.png"
 import avatar from "../media/perfil.png"
 import Sidemenu from "./SideMenu/Sidemenu";
 import { useState } from "react";
+import logo from "../media/logowhite.png";
 
+const Navbar= ({ChangeActive}) => {
 
-const Navbar= () => {
-  const [isActive, setisActive] = useState("");
-  const ChangeActive = () =>{
-    setisActive(prevActiveStatus =>( prevActiveStatus === "" ? "Active" : ""));
-  }
 
 
   return (
     <div>
-        <div id="Sidemenucontainer" className={isActive}>
-
-        </div>
 
 
         <div id="navbar">
@@ -28,11 +22,12 @@ const Navbar= () => {
             {/* </button>     */}
 
         
+            <img src={logo} id="logott"/>
 
             <img src={logounipaz} id="logounipaz"></img>
 
-
-            <div id="navtextcontainer">
+            {/* <div id="navtextcontainer">
+              
               <p id="navtext">
                   Thesis
               </p>
@@ -40,7 +35,7 @@ const Navbar= () => {
               <p id="navtext2">
                   Track
               </p>
-            </div>
+            </div> */}
 
 
             <img src={avatar} id="profilepic"/>

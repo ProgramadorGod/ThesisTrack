@@ -5,12 +5,12 @@ import { SlArrowRight, SlControlEnd, SlMenu } from "react-icons/sl";
 
 const Sidebar = () => {
 
-    const [width, setWidth]  = useState("100px");
+        const [width, setWidth]  = useState("100px");
 
-    const changeWidth = () =>{
-        setWidth(prevWidth =>( prevWidth === '25%' ? '5%':'25%'));
+        const changeWidth = () =>{
+            setWidth(prevWidth =>( prevWidth === '25%' ? '5%':'25%'));
 
-    }
+        }
 
 
     return (

@@ -134,6 +134,12 @@ html {
   
   color: white;
 }
+#logott{
+  /* padding-top: 7px; */
+  width: 100px;
+  user-select: none;
+  padding-left: 2vw;
+}
 
 
 #navtextcontainer{
@@ -151,7 +157,7 @@ html {
   object-fit: cover;
   height: 64px;
   color: white;
-  padding-left:40px ;
+  padding-left:20px ;
   user-select: none;
 
   @media (max-width:600px){

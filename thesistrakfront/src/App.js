@@ -13,6 +13,11 @@ import Sidemenu from './components/SideMenu/Sidemenu';
 function App() {
   const [isLogged, setisLogged] = useState(false);
   const [isloading, setisloading] = useState(true);
+  const [isActive, setisActive] = useState("");
+  const ChangeActive = () =>{
+    setisActive(prevActiveStatus =>( prevActiveStatus === "" ? "Active" : ""));
+  } 
+
 
   useEffect(()=>{
     const fetchProfile = async () => {
@@ -59,8 +64,8 @@ function App() {
 
       <div id="body">
         <header>
-        
-          <Navbar/>
+          <Sidemenu isActive={isActive} />
+          <Navbar ChangeActive={ChangeActive}/>
           
         </header>
 
