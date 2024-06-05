@@ -113,6 +113,8 @@ from rest_framework import generics, permissions
 from rest_framework import status
 from django.contrib.auth.models import User
 
+
+
 class UpdateUsernameView(generics.UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UpdateUsernameSerializer

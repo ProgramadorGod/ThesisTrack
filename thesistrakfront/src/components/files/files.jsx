@@ -41,7 +41,7 @@ const Files = () => {
                 
                 >
                 
-                <a id='DownloadText' href={document.filee} onClick={handleDocumentClick(document.id)}> <RxFile className='icondoc'></RxFile>     Accede Ahora (Libro Electrónico) </a>
+                <a id='DownloadText' href={document.filee} > <RxFile className='icondoc'></RxFile>     Accede Ahora (Libro Electrónico) </a>
                 {/* <div>{document.id}</div> */}
               </div>
 
@@ -61,3 +61,14 @@ const Files = () => {
 }
 
 export default Files
+
+
+// TESIS LAUREADAS, OBTENER INSIGNIA DE SOBRESALIENTE.
+// FUTURO DE LOS ESTUDIANTES PODER DEMOSTRAR EL PRESTIGIO Y LA IMPORTANCIA DE SUS PROYECTOS QUE TUVIERON EN LA INSTITUCIÓN
+// RELACIONAR PROYECTOS 
+// VOTACIONES PARA FINANCIAR PROYECTOS
+// UNIPAZ PUEDE DEMOSTRAR CON SOLIDEZ QUE PROYECTOS EXISTEN
+// MEJORAR EL CONOCIMIENTO DE LOS ESTUDIANTES PARA DESARROLLAR PROYECTOS Y PRESUPUESTOS 
+// ETIQUETA DE PROYECTOS CON PRESUPUESTOS
+// ESTRELLAS NIVEL DE PRESTIGIO
+

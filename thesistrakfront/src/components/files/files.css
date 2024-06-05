@@ -1,5 +1,5 @@
 .ThesisContainer{
-    width: 40vw;
+    width: 50vw;
     display: grid;
     /* border-top: 1px solid #D7D8DA; */
     border-bottom: 1px solid #D7D8DA;
@@ -17,7 +17,7 @@
 }
 
 #totaldocumentscontainer{
-    padding-top: 6vh;
+    padding-top: 90px;
 }
 
 #kind{

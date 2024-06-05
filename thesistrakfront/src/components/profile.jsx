@@ -1,45 +1,70 @@
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import UpdateUsername from './UpdateUsername';
+import Loadingrectangle from './loading/loading';
 
-const Profile = () => {
+const Profile = ({isLogged}) => {
   const [profile, setProfile] = useState(null);
+  const [name, setname] = useState(null);
+
+  const HandleName = ()=>{
+   setname(profile.username) 
+  }
+  
+  
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      // const token = localStorage.getItem('authToken');
-      const response = await axios.get('http://127.0.0.1:8000/profile/', {
-        withCredentials: true,  // Importante para enviar cookies de sesión
 
-      });
-      setProfile(response.data);
-    };
+    try{
+      const fetchProfile = async () => {
+        // const token = localStorage.getItem('authToken');
+        const response = await axios.get('http://127.0.0.1:8000/profile/', {
+          withCredentials: true,  // Importante para enviar cookies de sesión
+  
+        });
+        setProfile(response.data);
+        setname(response.data.username)
+      };
 
-    fetchProfile();
+      fetchProfile();
+      
+
+    }catch(error){
+      console.log("Lol")
+    
+    }
+
+    
   }, []);
 
+
+
   return (
-    <div>
+    <div >
       {profile ? (
         <div>
-          <p>Email: {profile.email}</p>
-          <p>Username: {profile.username}</p>
+          <div>lol</div>
+          <div id="ProfileContainer">
+            
+            <p>Email: {profile.email}</p>
+            <p>Username: {name}</p>
+            <div>
+              <UpdateUsername setname={setname}/>  
+            </div>
+            <a href='http://127.0.0.1:8000/logout/'> logout</a>
+
+          </div>
+
         </div>
       ) : (
-        <p>Loading...</p>
+        <div> <Loadingrectangle/> </div>
       )}
 
-      <a href='http://127.0.0.1:8000/logout/'> logout</a>
-      <div>
-        <h4>Change username:</h4>
-        <form>
-        
-        <input></input>
-        <button type='submit'>a</button>
-        </form>
-        
 
-      </div>
+
+
+
     </div>
   );
 };

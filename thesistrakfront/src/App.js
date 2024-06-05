@@ -9,6 +9,8 @@ import Loadingrectangle from './components/loading/loading';
 import Files from './components/files/files';
 import Sidebar from './components/SideBar/Sidebar';
 import Sidemenu from './components/SideMenu/Sidemenu';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from './components/Home';
 
 function App() {
   const [isLogged, setisLogged] = useState(false);
@@ -59,33 +61,32 @@ function App() {
 
   return (
     <div className="App">
+      <Router>
+
+        
+
+        <div id="body">
+
+        {isloading ? (<Loadingrectangle/> ): (isLogged ? <Sidemenu isActive={isActive} /> : "")}
 
 
-
-      <div id="body">
         <header>
-          <Sidemenu isActive={isActive} />
-          <Navbar ChangeActive={ChangeActive}/>
-          
+
+            <Navbar ChangeActive={ChangeActive}/>
+            
         </header>
+        <Routes>
+          <Route path='/' element={<Home isLogged={isLogged} isloading={isloading}/>}/> 
+          <Route path="/profile" element={isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile /> : <Login />)}/>
+        {/* Añadir más rutas aquí según sea necesario */}
+        </Routes>          
 
-
-        <div id='BasicGroup'>
-          {/* <Sidebar/> */}
-
-          {/* {isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile /> : <Login />)} */}
-          {isloading ? (<Loadingrectangle/> ): (isLogged ? <Files /> : <Login />)}
 
         </div>
-        
-        
-        
-        
 
 
-      </div>
-      
 
+      </Router>
     </div>
   );
 }

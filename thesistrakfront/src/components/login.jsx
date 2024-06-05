@@ -7,7 +7,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div id='LoginContainer'>
       <h2>Login</h2>
       <button onClick={handleLogin}>Login with Google</button>
       
