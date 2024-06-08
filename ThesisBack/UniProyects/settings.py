@@ -31,7 +31,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-SITE_ID=9
+SITE_ID=10
 REST_USE_JWT = True
 
 
@@ -94,6 +94,9 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 
 ]
+
+ALLOWED_HOSTS =["*"]
+
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",

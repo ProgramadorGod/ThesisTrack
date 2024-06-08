@@ -7,8 +7,11 @@ import { IoMdPerson } from "react-icons/io";
 
 import GlobalActivation from "../GlobalAc"
 import "./Sidemenu.css"
-import React from 'react';
+import React, {PureComponent}  from 'react';
 import { useNavigate } from "react-router-dom";
+
+
+
 
 const Sidemenu = ({isActive}) => {
     const navigate = useNavigate();
@@ -22,6 +25,11 @@ const Sidemenu = ({isActive}) => {
     const handleMyFilesClick = () =>{
         navigate("/Files")
     }
+    const handleGraphics = () =>{
+        navigate("/Stadistics")
+    }
+
+    
   
     return (
         <div id="Sidemenucontainer" className={isActive}>
@@ -40,7 +48,7 @@ const Sidemenu = ({isActive}) => {
                 </button>
 
 
-                <button onClick={handleMyFilesClick} className="buttondiv" >
+                <button onClick={handleGraphics} className="buttondiv" >
                     <RxMixerVertical className="itemlogo"/>
                 </button>
 
@@ -48,7 +56,7 @@ const Sidemenu = ({isActive}) => {
                     <TbHexagonalPyramidPlus className="itemlogo"/>
                 </button>
 
-                <button onClick={handleMyFilesClick} className="buttondiv" >
+                <button onClick={handleGraphics} className="buttondiv" >
                     <RxPieChart className="itemlogo"/>
                 </button>
                 

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import UpdateUsername from './UpdateUsername';
 import Loadingrectangle from './loading/loading';
+import profilepic from "../media/perfil.png"
 
 const Profile = ({isLogged}) => {
   const [profile, setProfile] = useState(null);
@@ -43,16 +44,21 @@ const Profile = ({isLogged}) => {
   return (
     <div >
       {profile ? (
-        <div>
-          <div>lol</div>
+        <div id='ProfileComponent'>
+
+          
           <div id="ProfileContainer">
+            <div id='profpicdiv'  className='ProfCardItem'>
+              <img src={profilepic} id='ProfileMenuPic'/>
+            </div>
             
-            <p>Email: {profile.email}</p>
-            <p>Username: {name}</p>
-            <div>
+            <h5 id='ProfEmail' className='ProfCardItem'>Email: {profile.email}</h5>
+            <h5 className='ProfCardItem'>Username: {name}</h5>
+            <h5 className='ProfCardItem'>{profile.careers}</h5>
+            <div className='ProfCardItem'>
               <UpdateUsername setname={setname}/>  
             </div>
-            <a href='http://127.0.0.1:8000/logout/'> logout</a>
+            <a className='ProfCardItem' href='http://127.0.0.1:8000/logout/'> Logout</a>
 
           </div>
 

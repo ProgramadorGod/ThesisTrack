@@ -180,10 +180,51 @@ html {
   user-select: none;
 }
 
-#ProfileContainer{
+#ProfileComponent{
+  display: flex;
+  width: 70vw;
+  align-items: center;
+  justify-content: start;
+  
   margin-top: 100px;
+  margin-left: 24vw;
 }
+
+.ProfCardItem{
+  width: 25vw;
+  font-size: 18px;
+  color: black;
+}
+
+#ProfileContainer{
+  
+  background-color: #53535383;
+  overflow: hidden;
+  display: grid;
+  font-size: 2vw;
+  width: 25vw;
+  border-radius: 0.8vw;
+  padding-bottom: 20px;
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.336);
+  color: white;
+
+
+}
+
+#ProfileContainer >*{
+
+}
+
 
 #LoginContainer{
   margin-top: 100px;
+}
+
+#ProfileMenuPic{
+  width: 7vw;
+
+}
+
+#profpicdiv{
+  /* width: 25vw; */
 }
