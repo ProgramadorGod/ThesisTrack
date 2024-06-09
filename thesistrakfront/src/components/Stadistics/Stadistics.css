@@ -1,3 +1,13 @@
 #StadisticsComponent{
+    width: 70vw;
+    margin-left: 10vw;
+    margin-top: 10vw;
+    display: flex;
+    flex-wrap: wrap;
+    grid-template-columns: 1fr 1fr;
+}
+
+.StadisticItem{
+    width: 500px;
     
 }

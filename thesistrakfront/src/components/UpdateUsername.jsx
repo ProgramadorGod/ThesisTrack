@@ -54,7 +54,7 @@ const UpdateUsername = ({setname}) => {
         <div>
             <form onSubmit={HandleSubmit}>
                 <label>
-                  <h5>
+                  <h5 className='ProfCardItem'>
                     New Username:
 
                   </h5>

@@ -5,25 +5,46 @@ import "./Stadistics.css";
 const Echart = () => {
     const option ={
         title:{
-            text:"Example Echarts"
+            text:"Ejemplo Estadísticas"
         },
         tooltip:{},
         xAxis:{
-            data:["A", "B","C","D"]
+            data:["Infor", "Agron","Artes","MVZ"]
         },
         yAxis:{},
         series:[{
-            name:"Ventas",
+            name:"Proyectos",
             type:"bar",
             data:[5,20,17,30,12]
         }]
     }
 
+    const option2 ={
+        title:{
+            text:"Ejemplo Estadísticas2"
+        },
+        tooltip:{},
+        xAxis:{
+            data:["mayo", "junio","julio","agosto"]
+        },
+        yAxis:{},
+        series:[{
+            name:"Proyectos",
+            type:"line",
+            data:[15,35,17,9,22]
+        }]
+    }
 
     return (
         <div id='StadisticsComponent'>
-            <ReactEcharts option={option}/>
-        
+            <div className='StadisticItem'>
+                <ReactEcharts option={option}/>
+            </div>
+
+            <div className='StadisticItem'>
+                <ReactEcharts option={option2}/>
+            </div>
+
         </div>
     )
 }

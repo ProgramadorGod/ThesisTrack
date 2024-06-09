@@ -52,13 +52,13 @@ const Profile = ({isLogged}) => {
               <img src={profilepic} id='ProfileMenuPic'/>
             </div>
             
-            <h5 id='ProfEmail' className='ProfCardItem'>Email: {profile.email}</h5>
-            <h5 className='ProfCardItem'>Username: {name}</h5>
+            <h5 id='ProfEmail' className='ProfCardItem'>{profile.email}</h5>
+            <h5 className='ProfCardItem'>{name}</h5>
             <h5 className='ProfCardItem'>{profile.careers}</h5>
             <div className='ProfCardItem'>
               <UpdateUsername setname={setname}/>  
             </div>
-            <a className='ProfCardItem' href='http://127.0.0.1:8000/logout/'> Logout</a>
+            <a id='logout' className='ProfCardItem' href='http://127.0.0.1:8000/logout/'> Logout</a>
 
           </div>
 

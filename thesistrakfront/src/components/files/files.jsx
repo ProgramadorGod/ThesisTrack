@@ -33,7 +33,10 @@ const Files = () => {
               <div className='Description'> {document.description}</div>
               <div className='Author'> 
                 <div> Author:</div> 
-                <div id='authorname'> {document.user.username} </div> 
+                {document.users.map(user =>{
+                  <div id='authorname'> {user.username} </div> 
+
+                })}
               </div>
 
               <div 
