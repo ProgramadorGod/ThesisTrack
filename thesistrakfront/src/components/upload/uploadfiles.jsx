@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import "./uploadfiles.css"
 
 const DocumentUpload = () => {
   const [users, setUsers] = useState([]);
@@ -9,13 +10,25 @@ const DocumentUpload = () => {
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState('');
   const [docType, setDocType] = useState('');
+  const [selectedType, setSelectedType] = useState([]);
 
   useEffect(() => {
     // Fetch users and docTypes
-    axios.get('http://127.0.0.1:8000/users/').then(response => {
+    axios.get('http://127.0.0.1:8000/users/',{
+    // Incluir cookies en la solicitud
+    withCredentials: true,
+
+
+
+    }).then(response => {
+      
+      console.log(response.data)
       setUsers(response.data);
+
     });
-    axios.get('http://127.0.0.1:8000/document-types/').then(response => {
+
+
+    axios.get('http://127.0.0.1:8000/documents/types/').then(response => {
       setDocTypes(response.data);
     });
   }, []);
@@ -28,8 +41,23 @@ const DocumentUpload = () => {
         selectedUsers.push(options[i].value);
       }
     }
+    alert(selectedUsers)
     setSelectedUsers(selectedUsers);
   };
+
+
+  const handleTypeChange = (e) => {
+    const options = e.target.options;
+    const selectedType = [];
+    for (let i = 0, l = options.length; i < l; i++) {
+      if (options[i].selected) {
+        selectedType.push(options[i].value);
+      }
+    }
+    alert(selectedType)
+    setSelectedType(selectedType);
+  };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,26 +66,47 @@ const DocumentUpload = () => {
     data.append('title', title);
     data.append('filee', file);
     data.append('description', description);
-    data.append('doc_type', docType);
+    selectedType.forEach(user => data.append('doc_type', selectedType));
 
     axios.post('http://127.0.0.1:8000/documents/upload/', data, {
       headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+        'Content-Type': 'multipart/form-data',
+        'Accept': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken') 
+
+      },
+      withCredentials:true,
     })
     .then(response => {
       console.log(response.data);
+      alert("Submitted successfully")
     })
     .catch(error => {
       console.error('Error uploading document:', error);
     });
   };
 
+
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} id='FORMULARY'>
       <div>
         <label htmlFor="users">Users</label>
-        <select multiple name="users" id="users" onChange={handleUserChange}>
+        <select name="users" id="users" onChange={handleUserChange}>
           {users.map(user => (
             <option key={user.id} value={user.id}>{user.username}</option>
           ))}
@@ -77,7 +126,7 @@ const DocumentUpload = () => {
       </div>
       <div>
         <label htmlFor="docType">Doc Type</label>
-        <select name="docType" id="docType" onChange={(e) => setDocType(e.target.value)} required>
+        <select name="docType" id="docType" onChange={handleTypeChange} required>
           {docTypes.map(docType => (
             <option key={docType.id} value={docType.id}>{docType.name}</option>
           ))}

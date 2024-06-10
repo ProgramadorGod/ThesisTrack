@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./files.css"
 import axios from 'axios'
 import { RxCheckCircled, RxCheckbox, RxFile, RxQuestionMark, RxTokens } from 'react-icons/rx'
-import Profile from '../profile'
+import Profile from '../profile/profile'
 
 const Files = () => {
   const [Documents, setDocuments] = useState([]);
@@ -20,6 +20,7 @@ const Files = () => {
   const handleDocumentClick = (documentid) => {
     console.log("CLICKED THE DOCUMENT : ", documentid)
   }
+  
 
   return (
     <div id='totaldocumentscontainer'>

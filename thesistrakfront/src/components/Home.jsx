@@ -1,7 +1,7 @@
 import React from 'react'
 import '../App.css';
 import Login from '../components/login';
-import Profile from '../components/profile';
+import Profile from './profile/profile';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Navbar from '../components/navbar';
