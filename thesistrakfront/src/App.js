@@ -12,6 +12,7 @@ import Sidemenu from './components/SideMenu/Sidemenu';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './components/Home';
 import Echart from './components/Stadistics/Echart';
+import DocumentUpload from './components/upload/uploadfiles';
 
 function App() {
   const [isLogged, setisLogged] = useState(false);
@@ -79,6 +80,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home isLogged={isLogged} isloading={isloading}/>}/> 
           <Route path="/Profile" element={isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile /> : <Login />)}/>
+          <Route path='/Files' element={isloading ? (<Loadingrectangle/>):(<DocumentUpload/>)}/>
           <Route path='/Stadistics' element={<Echart/>} />
         {/* Añadir más rutas aquí según sea necesario */}
         </Routes>          

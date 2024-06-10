@@ -32,11 +32,16 @@ const Files = () => {
               <div className='Title'>{document.title}</div>
               <div className='Description'> {document.description}</div>
               <div className='Author'> 
-                <div> Author:</div> 
-                {document.users.map(user =>{
-                  <div id='authorname'> {user.username} </div> 
-
-                })}
+                <div> Author: </div> 
+                
+              {document.users && document.users.length > 0 && document.users.length < 3 ? (
+                
+                document.users.map(user => (
+                  <div key={user.id} className='authorname'>{'\u00A0'}-{'\u00A0'}{user.username} </div>
+                ))
+              ) : (
+                <div>No authors available</div>
+              )}
               </div>
 
               <div 

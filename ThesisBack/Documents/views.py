@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import generics,permissions
 from rest_framework.parsers import MultiPartParser,FormParser
-from .models import Document, User
-from .serializers import DocumentSerializer
+from .models import Document, User,DocumentType
+from .serializers import DocumentSerializer, DocTypeSerializer
 
 # Create your views here.
 
@@ -27,4 +27,11 @@ class DocumentListView(generics.ListAPIView):
 
     def get_queryset(self):
         return Document.objects.all()
+    
+
+class DocumentTypeListView(generics.ListAPIView):
+    queryset = DocumentType.objects.all()
+    serializer_class = DocTypeSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    
     
