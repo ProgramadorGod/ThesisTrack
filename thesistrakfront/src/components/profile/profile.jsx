@@ -6,16 +6,11 @@ import Loadingrectangle from '../loading/loading';
 import profilepic from "../../media/perfil.png";
 import "./profile.css";
 
-const Profile = ({isLogged}) => {
-  const [profile, setProfile] = useState(null);
-  const [name, setname] = useState(null);
-  const [carrers, setCarrers] = useState([]);
+const Profile = ({isLogged, profile,name,carrers}) => {
 
 
 
-  const HandleName = ()=>{
-   setname(profile.username) 
-  }
+
   
   
 
@@ -28,9 +23,7 @@ const Profile = ({isLogged}) => {
           withCredentials: true,  // Importante para enviar cookies de sesión
   
         });
-        setProfile(response.data);
-        setCarrers(response.data.careers)
-        setname(response.data.username)
+
         
       };
 
@@ -40,11 +33,12 @@ const Profile = ({isLogged}) => {
 
     }catch(error){
       console.log("Lol")
-    
+      
     }
 
     
   }, []);
+
 
   
 
@@ -64,9 +58,9 @@ const Profile = ({isLogged}) => {
             
 
             <h5  className='ProfCardItem'>{carrers}</h5>
-            <div className='ProfCardItem'>
+            {/* <div className='ProfCardItem'>
               <UpdateUsername setname={setname}/>  
-            </div>
+            </div> */}
             <a id='logout' className='ProfCardItem' href='http://127.0.0.1:8000/logout/'> Logout</a>
 
           </div>

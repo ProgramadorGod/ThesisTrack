@@ -1,3 +1,26 @@
 #FORMULARY{
-    margin-top: 10vh;
+    padding-top: 15vh;
+    background: rgba(189, 189, 189, 0.527);
+    display: flex;
+    height: 85vh;
+    margin-left: 0vw;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    z-index: 9999;
+    position: relative;
+    
+}
+
+
+#users{
+}
+
+#userscontainer{
+}
+
+
+.ItemFormContainer{
+    padding-top: 50px;
+
 }

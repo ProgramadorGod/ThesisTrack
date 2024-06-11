@@ -19,7 +19,7 @@
   .ProfCardItem{
     width: 25vw;
     font-size: 18px;
-    color: black;
+    color: rgb(28, 2, 61);
   }
   
   
@@ -77,4 +77,6 @@
   
   #profpicdiv{
     /* width: 25vw; */
+    user-select: none;
+
   }

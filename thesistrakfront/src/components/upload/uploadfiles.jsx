@@ -2,16 +2,17 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./uploadfiles.css"
 
-const DocumentUpload = () => {
+const DocumentUpload = ({userid}) => {
   const [users, setUsers] = useState([]);
   const [docTypes, setDocTypes] = useState([]);
-  const [selectedUsers, setSelectedUsers] = useState([]);
+  const [selectedUsers, setSelectedUsers] = useState([userid]);
   const [title, setTitle] = useState('');
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState('');
   const [docType, setDocType] = useState('');
   const [selectedType, setSelectedType] = useState([]);
 
+  
   useEffect(() => {
     // Fetch users and docTypes
     axios.get('http://127.0.0.1:8000/users/',{
@@ -35,15 +36,17 @@ const DocumentUpload = () => {
 
   const handleUserChange = (e) => {
     const options = e.target.options;
-    const selectedUsers = [];
+    const selectedUsers = [userid];
     for (let i = 0, l = options.length; i < l; i++) {
       if (options[i].selected) {
         selectedUsers.push(options[i].value);
       }
     }
-    alert(selectedUsers)
+
+    
     setSelectedUsers(selectedUsers);
   };
+
 
 
   const handleTypeChange = (e) => {
@@ -54,7 +57,6 @@ const DocumentUpload = () => {
         selectedType.push(options[i].value);
       }
     }
-    alert(selectedType)
     setSelectedType(selectedType);
   };
 
@@ -104,27 +106,27 @@ const DocumentUpload = () => {
 
   return (
     <form onSubmit={handleSubmit} id='FORMULARY'>
-      <div>
-        <label htmlFor="users">Users</label>
-        <select name="users" id="users" onChange={handleUserChange}>
+      <div id='userscontainer' className='ItemFormContainer'>
+        <label htmlFor="users" id='UserText'>Users</label>
+        <select multiple name="users" id="users" onChange={handleUserChange}>
           {users.map(user => (
             <option key={user.id} value={user.id}>{user.username}</option>
           ))}
         </select>
       </div>
-      <div>
+      <div className='ItemFormContainer'>
         <label htmlFor="title">Title</label>
         <input type="text" name="title" id="title" value={title} onChange={(e) => setTitle(e.target.value)} required />
       </div>
-      <div>
+      <div className='ItemFormContainer'>
         <label htmlFor="file">File</label>
         <input type="file" name="file" id="file" onChange={(e) => setFile(e.target.files[0])} required />
       </div>
-      <div>
+      <div className='ItemFormContainer'>
         <label htmlFor="description">Description</label>
         <textarea name="description" id="description" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
       </div>
-      <div>
+      <div className='ItemFormContainer'>
         <label htmlFor="docType">Doc Type</label>
         <select name="docType" id="docType" onChange={handleTypeChange} required>
           {docTypes.map(docType => (
