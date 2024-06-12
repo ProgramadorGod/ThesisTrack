@@ -12,7 +12,6 @@ const DocumentUpload = ({userid}) => {
   const [docType, setDocType] = useState('');
   const [selectedType, setSelectedType] = useState([]);
 
-  
   useEffect(() => {
     // Fetch users and docTypes
     axios.get('http://127.0.0.1:8000/users/',{
@@ -39,11 +38,13 @@ const DocumentUpload = ({userid}) => {
     const selectedUsers = [userid];
     for (let i = 0, l = options.length; i < l; i++) {
       if (options[i].selected) {
+        alert(options[i].value)
+        alert(selectedUsers)
         selectedUsers.push(options[i].value);
       }
     }
 
-    
+    alert(selectedUsers)
     setSelectedUsers(selectedUsers);
   };
 
@@ -57,6 +58,7 @@ const DocumentUpload = ({userid}) => {
         selectedType.push(options[i].value);
       }
     }
+    
     setSelectedType(selectedType);
   };
 
@@ -64,7 +66,7 @@ const DocumentUpload = ({userid}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData();
-    selectedUsers.forEach(user => data.append('users', user));
+    selectedUsers.forEach(user => data.append('users', selectedUsers));
     data.append('title', title);
     data.append('filee', file);
     data.append('description', description);
@@ -105,37 +107,45 @@ const DocumentUpload = ({userid}) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} id='FORMULARY'>
-      <div id='userscontainer' className='ItemFormContainer'>
-        <label htmlFor="users" id='UserText'>Users</label>
-        <select multiple name="users" id="users" onChange={handleUserChange}>
-          {users.map(user => (
-            <option key={user.id} value={user.id}>{user.username}</option>
-          ))}
-        </select>
-      </div>
-      <div className='ItemFormContainer'>
-        <label htmlFor="title">Title</label>
-        <input type="text" name="title" id="title" value={title} onChange={(e) => setTitle(e.target.value)} required />
-      </div>
-      <div className='ItemFormContainer'>
-        <label htmlFor="file">File</label>
-        <input type="file" name="file" id="file" onChange={(e) => setFile(e.target.files[0])} required />
-      </div>
-      <div className='ItemFormContainer'>
-        <label htmlFor="description">Description</label>
-        <textarea name="description" id="description" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
-      </div>
-      <div className='ItemFormContainer'>
-        <label htmlFor="docType">Doc Type</label>
-        <select name="docType" id="docType" onChange={handleTypeChange} required>
-          {docTypes.map(docType => (
-            <option key={docType.id} value={docType.id}>{docType.name}</option>
-          ))}
-        </select>
-      </div>
-      <button type="submit">Upload Document</button>
-    </form>
+    <>
+      <form onSubmit={handleSubmit} id='FORMULARY'>
+        <div id='userscontainer' className='ItemFormContainer'>
+          <label htmlFor="users" id='UserText'>Users</label>
+          <select  name="users" id="users" onChange={handleUserChange}>
+            {users.map(user => (
+              <option key={user.id} value={user.id}>{user.username}</option>
+            ))}
+          </select>
+        </div>
+        <div className='ItemFormContainer'>
+          <label htmlFor="title">Title</label>
+          <input type="text" name="title" id="title" value={title} onChange={(e) => setTitle(e.target.value)} required />
+        </div>
+        <div className='ItemFormContainer'>
+          <label htmlFor="file">File</label>
+          <input type="file" name="file" id="file" onChange={(e) => setFile(e.target.files[0])} required />
+        </div>
+        <div className='ItemFormContainer'>
+          <label htmlFor="description">Description</label>
+          <textarea name="description" id="description" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+        </div>
+        <div className='ItemFormContainer'>
+          <label htmlFor="docType">Doc Type</label>
+          <select name="docType" id="docType" onChange={handleTypeChange} required>
+            {docTypes.map(docType => (
+              <option key={docType.id} value={docType.id}>{docType.name}</option>
+            ))}
+          </select>
+        </div>
+        <button type="submit">Upload Document</button>
+      </form>
+      
+
+      
+
+
+    </>
+
   );
 };
 

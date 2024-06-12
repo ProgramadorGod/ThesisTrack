@@ -44,16 +44,17 @@ function App() {
         if (response.status === 200){
           setisLogged(true);
           console.log("Logged")
+          setUserid(response.data.id)
+          setProfile(response.data);
+          setCarrers(response.data.careers)
+          setname(response.data.username)
 
         }
         else{
           console.log("not logged")
         }
 
-        setUserid(response.data.id)
-        setProfile(response.data);
-        setCarrers(response.data.careers)
-        setname(response.data.username)
+
       
       }catch(error){
         console.error('Error fetching profile:', error);
@@ -93,7 +94,7 @@ function App() {
           <Route path='/' element={<Home isLogged={isLogged} isloading={isloading}/>}/> 
           <Route path="/Profile" element={isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile profile={profile} name={name} carrers={carrers} /> : <Login />)}/>
           {/* <Route path='/Files' element={isloading ? (<Loadingrectangle/>):(<DocumentUpload userid={userid}/>)}/> */}
-          <Route path='/Files' element={isloading ?(<Loadingrectangle/>):(<Myfiles/>)} />
+          <Route path='/Files' element={isloading ?(<Loadingrectangle/>):(<Myfiles userid={userid}/>)} />
           <Route path='/Stadistics' element={<Echart/>} />
         {/* Añadir más rutas aquí según sea necesario */}
         </Routes>          
