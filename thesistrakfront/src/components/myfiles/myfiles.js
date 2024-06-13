@@ -1,10 +1,11 @@
 import React from 'react'
 import DocumentUpload from '../upload/uploadfiles'
 
-const Myfiles = () => {
+const Myfiles = ({userid}) => {
+  
   return (
     
-      <DocumentUpload/>
+      <DocumentUpload userid={userid}/>
   )
 }
 
