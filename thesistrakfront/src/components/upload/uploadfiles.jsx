@@ -3,6 +3,7 @@ import axios from 'axios';
 import "./uploadfiles.css"
 
 const DocumentUpload = ({userid}) => {
+  const [show, setShow] = useState(false);
   const [users, setUsers] = useState([]);
   const [docTypes, setDocTypes] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([userid]);
@@ -36,15 +37,14 @@ const DocumentUpload = ({userid}) => {
 
   const handleUserChange = (e) => {
     const options = e.target.options;
-    const selectedUsers = [userid];
+    const selectedUsers = [];
     for (let i = 0, l = options.length; i < l; i++) {
       if (options[i].selected) {
-        selectedUsers.push(options[i].value);
+        setSelectedUsers(options[i].value);
       }
     }
 
     
-    setSelectedUsers(selectedUsers);
   };
 
 
@@ -64,7 +64,7 @@ const DocumentUpload = ({userid}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData();
-    selectedUsers.forEach(user => data.append('users', user));
+    data.append("users", selectedUsers);
     data.append('title', title);
     data.append('filee', file);
     data.append('description', description);
