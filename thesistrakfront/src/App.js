@@ -1,22 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
 import Login from './components/login';
 import Profile from './components/profile/profile';
 import axios from 'axios';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from './components/navbar';
 import Loadingrectangle from './components/loading/loading';
-import Files from './components/files/files';
-import Sidebar from './components/SideBar/Sidebar';
 import Sidemenu from './components/SideMenu/Sidemenu';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './components/Home';
 import Echart from './components/Stadistics/Echart';
-import DocumentUpload from './components/upload/uploadfiles';
-import myfiles from './components/myfiles/myfiles';
 import Myfiles from './components/myfiles/myfiles';
 
+
+const PortToUse = "http://127.0.0.1:8000/";
+
+
+
+
 function App() {
+
+  const LocalData = (itemstosave) =>{
+    localStorage.setItem("profiledata", JSON.stringify(itemstosave))
+  }
+
+
+
   const [isLogged, setisLogged] = useState(false);
   const [isloading, setisloading] = useState(true);
   const [isActive, setisActive] = useState("");
@@ -35,7 +43,7 @@ function App() {
     const fetchProfile = async () => {
       try{
         const token = localStorage.getItem('authToken');
-        const response = await axios.get('http://127.0.0.1:8000/profile/',{
+        const response = await axios.get(PortToUse + 'profile/',{
           withCredentials: true,  // Importante para enviar cookies de sesión
 
 
@@ -44,7 +52,7 @@ function App() {
         if (response.status === 200){
           setisLogged(true);
           console.log("Logged")
-
+          LocalData(response.data)
         }
         else{
           console.log("not logged")

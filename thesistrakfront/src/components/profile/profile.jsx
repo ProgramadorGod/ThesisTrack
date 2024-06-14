@@ -1,7 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import UpdateUsername from '../UpdateUsername';
+import React from 'react';
 import Loadingrectangle from '../loading/loading';
 import profilepic from "../../media/perfil.png";
 import "./profile.css";
@@ -12,32 +10,7 @@ const Profile = ({isLogged, profile,name,carrers}) => {
 
 
   
-  
 
-  useEffect(() => {
-
-    try{
-      const fetchProfile = async () => {
-        // const token = localStorage.getItem('authToken');
-        const response = await axios.get('http://127.0.0.1:8000/profile/', {
-          withCredentials: true,  // Importante para enviar cookies de sesión
-  
-        });
-
-        
-      };
-
-      fetchProfile();
-      
-
-
-    }catch(error){
-      console.log("Lol")
-      
-    }
-
-    
-  }, []);
 
 
   

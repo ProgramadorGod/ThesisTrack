@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import DocumentUpload from '../upload/uploadfiles'
 
 const Myfiles = ({userid}) => {
-  
+  const [UploadVisible, setUploadVisible] = useState(false)
+
   return (
-    
-      <DocumentUpload userid={userid}/>
+    <div>
+      
+      {UploadVisible ? (<DocumentUpload userid={userid}/>):null}
+
+    </div>
+      
   )
 }
 
