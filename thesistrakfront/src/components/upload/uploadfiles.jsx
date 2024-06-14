@@ -3,15 +3,15 @@ import axios from 'axios';
 import "./uploadfiles.css"
 
 const DocumentUpload = ({userid}) => {
+  const [show, setShow] = useState(false);
   const [users, setUsers] = useState([]);
   const [docTypes, setDocTypes] = useState([]);
-  const [selectedUsers, setSelectedUsers] = useState([userid]);
+  const [selectedUsers, setSelectedUsers] = useState([parseInt(userid)]);
   const [title, setTitle] = useState('');
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState('');
   const [docType, setDocType] = useState('');
   const [selectedType, setSelectedType] = useState([]);
-
   
   useEffect(() => {
     // Fetch users and docTypes
@@ -23,8 +23,12 @@ const DocumentUpload = ({userid}) => {
 
     }).then(response => {
       
+
       console.log(response.data)
-      setUsers(response.data);
+      console.log(userid)
+      const FiltredUsers = (response.data).filter(user => user.id !== userid)
+      console.log("looool", FiltredUsers)
+      setUsers(FiltredUsers);
 
     });
 
@@ -34,17 +38,18 @@ const DocumentUpload = ({userid}) => {
     });
   }, []);
 
+  
   const handleUserChange = (e) => {
     const options = e.target.options;
-    const selectedUsers = [userid];
+    const selectedUsers = [parseInt(userid)];
     for (let i = 0, l = options.length; i < l; i++) {
       if (options[i].selected) {
-        selectedUsers.push(options[i].value);
+        selectedUsers.push(parseInt(options[i].value));
       }
     }
 
+    setSelectedUsers(selectedUsers)
     
-    setSelectedUsers(selectedUsers);
   };
 
 
@@ -64,12 +69,18 @@ const DocumentUpload = ({userid}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData();
-    selectedUsers.forEach(user => data.append('users', user));
+
+    
+
+    data.append("users", selectedUsers);
+
     data.append('title', title);
     data.append('filee', file);
     data.append('description', description);
     selectedType.forEach(user => data.append('doc_type', selectedType));
-
+    console.log("selected users: ", selectedUsers)
+    
+    console.log("userss:", data.users)
     axios.post('http://127.0.0.1:8000/documents/upload/', data, {
       headers: {
         'Content-Type': 'multipart/form-data',
