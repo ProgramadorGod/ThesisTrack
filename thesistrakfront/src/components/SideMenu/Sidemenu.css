@@ -2,7 +2,7 @@
     position: absolute;
     height: 100vh;
     width: 66px;
-    background-color: #e0e0e0;
+    background-color: #efefefe7;
     transition: 0.15s ease;
     z-index: 1;
     display: grid;
@@ -10,7 +10,47 @@
 
 }
 
+@font-face {
+    font-family: 'BabyPanda';
+    src: url('../../fonts/Baby\ Panda.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
 
+.Active{
+    /* padding-right: 14vw ; */
+    width: 22vw !important; 
+    content: lol;
+    
+}
+.buttomtext{
+    display: flex;
+    flex-wrap: wrap;    
+    align-content: center;
+    
+    opacity: 0;
+    font-size: 1.2rem;
+    height: 30px;
+    margin-left: 3vw;
+    font-family: "BabyPanda";
+    text-transform: uppercase;
+    transform: translateX(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease !important;
+
+}
+
+.buttomtext-active{
+    display: flex !important;
+    opacity: 1;
+    transform: translateX(0px) !important;
+    @media screen and (max-width:680px) {
+        opacity: 0;
+        display: none;
+        transition: opacity 0s ease, transform 0s ease !important;
+
+    }
+
+}
 
 @media screen and (max-width:680px) {
     #Sidemenucontainer{
@@ -25,26 +65,60 @@
     }
 
     .Active{
-        width: 16vw !important;
-        padding-right: 0vw !important;
+        width: 66px !important ;
     }
 
 }
 
+
+
 .buttondiv{
     border: 0px;
-    background-color: #e0e0e0;
+    background-color: #efefefe7;
     user-select: none;
+    display: flex;
+    width: 66px;
 
+    padding-top: 3vh;
+    padding-bottom: 3vh;
 }
 
-.Active{
-    padding-right: 14vw ;
-
+.buttomitems{
+    display: flex;
+    margin-left: 14px;
+    
 }
+
+.ButtonActive{
+    width: 22vw;
+}
+
+
+
+
+@media (max-width:680px){
+    .ButtonActive{
+        width: 66px;
+    }
+
+    .buttomtext{
+        display: none;
+        content: none;
+    }
+
+    .buttomitems{
+        display: block !important;
+        margin-left: 10px;
+    }
+}
+
+
+
+
 
 .Active *{
     visibility: visible ;
+    
 }
 
 #ItemsContainer{
@@ -67,10 +141,10 @@
     height: 30px;
     user-select: none;
     display: flex;
-    width: 100%;
+    
     cursor: grab;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    width: 30px;
+
     /* margin-bottom: 30px; */
 
 }

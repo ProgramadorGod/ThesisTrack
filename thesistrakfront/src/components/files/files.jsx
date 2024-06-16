@@ -29,7 +29,7 @@ const Files = () => {
       {Documents.map((document)=>(
         <div id="FileComponent">
           <div className='ThesisContainer'>
-            <div id='kind'> <RxTokens id='logo'/> {document.doc_type.name} </div>
+            <div id='kind' > <RxTokens id='logo'/> {document.doc_type.name} </div>
               <div className='Title'>{document.title}</div>
               <div className='Description'> {document.description}</div>
               <div className='Author'> 
