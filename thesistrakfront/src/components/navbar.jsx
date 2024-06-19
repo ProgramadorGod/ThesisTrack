@@ -38,7 +38,7 @@ const Navbar= ({ChangeActive}) => {
             </div> */}
 
 
-            <img src={avatar} id="profilepic"/>
+            {/* <img src={avatar} id="profilepic"/> */}
         </div>
 
         

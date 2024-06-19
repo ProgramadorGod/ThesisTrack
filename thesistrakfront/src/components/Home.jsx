@@ -11,8 +11,11 @@ import Sidebar from '../components/SideBar/Sidebar';
 import Sidemenu from '../components/SideMenu/Sidemenu';
 import Echart from './Stadistics/Echart';
 
-const Home = ({isloading,isLogged}) => {
+const Home = ({isloading,isLogged , Documents}   ) => {
     
+  // console.log(Documents)
+
+
   return (
     <div>
 
@@ -21,7 +24,7 @@ const Home = ({isloading,isLogged}) => {
             {/* <Sidebar/> */}
 
             {/* {isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile /> : <Login />)} */}
-            {isloading ? (<Loadingrectangle/> ): (isLogged ? <Files /> : <Login />)}
+            {isloading ? (<Loadingrectangle/> ): (isLogged ? <Files Documents={Documents}/> : <Login />)}
         </div>
 
     </div>

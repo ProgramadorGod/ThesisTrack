@@ -3,7 +3,7 @@
   --color1: #282c34; /* Fondo de App-header */
   --color2: #61dafb; /* Enlaces */
   --color3: #ffffff; /* Fondo de html y body */
-  --color4: #273475; /* Fondo de navbar */
+  --color4: #0c195a; /* Fondo de navbar */
   --color5: #c0caf7e0; /* Color del icono en el navbar */
 }
 
@@ -25,7 +25,7 @@
 
 
 .App {
-  text-align: center;
+  text-align: center; 
 }
 
 .App-logo {
@@ -183,4 +183,10 @@ html {
   height: 56px;
   margin-right: 20px;
   user-select: none;
+}
+
+
+#footer{
+  background-color: #031038;
+  height: 36px;
 }
