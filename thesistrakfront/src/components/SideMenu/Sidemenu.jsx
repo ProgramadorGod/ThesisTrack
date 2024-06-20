@@ -16,6 +16,7 @@ import { ReactComponent as FileIcon} from "../../media/carga-de-carpeta.svg";
 import { ReactComponent as GptIcon} from "../../media/microchip.svg";
 import { ReactComponent as StatsIcon} from "../../media/grafico-pastel-alt.svg";
 import { ReactComponent as Help} from "../../media/interrogatorio.svg";
+import { ReactComponent as Settings} from "../../media/es-computadora.svg";
 
 const Sidemenu = ({isActive}) => {
     const navigate = useNavigate();
@@ -110,7 +111,7 @@ const Sidemenu = ({isActive}) => {
 
                 <button onClick={handleSettings} className={`buttondiv ${isActive ? "ButtonActive":""}  ${inSettings? "Hovered":""}`}>
                     <div className="buttomitems {isActive}">
-                        <RxMixerVertical className="itemlogo"/>                                             
+                        <Settings className="itemlogo"/>                                             
                         <div className={`${isActive ? "buttomtext buttomtext-active" : "buttomtext"} ${HideText? "HideText":""}`}>Config</div>
                     </div>
                 </button>

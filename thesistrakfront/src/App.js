@@ -12,8 +12,8 @@ import Echart from './components/Stadistics/Echart';
 import Myfiles from './components/myfiles/myfiles';
 
 
-const PortToUse = "http://127.0.0.1:8000/";
-
+// const PortToUse = "http://127.0.0.1:8000/";
+const PortToUse = "http://192.168.0.17:8000/";
 
 
 
@@ -38,7 +38,6 @@ function App() {
   } 
 
 
-
   useEffect(()=>{
     const fetchProfile = async () => {
       try{
@@ -47,7 +46,7 @@ function App() {
           withCredentials: true,  // Importante para enviar cookies de sesión
         });
 
-        
+
         if (response.status === 200){
           setisLogged(true);
           console.log("Logged")
@@ -81,17 +80,6 @@ function App() {
   
 
 
-  const [Documents, setDocuments] = useState([]);
-
-  useEffect(()=>{
-    const fetchDocuments = async () =>{
-      const response = await axios.get( PortToUse + "documents/",{
-        withCredentials: true,
-      });
-      setDocuments(response.data);
-    };
-    fetchDocuments();
-  },[])
 
 
 
@@ -115,7 +103,7 @@ function App() {
 
 
         <Routes>
-          <Route path='/' element={<Home isLogged={isLogged} isloading={isloading} Documents={Documents}/>}/> 
+          <Route path='/' element={<Home isLogged={isLogged} isloading={isloading} PortToUse={PortToUse}/>}/> 
           <Route path="/Profile" element={isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile profile={profile} name={name} carrers={carrers} /> : <Login />)}/>
           {/* <Route path='/Files' element={isloading ? (<Loadingrectangle/>):(<DocumentUpload userid={userid}/>)}/> */}
           <Route path='/Files' element={isloading ?(<Loadingrectangle/>):(<Myfiles userid={userid}/>)} />
@@ -132,7 +120,7 @@ function App() {
 
       </Router>
 
-      <footer id='footer'>lol</footer>
+      {/* <footer id='footer'>lol</footer> */}
     </div>
   );
 }
