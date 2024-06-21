@@ -97,7 +97,7 @@ function App() {
 
         <header>
 
-            <Navbar ChangeActive={ChangeActive}/>
+            <Navbar ChangeActive={ChangeActive} isActive={isActive}/>
             
         </header>
 
@@ -110,6 +110,8 @@ function App() {
           <Route path='/Stadistics' element={<Echart/>} />
           <Route path='/Settings' element={isloading ?(<Loadingrectangle/>):(<Myfiles userid={userid}/>)} />
           <Route path='/IA' element={isloading ?(<Loadingrectangle/>):(<Myfiles userid={userid}/>)} />                    
+          <Route path='/Help' element={isloading ?(<Loadingrectangle/>):(<Myfiles userid={userid}/>)} />                    
+
         {/* Añadir más rutas aquí según sea necesario */}
         </Routes>          
 

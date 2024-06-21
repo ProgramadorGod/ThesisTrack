@@ -5,8 +5,9 @@ import avatar from "../media/perfil.png"
 import Sidemenu from "./SideMenu/Sidemenu";
 import { useState } from "react";
 import logo from "../media/logowhite.png";
+import {ReactComponent as Close} from "../media/cruz-pequena.svg"
 
-const Navbar= ({ChangeActive}) => {
+const Navbar= ({ChangeActive, isActive}) => {
 
 
 
@@ -17,7 +18,13 @@ const Navbar= ({ChangeActive}) => {
         <div id="navbar">
             {/* <button id="navbariconbutton"> */}
             <div>
+            {isActive ? (
+              <Close id="icon" onClick={ChangeActive} className={`close ${isActive ?"CloseiconActive":""}`}/>
+
+            ):(
               <RxTextAlignLeft id="icon" onClick={ChangeActive}/>
+
+            )}
             </div>
             {/* </button>     */}
 

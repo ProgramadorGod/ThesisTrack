@@ -134,7 +134,7 @@ const Sidemenu = ({isActive}) => {
                 <button onClick={handleHelp} className={`buttondiv ${isActive ? "ButtonActive":""}  ${inHelp ? "Hovered":""}`}>
                     <div className="buttomitems">
                         <Help className="itemlogo"/>                                                
-                        <div className={`${isActive ? "buttomtext buttomtext-active" : "buttomtext"}  ${HideText? "HideText":""}`}>Stats</div>
+                        <div className={`${isActive ? "buttomtext buttomtext-active" : "buttomtext"}  ${HideText? "HideText":""}`}>Help</div>
                     </div>
                 </button>
 
