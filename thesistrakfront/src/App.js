@@ -12,8 +12,8 @@ import Echart from './components/Stadistics/Echart';
 import Myfiles from './components/myfiles/myfiles';
 
 
-const PortToUse = "http://127.0.0.1:8000/";
-
+// const PortToUse = "http://127.0.0.1:8000/";
+const PortToUse = "http://192.168.0.17:8000/";
 
 
 
@@ -38,17 +38,15 @@ function App() {
   } 
 
 
-
   useEffect(()=>{
     const fetchProfile = async () => {
       try{
         const token = localStorage.getItem('authToken');
         const response = await axios.get(PortToUse + 'profile/',{
           withCredentials: true,  // Importante para enviar cookies de sesión
-
-
-
         });
+
+
         if (response.status === 200){
           setisLogged(true);
           console.log("Logged")
@@ -70,15 +68,20 @@ function App() {
 
       }finally{
         setisloading(false)
-
       }
       
     };
+
+
     fetchProfile();
 
   },[])
 
   
+
+
+
+
 
 
   return (
@@ -94,15 +97,21 @@ function App() {
 
         <header>
 
-            <Navbar ChangeActive={ChangeActive}/>
+            <Navbar ChangeActive={ChangeActive} isActive={isActive}/>
             
         </header>
+
+
         <Routes>
-          <Route path='/' element={<Home isLogged={isLogged} isloading={isloading}/>}/> 
+          <Route path='/' element={<Home isLogged={isLogged} isloading={isloading} PortToUse={PortToUse}/>}/> 
           <Route path="/Profile" element={isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile profile={profile} name={name} carrers={carrers} /> : <Login />)}/>
           {/* <Route path='/Files' element={isloading ? (<Loadingrectangle/>):(<DocumentUpload userid={userid}/>)}/> */}
           <Route path='/Files' element={isloading ?(<Loadingrectangle/>):(<Myfiles userid={userid}/>)} />
           <Route path='/Stadistics' element={<Echart/>} />
+          <Route path='/Settings' element={isloading ?(<Loadingrectangle/>):(<Myfiles userid={userid}/>)} />
+          <Route path='/IA' element={isloading ?(<Loadingrectangle/>):(<Myfiles userid={userid}/>)} />                    
+          <Route path='/Help' element={isloading ?(<Loadingrectangle/>):(<Myfiles userid={userid}/>)} />                    
+
         {/* Añadir más rutas aquí según sea necesario */}
         </Routes>          
 
@@ -112,6 +121,8 @@ function App() {
 
 
       </Router>
+
+      {/* <footer id='footer'>lol</footer> */}
     </div>
   );
 }

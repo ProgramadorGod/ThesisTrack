@@ -1,7 +1,7 @@
 #Sidemenucontainer{
     position: absolute;
     height: 100vh;
-    width: 66px;
+    width: 70px;
     background-color: #efefefe7;
     transition: 0.15s ease;
     z-index: 1;
@@ -11,8 +11,8 @@
 }
 
 @font-face {
-    font-family: 'BabyPanda';
-    src: url('../../fonts/Baby\ Panda.ttf') format('opentype');
+    font-family: 'Apple2';
+    src: url('../../fonts/AppleGaramond-Bold.ttf') format('opentype');
     font-weight: normal;
     font-style: normal;
   }
@@ -23,16 +23,20 @@
     content: lol;
     
 }
+
 .buttomtext{
     display: flex;
     flex-wrap: wrap;    
     align-content: center;
-    
+    font-family: "Apple2";
     opacity: 0;
-    font-size: 1.2rem;
+    font-size: 0.95rem;
     height: 30px;
     margin-left: 3vw;
-    font-family: "BabyPanda";
+    /* font-family: "BabyPanda"; */
+    /* color: rgb(0, 0, 0); */
+    /* text-shadow: 0.1px 0.1px rgb(41, 40, 40); */
+
     text-transform: uppercase;
     transform: translateX(-10px);
     transition: opacity 0.2s ease, transform 0.2s ease !important;
@@ -58,10 +62,17 @@
     }
     #ItemsContainer{
         width: 0px;
+
     }
 
     .buttondiv{
-        visibility: hidden;
+        transform: translateX(-90px);
+        transition: 0.15s ease;
+
+    }
+
+    .ButtonActive{
+        transform: translateX(0px);
     }
 
     .Active{
@@ -77,10 +88,27 @@
     background-color: #efefefe7;
     user-select: none;
     display: flex;
-    width: 66px;
-
+    width: 70px;
+    
     padding-top: 3vh;
     padding-bottom: 3vh;
+    transition: 0.15s ease;
+
+}
+
+.buttondiv:hover{
+    background-color: #dcdbdbe7;
+
+}
+
+.PlacedIn{
+    background-color: #dcdbdbe7 !important;
+    color: rgb(2, 47, 138);
+    fill:rgb(1, 139, 8);
+}
+
+.HideText{
+    display: none;
 }
 
 .buttomitems{
@@ -89,26 +117,40 @@
     
 }
 
-.ButtonActive{
-    width: 22vw;
+.buttomitems:hover{
+    fill: rgb(2, 69, 19) ;
+    color: rgb(2, 69, 19) ;
 }
 
+.ButtonActive{
+    width: 22vw;
+
+}
+
+.ButtonActive:hover{
+
+}
 
 
 
 @media (max-width:680px){
     .ButtonActive{
         width: 66px;
+        transition: 0.15s ease;
+
+    }
+    .nodisplay{
+        display: none !important;
     }
 
     .buttomtext{
-        display: none;
+        display: none !important;
         content: none;
     }
 
     .buttomitems{
         display: block !important;
-        margin-left: 10px;
+        margin-left: 14px;
     }
 }
 
@@ -143,17 +185,27 @@
     display: flex;
     
     cursor: grab;
-    width: 30px;
+    width: 25px;
+
 
     /* margin-bottom: 30px; */
 
 }
 
+.Hovered{
+    fill: rgb(3, 19, 97) ;
+    color: rgb(3, 19, 97) ;
+    text-decoration-color: rgb(4, 105, 29);
+    background-color: #dcdbdbe7;
+}
+
 .buttondiv:hover > *{
     /* fill: wheat; */
-    
-    
-    color: rgb(4, 78, 23) ;
+    fill: rgb(3, 97, 26) ;
+    color: rgb(3,97, 19) ;
+    text-decoration-color: rgb(4, 105, 29);
+
+
 }
 
 #Sidemenucontainer:first-child{

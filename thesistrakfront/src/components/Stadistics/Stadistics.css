@@ -1,8 +1,10 @@
 #StadisticsComponent{
-    width: 70vw;
-    margin-left: 10vw;
+    width: 100vw;
+    margin-left: 0vw;
     margin-top: 10vw;
+
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     grid-template-columns: 1fr 1fr;
 }
