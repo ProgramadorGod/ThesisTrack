@@ -3,7 +3,7 @@
   --color1: #282c34; /* Fondo de App-header */
   --color2: #61dafb; /* Enlaces */
   --color3: #ffffff; /* Fondo de html y body */
-  --color4: #273475; /* Fondo de navbar */
+  --color4: #0c195a; /* Fondo de navbar */
   --color5: #c0caf7e0; /* Color del icono en el navbar */
 }
 
@@ -25,7 +25,7 @@
 
 
 .App {
-  text-align: center;
+  text-align: center; 
 }
 
 .App-logo {
@@ -108,13 +108,28 @@ html {
   z-index: 99;
 }
 
+@keyframes fadeInRotate {
+  0% {
+    opacity: 0;
+    transform: perspective(400px) rotateY(-90deg);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(400px) rotateY(0deg);
+  }
+}
+
+
 #icon {
   margin-left: 20px;
   height: 50px;
   width: 30px;
   min-width: 30px;
-  color: var(--color5);
+  color: rgb(184, 200, 255);
+  fill: rgb(184, 200, 255);
   cursor: crosshair;
+  animation: fadeInRotate 0.2s ease-in-out;
+
 }
 
 
@@ -170,8 +185,10 @@ html {
     display: none;
     
   }
-
 }
+
+
+
 
 #navbariconbutton{
   background-color: #00000000;
@@ -183,4 +200,28 @@ html {
   height: 56px;
   margin-right: 20px;
   user-select: none;
+}
+
+
+
+.close{
+  width: 35px !important;
+  margin-left: 16px !important;
+  color: rgb(194, 208, 253);
+  fill: rgb(192, 204, 255);
+  opacity: 0;
+  transform: rotate(-180deg);
+}
+
+.CloseiconActive{
+  opacity: 1 ;
+  transform: rotate(0deg) ;
+  transition: 1s ease;
+
+
+}
+
+#footer{
+  background-color: #031038;
+  height: 36px;
 }

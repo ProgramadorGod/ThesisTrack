@@ -4,19 +4,25 @@ import axios from 'axios'
 import { RxCheckCircled, RxCheckbox, RxFile, RxQuestionMark, RxTokens } from 'react-icons/rx'
 import Profile from '../profile/profile'
 
-const Files = () => {
+const Files = ({PortToUse}) => {
+
+  // console.log(Documents)
+
   const [Documents, setDocuments] = useState([]);
+
 
   useEffect(()=>{
     const fetchDocuments = async () =>{
-      const response = await axios.get("http://127.0.0.1:8000/documents/",{
+      const response = await axios.get( PortToUse + "documents/",{
         withCredentials: true,
       });
+
       setDocuments(response.data);
     };
     fetchDocuments();
   },[])
 
+  
   const handleDocumentClick = (documentid) => {
     console.log("CLICKED THE DOCUMENT : ", documentid)
   }
@@ -27,7 +33,7 @@ const Files = () => {
       {/* <Profile/> */}
 
       {Documents.map((document)=>(
-        <div id="FileComponent">
+        <div id="FileComponent" key={document.id}>
           <div className='ThesisContainer'>
             <div id='kind' > <RxTokens id='logo'/> {document.doc_type.name} </div>
               <div className='Title'>{document.title}</div>

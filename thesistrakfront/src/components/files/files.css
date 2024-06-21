@@ -6,12 +6,19 @@
     background-color: rgba(89, 151, 202, 0);
     
 }
+@font-face {
+    font-family: 'Apple';
+    src: url('../../fonts/AppleGaramond.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
 
 
 #FileComponent{
     /* padding-top: 5vh; */
     display: flex;
     justify-content: center;
+    font-family: "Apple";
     align-content: center;
     margin-bottom: 30px;
 }
