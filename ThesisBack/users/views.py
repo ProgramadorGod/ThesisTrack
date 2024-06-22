@@ -12,14 +12,17 @@ from .signals import save_profile
 from .models import Profile
 
 # Create your views here.
+PortToUse = "http://192.168.0.17:3000"
+
+
 def home(request):
-    return HttpResponseRedirect("http://127.0.0.1:3000")
+    return HttpResponseRedirect(PortToUse)
     # return render(request,"home.html")
 
 
 def logout(request):
     logout(request)
-    return HttpResponseRedirect("http://127.0.0.1:3000")
+    return HttpResponseRedirect(PortToUse)
 
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
