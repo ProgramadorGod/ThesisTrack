@@ -11,10 +11,6 @@ const Profile = ({isLogged, profile,name,carrers}) => {
 
   
 
-
-
-  
-
   return (
     <div >
       {profile ? (
@@ -26,7 +22,7 @@ const Profile = ({isLogged, profile,name,carrers}) => {
               <img src={profilepic} id='ProfileMenuPic'/>
             </div>
             
-            <h5 id='ProfEmail' className='ProfCardItem'>{profile.email}</h5>
+            <h5 id='ProfEmail' className='ProfCardItem'>{profile.UserType}</h5>
             <h5 className='ProfCardItem'>{name}</h5>
             
 

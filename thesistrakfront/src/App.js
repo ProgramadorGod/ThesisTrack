@@ -12,8 +12,8 @@ import Echart from './components/Stadistics/Echart';
 import Myfiles from './components/myfiles/myfiles';
 
 
-// const PortToUse = "http://127.0.0.1:8000/";
-const PortToUse = "http://192.168.0.17:8000/";
+const PortToUse = "http://127.0.0.1:8000/";
+// const PortToUse = "http://192.168.0.17:8000/";
 
 
 
@@ -29,7 +29,7 @@ function App() {
   const [isloading, setisloading] = useState(true);
   const [isActive, setisActive] = useState("");
   const [profile, setProfile] = useState(null);
-  const [name, setname] = useState(null);
+  const [name, setname] = useState();
   const [carrers, setCarrers] = useState([]);
   const [userid, setUserid] = useState([]);
 
@@ -41,8 +41,8 @@ function App() {
   useEffect(()=>{
     const fetchProfile = async () => {
       try{
-        const token = localStorage.getItem('authToken');
-        const response = await axios.get(PortToUse + 'profile/',{
+        // const token = localStorage.getItem('authToken');
+        const response = await axios.get(PortToUse + 'api/accounts/',{
           withCredentials: true,  // Importante para enviar cookies de sesión
         });
 
@@ -56,10 +56,10 @@ function App() {
           console.log("not logged")
         }
 
-        setUserid(response.data.id)
+        setUserid(response.data.ID)
         setProfile(response.data);
-        setCarrers(response.data.careers)
-        setname(response.data.username)
+        // setCarrers(response.data.careers)
+        setname(response.data.Username)
       
       }catch(error){
         console.error('Error fetching profile:', error);
@@ -77,7 +77,8 @@ function App() {
 
   },[])
 
-  
+
+
 
 
 
@@ -104,7 +105,7 @@ function App() {
 
         <Routes>
           <Route path='/' element={<Home isLogged={isLogged} isloading={isloading} PortToUse={PortToUse}/>}/> 
-          <Route path="/Profile" element={isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile profile={profile} name={name} carrers={carrers} /> : <Login />)}/>
+          <Route path="/Profile" element={isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile profile={profile} name={name} /> : <Login />)}/>
           {/* <Route path='/Files' element={isloading ? (<Loadingrectangle/>):(<DocumentUpload userid={userid}/>)}/> */}
           <Route path='/Files' element={isloading ?(<Loadingrectangle/>):(<Myfiles userid={userid}/>)} />
           <Route path='/Stadistics' element={<Echart/>} />
