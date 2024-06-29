@@ -9,7 +9,6 @@ from rest_framework.response import Response
 
 class AccountListCreate(APIView):
     permission_classes = [IsAuthenticated]
-
     def get(self,request):
         print(request.user)
         user =  request.user
@@ -18,7 +17,8 @@ class AccountListCreate(APIView):
         return Response({
             "ID":user.id,
             "Username":user.username,
-            "UserType":user.UserType.UserType
+            "UserType":user.UserType.UserType,
+            "UserMail":user.email,
         
     })
 
@@ -46,6 +46,11 @@ class GoogleLogin(SocialLoginView):
 from django.shortcuts import redirect
 from allauth.account.views import LogoutView as AllauthLogoutView
 from allauth.account.views import LoginView as AllauthLoginView
+from django.contrib.auth import authenticate,login
+from rest_framework_simplejwt.tokens import RefreshToken
+from .serializers import LoginSerializer
+from rest_framework import status
+from rest_framework.permissions import AllowAny
 
 
 class CustomLogoutView(AllauthLogoutView):
@@ -56,4 +61,31 @@ class CustomLogoutView(AllauthLogoutView):
 
 class CustomLoginView(AllauthLoginView):
     def form_valid(self, form):
+        
         return redirect('accounts/google/login/continue')  # Cambia 'google_login' según la URL de inicio de sesión de Google en tus URLs
+
+
+
+
+class OwnLoginView(APIView):
+    serializer_class = LoginSerializer
+    permission_classes = [AllowAny]  # Permitir acceso sin autenticación
+
+    def post(self,request, *args, **kwargs ):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+
+        username = serializer.validated_data['username']
+        password = serializer.validated_data['password']
+
+        user = authenticate(request, username=username , password=password)
+        if user is not None:
+            login(request,user)
+
+
+            return Response({
+                'Detail':'Logged Successfully...'
+            })
+        
+        return Response({'Detail:':'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)

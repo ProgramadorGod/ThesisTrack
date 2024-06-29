@@ -13,3 +13,8 @@ class AccountSerializer(serializers.ModelSerializer):
             "last_name",
             "UserType",
         ]
+
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField(style={'input_type': 'password'}, trim_whitespace=False)

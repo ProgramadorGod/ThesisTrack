@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './components/Home';
 import Echart from './components/Stadistics/Echart';
 import Myfiles from './components/myfiles/myfiles';
+import Cookies from 'js-cookie';
 
 
 const PortToUse = "http://127.0.0.1:8000/";
@@ -33,6 +34,9 @@ function App() {
   const [carrers, setCarrers] = useState([]);
   const [userid, setUserid] = useState([]);
 
+  const token = localStorage.getItem("token");
+  
+
   const ChangeActive = () =>{
     setisActive(prevActiveStatus =>( prevActiveStatus === "" ? "Active" : ""));
   } 
@@ -44,7 +48,16 @@ function App() {
         // const token = localStorage.getItem('authToken');
         const response = await axios.get(PortToUse + 'api/accounts/',{
           withCredentials: true,  // Importante para enviar cookies de sesión
+
+
+          // headers:{
+            // Authorization:`Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5NjQxMTg3LCJpYXQiOjE3MTk2NDA4ODcsImp0aSI6IjFjMDE0YTIxZjNiMTRmMjZhYmFkZWQzZjhmYWZiOGU2IiwidXNlcl9pZCI6MX0.y5hUZPjyxVmy1bDG_NkABBqSgZEEEfKGbA8SN3-AzfI`
+          // },
+
+
+
         });
+        
 
 
         if (response.status === 200){
@@ -104,8 +117,8 @@ function App() {
 
 
         <Routes>
-          <Route path='/' element={<Home isLogged={isLogged} isloading={isloading} PortToUse={PortToUse}/>}/> 
-          <Route path="/Profile" element={isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile profile={profile} name={name} /> : <Login />)}/>
+          <Route path='/' element={<Home isLogged={isLogged} isloading={isloading} PortToUse={PortToUse} setIsLogged={setisLogged}/>}/> 
+          <Route path="/Profile" element={isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile profile={profile} name={name} /> : <Login/>)}/>
           {/* <Route path='/Files' element={isloading ? (<Loadingrectangle/>):(<DocumentUpload userid={userid}/>)}/> */}
           <Route path='/Files' element={isloading ?(<Loadingrectangle/>):(<Myfiles userid={userid}/>)} />
           <Route path='/Stadistics' element={<Echart/>} />
