@@ -41,49 +41,53 @@ function App() {
     setisActive(prevActiveStatus =>( prevActiveStatus === "" ? "Active" : ""));
   } 
 
+  const fetchProfile = async () => {
+    try{
+      // const token = localStorage.getItem('authToken');
+      const response = await axios.get(PortToUse + 'api/accounts/',{
+        withCredentials: true,  // Importante para enviar cookies de sesión
+
+
+        // headers:{
+          // Authorization:`Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5NjQxMTg3LCJpYXQiOjE3MTk2NDA4ODcsImp0aSI6IjFjMDE0YTIxZjNiMTRmMjZhYmFkZWQzZjhmYWZiOGU2IiwidXNlcl9pZCI6MX0.y5hUZPjyxVmy1bDG_NkABBqSgZEEEfKGbA8SN3-AzfI`
+        // },
+
+
+
+      });
+      
+
+
+      if (response.status === 200){
+        setisLogged(true);
+        console.log("Logged")
+        LocalData(response.data)
+        setisloading(false)
+        
+      }
+      else{
+        console.log("not logged")
+      }
+
+      setUserid(response.data.ID)
+      setProfile(response.data);
+      // setCarrers(response.data.careers)
+      setname(response.data.Username)
+      
+    
+    }catch(error){
+      console.error('Error fetching profile:', error);
+      setisLogged(false);
+      console.log("Not Logged")
+
+    }finally{
+      setisloading(false)
+    }
+    
+  };
 
   useEffect(()=>{
-    const fetchProfile = async () => {
-      try{
-        // const token = localStorage.getItem('authToken');
-        const response = await axios.get(PortToUse + 'api/accounts/',{
-          withCredentials: true,  // Importante para enviar cookies de sesión
 
-
-          // headers:{
-            // Authorization:`Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5NjQxMTg3LCJpYXQiOjE3MTk2NDA4ODcsImp0aSI6IjFjMDE0YTIxZjNiMTRmMjZhYmFkZWQzZjhmYWZiOGU2IiwidXNlcl9pZCI6MX0.y5hUZPjyxVmy1bDG_NkABBqSgZEEEfKGbA8SN3-AzfI`
-          // },
-
-
-
-        });
-        
-
-
-        if (response.status === 200){
-          setisLogged(true);
-          console.log("Logged")
-          LocalData(response.data)
-        }
-        else{
-          console.log("not logged")
-        }
-
-        setUserid(response.data.ID)
-        setProfile(response.data);
-        // setCarrers(response.data.careers)
-        setname(response.data.Username)
-      
-      }catch(error){
-        console.error('Error fetching profile:', error);
-        setisLogged(false);
-        console.log("Not Logged")
-
-      }finally{
-        setisloading(false)
-      }
-      
-    };
 
 
     fetchProfile();
@@ -118,7 +122,7 @@ function App() {
 
         <Routes>
           <Route path='/' element={<Home isLogged={isLogged} isloading={isloading} PortToUse={PortToUse} setIsLogged={setisLogged}/>}/> 
-          <Route path="/Profile" element={isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile profile={profile} name={name} /> : <Login/>)}/>
+          <Route path="/Profile" element={isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile profile={profile} name={name} /> : <Login setIsLogged={setisLogged} isLogged={isLogged}  isloading={isloading} setisloading={setisloading}/>)}/>
           {/* <Route path='/Files' element={isloading ? (<Loadingrectangle/>):(<DocumentUpload userid={userid}/>)}/> */}
           <Route path='/Files' element={isloading ?(<Loadingrectangle/>):(<Myfiles userid={userid}/>)} />
           <Route path='/Stadistics' element={<Echart/>} />

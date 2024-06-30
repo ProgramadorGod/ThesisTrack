@@ -25,7 +25,7 @@ const Home = ({isloading,isLogged , PortToUse, setIsLogged}   ) => {
             {/* <Sidebar/> */}
 
             {/* {isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile /> : <Login />)} */}
-            {isloading ? (<Loadingrectangle/> ): (isLogged ? <Files PortToUse={PortToUse}/> : <Login setIsLogged={setIsLogged}/>)}
+            {isloading ? (<Loadingrectangle/> ): (isLogged ? <Files PortToUse={PortToUse}/> : <Login setIsLogged={setIsLogged} isLogged={isLogged}/>)}
         </div>
 
     </div>

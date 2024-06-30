@@ -1,5 +1,5 @@
 // Login.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Loginform from './loginform';
 import axios from 'axios';
 
@@ -7,7 +7,7 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 
-const Login = (setIsLogged) => {
+const Login = ({setIsLogged, isLogged, fetchProfile, isloading, setisloading}) => {
 
   
   const [username, setUsername] = useState("");
@@ -27,7 +27,10 @@ const Login = (setIsLogged) => {
 
       if (response.status === 200){
         console.log("worked")
-        window.location.href = 'http://127.0.0.1:3000';
+        setIsLogged(true)
+        console.log(isLogged)
+        
+        setisloading(false)
 
       }
 
@@ -40,8 +43,51 @@ const Login = (setIsLogged) => {
 
 
   const handleLogin = () => {
-    window.location.href = 'http://127.0.0.1:8000/accounts/google/login/?next=/';
+    const googleLoginUrl = 'http://127.0.0.1:8000/accounts/google/login/?next=/';
+    const width = 500;
+    const height = 600;
+    const left = window.screen.width / 2 - width / 2;
+    const top = window.screen.height / 2 - height / 2;
+
+    const googleWindow = window.open(
+      googleLoginUrl,
+      'googleLogin',
+      `width=${width},height=${height},top=${top},left=${left}`
+    );
+
+
+    const checkLoginStatus = async () => {
+      try {
+        fetchProfile()
+        const response = await axios.get("http://127.0.0.1:8000/api/accounts/");
+        if (response.status === 200) {
+          setIsLogged(true);
+          console.log(isLogged)
+
+          googleWindow.close();
+          // Cierra la ventana actual si no es la ventana principal
+
+        }
+      } catch (error) {
+        console.log("User not logged in", error);
+        googleWindow.close();
+
+      }
+    };
+
+
+
+    const checkWindowClosed = setInterval(() => {
+      if (googleWindow.closed) {
+        clearInterval(checkWindowClosed);
+        
+        checkLoginStatus();
+      }
+    }, 500);
+
+
   };
+
 
   return (
     <div id='LoginContainer'>
