@@ -20,6 +20,9 @@ const Login = () => {
   const [token , setToken] = useState()
   const Email = useState([""]);
   const [isRegister,setIsRegister] = useState([false]);
+
+  
+
   const handleLoginForm = async(e) =>{
     e.preventDefault();
 
@@ -38,8 +41,14 @@ const Login = () => {
       }
 
     }catch(error){
-      alert("Error")
-      console.log("ERROR TRYING TO LOGIN, ", error)
+      if (error.response && error.response.status === 403) {
+        // Refresh CSRF token
+        await axios.get("http://127.0.0.1:8000/api/refresh_csrf/");
+        alert("CSRF token refreshed, please try again.");
+      } else {
+        alert("Error");
+      }
+      console.log("ERROR TRYING TO LOGIN, ", error);
     }
 
   }
