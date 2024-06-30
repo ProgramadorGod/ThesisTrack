@@ -10,9 +10,11 @@ import Files from '../components/files/files';
 import Sidebar from '../components/SideBar/Sidebar';
 import Sidemenu from '../components/SideMenu/Sidemenu';
 import Echart from './Stadistics/Echart';
+import { useAppContext } from '../AppContext';
 
-const Home = ({isloading,isLogged , PortToUse, setIsLogged}   ) => {
-    
+const Home = () => {
+  const { isloading, setisloading, isLogged, setisLogged, profile, setProfile, name, setname, userid, setUserid , isActive, setisActive, PortToUse} = useAppContext();
+
   // console.log(Documents)
 
 
@@ -25,7 +27,7 @@ const Home = ({isloading,isLogged , PortToUse, setIsLogged}   ) => {
             {/* <Sidebar/> */}
 
             {/* {isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile /> : <Login />)} */}
-            {isloading ? (<Loadingrectangle/> ): (isLogged ? <Files PortToUse={PortToUse}/> : <Login setIsLogged={setIsLogged} isLogged={isLogged}/>)}
+            {isloading ? (<Loadingrectangle/> ): (isLogged ? <Files PortToUse={PortToUse}/> : <Login/>)}
         </div>
 
     </div>
