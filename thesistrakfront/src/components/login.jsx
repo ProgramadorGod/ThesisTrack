@@ -7,7 +7,7 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 
-const Login = ({setIsLogged, isLogged, fetchProfile, isloading, setisloading}) => {
+const Login = ({setIsLogged, isLogged, fetchProfile, isloading, setisloading} ) => {
 
   
   const [username, setUsername] = useState("");
@@ -15,7 +15,6 @@ const Login = ({setIsLogged, isLogged, fetchProfile, isloading, setisloading}) =
   const [token , setToken] = useState()
   const Email = useState([""]);
   const [isRegister,setIsRegister] = useState([false]);
-
   const handleLoginForm = async(e) =>{
     e.preventDefault();
 
@@ -29,8 +28,7 @@ const Login = ({setIsLogged, isLogged, fetchProfile, isloading, setisloading}) =
         console.log("worked")
         setIsLogged(true)
         console.log(isLogged)
-        
-        setisloading(false)
+        console.log(isloading)
 
       }
 
@@ -63,7 +61,6 @@ const Login = ({setIsLogged, isLogged, fetchProfile, isloading, setisloading}) =
         if (response.status === 200) {
           setIsLogged(true);
           console.log(isLogged)
-
           googleWindow.close();
           // Cierra la ventana actual si no es la ventana principal
 

@@ -35,7 +35,7 @@ function App() {
   const [userid, setUserid] = useState([]);
 
   const token = localStorage.getItem("token");
-  
+  console.log(isloading)
 
   const ChangeActive = () =>{
     setisActive(prevActiveStatus =>( prevActiveStatus === "" ? "Active" : ""));
@@ -99,7 +99,7 @@ function App() {
 
 
 
-
+  console.log("isloading:" + isloading)
 
 
   return (
@@ -122,7 +122,7 @@ function App() {
 
         <Routes>
           <Route path='/' element={<Home isLogged={isLogged} isloading={isloading} PortToUse={PortToUse} setIsLogged={setisLogged}/>}/> 
-          <Route path="/Profile" element={isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile profile={profile} name={name} /> : <Login setIsLogged={setisLogged} isLogged={isLogged}  isloading={isloading} setisloading={setisloading}/>)}/>
+          <Route path="/Profile" element={isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile profile={profile} name={name} /> : <Login/>)}/>
           {/* <Route path='/Files' element={isloading ? (<Loadingrectangle/>):(<DocumentUpload userid={userid}/>)}/> */}
           <Route path='/Files' element={isloading ?(<Loadingrectangle/>):(<Myfiles userid={userid}/>)} />
           <Route path='/Stadistics' element={<Echart/>} />
