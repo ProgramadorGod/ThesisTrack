@@ -53,6 +53,7 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 
 
+
 class CustomLogoutView(AllauthLogoutView):
     def get(self, request, *args, **kwargs):
         return self.post(request, *args, **kwargs)
@@ -89,3 +90,13 @@ class OwnLoginView(APIView):
             })
         
         return Response({'Detail:':'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+    
+
+
+
+
+from django.http import JsonResponse
+from django.middleware.csrf import get_token
+
+def refresh_csrf(request):
+    return JsonResponse({'csrfToken': get_token(request)})

@@ -4,6 +4,7 @@ import Loadingrectangle from '../loading/loading';
 import profilepic from "../../media/perfil.png";
 import "./profile.css";
 import { useAppContext } from '../../AppContext';
+import axios from 'axios';
 
 const Profile = () => {
 
@@ -19,6 +20,17 @@ const Profile = () => {
     if (typeof text !== "string") return "";
     return text.toUpperCase()
   }
+
+  const HandleLogout = async(e) =>{
+    
+    setisLogged(false)
+    try{
+      await axios.get("http://127.0.0.1:8000/api/logout/")  
+    }catch{
+      console.log("Meh")
+    }
+    }
+
 
   return (
     <div >
@@ -41,7 +53,7 @@ const Profile = () => {
           {/* <div className='ProfCardItem'>
             <UpdateUsername setname={setname}/>  
           </div> */}
-          <a id='logout' className='ProfCardItem' href='http://127.0.0.1:8000/api/logout'> { capitalize("Logout")}</a>
+          <a id='logout' className='ProfCardItem' onClick={HandleLogout}> { capitalize("Logout")}</a>
 
         </div>
 

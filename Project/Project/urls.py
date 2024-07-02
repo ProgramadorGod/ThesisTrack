@@ -11,5 +11,6 @@ urlpatterns = [
     path("", redirect_to_react),
     path("react/", redirect_to_react),
     path("rest-auth/", include("dj_rest_auth.urls"), name="dj_rest_auth"),
+
     
 ]

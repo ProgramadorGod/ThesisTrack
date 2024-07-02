@@ -1,0 +1,31 @@
+
+#LoginSquare{
+    background-color: red;
+
+
+
+}
+
+
+#SessionContainer{
+    
+    height: 100vh;
+    align-items: center;
+    display: flex;
+    background-color: rgba(71, 168, 6, 0);
+    justify-content: center;
+    flex-direction: column;
+}
+
+.GoogleButton{
+    background-color: rgba(240, 248, 255, 0);
+    border: 0px;
+    cursor: pointer;
+}
+
+#LogRegBox{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: blueviolet;
+    padding: 30px;
+}

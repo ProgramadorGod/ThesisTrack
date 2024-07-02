@@ -10,6 +10,8 @@ export const AppProvider = ({children}) => {
         localStorage.setItem("profiledata", JSON.stringify(itemstosave))
       }
 
+
+
     const [isLogged, setisLogged] = useState(false);
     const [isloading, setisloading] = useState(true);
     const [isActive, setisActive] = useState("");
@@ -18,25 +20,31 @@ export const AppProvider = ({children}) => {
     const [userid, setUserid] = useState([]);
     const PortToUse = "http://127.0.0.1:8000/";
 
+
+
+
+
+
+
+
     const fetchProfile = async () => {
         try{
             // const token = localStorage.getItem('authToken');
             const response = await axios.get(PortToUse + 'api/accounts/',{
                 withCredentials: true,  // Importante para enviar cookies de sesión
-        
+                
         
                 // headers:{
                 // Authorization:`Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5NjQxMTg3LCJpYXQiOjE3MTk2NDA4ODcsImp0aSI6IjFjMDE0YTIxZjNiMTRmMjZhYmFkZWQzZjhmYWZiOGU2IiwidXNlcl9pZCI6MX0.y5hUZPjyxVmy1bDG_NkABBqSgZEEEfKGbA8SN3-AzfI`
                 // },
-        
+                
         
         
             });
+
             
         
-        
             if (response.status === 200){
-                setisLogged(true);
                 console.log("Logged")
                 LocalData(response.data)
                 setisloading(false)
@@ -50,7 +58,9 @@ export const AppProvider = ({children}) => {
             setProfile(response.data);
             // setCarrers(response.data.careers)
             setname(response.data.Username)
-            
+            setisLogged(true);
+
+            // handleCloseWindow()
             
             }catch(error){
             console.error('Error fetching profile:', error);
@@ -58,7 +68,8 @@ export const AppProvider = ({children}) => {
             console.log("Not Logged")
         
             }finally{
-            setisloading(false)
+                
+                setisloading(false)
             }
             
         };
@@ -72,7 +83,8 @@ export const AppProvider = ({children}) => {
             isloading, setisloading, isLogged, setisLogged, profile, setProfile, name, setname, userid, setUserid,
             isActive,setisActive,
             PortToUse,
-            fetchProfile
+            fetchProfile,
+            
 
 
         }}>

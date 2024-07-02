@@ -1,9 +1,10 @@
 // Login.js
 import React, { useEffect, useState } from 'react';
-import Loginform from './loginform';
 import axios from 'axios';
 import { useAppContext } from '../AppContext';
-
+import "./login.css"
+import { useHref } from 'react-router-dom';
+import { FaGoogle } from 'react-icons/fa';
 
 axios.defaults.withCredentials = true;
 
@@ -21,44 +22,74 @@ const Login = () => {
   const Email = useState([""]);
   const [isRegister,setIsRegister] = useState([false]);
 
+  const [ShowWindow, setShowWindow] = useState(false);
+
+  const handleLoginClick = () =>{
+    setShowWindow(true)
+  }
+
+  const handleCloseWindow = () =>{
+    setShowWindow(false)
+  }
+
+  const getCsrfToken = () => {
+    const csrfToken = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('csrftoken='))
+      ?.split('=')[1];
+    return csrfToken;
+  };
   
+  const setCsrfToken = (token) => {
+    document.cookie = `csrftoken=${token}; path=/`;
+  };
 
   const handleLoginForm = async(e) =>{
     e.preventDefault();
 
     try{
-      const response = await axios.post("http://127.0.0.1:8000/api/login2/",{
+      const response = await axios.post(PortToUse+"api/login2/",{
         username,
         password,
+      },{
+        headers:{
+          'X-CSRFToken':getCsrfToken()
+        }
       })
 
       if (response.status === 200){
         console.log("worked")
         console.log(isLogged)
-        setIsLogged(true)
         fetchProfile()
+
 
       }
 
     }catch(error){
       if (error.response && error.response.status === 403) {
         // Refresh CSRF token
-        await axios.get("http://127.0.0.1:8000/api/refresh_csrf/");
+        const csrfResponse = await axios.get(PortToUse+"api/refresh_csrf/");
+        const NewCsrfToken = csrfResponse.data.csrfToken;
+
+
+        setCsrfToken(NewCsrfToken)
+        
         alert("CSRF token refreshed, please try again.");
+
       } else {
-        alert("Error");
+        alert("Try Again...");
       }
       console.log("ERROR TRYING TO LOGIN, ", error);
     }
 
   }
 
-
   const handleLogin = () => {
+
     const googleLoginUrl = 'http://127.0.0.1:8000/accounts/google/login/?next=/';
-    const loginWindow = window.open(googleLoginUrl, 'Login with Google', 'width=600,height=600');
+    window.location.href = googleLoginUrl
 
-
+    
 
 
 
@@ -66,43 +97,53 @@ const Login = () => {
 
 
   return (
-    <div id='LoginContainer'>
-      
-      <form onSubmit={handleLoginForm}>
-        <div>
-            <label>Username</label>
-            <input
-                type='text'
-                value={username}
-                onChange={(e)=>setUsername(e.target.value)}
-                required            
-            />
+    <div id='SessionContainer'>
+      <div id='LogRegBox'>
+
+        <div id='LoginSquare'>
+
+          <form onSubmit={handleLoginForm}>
+            <div>
+                <label>Username</label>
+                <input
+                    type='text'
+                    value={username}
+                    onChange={(e)=>setUsername(e.target.value)}
+                    required            
+                />
+
+            </div>
+            <div>
+                <label>Password</label>
+                <input
+                    type='password'
+                    value={password}
+                    onChange={(e)=>setPassword(e.target.value)}
+                    required            
+                />
+
+            </div>
+              <button type='submit'>Login</button>
+            <div>
+
+            </div>
+
+          </form>
 
         </div>
-        <div>
-            <label>Password</label>
-            <input
-                type='password'
-                value={password}
-                onChange={(e)=>setPassword(e.target.value)}
-                required            
-            />
 
-        </div>
-          <button type='submit'>Login</button>
-        <div>
-
+        <div id='RegisterContainer'>
+          register
         </div>
 
-      </form>
+      </div>
 
 
 
 
 
-      <h2>Login</h2>
-      <button onClick={handleLogin}>Login with Google</button>
-      
+      <button className='GoogleButton' onClick={handleLogin}><FaGoogle></FaGoogle></button>
+        
     </div>
   );
 };
