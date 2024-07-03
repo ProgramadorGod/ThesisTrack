@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useAppContext } from '../AppContext';
 import "./login.css"
 import { useHref } from 'react-router-dom';
-import { FaGoogle } from 'react-icons/fa';
+import { FaGoogle, FaLock } from 'react-icons/fa';
 
 axios.defaults.withCredentials = true;
 
@@ -101,11 +101,13 @@ const Login = () => {
       <div id='LogRegBox'>
 
         <div id='LoginSquare'>
-
+          <h1>Sign In</h1>
           <form onSubmit={handleLoginForm}>
-            <div>
-                <label>Username</label>
+            <div id='UserLab-Cont'>
+                
                 <input
+                    id='Username-Label'
+                    placeholder='Username'    
                     type='text'
                     value={username}
                     onChange={(e)=>setUsername(e.target.value)}
@@ -113,9 +115,11 @@ const Login = () => {
                 />
 
             </div>
-            <div>
-                <label>Password</label>
+            <div style={{position:"relative"}}>
+                <label></label>
                 <input
+                    id='Password-Label'
+                    
                     type='password'
                     value={password}
                     onChange={(e)=>setPassword(e.target.value)}
@@ -123,17 +127,17 @@ const Login = () => {
                 />
 
             </div>
-              <button type='submit'>Login</button>
+              <button type='submit' aria-label='Aria Login' title='LOGIN'>Login</button>
             <div>
 
             </div>
-
+            <button className='GoogleButton' onClick={handleLogin} aria-label='Aria Google'><FaGoogle></FaGoogle></button>
           </form>
 
         </div>
 
         <div id='RegisterContainer'>
-          register
+          <h1>Register</h1>
         </div>
 
       </div>
@@ -142,7 +146,7 @@ const Login = () => {
 
 
 
-      <button className='GoogleButton' onClick={handleLogin}><FaGoogle></FaGoogle></button>
+      
         
     </div>
   );

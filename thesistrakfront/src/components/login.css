@@ -1,31 +1,73 @@
+@font-face {
+    font-family: 'Apple';
+    src: url('../fonts/AppleGaramond.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
 
-#LoginSquare{
-    background-color: red;
-
-
-
+#LoginSquare {
+    background-color: rgba(255, 0, 0, 0.048);
 }
 
-
-#SessionContainer{
-    
+#SessionContainer {
     height: 100vh;
     align-items: center;
     display: flex;
+    font-family: "Apple";
     background-color: rgba(71, 168, 6, 0);
     justify-content: center;
     flex-direction: column;
 }
 
-.GoogleButton{
+.GoogleButton {
     background-color: rgba(240, 248, 255, 0);
     border: 0px;
     cursor: pointer;
 }
 
-#LogRegBox{
+#UserLab-Cont{
+    position: relative;
+}
+
+#LogRegBox {
     display: grid;
+    height: 55vh; /* Cambiado a vh */
+    width: 70vw; /* Cambiado a vw */
     grid-template-columns: 1fr 1fr;
-    background-color: blueviolet;
-    padding: 30px;
+    background-color: rgba(137, 43, 226, 0.082);
+    padding-left: 1.5vw; /* Cambiado a vw */
+    padding-right: 1.5vw; /* Cambiado a vw */
+    box-shadow: 0.2vw 0.2vw 2vw 0.2vw rgba(0, 0, 0, 0.527); /* Cambiado a vw */
+    border-radius: 0.9vw; /* Cambiado a vw */
+    overflow: hidden;
+}
+
+#RegisterContainer {
+    background-color: antiquewhite;
+}
+
+#Password-Label {
+    width: 29vw; /* Cambiado a vw */
+    font-size: 1.5rem; /* Cambiado a rem */
+    font-family: "Apple";
+    border: 0px;
+    border-top-left-radius: 0.2vw; /* Cambiado a vw */
+    height: 3.8vh; /* Cambiado a vh */
+    background-color: rgba(0, 0, 0, 0.116);
+}   
+ 
+
+#Username-Label {
+    width: 29vw; /* Cambiado a vw */
+    font-size: 1.5rem; /* Cambiado a rem */
+    margin-bottom: 1vh;
+    font-family: "Apple";
+    border: 0px;
+    border-top-right-radius: 0.2vw; /* Cambiado a vw */
+    height: 3.8vh; /* Cambiado a vh */
+    background-color: rgba(0, 0, 0, 0.116);
+}
+
+input {
+    font-size: 1vw; /* Cambiado a rem */
 }

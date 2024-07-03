@@ -29,9 +29,9 @@ const Navbar= ({ChangeActive, isActive}) => {
             {/* </button>     */}
 
         
-            <img src={logo} id="logott"/>
+            <img src={logo} id="logott" alt="thesistrack"/>
 
-            <img src={logounipaz} id="logounipaz"></img>
+            <img src={logounipaz} id="logounipaz" alt="logounipaz"></img>
 
             {/* <div id="navtextcontainer">
               
