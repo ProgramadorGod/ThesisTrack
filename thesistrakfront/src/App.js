@@ -2,7 +2,7 @@ import './App.css';
 import Login from './components/login';
 import Profile from './components/profile/profile';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import Navbar from './components/navbar';
 import Loadingrectangle from './components/loading/loading';
 import Sidemenu from './components/SideMenu/Sidemenu';
@@ -10,78 +10,60 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './components/Home';
 import Echart from './components/Stadistics/Echart';
 import Myfiles from './components/myfiles/myfiles';
-
-
-// const PortToUse = "http://127.0.0.1:8000/";
-const PortToUse = "http://192.168.0.17:8000/";
+import Cookies from 'js-cookie';
 
 
 
-function App() {
+// const PortToUse = "http://192.168.0.17:8000/";
+
+
+import { AppProvider, useAppContext } from './AppContext';
+
+const App = () => {
+  return (
+    <AppProvider>
+      <AppContent />
+    </AppProvider>
+  )
+}
+
+
+
+
+
+function AppContent() {
 
   const LocalData = (itemstosave) =>{
     localStorage.setItem("profiledata", JSON.stringify(itemstosave))
   }
 
+  const { isloading, setisloading, isLogged, setisLogged, profile, setProfile, name, setname, userid, setUserid , isActive, setisActive, PortToUse, fetchProfile} = useAppContext();
 
+  
 
-  const [isLogged, setisLogged] = useState(false);
-  const [isloading, setisloading] = useState(true);
-  const [isActive, setisActive] = useState("");
-  const [profile, setProfile] = useState(null);
-  const [name, setname] = useState(null);
-  const [carrers, setCarrers] = useState([]);
-  const [userid, setUserid] = useState([]);
+  const token = localStorage.getItem("token");
+
 
   const ChangeActive = () =>{
     setisActive(prevActiveStatus =>( prevActiveStatus === "" ? "Active" : ""));
   } 
 
+  
 
   useEffect(()=>{
-    const fetchProfile = async () => {
-      try{
-        const token = localStorage.getItem('authToken');
-        const response = await axios.get(PortToUse + 'profile/',{
-          withCredentials: true,  // Importante para enviar cookies de sesión
-        });
 
-
-        if (response.status === 200){
-          setisLogged(true);
-          console.log("Logged")
-          LocalData(response.data)
-        }
-        else{
-          console.log("not logged")
-        }
-
-        setUserid(response.data.id)
-        setProfile(response.data);
-        setCarrers(response.data.careers)
-        setname(response.data.username)
-      
-      }catch(error){
-        console.error('Error fetching profile:', error);
-        setisLogged(false);
-        console.log("Not Logged")
-
-      }finally{
-        setisloading(false)
-      }
-      
-    };
 
 
     fetchProfile();
 
   },[])
 
+
+
+
+
+
   
-
-
-
-
 
 
   return (
@@ -103,8 +85,8 @@ function App() {
 
 
         <Routes>
-          <Route path='/' element={<Home isLogged={isLogged} isloading={isloading} PortToUse={PortToUse}/>}/> 
-          <Route path="/Profile" element={isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile profile={profile} name={name} carrers={carrers} /> : <Login />)}/>
+          <Route path='/' element={<Home/>}/> 
+          <Route path="/Profile" element={isloading ? (<Loadingrectangle/> ) : (isLogged ? <Profile profile={profile} name={name} /> : <Login/>)}/>
           {/* <Route path='/Files' element={isloading ? (<Loadingrectangle/>):(<DocumentUpload userid={userid}/>)}/> */}
           <Route path='/Files' element={isloading ?(<Loadingrectangle/>):(<Myfiles userid={userid}/>)} />
           <Route path='/Stadistics' element={<Echart/>} />

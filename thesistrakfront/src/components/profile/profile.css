@@ -52,6 +52,9 @@
 
 }
 
+#logout{
+  cursor: pointer;
+}
 
 
 @media (max-width:680px){

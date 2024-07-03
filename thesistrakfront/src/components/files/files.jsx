@@ -8,19 +8,30 @@ const Files = ({PortToUse}) => {
 
   // console.log(Documents)
 
-  const [Documents, setDocuments] = useState([]);
+  const [Documents, setDocuments] = useState([
+    {
+      id: 1,
+      doc_type: { name: 'Tesis' },
+      title: 'Título del documento 1',
+      description: 'Descripción del documento 1',
+      users: [{ id: 1, username: 'Autor 1' }, { id: 2, username: 'Autor 2' }],
+      filee: 'url_del_documento_1'
+    },
+
+  ]);
 
 
-  useEffect(()=>{
-    const fetchDocuments = async () =>{
-      const response = await axios.get( PortToUse + "documents/",{
-        withCredentials: true,
-      });
+  // useEffect(()=>{
+    // const fetchDocuments = async () =>{
+      // const response = await axios.get( PortToUse + "documents/",{
+        // withCredentials: true,
+      // });
+// 
+      // setDocuments(response.data);
+    // };
+    // fetchDocuments();
+  // },[])
 
-      setDocuments(response.data);
-    };
-    fetchDocuments();
-  },[])
 
   
   const handleDocumentClick = (documentid) => {
