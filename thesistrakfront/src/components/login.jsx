@@ -5,6 +5,11 @@ import { useAppContext } from '../AppContext';
 import "./login.css"
 import { useHref } from 'react-router-dom';
 import { FaGoogle, FaLock } from 'react-icons/fa';
+import {motion} from "framer-motion";
+import Lottie from "lottie-react";
+import Bird from "../media/Pigeon4.json";
+import Bird2 from "../media/Pigeon3.json";
+
 
 axios.defaults.withCredentials = true;
 
@@ -15,6 +20,7 @@ const Login = () => {
   const setIsLogged = setisLogged
   
   
+  const [InLogin, setInLogin] = useState(true);
   
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -98,15 +104,31 @@ const Login = () => {
 
   return (
     <div id='SessionContainer'>
+      <motion.div 
+      className='Motiondiv'
+      animate={{scale:1.2}} 
+      
+      whileHover={{scale :  1.5}} 
+      whileTap={{scale:1.8}} 
+      drag="x" 
+      dragConstraints={{left:-150 , right:250}}>
+        
+        <div id='LottieContainer' style={{ width: '40px', height: '40px' }}>
+          <Lottie animationData={Bird} loop autoplay />
+
+        </div>      
+      </motion.div>
+      
+
       <div id='LogRegBox'>
 
         <div id='LoginSquare'>
           <h1>Sign In</h1>
           <form onSubmit={handleLoginForm}>
-            <div id='UserLab-Cont'>
+            <div id='UserLab-Cont' className={`${InLogin ? "InLogin" : "InRegister"}`}>
                 
                 <input
-                    id='Username-Label'
+                    id='Username-Input'
                     placeholder='Username'    
                     type='text'
                     value={username}
@@ -115,10 +137,10 @@ const Login = () => {
                 />
 
             </div>
-            <div style={{position:"relative"}}>
-                <label></label>
+            <div id='PassLab-Cont' className={`${InLogin ? "InLogin" : "InRegister"}`}>
+                
                 <input
-                    id='Password-Label'
+                    id='Password-Input'
                     
                     type='password'
                     value={password}
@@ -133,7 +155,6 @@ const Login = () => {
             </div>
             <button className='GoogleButton' onClick={handleLogin} aria-label='Aria Google'><FaGoogle></FaGoogle></button>
           </form>
-
         </div>
 
         <div id='RegisterContainer'>

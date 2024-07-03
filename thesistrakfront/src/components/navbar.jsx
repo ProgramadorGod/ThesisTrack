@@ -17,7 +17,7 @@ const Navbar= ({ChangeActive, isActive}) => {
 
         <div id="navbar">
             {/* <button id="navbariconbutton"> */}
-            <div>
+            <div id="menubutton">
             {isActive ? (
               <Close id="icon" onClick={ChangeActive} className={`close ${isActive ?"CloseiconActive":""}`}/>
 

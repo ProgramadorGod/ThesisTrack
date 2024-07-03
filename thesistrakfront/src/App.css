@@ -132,6 +132,10 @@ html {
 
 }
 
+#menubutton{
+  width: 35px;
+  height: 50px;
+}
 
 #navtext{
   font-family: "Runtoe";
