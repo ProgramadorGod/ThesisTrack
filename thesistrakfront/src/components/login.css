@@ -62,6 +62,10 @@
         position: relative;
     }
 
+    #LoginText{
+        font-size: 40px;
+    }
+
     #LogRegBox {
         display: grid;
         height: 55vh;

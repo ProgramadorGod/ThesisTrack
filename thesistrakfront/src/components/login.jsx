@@ -111,6 +111,7 @@ const Login = () => {
 
   };
 
+  const WidthPixels = 175
 
   return (
     <div id='SessionContainer'>
@@ -118,7 +119,7 @@ const Login = () => {
 
         <motion.div 
         className='Motiondiv'
-        animate={{scale:1.2, x:235}} 
+        animate={{scale:1.2, x:WidthPixels}} 
         whileDrag={{scale:1.5}}
         whileHover={{scale: 1.3}} 
         drag="x" 
@@ -132,7 +133,7 @@ const Login = () => {
 
         <motion.div 
         className='Motiondiv'
-        animate={{scale:1.2, x:-235}} 
+        animate={{scale:1.2, x:-165}} 
         whileDrag={{scale:1.5}}
         whileHover={{scale: 1.3}} 
         drag="x" 
