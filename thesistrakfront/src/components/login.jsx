@@ -9,6 +9,7 @@ import {motion} from "framer-motion";
 import Lottie from "lottie-react";
 import Bird from "../media/Pigeon4.json";
 import Bird2 from "../media/Pigeon3.json";
+import Swal from 'sweetalert2';
 
 
 axios.defaults.withCredentials = true;
@@ -28,6 +29,8 @@ const Login = () => {
   const Email = useState([""]);
   const [isRegister,setIsRegister] = useState([false]);
 
+  const lol = useState(FaLock);
+  
   const [ShowWindow, setShowWindow] = useState(false);
 
   const handleLoginClick = () =>{
@@ -83,7 +86,14 @@ const Login = () => {
         alert("CSRF token refreshed, please try again.");
 
       } else {
-        alert("Try Again...");
+        Swal.fire({
+          icon: 'error',
+          title: 'Invalid Credentials',
+          text: 'Try Again!',
+          timer:1500,
+          timerProgressBar:true,
+
+        });
       }
       console.log("ERROR TRYING TO LOGIN, ", error);
     }
@@ -104,32 +114,56 @@ const Login = () => {
 
   return (
     <div id='SessionContainer'>
-      <motion.div 
-      className='Motiondiv'
-      animate={{scale:1.2}} 
-      
-      whileHover={{scale :  1.5}} 
-      whileTap={{scale:1.8}} 
-      drag="x" 
-      dragConstraints={{left:-150 , right:250}}>
-        
-        <div id='LottieContainer' style={{ width: '40px', height: '40px' }}>
-          <Lottie animationData={Bird} loop autoplay />
+      <div id='MotionContainer'>
 
-        </div>      
-      </motion.div>
+        <motion.div 
+        className='Motiondiv'
+        animate={{scale:1.2, x:235}} 
+        whileDrag={{scale:1.5}}
+        whileHover={{scale: 1.3}} 
+        drag="x" 
+        dragConstraints={{left:-330 , right:310}}>
+          
+          <div id='LottieContainer1' style={{ width: '34px', height: '40px' }}>
+            <Lottie animationData={Bird} loop autoplay />
+
+          </div>      
+        </motion.div>
+
+        <motion.div 
+        className='Motiondiv'
+        animate={{scale:1.2, x:-235}} 
+        whileDrag={{scale:1.5}}
+        whileHover={{scale: 1.3}} 
+        drag="x" 
+        dragConstraints={{left:-330 , right:310}}>
+          
+          <div id='LottieContainer2' style={{ width: '40px', height: '40px' }}>
+            <Lottie animationData={Bird2} loop autoplay />
+
+          </div>      
+        </motion.div>
+        
+
+
+      </div>
+
       
 
       <div id='LogRegBox'>
 
         <div id='LoginSquare'>
-          <h1>Sign In</h1>
+          <div id='ComboSignIn'>
+            <h1 id='LoginText'>Sign In</h1>
+            <button className='GoogleButton' onClick={handleLogin} aria-label='Aria Google'><FaGoogle></FaGoogle></button>
+          </div>
+          
           <form onSubmit={handleLoginForm}>
             <div id='UserLab-Cont' className={`${InLogin ? "InLogin" : "InRegister"}`}>
                 
                 <input
                     id='Username-Input'
-                    placeholder='Username'    
+                    placeholder={`Username`}    
                     type='text'
                     value={username}
                     onChange={(e)=>setUsername(e.target.value)}
@@ -141,7 +175,8 @@ const Login = () => {
                 
                 <input
                     id='Password-Input'
-                    
+                    placeholder={`Password`}    
+
                     type='password'
                     value={password}
                     onChange={(e)=>setPassword(e.target.value)}
@@ -149,11 +184,10 @@ const Login = () => {
                 />
 
             </div>
-              <button type='submit' aria-label='Aria Login' title='LOGIN'>Login</button>
+              <button className='SubmitFormButtom' type='submit' aria-label='Aria Login' title='LOGIN'>LOGIN</button>
             <div>
 
             </div>
-            <button className='GoogleButton' onClick={handleLogin} aria-label='Aria Google'><FaGoogle></FaGoogle></button>
           </form>
         </div>
 

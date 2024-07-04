@@ -3,92 +3,135 @@
     src: url('../fonts/AppleGaramond.ttf') format('opentype');
     font-weight: normal;
     font-style: normal;
-  }
-
-#LoginSquare {
-    background-color: rgba(255, 0, 0, 0.048);
-    font-size: 1rem;
 }
 
-.Motiondiv:focus{
-    outline: none;
-}
-.Motiondiv{
-    margin-bottom: -5px;
-    display: fixed;
-}
+@media (min-width: 1000px) {
+    #LoginSquare {
+        font-size: 1rem;
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
 
-#LottieContainer{
-    position: relative;
-}
+    #ComboSignIn{
+        /* padding-bottom: 30px; */
+        transform: translateY(-14px);
+    }
 
-#SessionContainer {
-    height: 100vh;
-    align-items: center;
-    
-    display: flex;
-    font-family: "Apple";
-    background-color: rgba(71, 168, 6, 0);
-    justify-content: center;
-    flex-direction: column;
-}
+    .Motiondiv:focus {
+        outline: none;
+    }
 
-.GoogleButton {
-    background-color: rgba(240, 248, 255, 0);
-    border: 0px;
-    cursor: pointer;
-}
+    .Motiondiv {
+        width: 40px;
+        height: 40px;
+        display: absolute;
+    }
 
-#UserLab-Cont{
-    position: relative;
+    #LottieContainer1 {
+        transform: translateY(5px);
+        position: relative;
+    }
 
-}
+    #LottieContainer2 {
+        position: absolute;
+        transform: translateY(-30px);
+    }
 
-#LogRegBox {
-    display: grid;
-    height: 55vh; /* Cambiado a vh */
-    width: 70vw; /* Cambiado a vw */
-    grid-template-columns: 1fr 1fr;
-    background-color: rgba(137, 43, 226, 0.082);
-    padding-left: 1.5vw; /* Cambiado a vw */
-    padding-right: 1.5vw; /* Cambiado a vw */
-    box-shadow: 0.2vw 0.2vw 2vw 0.2vw rgba(0, 0, 0, 0.527); /* Cambiado a vw */
-    border-radius: 0.9vw; /* Cambiado a vw */
-    overflow: hidden;
-}
+    #SessionContainer {
+        height: 100vh;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
 
-#RegisterContainer {
-    background-color: antiquewhite;
-}
+    .GoogleButton {
+        border: 0px;
+        cursor: pointer;
+        background-color: rgba(207, 206, 205, 0.884);
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
+        transform: translateY(-10px);
+    }
 
-#Password-Input {
-    width: 29vw; /* Cambiado a vw */
-    font-size: 1.5rem; /* Cambiado a rem */
-    font-family: "Apple";
-    border: 0px;
-    border-top-left-radius: 0.2vw; /* Cambiado a vw */
-    height: 3.8vh; /* Cambiado a vh */
-    background-color: rgba(0, 0, 0, 0.116);
-}   
- 
+    #UserLab-Cont {
+        position: relative;
+    }
 
-#Username-Input {
-    width: 29vw; /* Cambiado a vw */
-    font-size: 1.5rem; /* Cambiado a rem */
-    margin-bottom: 1vh;
-    font-family: "Apple";
-    border: 0px;
-    border-top-right-radius: 0.2vw; /* Cambiado a vw */
-    height: 3.8vh; /* Cambiado a vh */
-    background-color: rgba(0, 0, 0, 0.116);
-    outline: none;
-}
+    #LogRegBox {
+        display: grid;
+        height: 55vh;
+        width: 55vw;
+        grid-template-columns: 1fr 1fr;
+        padding-left: 1.5vw;
+        padding-right: 1.5vw;
+        box-shadow: 0.2vw 0.2vw 2vw 0.2vw rgba(0, 0, 0, 0.527);
+        border-radius: 0.9vw;
+        overflow: hidden;
+        background-color: rgb(255, 255, 255);
+    }
 
-#Username-Input:focus{
-    outline: none;
+    #MotionContainer {
+        height: 40px;
+        padding-left: 20vw;
+        padding-right: 20vw;
+    }
 
-}
+    #RegisterContainer {
+    }
 
-input {
-    font-size: 1vw; /* Cambiado a rem */
+    #Password-Input {
+        width: 18vw;
+        font-size: 1rem;
+        font-family: "Apple";
+        border: 0px;
+        border-top-left-radius: 0.2vw;
+        height: 4.8vh;
+        background-color: rgba(0, 0, 0, 0.116);
+        padding-right: 1vw;
+        padding-left: 1vw;
+    }
+
+    #Username-Input {
+        width: 18vw;
+        font-size: 1rem;
+        margin-bottom: 1vh;
+        font-family: "Apple";
+        border: 0px;
+        border-top-right-radius: 0.2vw;
+        height: 4.8vh;
+        background-color: rgba(0, 0, 0, 0.116);
+        outline: none;
+        padding-left: 1vw;
+        padding-right: 1vw;
+    }
+
+    #Username-Input:focus {
+        outline: none;
+    }
+
+    .SubmitFormButtom {
+        border: 0px;
+        background-color: black;
+        color: white;
+        font-weight: bold;
+        height: 5vh;
+        border-radius: 50px;
+        cursor: pointer;
+        margin-top: 5vh;
+        width: 12vw;
+        font-family: "Apple";
+    }
+
+    .SubmitFormButtom:focus {
+        outline: 1px rgba(0, 0, 0, 0.315);
+    }
+
+    input {
+        font-size: 1vw;
+    }
 }
