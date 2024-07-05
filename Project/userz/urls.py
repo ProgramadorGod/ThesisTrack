@@ -7,5 +7,6 @@ urlpatterns = [
     path("login/", CustomLoginView.as_view(), name="login"),
     path("login2/", OwnLoginView.as_view(), name="OwnLogin"),
     path('refresh_csrf/', refresh_csrf, name='refresh_csrf'),
+        
 
 ]

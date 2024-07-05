@@ -3,43 +3,33 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAppContext } from '../AppContext';
 import "./login.css"
-import { useHref } from 'react-router-dom';
-import { FaGoogle, FaLock } from 'react-icons/fa';
-import {motion} from "framer-motion";
+
+import {color, motion} from "framer-motion";
 import Lottie from "lottie-react";
 import Bird from "../media/Pigeon4.json";
 import Bird2 from "../media/Pigeon3.json";
 import Swal from 'sweetalert2';
-
+import GoogleIcon from "../media/google.png"
 
 axios.defaults.withCredentials = true;
 
 
 const Login = () => {
-  const { isloading, setisloading, isLogged, setisLogged, profile, setProfile, name, setname, userid, setUserid , isActive, setisActive, PortToUse, fetchProfile} = useAppContext();
-  
-  const setIsLogged = setisLogged
-  
-  
+  const {  isLogged, PortToUse, fetchProfile} = useAppContext();
+
+
+  const [LoadingFetch, setLoadingFetch]= useState(false)
+  const [UsernameFocus, setUsernameFocus] = useState(false)
+  const [PasswordFocus, setPasswordFocus] = useState(false)
+
   const [InLogin, setInLogin] = useState(true);
   
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [token , setToken] = useState()
-  const Email = useState([""]);
-  const [isRegister,setIsRegister] = useState([false]);
 
-  const lol = useState(FaLock);
-  
-  const [ShowWindow, setShowWindow] = useState(false);
+  const [IsLogin,setIsLogin] = useState(true);
 
-  const handleLoginClick = () =>{
-    setShowWindow(true)
-  }
 
-  const handleCloseWindow = () =>{
-    setShowWindow(false)
-  }
 
   const getCsrfToken = () => {
     const csrfToken = document.cookie
@@ -55,7 +45,7 @@ const Login = () => {
 
   const handleLoginForm = async(e) =>{
     e.preventDefault();
-
+    setLoadingFetch(true)
     try{
       const response = await axios.post(PortToUse+"api/login2/",{
         username,
@@ -65,6 +55,9 @@ const Login = () => {
           'X-CSRFToken':getCsrfToken()
         }
       })
+
+      
+      setLoadingFetch(false)
 
       if (response.status === 200){
         console.log("worked")
@@ -111,12 +104,11 @@ const Login = () => {
 
   };
 
-  const WidthPixels = 175
+  const WidthPixels = 190
 
   return (
     <div id='SessionContainer'>
       <div id='MotionContainer'>
-
         <motion.div 
         className='Motiondiv'
         animate={{scale:1.2, x:WidthPixels}} 
@@ -133,7 +125,7 @@ const Login = () => {
 
         <motion.div 
         className='Motiondiv'
-        animate={{scale:1.2, x:-165}} 
+        animate={{scale:1.2, x:-WidthPixels}} 
         whileDrag={{scale:1.5}}
         whileHover={{scale: 1.3}} 
         drag="x" 
@@ -151,15 +143,22 @@ const Login = () => {
 
       
 
-      <div id='LogRegBox'>
+      <div id='LogRegBox' >
 
-        <div id='LoginSquare'>
-          <div id='ComboSignIn'>
+        <motion.div id='LoginSquare' 
+        initial = {{opacity:0}}
+        animate={{opacity: IsLogin ? 1 : 0 }}
+        transition={{duration:0.3}}
+        >
+        
+        
+          <div className='ComboTextGoogle'>
             <h1 id='LoginText'>Sign In</h1>
-            <button className='GoogleButton' onClick={handleLogin} aria-label='Aria Google'><FaGoogle></FaGoogle></button>
+            <button className='GoogleButton' onClick={handleLogin} aria-label='Aria Google'><img src={GoogleIcon} id='FaGoogle'/></button>
           </div>
           
-          <form onSubmit={handleLoginForm}>
+          <form onSubmit={handleLoginForm} id='FormularyContainer'>
+
             <div id='UserLab-Cont' className={`${InLogin ? "InLogin" : "InRegister"}`}>
                 
                 <input
@@ -168,11 +167,21 @@ const Login = () => {
                     type='text'
                     value={username}
                     onChange={(e)=>setUsername(e.target.value)}
+                    onFocus={() => setUsernameFocus(true)}
+                    onBlur={() => setUsernameFocus(false)}
+
                     required            
                 />
-
+                <motion.div
+                  className='input-underline'
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: UsernameFocus ? 1 : 0 }}
+                  transition={{ duration: 0.3 }}
+                />
             </div>
-            <div id='PassLab-Cont' className={`${InLogin ? "InLogin" : "InRegister"}`}>
+            
+
+            <div id='PassLab-Cont' className={`${InLogin ? "InLogin" : "InRegister"}`} >
                 
                 <input
                     id='Password-Input'
@@ -181,25 +190,56 @@ const Login = () => {
                     type='password'
                     value={password}
                     onChange={(e)=>setPassword(e.target.value)}
+                    onFocus={() => setPasswordFocus(true)}
+                    onBlur={() => setPasswordFocus(false)}
                     required            
+                />
+                <motion.div
+                  className='input-underline2'
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: PasswordFocus ? 1 : 0 }}
+                  transition={{ duration: 0.3 }}
                 />
 
             </div>
-              <button className='SubmitFormButtom' type='submit' aria-label='Aria Login' title='LOGIN'>LOGIN</button>
-            <div>
+            <motion.button 
+            whileHover={{ scale: 1.05 , backgroundColor:"#0056b3"}}
+            transition={{ type: "spring", stiffness: 200, damping: 10 }}
+            whileFocus={{scale:1.04, backgroundColor:"#0056b3"}}
+            whileTap={{scale:1.12, transition:{duration:0.001,  type: "spring", stiffness: 200, damping: 8  }}}
 
-            </div>
+            className='SubmitFormButtom' 
+            type='submit' 
+            aria-label='Aria Login' 
+            title='LOGIN'
+            
+            >
+  
+              LOGIN
+                        
+            </motion.button>
+
           </form>
-        </div>
+        </motion.div>
 
-        <div id='RegisterContainer'>
-          <h1>Register</h1>
-        </div>
+        <motion.div id='RegisterContainer'
+          initial = {{opacity:0}}
+          animate={{opacity: IsLogin ? 1 : 0 }}
+          transition={{duration:0.3}}
+        >
+          <div className='ComboTextGoogle'>
+            <h1 id="RegisterText">Register</h1>
+            <button className='GoogleButton' onClick={handleLogin} aria-label='Aria Google'><img src={GoogleIcon} id='FaGoogle'/></button>
 
-      </div>
+          </div>
+          
+        </motion.div>
+ 
 
+  
+    </div>
 
-
+      
 
 
       
