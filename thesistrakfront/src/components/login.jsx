@@ -45,7 +45,10 @@ const Login = () => {
 
   const handleLoginForm = async(e) =>{
     e.preventDefault();
-    setLoadingFetch(true)
+    if (LoadingFetch) return; // Evitar enviar si ya hay una petición en proceso
+
+    setLoadingFetch(true);
+
     try{
       const response = await axios.post(PortToUse+"api/login2/",{
         username,
@@ -56,22 +59,24 @@ const Login = () => {
         }
       })
 
-      
-      setLoadingFetch(false)
 
+      
       if (response.status === 200){
         console.log("worked")
         console.log(isLogged)
+        setLoadingFetch(false)
         fetchProfile()
 
 
       }
+      setLoadingFetch(false)
 
     }catch(error){
       if (error.response && error.response.status === 403) {
         // Refresh CSRF token
         const csrfResponse = await axios.get(PortToUse+"api/refresh_csrf/");
         const NewCsrfToken = csrfResponse.data.csrfToken;
+        setLoadingFetch(false)
 
 
         setCsrfToken(NewCsrfToken)
@@ -90,7 +95,7 @@ const Login = () => {
       }
       console.log("ERROR TRYING TO LOGIN, ", error);
     }
-
+    setLoadingFetch(false)
   }
 
   const handleLogin = () => {
@@ -107,8 +112,8 @@ const Login = () => {
   const WidthPixels = 190
 
   return (
-    <div id='SessionContainer'>
-      <div id='MotionContainer'>
+    <div id='SessionContainer'  className={`${LoadingFetch ? "Disabled":""}`}>
+      <div id='MotionContainer' className={`${LoadingFetch ? "Disabled":""}`}>
         <motion.div 
         className='Motiondiv'
         animate={{scale:1.2, x:WidthPixels}} 
@@ -203,19 +208,19 @@ const Login = () => {
 
             </div>
             <motion.button 
-            whileHover={{ scale: 1.05 , backgroundColor:"#0056b3"}}
+            whileHover={{ scale: 1.05 , backgroundColor: (LoadingFetch ? "#cccccc":"#0056b3" )}}
             transition={{ type: "spring", stiffness: 200, damping: 10 }}
-            whileFocus={{scale:1.04, backgroundColor:"#0056b3"}}
+            whileFocus={{scale:1.04, backgroundColor: (LoadingFetch ? "#cccccc":"#0056b3" )}}
             whileTap={{scale:1.12, transition:{duration:0.001,  type: "spring", stiffness: 200, damping: 8  }}}
-
-            className='SubmitFormButtom' 
+            
+            className={`SubmitFormButtom  ${LoadingFetch ? "Disabled": ""}`}  
             type='submit' 
             aria-label='Aria Login' 
             title='LOGIN'
             
             >
   
-              LOGIN
+              {LoadingFetch ? "Loading..." : "LOGIN"}
                         
             </motion.button>
 
