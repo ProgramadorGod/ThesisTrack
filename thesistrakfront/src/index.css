@@ -12,8 +12,3 @@ code {
     monospace;
 }
 
-button{
-  background-color: rgba(255, 0, 0, 0);
-  border: 0px;
-  display: inline-flex;
-}

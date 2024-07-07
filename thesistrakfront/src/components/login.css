@@ -14,6 +14,10 @@
         align-items: center;
         flex-direction: column;
     }
+    #LoginSquare.InLogin{
+        padding-left: 1.5vw;
+
+    }
 
     .ComboTextGoogle{
         /* padding-bottom: 30px; */
@@ -83,8 +87,6 @@
         height: 55vh;
         width: 55vw;
         grid-template-columns: 1fr 1fr;
-        padding-left: 1.5vw;
-        padding-right: 1.5vw;
         box-shadow: 0.2vw 0.2vw 2vw 0.2vw rgba(0, 0, 0, 0.527);
         border-radius: 0.9vw;
         overflow: hidden;
@@ -103,6 +105,10 @@
         align-content: center;
         align-items: center;
     }
+    #RegisterContainer.InRegister{
+        padding-right: 1.5vw;
+    }
+
     #RegisterText{
         font-size: 6vh;
     }
@@ -186,6 +192,17 @@
     .SubmitFormButtom:focus {
         outline: none;
     }
+
+
+    #ContainerInactive{
+        width: 100%;
+        background-color: red;
+        height: 100%;
+    
+    }
+
+
+
 
 
 }
