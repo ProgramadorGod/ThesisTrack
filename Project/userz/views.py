@@ -80,7 +80,15 @@ class OwnLoginView(APIView):
         username = serializer.validated_data['username']
         password = serializer.validated_data['password']
 
+        try:
+            user = Account.objects.get(username=username)
+        except Account.DoesNotExist:
+            return Response({'Detail': 'Invalid Username'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+
         user = authenticate(request, username=username , password=password)
+
         if user is not None:
             login(request,user)
 
@@ -89,7 +97,7 @@ class OwnLoginView(APIView):
                 'Detail':'Logged Successfully...'
             })
         
-        return Response({'Detail:':'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+        return Response({'Detail':'Invalid Password'}, status=status.HTTP_401_UNAUTHORIZED)
     
 
 

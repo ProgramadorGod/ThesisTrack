@@ -130,13 +130,24 @@ html {
   fill: rgb(184, 200, 255);
   cursor: crosshair;
   animation: fadeInRotate 0.2s ease-in-out;
+  user-select: none;
+  
+
+  
+  
 
 }
+
+
 
 #menubutton{
   width: 60px;
   height: 50px;
+
 }
+
+
+
 
 #navtext{
   font-family: "Runtoe";
@@ -195,10 +206,7 @@ html {
 
 
 
-#navbariconbutton{
-  background-color: #00000000;
-  border: 0px;
-}
+
 
 #profilepic{
   margin-left: auto;

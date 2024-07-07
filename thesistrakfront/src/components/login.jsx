@@ -59,7 +59,6 @@ const Login = () => {
         }
       })
 
-
       
       if (response.status === 200){
         console.log("worked")
@@ -86,7 +85,7 @@ const Login = () => {
       } else {
         Swal.fire({
           icon: 'error',
-          title: 'Invalid Credentials',
+          title: error.response.data.Detail,
           text: 'Try Again!',
           timer:1500,
           timerProgressBar:true,
@@ -118,7 +117,7 @@ const Login = () => {
         className='Motiondiv'
         animate={{scale:1.2, x:WidthPixels}} 
         whileDrag={{scale:1.5}}
-        whileHover={{scale: 1.3}} 
+        whileHover={{scale: 1.3, cursor:"pointer"}} 
         drag="x" 
         dragConstraints={{left:-330 , right:310}}>
           
@@ -131,8 +130,9 @@ const Login = () => {
         <motion.div 
         className='Motiondiv'
         animate={{scale:1.2, x:-WidthPixels}} 
+
         whileDrag={{scale:1.5}}
-        whileHover={{scale: 1.3}} 
+        whileHover={{scale: 1.3, cursor:"pointer"}} 
         drag="x" 
         dragConstraints={{left:-330 , right:310}}>
           
@@ -181,31 +181,34 @@ const Login = () => {
                   className='input-underline'
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: UsernameFocus ? 1 : 0 }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.2 }}
                 />
             </div>
             
+            <div>
 
-            <div id='PassLab-Cont' className={`${InLogin ? "InLogin" : "InRegister"}`} >
-                
-                <input
-                    id='Password-Input'
-                    placeholder={`Password`}    
+            
+              <div id='PassLab-Cont' className={`${InLogin ? "InLogin" : "InRegister"}`} >
 
-                    type='password'
-                    value={password}
-                    onChange={(e)=>setPassword(e.target.value)}
-                    onFocus={() => setPasswordFocus(true)}
-                    onBlur={() => setPasswordFocus(false)}
-                    required            
-                />
-                <motion.div
-                  className='input-underline2'
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: PasswordFocus ? 1 : 0 }}
-                  transition={{ duration: 0.3 }}
-                />
+                  <input
+                      id='Password-Input'
+                      placeholder={`Password`}    
 
+                      type='password'
+                      value={password}
+                      onChange={(e)=>setPassword(e.target.value)}
+                      onFocus={() => setPasswordFocus(true)}
+                      onBlur={() => setPasswordFocus(false)}
+                      required            
+                  />
+                  <motion.div
+                    className='input-underline2'
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: PasswordFocus ? 1 : 0 }}
+                    transition={{ duration: 0.2 }}
+                  />
+
+              </div>
             </div>
             <motion.button 
             whileHover={{ scale: 1.05 , backgroundColor: (LoadingFetch ? "#cccccc":"#0056b3" )}}
@@ -220,9 +223,11 @@ const Login = () => {
             
             >
   
-              {LoadingFetch ? "Loading..." : "LOGIN"}
+              {LoadingFetch ? "LOGIN" : "LOGIN"}
                         
             </motion.button>
+            
+
 
           </form>
         </motion.div>
