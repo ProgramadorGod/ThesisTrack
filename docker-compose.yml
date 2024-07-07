@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:15
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '127.0.0.1:5432:5432'
+
+  web:
+    restart: always
+    command: python manage.py runserver 0.0.0.0:8080
+    tty: true
+    build:
+      context: .
+    expose:
+      - 8080
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - .:/app:Z
+    depends_on:
+      - postgres
+
+  nginx:
+    image: django_template
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    ports:
+      - 80:80
+    depends_on:
+      - web

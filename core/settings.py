@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #my apps
-    'userz',
+    'users',
 
     #thirdparty apps
     'rest_framework',
@@ -67,7 +67,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-ROOT_URLCONF = 'Project.urls'
+ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
     {
@@ -85,7 +85,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Project.wsgi.application'
+WSGI_APPLICATION = 'core.wsgi.application'
 
 ALLOWED_HOSTS =["*"]
 
@@ -231,4 +231,4 @@ LOGOUT_REDIRECT_URL = "/react/"
 
 
 
-AUTH_USER_MODEL = "userz.Account"
+AUTH_USER_MODEL = "users.Account"

@@ -1,0 +1,16 @@
+db.sqlite3
+.idea
+apps/default/__pycache__/*
+__pycache__/
+*/*/*/__pycache__/
+*/*/__pycache__/
+*/__pycache__/
+**/migrations/*
+!**/migrations/__init__.py
+**/migrations/*
+!**/migrations/__init__.py
+htmlcov
+.env
+postgres
+.coverage
+*.sqlite3
