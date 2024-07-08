@@ -108,7 +108,47 @@ const Login = () => {
 
   };
 
-  const WidthPixels = 190
+
+  const [WidthPixels, setWidthPixels] = useState(0);
+  const [LimitPixels, setLimitPixels] = useState(0);
+  const [TransitionBlock, setTransitionBlock] = useState(0);
+  const [LeftPosition , setLeftPosition] = useState(0);
+
+
+
+  const calculateWidth = () => {
+    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    setWidthPixels(vw * 0.14); // 20vw
+    setLimitPixels(vw * 0.24)
+    // setTransitionBlock(vw*0.225)
+    setTransitionBlock(vw*0.276)
+
+
+    if (IsLogin){
+      setLeftPosition(vw*0.5)
+    }
+    else{
+      setLeftPosition(vw*0.225)
+    }
+    
+  };
+
+  useEffect(() => {
+    calculateWidth();
+    window.addEventListener('resize', calculateWidth);
+
+
+    // Optional: Use a MutationObserver to detect changes in zoom level
+    const observer = new MutationObserver(calculateWidth);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
+
+    return () => {
+      window.removeEventListener('resize', calculateWidth);
+      observer.disconnect();
+    };
+  }, []);
+
+
 
   return (
     <div id='SessionContainer'  className={`${LoadingFetch ? "Disabled":""}`}>
@@ -119,7 +159,7 @@ const Login = () => {
         whileDrag={{scale:1.5}}
         whileHover={{scale: 1.3, cursor:"pointer"}} 
         drag="x" 
-        dragConstraints={{left:-330 , right:310}}>
+        dragConstraints={{left:-LimitPixels , right:LimitPixels}}>
           
           <div id='LottieContainer1' style={{ width: '34px', height: '40px' }}>
             <Lottie animationData={Bird} loop autoplay />
@@ -134,7 +174,7 @@ const Login = () => {
         whileDrag={{scale:1.5}}
         whileHover={{scale: 1.3, cursor:"pointer"}} 
         drag="x" 
-        dragConstraints={{left:-330 , right:310}}>
+        dragConstraints={{left:-LimitPixels , right:LimitPixels}}>
           
           <div id='LottieContainer2' style={{ width: '40px', height: '40px' }}>
             <Lottie animationData={Bird2} loop autoplay />
@@ -149,8 +189,8 @@ const Login = () => {
       
 
       <div id='LogRegBox' >
-        { IsLogin ?
-          (<motion.div id='LoginSquare' 
+        
+          <motion.div id='LoginSquare' 
           initial = {{opacity:0}}
           animate={{opacity: IsLogin ? 1 : 0 }}
           transition={{duration:0.3}}
@@ -232,49 +272,49 @@ const Login = () => {
 
             </form>
           </motion.div>
-          ):
-          (
-            <div id='ContainerInactive'>
-               LOL
-               <button onClick={ToggleIsLogin}>LOGIN</button>
-            </div>
-
-          )}
+      
 
 
-          {IsLogin ? (
-            <motion.div id='RegisterContainer'
-            initial = {{opacity:0}}
-            animate={{opacity: IsLogin ? 1 : 0 }}
-            transition={{duration:0.3}}
-          >
-            <div id='ContainerInactive'>
-               LOL
-               <button onClick={ToggleIsLogin}>LOGIN</button>
-            </div>
-            </motion.div>
-          )
-          : (
-            <motion.div id='RegisterContainer'
-            className={`${IsLogin ? "": "InRegister"}`}
-            initial = {{opacity:0}}
-            animate={{opacity: IsLogin ? 0 : 1 }}
-            transition={{duration:0.3}}
-          >
-            <div className='ComboTextGoogle'>
-              <h1 id="RegisterText">Register</h1>
-              <button className='GoogleButton' onClick={handleLogin} aria-label='Aria Google'><img src={GoogleIcon} id='FaGoogle'/></button>
+          <motion.div id='RegisterContainer'
+          className={`${IsLogin ? "": "InRegister"}`}
+          initial = {{opacity:0}}
+          animate={{opacity: IsLogin ? 0 : 1 }}
+          transition={{duration:0.3}}
+        >
+          <div className='ComboTextGoogle'>
+            <h1 id="RegisterText">Register</h1>
+            <button className='GoogleButton' onClick={handleLogin} aria-label='Aria Google'><img src={GoogleIcon} id='FaGoogle'/></button>
 
-            </div>
-            </motion.div>
+          </div>
+          </motion.div>
 
-          )
-          }
+          
+          
 
  
 
-  
+          <motion.div id="Blocker"
+            animate={{x:(IsLogin ? 0:-TransitionBlock), borderTopLeftRadius:(IsLogin ? 0:10), borderBottomLeftRadius:(IsLogin ? 0:10), borderTopRightRadius:(IsLogin ? 10:0), borderBottomRightRadius:(IsLogin ? 10:0)}}
+            transition={{
+              type: "spring",
+              duration:0.4,
+              stiffness: 450,
+              damping: 22,
+            }}
+            style={{left:LeftPosition}}
+          >
+
+
+            <div id='ContainerInactive'>
+               LOL
+               <button onClick={ToggleIsLogin}>LOGIN</button>
+            </div>
+
+            
+          </motion.div>
+
     </div>
+    
 
       
 
