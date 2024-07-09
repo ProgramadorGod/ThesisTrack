@@ -1,15 +1,16 @@
 // Login.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useAppContext } from '../AppContext';
+import { useAppContext } from '../../AppContext';
 import "./login.css"
 
 import {color, motion} from "framer-motion";
 import Lottie from "lottie-react";
-import Bird from "../media/Pigeon4.json";
-import Bird2 from "../media/Pigeon3.json";
+import Bird from "../../media/Pigeon4.json";
+import Bird2 from "../../media/Pigeon3.json";
 import Swal from 'sweetalert2';
-import GoogleIcon from "../media/google.png"
+import GoogleIcon from "../../media/google.png"
+import Blocker from './Blocker';
 
 axios.defaults.withCredentials = true;
 
@@ -128,7 +129,7 @@ const Login = () => {
       setLeftPosition(vw*0.5)
     }
     else{
-      setLeftPosition(vw*0.225)
+      setLeftPosition(vw*0.775)
     }
     
   };
@@ -252,10 +253,11 @@ const Login = () => {
                 </div>
               </div>
               <motion.button 
-              whileHover={{ scale: 1.05 , backgroundColor: (LoadingFetch ? "#cccccc":"#0056b3" )}}
+              whileHover={{ scale: 1.05 , backgroundColor: (LoadingFetch ? "#cccccc":"#024791" )}}
               transition={{ type: "spring", stiffness: 200, damping: 10 }}
-              whileFocus={{scale:1.04, backgroundColor: (LoadingFetch ? "#cccccc":"#0056b3" )}}
-              whileTap={{scale:1.12, transition:{duration:0.001,  type: "spring", stiffness: 200, damping: 8  }}}
+              whileInView={{backgroundColor:"#0056b3"}}
+              whileFocus={{scale:1.04, backgroundColor: (LoadingFetch ? "#cccccc":"#024791" )}}
+              whileTap={{scale:1.12, transition:{duration:0.001,  type: "spring", stiffness: 200, damping: 8 }}}
               
               className={`SubmitFormButtom  ${LoadingFetch ? "Disabled": ""}`}  
               type='submit' 
@@ -280,44 +282,28 @@ const Login = () => {
           initial = {{opacity:0}}
           animate={{opacity: IsLogin ? 0 : 1 }}
           transition={{duration:0.3}}
+          style={{userSelect:IsLogin ? "none":"auto"}} 
         >
           <div className='ComboTextGoogle'>
             <h1 id="RegisterText">Register</h1>
             <button className='GoogleButton' onClick={handleLogin} aria-label='Aria Google'><img src={GoogleIcon} id='FaGoogle'/></button>
-
           </div>
+
+          
+
           </motion.div>
 
           
           
-
+        <Blocker IsLogin={IsLogin} LoadingFetch={LoadingFetch} ToggleIsLogin={ToggleIsLogin}></Blocker>
  
 
-          <motion.div id="Blocker"
-            animate={{x:(IsLogin ? 0:-TransitionBlock), borderTopLeftRadius:(IsLogin ? 0:10), borderBottomLeftRadius:(IsLogin ? 0:10), borderTopRightRadius:(IsLogin ? 10:0), borderBottomRightRadius:(IsLogin ? 10:0)}}
-            transition={{
-              type: "spring",
-              duration:0.4,
-              stiffness: 450,
-              damping: 22,
-            }}
-            style={{left:LeftPosition}}
-          >
 
-
-            <div id='ContainerInactive'>
-               LOL
-               <button onClick={ToggleIsLogin}>LOGIN</button>
-            </div>
-
-            
-          </motion.div>
-
+          
     </div>
-    
 
       
-
+          
 
       
         
@@ -327,4 +313,3 @@ const Login = () => {
 
 export default Login;
 
-// Profile.js

@@ -1,5 +1,5 @@
 import './App.css';
-import Login from './components/login';
+import Login from './components/LoginComponents/login';
 import Profile from './components/profile/profile';
 import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from 'react';
@@ -105,6 +105,8 @@ function AppContent() {
       </Router>
 
       {/* <footer id='footer'>lol</footer> */}
+
+      
     </div>
   );
 }

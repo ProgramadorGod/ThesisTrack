@@ -1,6 +1,6 @@
 import React from 'react'
 import '../App.css';
-import Login from '../components/login';
+import Login from '../components/LoginComponents/login';
 import Loadingrectangle from '../components/loading/loading';
 import Files from '../components/files/files';
 
