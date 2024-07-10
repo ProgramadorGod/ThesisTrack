@@ -1,5 +1,6 @@
 import React from 'react'
-import {motion} from "framer-motion"
+import {motion, wrap} from "framer-motion"
+import "./login.css"
 
 const Blocker = ({IsLogin, LoadingFetch,ToggleIsLogin}) => {
   return (
@@ -13,8 +14,8 @@ const Blocker = ({IsLogin, LoadingFetch,ToggleIsLogin}) => {
               borderTopRightRadius:IsLogin?10:0,
               borderBottomRightRadius:IsLogin?10:0,
               backgroundImage: IsLogin 
-              ? "linear-gradient(to right, #010832, #031264)" 
-              : "linear-gradient(to left, #010832, #031264)"
+              ? "linear-gradient(to right, #010832, #17257d)" 
+              : "linear-gradient(to left, #010832, #17257d)"
 
             }}
             transition={{
@@ -26,21 +27,61 @@ const Blocker = ({IsLogin, LoadingFetch,ToggleIsLogin}) => {
 
             
             <div id='ContainerInactive' >
-            
+                <div id='BlockAllText'>
+                    {IsLogin?
+                        (
+                            <div style={{width:"27.5vw"}}>
+                            <h1 className='MainBlockText'>
+                                Hello, <div style={{textWrap:"nowrap"}}> &nbsp;Friend!</div>
+                            </h1>
+                            <h4 className='NormalBlockText'>
+                                <div>
+                                    Enter your personal details and
+                                </div>
+                                <div>
+                                    join to our team
+                                </div>
 
-               LOL
-              <motion.button 
-              whileHover={{ scale: 1.05 , backgroundColor: (LoadingFetch ? "#cccccc":"#024791" )}}
-              transition={{ type: "spring", stiffness: 200, damping: 10 }}
-              whileInView={{backgroundColor:"#0056b3"}}
-              whileFocus={{scale:1.04, backgroundColor: (LoadingFetch ? "#cccccc":"#024791" )}}
-              whileTap={{scale:1.12, transition:{duration:0.001,  type: "spring", stiffness: 200, damping: 8 }}}
-              
-              onClick={ToggleIsLogin} 
-              className='SubmitFormButtom' >
-                {IsLogin ? "Register":"Login" }
+                            </h4>
+                            </div>
+                        )
+                        :
+                        <div style={{width:"27.5vw"}}>
+                            <h1 className='MainBlockText'>
+                                Welcome <div style={{textWrap:"nowrap"}}> &nbsp;Back!</div>
+                            </h1>
+                            <h4 className='NormalBlockText'>
+                                <div>
+                                    To keep in touch
+                                </div>
+                                <div>
+                                    login with your credentials
+                                </div>
 
-              </motion.button>
+                            </h4>
+
+                        </div>
+                    
+                    }
+                </div>
+
+         
+                <motion.button 
+                id='BlockButton'
+                whileHover={{ scale: 1.07 , backgroundColor: ("#02479100" )}}
+                transition={{ type: "spring", stiffness: 200, damping: 7 }}
+                whileInView={{backgroundColor:"#02479100"}}
+                whileFocus={{scale:1.04, backgroundColor: ("#02479100" )}}
+                whileTap={{scale:1.12, transition:{duration:0.001,  type: "spring", stiffness: 200, damping: 8 }}}
+                
+                onClick={ToggleIsLogin} 
+                
+                className='SubmitFormButtom'>
+                    <div id='TextBlockButton'>
+                        {IsLogin ? "REGISTER":"LOGIN" }
+                    </div>
+
+                </motion.button>
               
 
             </div>

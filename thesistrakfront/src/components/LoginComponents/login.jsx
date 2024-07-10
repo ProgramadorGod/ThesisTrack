@@ -11,6 +11,7 @@ import Bird2 from "../../media/Pigeon3.json";
 import Swal from 'sweetalert2';
 import GoogleIcon from "../../media/google.png"
 import Blocker from './Blocker';
+import Register from './Register';
 
 axios.defaults.withCredentials = true;
 
@@ -100,7 +101,7 @@ const Login = () => {
 
   const handleLogin = () => {
 
-    const googleLoginUrl = 'http://127.0.0.1:8000/accounts/google/login/?next=/';
+    const googleLoginUrl =  PortToUse + 'accounts/google/login/?next=/';
     window.location.href = googleLoginUrl
 
     
@@ -112,25 +113,18 @@ const Login = () => {
 
   const [WidthPixels, setWidthPixels] = useState(0);
   const [LimitPixels, setLimitPixels] = useState(0);
-  const [TransitionBlock, setTransitionBlock] = useState(0);
-  const [LeftPosition , setLeftPosition] = useState(0);
-
+  
 
 
   const calculateWidth = () => {
     const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+
     setWidthPixels(vw * 0.14); // 20vw
     setLimitPixels(vw * 0.24)
     // setTransitionBlock(vw*0.225)
-    setTransitionBlock(vw*0.276)
 
 
-    if (IsLogin){
-      setLeftPosition(vw*0.5)
-    }
-    else{
-      setLeftPosition(vw*0.775)
-    }
     
   };
 
@@ -193,15 +187,27 @@ const Login = () => {
         
           <motion.div id='LoginSquare' 
           initial = {{opacity:0}}
-          animate={{opacity: IsLogin ? 1 : 0 }}
+          animate={{opacity: IsLogin ? 1 : 0, x:IsLogin ? 0:100, userSelect:IsLogin? "all":"none" }}
           transition={{duration:0.3}}
           className={`${IsLogin ? "InLogin":""}`}
+          
           >
           
           
             <div className='ComboTextGoogle'>
+
               <h1 id='LoginText'>Sign In</h1>
-              <button className='GoogleButton' onClick={handleLogin} aria-label='Aria Google'><img src={GoogleIcon} id='FaGoogle'/></button>
+
+              <button className='GoogleButton'  
+              onClick={handleLogin} 
+              aria-label='Aria Google' 
+              tabIndex={IsLogin ? 1:-1}
+              disabled={!IsLogin}
+              >
+                
+                <img src={GoogleIcon} id='FaGoogle'/>
+              </button>
+
             </div>
             
             <form onSubmit={handleLoginForm} id='FormularyContainer'>
@@ -209,6 +215,7 @@ const Login = () => {
               <div id='UserLab-Cont'>
                   
                   <input
+                      disabled={!IsLogin}
                       id='Username-Input'
                       placeholder={`Username`}    
                       type='text'
@@ -235,7 +242,7 @@ const Login = () => {
                     <input
                         id='Password-Input'
                         placeholder={`Password`}    
-
+                        disabled={!IsLogin}
                         type='password'
                         value={password}
                         onChange={(e)=>setPassword(e.target.value)}
@@ -253,9 +260,10 @@ const Login = () => {
                 </div>
               </div>
               <motion.button 
+              disabled={!IsLogin}
               whileHover={{ scale: 1.05 , backgroundColor: (LoadingFetch ? "#cccccc":"#024791" )}}
               transition={{ type: "spring", stiffness: 200, damping: 10 }}
-              whileInView={{backgroundColor:"#0056b3"}}
+              whileInView={{backgroundColor:(LoadingFetch ? "#cccccc":"#0056b3")}}
               whileFocus={{scale:1.04, backgroundColor: (LoadingFetch ? "#cccccc":"#024791" )}}
               whileTap={{scale:1.12, transition:{duration:0.001,  type: "spring", stiffness: 200, damping: 8 }}}
               
@@ -265,8 +273,10 @@ const Login = () => {
               title='LOGIN'
               
               >
-    
-                {LoadingFetch ? "LOGIN" : "LOGIN"}
+                <div id='ButtonText'>
+                  {LoadingFetch ? "LOGIN" : "LOGIN"}
+
+                </div>
                           
               </motion.button>
               
@@ -276,22 +286,8 @@ const Login = () => {
           </motion.div>
       
 
+          <Register IsLogin={IsLogin} handleLogin={handleLogin} GoogleIcon={GoogleIcon}></Register>
 
-          <motion.div id='RegisterContainer'
-          className={`${IsLogin ? "": "InRegister"}`}
-          initial = {{opacity:0}}
-          animate={{opacity: IsLogin ? 0 : 1 }}
-          transition={{duration:0.3}}
-          style={{userSelect:IsLogin ? "none":"auto"}} 
-        >
-          <div className='ComboTextGoogle'>
-            <h1 id="RegisterText">Register</h1>
-            <button className='GoogleButton' onClick={handleLogin} aria-label='Aria Google'><img src={GoogleIcon} id='FaGoogle'/></button>
-          </div>
-
-          
-
-          </motion.div>
 
           
           

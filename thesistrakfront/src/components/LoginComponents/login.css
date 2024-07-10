@@ -5,9 +5,20 @@
     font-style: normal;
 }
 
-@media (min-width: 700px) {
+@keyframes rotate-gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
+  }
+
+@media (min-width: 300px) {
+
+
+
     #LoginSquare {
-        font-size: 1rem;
         width: 27.5vw;
         display: flex;
         align-content: center;
@@ -77,6 +88,7 @@
 
     #LoginText, #RegisterText{
         font-size: 6vh;
+        user-select: none;
         
         transform: translateY(-6vh);
         color: rgb(16, 2, 70);
@@ -123,6 +135,9 @@
 
         padding-left: 1vw;
     }
+    #Password-Input::placeholder{
+        user-select: none;
+    }
     #Password-Input:focus{
         outline: none;
         
@@ -158,45 +173,63 @@
         padding-left: 1vw;
         padding-right: 1vw;
     }
+    #Username-Input::placeholder{
+        user-select: none;
+    }
 
     #Username-Input:focus {
         outline: none;
         outline-style: hidden;
 
     }
+
+    #ButtonText{
+        user-select: none;
+    }
     .SubmitFormButtom {
-        border: 0px;
+        border: 0px solid rgb(16, 1, 84);
+        box-shadow: 0px 0px 10px 1px black;
         background-color: rgb(1, 0, 32);
-        color: white;
+        color: rgb(255, 255, 255);
         font-weight: bold;
         height: 5vh;
-        border-radius: 50px;
-        font-size: 2vh;
+        border-radius: 0px;
         cursor: pointer;
         margin-top: 5vh;
+        
+        font-size: 1.8vh;
         width: 12vw;
         font-family: "Apple";
+
     }
 
 
     .Disabled{
         /* background-color: gray; */
         cursor: not-allowed;
-        color: #002d5d;
+        
         
     }
 
     .SubmitFormButtom:focus {
+        transition: font-size 0.3s ease, background-color 0.3s ease;
+
         outline: none;
     }
 
 
     #ContainerInactive{
-        width: 100%;
+        width: 100%;    
         overflow: hidden;
         background-color: rgba(255, 0, 0, 0);
+        color: wheat;
         height: 100%;
         z-index: 1;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+
     
     }
 
@@ -205,19 +238,44 @@
         height: 55vh;
         width: 27.5vw;
         z-index: 0;
-        background-color: #010832;
+        /* background-color: rgb(1, 8, 50); */
         left: 50vw;        
+        animation: rotate-gradient 5s infinite linear;
+    }
+
+    #BlockButton{
+        border: 1px solid rgb(255, 255, 255);
+        border-radius: 0px;
+        box-shadow: 0px 0px 5px 4px rgba(255, 255, 255, 0.129);
         
     }
 
+    /* BLOCK  */
 
-    #tsparticles{
-        width: 30vh;
-        position: absolute;
-        z-index: 0;
-        overflow: hidden;
-        height: 55vh;
+    #BlockAllText{
+        user-select: none;
     }
+
+    #TextBlockButton{
+        user-select: none;
+    }
+    
+    .MainBlockText{
+        font-size: 5vh;
+        display: flex;
+        width: 27.5vw;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+
+    .NormalBlockText{
+        font-size: 2.5vh;
+        color: rgb(219, 198, 160);
+        text-wrap: nowrap;
+    }
+    /*  */
+
 }
 
 
@@ -225,4 +283,5 @@
     font-size: 0.1vh;
     width: 2vh;
     height: 2vh;
+    user-select: none;
 }
