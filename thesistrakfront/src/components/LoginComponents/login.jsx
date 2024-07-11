@@ -286,7 +286,14 @@ const Login = () => {
           </motion.div>
       
 
-          <Register IsLogin={IsLogin} handleLogin={handleLogin} GoogleIcon={GoogleIcon}></Register>
+          <Register IsLogin={IsLogin} 
+          handleLogin={handleLogin} 
+          GoogleIcon={GoogleIcon} 
+          getCsrfToken={getCsrfToken}
+          fetchProfile={fetchProfile}
+
+          >
+          </Register>
 
 
           

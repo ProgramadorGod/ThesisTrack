@@ -26,11 +26,15 @@
         align-items: center;
         flex-direction: column;
     }
- 
+    
 
     .ComboTextGoogle{
         /* padding-bottom: 30px; */
         transform: translateY(-4px);
+    }
+
+    #ComboRegister.ComboTextGoogle{
+        height: 12vh;
     }
 
     .Motiondiv:focus {
@@ -117,6 +121,7 @@
         width: 27.5vw;
         align-content: center;
         align-items: center;
+        flex-direction: column;
     }
 
 
@@ -259,7 +264,11 @@
     #TextBlockButton{
         user-select: none;
     }
-    
+
+    .Email-input{
+        margin-top: 1vh;
+    }
+
     .MainBlockText{
         font-size: 5vh;
         display: flex;
