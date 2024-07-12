@@ -99,7 +99,7 @@ html {
 #navbar {
   width: 100%;
   background-color: var(--color4);
-  height: 64px;
+  height: 10.4vh;
   position: absolute;
   display: flex;
   align-items: center;
@@ -166,7 +166,6 @@ button.NavbarButton{
   /* text-shadow: #000 1px 1px 1px ; */
   margin: 0px;  
   color: rgba(244, 250, 252, 0.986);
-  
 }
 
 #navtext2{
@@ -179,7 +178,7 @@ button.NavbarButton{
 }
 #logott{
   /* padding-top: 7px; */
-  width: 100px;
+  height: 10.4vh;
   user-select: none;
   
 }
@@ -203,7 +202,7 @@ button.NavbarButton{
 
 #logounipaz{
   object-fit: cover;
-  height: 64px;
+  height: 10.4vh;
   color: white;
   padding-left:20px ;
   user-select: none;

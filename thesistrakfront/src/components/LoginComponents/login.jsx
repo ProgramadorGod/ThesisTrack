@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAppContext } from '../../AppContext';
 import "./login.css"
+import "./loginMov.css"
 
 import {color, motion} from "framer-motion";
 import Lottie from "lottie-react";
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 import GoogleIcon from "../../media/google.png"
 import Blocker from './Blocker';
 import Register from './Register';
+import Button from './Button';
 
 axios.defaults.withCredentials = true;
 
@@ -187,7 +189,11 @@ const Login = () => {
         
           <motion.div id='LoginSquare' 
           initial = {{opacity:0}}
-          animate={{opacity: IsLogin ? 1 : 0, x:IsLogin ? 0:100, userSelect:IsLogin? "all":"none" }}
+          animate={{opacity: IsLogin ? 1 : 0, 
+            x:IsLogin ? 0:100, 
+            userSelect:IsLogin? "all":"none", 
+          
+          }}
           transition={{duration:0.3}}
           className={`${IsLogin ? "InLogin":""}`}
           
@@ -211,7 +217,7 @@ const Login = () => {
             </div>
             
             <form onSubmit={handleLoginForm} id='FormularyContainer'>
-
+              <div id='Inputs' className='InputsLogin'>
               <div id='UserLab-Cont'>
                   
                   <input
@@ -234,7 +240,6 @@ const Login = () => {
                   />
               </div>
               
-              <div>
 
               
                 <div id='PassLab-Cont' >
@@ -257,28 +262,14 @@ const Login = () => {
                       transition={{ duration: 0.2 }}
                     />
 
-                </div>
               </div>
-              <motion.button 
-              disabled={!IsLogin}
-              whileHover={{ scale: 1.05 , backgroundColor: (LoadingFetch ? "#cccccc":"#024791" )}}
-              transition={{ type: "spring", stiffness: 200, damping: 10 }}
-              whileInView={{backgroundColor:(LoadingFetch ? "#cccccc":"#0056b3")}}
-              whileFocus={{scale:1.04, backgroundColor: (LoadingFetch ? "#cccccc":"#024791" )}}
-              whileTap={{scale:1.12, transition:{duration:0.001,  type: "spring", stiffness: 200, damping: 8 }}}
-              
-              className={`SubmitFormButtom  ${LoadingFetch ? "Disabled": ""}`}  
-              type='submit' 
-              aria-label='Aria Login' 
-              title='LOGIN'
-              
-              >
-                <div id='ButtonText'>
-                  {LoadingFetch ? "LOGIN" : "LOGIN"}
-
-                </div>
-                          
-              </motion.button>
+              </div>
+              <Button
+              IsLogin={IsLogin}
+              Loading={LoadingFetch}
+              text1={"LOGIN"}
+              text2={"LOGIN"}
+              ></Button>
               
 
 
@@ -291,9 +282,8 @@ const Login = () => {
           GoogleIcon={GoogleIcon} 
           getCsrfToken={getCsrfToken}
           fetchProfile={fetchProfile}
-
-          >
-          </Register>
+          />
+          
 
 
           

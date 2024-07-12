@@ -1,28 +1,11 @@
-@font-face {
-    font-family: 'Apple';
-    src: url('../../fonts/AppleGaramond.ttf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@keyframes rotate-gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    100% {
-      background-position: 100% 50%;
-    }
-  }
-
-@media (min-width: 700px) {
-
-
+@media (max-width: 700px) {
 
     #LoginSquare {
-        width: 27.5vw;
+        width: 42.5vw;
+        height: 55vh;
         display: flex;
         align-content: center;
-        justify-content: center;
+        justify-content: flex-end;
         align-items: center;
         flex-direction: column;
     }
@@ -30,16 +13,17 @@
 
     .ComboTextGoogle{
         /* padding-bottom: 30px; */
+        height: 2vh;
         transform: translateY(-4px);
     }
 
     #ComboRegister.ComboTextGoogle{
-        height: 8vh;
+        height: 2vh;
         z-index: 0;
         
     }
     #RegisterFormContainer{
-        margin-top: 7vh;
+        margin-top: 10vh;
         z-index: 1;
     }
 
@@ -73,23 +57,34 @@
     }
 
     #FormularyContainer{
-        transform: translateY(-5vh);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
     }
 
     .GoogleButton {
+        all: unset;
+
         border: 0px;
         cursor: pointer;
-
+        margin-top: 2vh;
         background-color: rgba(207, 206, 205, 0.884);
         border-radius: 50%;
         height: 5vh;
         width: 5vh;
         transform: translateY(-8vh);
     }
+    .GoogleButton:focus{
+        border: 0.4px solid black;
+    }
     #FaGoogle{
-        font-size: 0.1vh;
-        width: 10px;
-        height: 10px;
+        
+        width: 2vh;
+        height: 2vh;
+        position: absolute;
+        left: 1.5vh;
+        top: 1.5vh;
     }
 
     #UserLab-Cont {
@@ -102,8 +97,9 @@
         flex-direction: column;
     }
 
+
     #LoginText, #RegisterText{
-        font-size: 6vh;
+        font-size: 4vh;
         user-select: none;
         
         transform: translateY(-6vh);
@@ -113,7 +109,7 @@
     #LogRegBox {
         display: grid;
         height: 55vh;
-        width: 55vw;
+        width: 85vw;
         grid-template-columns: 1fr 1fr;
         box-shadow: 0.2vw 0.2vw 2vw 0.2vw rgba(0, 0, 0, 0.527);
         border-radius: 0.9vw;
@@ -129,8 +125,8 @@
 
     #RegisterContainer {
         display: flex;
-        justify-content: center;
-        width: 27.5vw;
+        justify-content: flex-end;
+        width: 42.5vw;
         align-content: center;
         align-items: center;
         flex-direction: column;
@@ -139,7 +135,7 @@
 
 
     #Password-Input {
-        width: 18vw;
+        width: 30vw;
         font-size: 3vh;
         font-family: "Apple";
         border: 0px;
@@ -154,6 +150,8 @@
     }
     #Password-Input::placeholder{
         user-select: none;
+        font-size: 2.4vh;
+        
     }
     #Password-Input:focus{
         outline: none;
@@ -180,7 +178,7 @@
     }
 
     #Username-Input {
-        width: 18vw;
+        width: 30vw;
         font-size: 3vh;
         font-family: "Apple";
         border: 0px;
@@ -194,6 +192,7 @@
     }
     #Username-Input::placeholder{
         user-select: none;
+        font-size: 2.4vh;
     }
 
     #Username-Input:focus {
@@ -203,7 +202,7 @@
 
 
     #Email-Input {
-        width: 18vw;
+        width: 30vw;
         font-size: 3vh;
         font-family: "Apple";
         border: 0px;
@@ -216,6 +215,7 @@
     }
     #Email-Input::placeholder{
         user-select: none;
+        font-size: 2.4vh;
     }
 
     #Email-Input:focus {
@@ -237,9 +237,9 @@
         border-radius: 0px;
         cursor: pointer;
         margin-top: 5vh;
-        
+        margin-bottom: 6vh;
         font-size: 1.8vh;
-        width: 12vw;
+        width: 24vw;
         font-family: "Apple";
 
     }
@@ -258,6 +258,14 @@
         outline: none;
     }
 
+    #Inputs{
+        display: flex;
+        flex-direction: column ;
+    }
+    .InputsLogin{
+        margin-bottom: 5vh;
+        margin-top: 11vh;
+    }
 
     #ContainerInactive{
         width: 100%;    
@@ -269,7 +277,8 @@
         display: flex;
         align-items: center;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-end;
+        
 
     
     }
@@ -277,7 +286,7 @@
     #Blocker{
         position: absolute;
         height: 55vh;
-        width: 27.5vw;
+        width: 42.5vw;
         z-index: 0;
         /* background-color: rgb(1, 8, 50); */
         left: 50vw;        
@@ -287,17 +296,26 @@
     #BlockButton{
         border: 1px solid rgb(255, 255, 255);
         border-radius: 0px;
+        margin-bottom: 6vh;
         box-shadow: 0px 0px 5px 4px rgba(255, 255, 255, 0.129);
         
     }
 
     /* BLOCK  */
+    #BlockTexts{
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        width: 42.5vw;
+        display: flex;
+        align-items: center;
+    }
 
     #BlockAllText{
         user-select: none;
-    }
-    #BlockTexts{
-        width: 27.5vw;
+        width: 42.5vw;
+        display: flex;
+        margin-bottom: 6vh;
     }
 
     #TextBlockButton{
@@ -309,7 +327,7 @@
     }
 
     .MainBlockText{
-        font-size: 5vh;
+        font-size: 4vh;
         display: flex;
         width: 27.5vw;
         flex-wrap: wrap;
@@ -318,18 +336,10 @@
     
 
     .NormalBlockText{
-        font-size: 2.5vh;
+        font-size: 1.4vh;
         color: rgb(219, 198, 160);
         text-wrap: nowrap;
     }
     /*  */
 
-}
-
-
-#FaGoogle{
-    font-size: 0.1vh;
-    width: 2vh;
-    height: 2vh;
-    user-select: none;
 }

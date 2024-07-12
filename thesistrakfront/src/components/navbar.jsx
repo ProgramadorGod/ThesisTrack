@@ -34,7 +34,7 @@ const Navbar= ({ChangeActive, isActive}) => {
             ):(
 
               <button onClick={ChangeActive} tabIndex={1} className="NavbarButton"  >
-                <RxTextAlignLeft id="icon" tabindex="0" aria-label="TextAlignedLeft"/>
+                <RxTextAlignLeft id="icon" aria-label="TextAlignedLeft"/>
               </button>
             )}
             </div>
