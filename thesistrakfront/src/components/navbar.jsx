@@ -16,17 +16,19 @@ const Navbar= ({ChangeActive, isActive}) => {
 
 
         <div id="navbar">
-            {/* <button id="navbariconbutton"> */}
+            
             <div id="menubutton" >
+
             {isActive ? (
-              <button onClick={ChangeActive} tabIndex={1} className="NavbarButton">
-              <Close id="icon" 
-              
-              
-              
-              className={`close ${isActive ?"CloseiconActive":""}`}
-              
-              />
+              <button 
+              onClick={ChangeActive} 
+              tabIndex={1} 
+              className="NavbarButton">
+
+                <Close id="icon"            
+                className={`close ${isActive ?"CloseiconActive":""}`} 
+                />
+
               </button>
 
 

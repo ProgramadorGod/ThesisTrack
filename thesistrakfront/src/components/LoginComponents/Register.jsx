@@ -90,7 +90,14 @@ const Register = ({IsLogin, handleLogin, GoogleIcon, getCsrfToken, fetchProfile}
     }
 
     
-  
+    const {WindowWidth} = useAppContext()
+    const handleRegisterAppear = () =>{
+      if (WindowWidth>700){
+        return IsLogin ? -100:0
+      }else{
+        return IsLogin ? -500:0
+      }
+    }
 
 
 
@@ -101,9 +108,12 @@ const Register = ({IsLogin, handleLogin, GoogleIcon, getCsrfToken, fetchProfile}
         initial = {{opacity:0}}
         animate={{
             opacity: IsLogin ? 0 : 1 , 
-            x:IsLogin ? -100:0, 
+            x:handleRegisterAppear(), 
             zIndex:IsLogin? -1:0}}
-        transition={{duration:0.3}}
+        transition={{
+            type:"spring",
+            duration:0.3}}
+        
         disabled={IsLogin}
         >
 

@@ -5,7 +5,7 @@ import { useAppContext } from '../../AppContext';
 import "./login.css"
 import "./loginMov.css"
 
-import {color, motion} from "framer-motion";
+import {motion} from "framer-motion";
 import Lottie from "lottie-react";
 import Bird from "../../media/Pigeon4.json";
 import Bird2 from "../../media/Pigeon3.json";
@@ -116,14 +116,15 @@ const Login = () => {
   const [WidthPixels, setWidthPixels] = useState(0);
   const [LimitPixels, setLimitPixels] = useState(0);
   
-
+  const [LoginShown, setLoginShown]  = useState(0)
 
   const calculateWidth = () => {
     const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-    const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
 
     setWidthPixels(vw * 0.14); // 20vw
     setLimitPixels(vw * 0.24)
+    setLoginShown(vw * 0.555)
+
     // setTransitionBlock(vw*0.225)
 
 
@@ -144,6 +145,8 @@ const Login = () => {
       observer.disconnect();
     };
   }, []);
+
+
 
 
 
@@ -191,6 +194,7 @@ const Login = () => {
           initial = {{opacity:0}}
           animate={{opacity: IsLogin ? 1 : 0, 
             x:IsLogin ? 0:100, 
+            width: IsLogin ? "":0,
             userSelect:IsLogin? "all":"none", 
           
           }}
@@ -211,7 +215,7 @@ const Login = () => {
               disabled={!IsLogin}
               >
                 
-                <img src={GoogleIcon} id='FaGoogle'/>
+                <img src={GoogleIcon} alt='GoogleIcon' id='FaGoogle'/>
               </button>
 
             </div>
@@ -219,7 +223,6 @@ const Login = () => {
             <form onSubmit={handleLoginForm} id='FormularyContainer'>
               <div id='Inputs' className='InputsLogin'>
               <div id='UserLab-Cont'>
-                  
                   <input
                       disabled={!IsLogin}
                       id='Username-Input'

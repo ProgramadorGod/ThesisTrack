@@ -1,0 +1,9 @@
+@media (min-width:0px) {
+    #SideMenu2-Container{
+        width: 10vh;
+        height: 100vh;
+        background-color: red;
+        position: absolute;
+    }
+    
+}

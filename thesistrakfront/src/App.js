@@ -18,6 +18,7 @@ import Cookies from 'js-cookie';
 
 
 import { AppProvider, useAppContext } from './AppContext';
+import Sidemenu2 from './components/Sidemenu2/Sidemenu2';
 
 const App = () => {
   return (
@@ -74,7 +75,7 @@ function AppContent() {
 
         <div id="body">
 
-        {isloading ? (<Loadingrectangle/> ): (isLogged ? <Sidemenu isActive={isActive} /> : "")}
+        {isloading ? (<Loadingrectangle/> ): (isLogged ? <Sidemenu2 isActive={isActive} /> : "")}
 
 
         <header>

@@ -17,7 +17,7 @@ const Blocker = ({IsLogin, LoadingFetch,ToggleIsLogin}) => {
   
     const getLeftPosition = () => {
       if (windowWidth < 700) {
-        return IsLogin ? '50vw' : '7.3vw';
+        return IsLogin ? '63vw' : '7.3vw';
       } else {
         return IsLogin ? '50vw' : '22.3vw';
       }

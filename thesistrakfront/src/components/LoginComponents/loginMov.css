@@ -1,7 +1,7 @@
 @media (max-width: 700px) {
 
     #LoginSquare {
-        width: 42.5vw;
+        width: 55.5vw;
         height: 55vh;
         display: flex;
         align-content: center;
@@ -119,6 +119,7 @@
 
     #MotionContainer {
         height: 40px;
+        z-index: 3;
         padding-left: 20vw;
         padding-right: 20vw;
     }
@@ -126,7 +127,7 @@
     #RegisterContainer {
         display: flex;
         justify-content: flex-end;
-        width: 42.5vw;
+        width: 55.5vw;
         align-content: center;
         align-items: center;
         flex-direction: column;
@@ -135,7 +136,7 @@
 
 
     #Password-Input {
-        width: 30vw;
+        width: 43vw;
         font-size: 3vh;
         font-family: "Apple";
         border: 0px;
@@ -178,7 +179,7 @@
     }
 
     #Username-Input {
-        width: 30vw;
+        width: 43vw;
         font-size: 3vh;
         font-family: "Apple";
         border: 0px;
@@ -202,7 +203,7 @@
 
 
     #Email-Input {
-        width: 30vw;
+        width: 43vw;
         font-size: 3vh;
         font-family: "Apple";
         border: 0px;
@@ -286,7 +287,7 @@
     #Blocker{
         position: absolute;
         height: 55vh;
-        width: 42.5vw;
+        width: 30.5vw;
         z-index: 0;
         /* background-color: rgb(1, 8, 50); */
         left: 50vw;        
