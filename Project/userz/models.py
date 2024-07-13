@@ -11,7 +11,6 @@ class UserType(models.Model):
 
 class Account(AbstractUser):
     UserType  = models.ForeignKey(UserType, on_delete=models.SET_DEFAULT, default=1)
-    
     def __str__(self) -> str:
         return (self.username)
     

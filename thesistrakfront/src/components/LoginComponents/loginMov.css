@@ -32,28 +32,39 @@
     }
 
     .Motiondiv {
-        width: 40px;
+        width: 5vh;
         
-        height: 40px;
+        height: 5vh;
         display: absolute;
     }
 
     #LottieContainer1 {
-        transform: translateY(5px);
+        /* transform: translateY(100); */
         position: relative;
+        min-width: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
     }
 
     #LottieContainer2 {
         position: absolute;
-        transform: translateY(-30px);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        min-width: 20px;
+        /* transform: translateY(1.5vh); */
     }
 
+
     #SessionContainer {
-        height: 100vh;
-        align-items: center;
-        display: flex;
+        height: 80vh;
+        margin-top: 0vh;
+        align-items: end;
+        display: grid;
+        grid-template-rows: 1fr 1fr;
         justify-content: center;
-        flex-direction: column;
+        
     }
 
     #FormularyContainer{
@@ -98,6 +109,22 @@
     }
 
 
+    #RegisterUserLab{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    #RegisterEmailLab{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    #RegisterPass1Lab{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
     #LoginText, #RegisterText{
         font-size: 4vh;
         user-select: none;
@@ -118,7 +145,10 @@
     }
 
     #MotionContainer {
-        height: 40px;
+        /* height: 40px; */
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
         z-index: 3;
         padding-left: 20vw;
         padding-right: 20vw;
@@ -163,7 +193,7 @@
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 1px;
+        height: 0.1vh;
         background-color: rgb(6, 0, 34);
       }
 
@@ -173,7 +203,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 1px;
+    height: 0.1vh;
     background-color: rgb(6, 0, 34);
     
     }
@@ -321,6 +351,18 @@
 
     #TextBlockButton{
         user-select: none;
+
+    }
+    @media(max-width: 570px){
+        .MainBlockText{
+            
+            font-size: 5vw !important;
+
+            
+        }
+        .NormalBlockText{
+            font-size: 2vw !important;
+        }
     }
 
     .Email-input{
@@ -328,7 +370,7 @@
     }
 
     .MainBlockText{
-        font-size: 4vh;
+        font-size: 5vw !important;
         display: flex;
         width: 27.5vw;
         flex-wrap: wrap;
@@ -337,10 +379,13 @@
     
 
     .NormalBlockText{
-        font-size: 1.4vh;
+        font-size: 2vw !important;
         color: rgb(219, 198, 160);
         text-wrap: nowrap;
     }
     /*  */
 
 }
+
+
+

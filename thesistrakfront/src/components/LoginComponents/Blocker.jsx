@@ -22,6 +22,9 @@ const Blocker = ({IsLogin, LoadingFetch,ToggleIsLogin}) => {
         return IsLogin ? '50vw' : '22.3vw';
       }
     };
+
+    
+
   
     return (
             <motion.div id="Blocker"
@@ -29,10 +32,10 @@ const Blocker = ({IsLogin, LoadingFetch,ToggleIsLogin}) => {
                 initial={{opacity:0.4}}
                 animate={{opacity:1 , 
                 left: getLeftPosition(),
-                borderTopLeftRadius:IsLogin?0:10,
-                borderBottomLeftRadius:IsLogin?0:10,
-                borderTopRightRadius:IsLogin?10:0,
-                borderBottomRightRadius:IsLogin?10:0,
+                borderTopLeftRadius:IsLogin?0:windowWidth*0.009,
+                borderBottomLeftRadius:IsLogin?0:windowWidth*0.009,
+                borderTopRightRadius:IsLogin?windowWidth*0.009:0,
+                borderBottomRightRadius:IsLogin?windowWidth*0.009:0,
                 backgroundImage: IsLogin 
                 ? "linear-gradient(to right, #010832, #17257d)" 
                 : "linear-gradient(to left, #010832, #17257d)"

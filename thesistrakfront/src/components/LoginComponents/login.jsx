@@ -147,21 +147,23 @@ const Login = () => {
   }, []);
 
 
-
+  
 
 
   return (
     <div id='SessionContainer'  className={`${LoadingFetch ? "Disabled":""}`}>
-      <div id='MotionContainer' className={`${LoadingFetch ? "Disabled":""}`}>
+      <div id='MotionContainer' className={`${LoadingFetch ? "Disabled":""}`} style={{ width: '5vh', height: '5vh' }}>
         <motion.div 
         className='Motiondiv'
         animate={{scale:1.2, x:WidthPixels}} 
         whileDrag={{scale:1.5}}
         whileHover={{scale: 1.3, cursor:"pointer"}} 
         drag="x" 
-        dragConstraints={{left:-LimitPixels , right:LimitPixels}}>
+        dragConstraints={{left:-LimitPixels , right:LimitPixels}}
+        style={{ width: '5vh', height: '5vh' }}
+        >
           
-          <div id='LottieContainer1' style={{ width: '34px', height: '40px' }}>
+          <div id='LottieContainer1' style={{ width: '5vh', height: '5vh' }}>
             <Lottie animationData={Bird} loop autoplay />
 
           </div>      
@@ -176,7 +178,7 @@ const Login = () => {
         drag="x" 
         dragConstraints={{left:-LimitPixels , right:LimitPixels}}>
           
-          <div id='LottieContainer2' style={{ width: '40px', height: '40px' }}>
+          <div id='LottieContainer2' style={{ width: '5vh', height: '5vh' }}>
             <Lottie animationData={Bird2} loop autoplay />
 
           </div>      

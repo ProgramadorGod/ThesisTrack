@@ -75,7 +75,7 @@ function AppContent() {
 
         <div id="body">
 
-        {isloading ? (<Loadingrectangle/> ): (isLogged ? <Sidemenu2 isActive={isActive} /> : "")}
+        {isloading ? (<Loadingrectangle/> ): (isLogged ? <Sidemenu isActive={isActive} /> : "")}
 
 
         <header>

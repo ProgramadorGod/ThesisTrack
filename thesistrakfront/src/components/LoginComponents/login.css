@@ -55,17 +55,19 @@
     }
 
     #LottieContainer1 {
-        transform: translateY(5px);
+        transform: translateY(0.1vh);
         position: relative;
     }
 
     #LottieContainer2 {
         position: absolute;
-        transform: translateY(-30px);
+        transform: translateY(-3.7vh);
     }
+
 
     #SessionContainer {
         height: 100vh;
+        
         align-items: center;
         display: flex;
         justify-content: center;
@@ -94,6 +96,7 @@
 
     #UserLab-Cont {
         position: relative;
+        width: 20vw;
     }
     #PassLab-Cont{
         display: flex;
@@ -160,12 +163,31 @@
         outline: none;
         
     }
+    #Inputs{
+        display: flex;
+        flex-direction: column ;
+    }
+    #RegisterUserLab{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    #RegisterEmailLab{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    #RegisterPass1Lab{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
     .input-underline {
         position: absolute;
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 1px;
+        height: 0.1vh;
         background-color: rgb(6, 0, 34);
       }
 
@@ -334,3 +356,20 @@
     height: 2vh;
     user-select: none;
 }
+
+
+/* @media (max-height:300px) {
+    #MotionContainer{
+        visibility: hidden !important;
+        display: none !important;
+    }
+    #LottieContainer1 {
+        visibility: hidden !important;
+    }
+
+    #LottieContainer2 {
+        visibility: hidden !important;
+
+    }
+    
+} */
