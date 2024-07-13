@@ -14,7 +14,7 @@
   font-weight: normal;
   font-style: normal;
 }
-
+  
 @font-face {
   font-family: 'Runtoe';
   src: url('./fonts/Runtoe.ttf') format('opentype');
@@ -99,7 +99,7 @@ html {
 #navbar {
   width: 100%;
   background-color: var(--color4);
-  height: 64px;
+  height: 10.4vh;
   position: absolute;
   display: flex;
   align-items: center;
@@ -121,16 +121,47 @@ html {
 
 
 #icon {
-  margin-left: 20px;
-  height: 50px;
-  width: 30px;
-  min-width: 30px;
+  width: 5vh;
+  height: 10.4vh;
+  
+  
   color: rgb(184, 200, 255);
   fill: rgb(184, 200, 255);
   cursor: crosshair;
   animation: fadeInRotate 0.2s ease-in-out;
+  user-select: none;
+  
+  
 
 }
+#icon:focus{
+  outline: none;
+}
+
+button.NavbarButton{
+  padding: 0px;
+  padding-left: 2.5vh;
+  background-color: rgba(255, 0, 0, 0);
+  border: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 10.4vh;
+  width: 10.4vh;
+  align-items: center;
+  
+}
+
+
+#menubutton{
+  user-select: none;
+  display: flex;
+  width: 10.4vh;
+  height: 10.4vh;
+
+}
+
+
 
 
 #navtext{
@@ -139,7 +170,6 @@ html {
   /* text-shadow: #000 1px 1px 1px ; */
   margin: 0px;  
   color: rgba(244, 250, 252, 0.986);
-  
 }
 
 #navtext2{
@@ -152,9 +182,9 @@ html {
 }
 #logott{
   /* padding-top: 7px; */
-  width: 100px;
+  height: 10.4vh;
   user-select: none;
-  padding-left: 2vw;
+  
 }
 
 #logout{
@@ -176,7 +206,7 @@ html {
 
 #logounipaz{
   object-fit: cover;
-  height: 64px;
+  height: 10.4vh;
   color: white;
   padding-left:20px ;
   user-select: none;
@@ -190,10 +220,7 @@ html {
 
 
 
-#navbariconbutton{
-  background-color: #00000000;
-  border: 0px;
-}
+
 
 #profilepic{
   margin-left: auto;
@@ -205,21 +232,19 @@ html {
 
 
 .close{
-  width: 35px !important;
-  margin-left: 16px !important;
+  width: 6vh;
   color: rgb(194, 208, 253);
   fill: rgb(192, 204, 255);
   opacity: 0;
-  transform: rotate(-180deg);
+  /* transform: rotate(-180deg); */
 }
 
 .CloseiconActive{
   opacity: 1 ;
-  transform: rotate(0deg) ;
-  transition: 1s ease;
-
-
+  /* transform: rotate(0deg) ; */
+  /* transition: 1s ease; */
 }
+
 
 #footer{
   background-color: #031038;

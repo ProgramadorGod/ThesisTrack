@@ -25,7 +25,7 @@ const Profile = () => {
     
     setisLogged(false)
     try{
-      await axios.get("http://127.0.0.1:8000/api/logout/")  
+      await axios.get( PortToUse + "api/logout/")  
     }catch{
       console.log("Meh")
     }

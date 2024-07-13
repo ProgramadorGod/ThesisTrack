@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 
 const AppContext =  createContext();
 
@@ -18,7 +18,7 @@ export const AppProvider = ({children}) => {
     const [profile, setProfile] = useState(null);
     const [name, setname] = useState("");
     const [userid, setUserid] = useState([]);
-    const PortToUse = "http://127.0.0.1:8000/";
+    const PortToUse = "http://192.168.0.17:8000/";
 
 
 
@@ -75,7 +75,16 @@ export const AppProvider = ({children}) => {
         };
     
 
+        const [WindowWidth, setWindowWidth] = useState(window.innerWidth)
 
+        const handleResize = () =>{
+            setWindowWidth(window.innerWidth)
+        }
+    
+        useEffect(()=>{
+            window.addEventListener("resize", handleResize);
+            return ()=>window.removeEventListener("resize", handleResize)
+        }, []);
 
 
     return (
@@ -83,7 +92,7 @@ export const AppProvider = ({children}) => {
             isloading, setisloading, isLogged, setisLogged, profile, setProfile, name, setname, userid, setUserid,
             isActive,setisActive,
             PortToUse,
-            fetchProfile,
+            fetchProfile, WindowWidth
             
 
 

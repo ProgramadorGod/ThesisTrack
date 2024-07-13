@@ -1,5 +1,5 @@
 import './App.css';
-import Login from './components/login';
+import Login from './components/LoginComponents/login';
 import Profile from './components/profile/profile';
 import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from 'react';
@@ -18,6 +18,7 @@ import Cookies from 'js-cookie';
 
 
 import { AppProvider, useAppContext } from './AppContext';
+import Sidemenu2 from './components/Sidemenu2/Sidemenu2';
 
 const App = () => {
   return (
@@ -105,6 +106,8 @@ function AppContent() {
       </Router>
 
       {/* <footer id='footer'>lol</footer> */}
+
+      
     </div>
   );
 }
