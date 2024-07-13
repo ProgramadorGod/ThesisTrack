@@ -16,14 +16,28 @@ const Navbar= ({ChangeActive, isActive}) => {
 
 
         <div id="navbar">
-            {/* <button id="navbariconbutton"> */}
-            <div>
+            
+            <div id="menubutton" >
+
             {isActive ? (
-              <Close id="icon" onClick={ChangeActive} className={`close ${isActive ?"CloseiconActive":""}`}/>
+              <button 
+              onClick={ChangeActive} 
+              tabIndex={1} 
+              className="NavbarButton">
+
+                <Close id="icon"            
+                className={`close ${isActive ?"CloseiconActive":""}`} 
+                />
+
+              </button>
+
+
 
             ):(
-              <RxTextAlignLeft id="icon" onClick={ChangeActive}/>
 
+              <button onClick={ChangeActive} tabIndex={1} className="NavbarButton"  >
+                <RxTextAlignLeft id="icon" aria-label="TextAlignedLeft"/>
+              </button>
             )}
             </div>
             {/* </button>     */}

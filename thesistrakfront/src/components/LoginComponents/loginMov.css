@@ -1,0 +1,391 @@
+@media (max-width: 700px) {
+
+    #LoginSquare {
+        width: 55.5vw;
+        height: 55vh;
+        display: flex;
+        align-content: center;
+        justify-content: flex-end;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+
+    .ComboTextGoogle{
+        /* padding-bottom: 30px; */
+        height: 2vh;
+        transform: translateY(-4px);
+    }
+
+    #ComboRegister.ComboTextGoogle{
+        height: 2vh;
+        z-index: 0;
+        
+    }
+    #RegisterFormContainer{
+        margin-top: 10vh;
+        z-index: 1;
+    }
+
+    .Motiondiv:focus {
+        outline: none;
+    }
+
+    .Motiondiv {
+        width: 5vh;
+        
+        height: 5vh;
+        display: absolute;
+    }
+
+    #LottieContainer1 {
+        /* transform: translateY(100); */
+        position: relative;
+        min-width: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    #LottieContainer2 {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        min-width: 20px;
+        /* transform: translateY(1.5vh); */
+    }
+
+
+    #SessionContainer {
+        height: 80vh;
+        margin-top: 0vh;
+        align-items: end;
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        justify-content: center;
+        
+    }
+
+    #FormularyContainer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .GoogleButton {
+        all: unset;
+
+        border: 0px;
+        cursor: pointer;
+        margin-top: 2vh;
+        background-color: rgba(207, 206, 205, 0.884);
+        border-radius: 50%;
+        height: 5vh;
+        width: 5vh;
+        transform: translateY(-8vh);
+    }
+    .GoogleButton:focus{
+        border: 0.4px solid black;
+    }
+    #FaGoogle{
+        
+        width: 2vh;
+        height: 2vh;
+        position: absolute;
+        left: 1.5vh;
+        top: 1.5vh;
+    }
+
+    #UserLab-Cont {
+        position: relative;
+    }
+    #PassLab-Cont{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+
+    #RegisterUserLab{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    #RegisterEmailLab{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    #RegisterPass1Lab{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #LoginText, #RegisterText{
+        font-size: 4vh;
+        user-select: none;
+        
+        transform: translateY(-6vh);
+        color: rgb(16, 2, 70);
+    }
+    
+    #LogRegBox {
+        display: grid;
+        height: 55vh;
+        width: 85vw;
+        grid-template-columns: 1fr 1fr;
+        box-shadow: 0.2vw 0.2vw 2vw 0.2vw rgba(0, 0, 0, 0.527);
+        border-radius: 0.9vw;
+        overflow: hidden;
+        background-color: rgb(255, 255, 255);
+    }
+
+    #MotionContainer {
+        /* height: 40px; */
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        z-index: 3;
+        padding-left: 20vw;
+        padding-right: 20vw;
+    }
+
+    #RegisterContainer {
+        display: flex;
+        justify-content: flex-end;
+        width: 55.5vw;
+        align-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+
+
+    #Password-Input {
+        width: 43vw;
+        font-size: 3vh;
+        font-family: "Apple";
+        border: 0px;
+        border-top-left-radius: 0.2vw;
+        height: 4.8vh;
+        background-color: rgba(0, 0, 0, 0.116);
+        padding-right: 1vw;
+        
+        margin-top: 1vh;
+
+        padding-left: 1vw;
+    }
+    #Password-Input::placeholder{
+        user-select: none;
+        font-size: 2.4vh;
+        
+    }
+    #Password-Input:focus{
+        outline: none;
+        
+    }
+    .input-underline {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 0.1vh;
+        background-color: rgb(6, 0, 34);
+      }
+
+    .input-underline2 {
+    position: relative;
+    z-index: 2;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.1vh;
+    background-color: rgb(6, 0, 34);
+    
+    }
+
+    #Username-Input {
+        width: 43vw;
+        font-size: 3vh;
+        font-family: "Apple";
+        border: 0px;
+        border-top-right-radius: 0.2vw;
+        height: 4.8vh;
+        background-color: rgba(0, 0, 0, 0.116);
+        padding-left: 1vw;
+        padding-right: 1vw;
+        cursor: text;
+        
+    }
+    #Username-Input::placeholder{
+        user-select: none;
+        font-size: 2.4vh;
+    }
+
+    #Username-Input:focus {
+        outline: none;
+        outline-style: hidden;
+    }
+
+
+    #Email-Input {
+        width: 43vw;
+        font-size: 3vh;
+        font-family: "Apple";
+        border: 0px;
+        border-top-right-radius: 0.2vw;
+        height: 4.8vh;
+        background-color: rgba(0, 0, 0, 0.116);
+        padding-left: 1vw;
+        padding-right: 1vw;
+        cursor: text;
+    }
+    #Email-Input::placeholder{
+        user-select: none;
+        font-size: 2.4vh;
+    }
+
+    #Email-Input:focus {
+        outline: none;
+        outline-style: hidden;
+    }
+
+
+    #ButtonText{
+        user-select: none;
+    }
+    .SubmitFormButtom {
+        border: 0px solid rgb(16, 1, 84);
+        box-shadow: 0px 0px 10px 1px black;
+        background-color: rgb(1, 0, 32);
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+        height: 5vh;
+        border-radius: 0px;
+        cursor: pointer;
+        margin-top: 5vh;
+        margin-bottom: 6vh;
+        font-size: 1.8vh;
+        width: 24vw;
+        font-family: "Apple";
+
+    }
+
+
+    .Disabled{
+        /* background-color: gray; */
+        cursor: not-allowed;
+        
+        
+    }
+
+    .SubmitFormButtom:focus {
+        transition: font-size 0.3s ease, background-color 0.3s ease;
+
+        outline: none;
+    }
+
+    #Inputs{
+        display: flex;
+        flex-direction: column ;
+    }
+    .InputsLogin{
+        margin-bottom: 5vh;
+        margin-top: 11vh;
+    }
+
+    #ContainerInactive{
+        width: 100%;    
+        overflow: hidden;
+        background-color: rgba(255, 0, 0, 0);
+        color: wheat;
+        height: 100%;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: flex-end;
+        
+
+    
+    }
+
+    #Blocker{
+        position: absolute;
+        height: 55vh;
+        width: 30.5vw;
+        z-index: 0;
+        /* background-color: rgb(1, 8, 50); */
+        left: 50vw;        
+        animation: rotate-gradient 5s infinite linear;
+    }
+
+    #BlockButton{
+        border: 0.1vh solid rgb(255, 255, 255);
+        border-radius: 0px;
+        margin-bottom: 6vh;
+        box-shadow: 0px 0px 5px 4px rgba(255, 255, 255, 0.129);
+        
+    }
+
+    /* BLOCK  */
+    #BlockTexts{
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        width: 42.5vw;
+        display: flex;
+        align-items: center;
+    }
+
+    #BlockAllText{
+        user-select: none;
+        width: 42.5vw;
+        display: flex;
+        margin-bottom: 6vh;
+    }
+
+    #TextBlockButton{
+        user-select: none;
+
+    }
+    @media(max-width: 570px){
+        .MainBlockText{
+            
+            font-size: 5vw !important;
+
+            
+        }
+        .NormalBlockText{
+            font-size: 2vw !important;
+        }
+    }
+
+    .Email-input{
+        margin-top: 1vh;
+    }
+
+    .MainBlockText{
+        font-size: 5vw !important;
+        display: flex;
+        width: 27.5vw;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+
+    .NormalBlockText{
+        font-size: 2vw !important;
+        color: rgb(219, 198, 160);
+        text-wrap: nowrap;
+    }
+    /*  */
+
+}
+
+
+
