@@ -32,15 +32,18 @@ REST_USE_JWT = True
 
 INSTALLED_APPS = [
     #django
+    'admin_interface',
+    'colorfield',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     #my apps
     'userz',
+    'documents',
+    'rewards',
 
     #thirdparty apps
     'rest_framework',
@@ -54,6 +57,8 @@ INSTALLED_APPS = [
     'corsheaders',
 
 ]
+
+X_FRAME_OPTIONS = "SAMEORIGIN"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
