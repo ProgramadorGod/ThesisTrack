@@ -1,0 +1,6 @@
+(testing) [1]> pip freeze > requeriments.txt 
+godprogrammer@godprogrammer-VivoBook-ASUSLaptop-X421DA-M413DA ~/D/P/Project (testing)> touch Procfile
+godprogrammer@godprogrammer-VivoBook-ASUSLaptop-X421DA-M413DA ~/D/P/Project (testing)> web: gunicorn Project.wsgi
+
+web:: no se encontró la orden
+godprogrammer@godprogrammer-VivoBook-ASUSLaptop-X421DA-M413DA ~/D/P/Project (testing) [127]> 

@@ -11,7 +11,13 @@ class UserType(models.Model):
 
 class Account(AbstractUser):
     UserType  = models.ForeignKey(UserType, on_delete=models.SET_DEFAULT, default=1)
+    stars_given = models.IntegerField(default=0)
+    documents_uploaded = models.IntegerField(default=0)
+    documents_downloaded = models.IntegerField(default=0)
+    # followed_projects = models.ManyToManyField('Project', related_name='followers', blank=True)
+    comments_made = models.IntegerField(default=0)
+    feedback_received = models.IntegerField(default=0)
+
     def __str__(self) -> str:
         return (self.username)
     
-
