@@ -104,11 +104,12 @@
         align-items: center;
         flex-direction: column;
     }
+    
 
     #LoginText, #RegisterText{
         font-size: 6vh;
         user-select: none;
-        
+        text-wrap: nowrap;    
         transform: translateY(-6vh);
         color: rgb(16, 2, 70);
     }

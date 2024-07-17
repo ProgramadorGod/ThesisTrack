@@ -3,8 +3,8 @@ from django.http import HttpResponseRedirect
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 from rest_framework.views import APIView
-from .models import Account
-from .serializers import AccountSerializer
+from ..models import Account
+from ..serializers import AccountSerializer
 from rest_framework.response import Response
 
 class AccountListCreate(APIView):
@@ -13,7 +13,7 @@ class AccountListCreate(APIView):
         print(request.user)
         user =  request.user
 
-    
+        
         return Response({
             "ID":user.id,
             "Username":user.username,
@@ -48,7 +48,7 @@ from allauth.account.views import LogoutView as AllauthLogoutView
 from allauth.account.views import LoginView as AllauthLoginView
 from django.contrib.auth import authenticate,login
 from rest_framework_simplejwt.tokens import RefreshToken
-from .serializers import LoginSerializer
+from ..serializers import LoginSerializer
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 

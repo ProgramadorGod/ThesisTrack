@@ -17,7 +17,7 @@ const Blocker = ({IsLogin, LoadingFetch,ToggleIsLogin}) => {
   
     const getLeftPosition = () => {
       if (windowWidth < 700) {
-        return IsLogin ? '63vw' : '7.3vw';
+        return IsLogin ? '64vw' : '6.2vw';
       } else {
         return IsLogin ? '50vw' : '22.3vw';
       }
@@ -42,8 +42,9 @@ const Blocker = ({IsLogin, LoadingFetch,ToggleIsLogin}) => {
 
                 }}
                 transition={{
-                type:"spring" ,
-                duration:0.2
+                type:"spring",
+
+                duration:0.2,
                 }}
                 style={{ left: getLeftPosition() }}
                 >
@@ -88,23 +89,25 @@ const Blocker = ({IsLogin, LoadingFetch,ToggleIsLogin}) => {
                         }
                     </div>
 
-            
-                    <motion.button 
-                    id='BlockButton'
-                    whileHover={{ scale: 1.07 , backgroundColor: ("#02479100" )}}
-                    transition={{ type: "spring", stiffness: 200, damping: 7 }}
-                    whileInView={{backgroundColor:"#02479100"}}
-                    whileFocus={{scale:1.04, backgroundColor: ("#02479100" )}}
-                    whileTap={{scale:1.12, transition:{duration:0.001,  type: "spring", stiffness: 200, damping: 8 }}}
-                    
-                    onClick={ToggleIsLogin} 
-                    
-                    className='SubmitFormButtom'>
-                        <div id='TextBlockButton'>
-                            {IsLogin ? "REGISTER":"LOGIN" }
-                        </div>
+                    <div id='BlockButtonContainer'>
+                        <motion.button 
+                        id='BlockButton'
+                        whileHover={{ scale: 1.07 , backgroundColor: ("#02479100" )}}
+                        transition={{ type: "spring", stiffness: 200, damping: 7 }}
+                        whileInView={{backgroundColor:"#02479100"}}
+                        whileFocus={{scale:1.04, backgroundColor: ("#02479100" )}}
+                        whileTap={{scale:1.12, transition:{duration:0.001,  type: "spring", stiffness: 200, damping: 8 }}}
+                        
+                        onClick={ToggleIsLogin} 
+                        
+                        className='SubmitFormButtom'>
+                            <div id='TextBlockButton'>
+                                {IsLogin ? "REGISTER":"LOGIN" }
+                            </div>
 
-                    </motion.button>
+                        </motion.button>
+                    </div>
+
                 
 
                 </div>

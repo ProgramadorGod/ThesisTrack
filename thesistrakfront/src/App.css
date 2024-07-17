@@ -103,7 +103,7 @@ html {
   position: absolute;
   display: flex;
   align-items: center;
-  box-shadow: #031038 1px 0px 3px 3px ;
+  box-shadow: #031038 0.1vh 0vh 0.8vh 0.4vh ;
   overflow: hidden;
   z-index: 99;
 }
@@ -208,13 +208,9 @@ button.NavbarButton{
   object-fit: cover;
   height: 10.4vh;
   color: white;
-  padding-left:20px ;
+  padding-left:2vw ;
   user-select: none;
 
-  @media (max-width:600px){
-    display: none;
-    
-  }
 }
 
 

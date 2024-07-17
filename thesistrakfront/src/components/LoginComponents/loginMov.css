@@ -13,18 +13,31 @@
 
     .ComboTextGoogle{
         /* padding-bottom: 30px; */
-        height: 2vh;
+        height: auto;
+        display: flex;
         transform: translateY(-4px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
     }
 
     #ComboRegister.ComboTextGoogle{
-        height: 2vh;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+
         z-index: 0;
         
     }
     #RegisterFormContainer{
-        margin-top: 10vh;
+        /* margin-top: 10vh; */
         z-index: 1;
+        display: flex;
+        height: 30vh;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+        justify-content: flex-end;
     }
 
     .Motiondiv:focus {
@@ -69,11 +82,19 @@
 
     #FormularyContainer{
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
+        height: 30vh;
         align-items: center;
         flex-direction: column;
     }
 
+    #ButtonContainer{
+        height: 11vh;
+        display: flex;
+        margin-top: 5vh;
+        flex-direction: column;
+        align-items: center;
+    }
     .GoogleButton {
         all: unset;
 
@@ -158,6 +179,7 @@
         display: flex;
         justify-content: flex-end;
         width: 55.5vw;
+        height: 55vh;
         align-content: center;
         align-items: center;
         flex-direction: column;
@@ -267,7 +289,7 @@
         height: 5vh;
         border-radius: 0px;
         cursor: pointer;
-        margin-top: 5vh;
+        /* margin-top: 5vh; */
         margin-bottom: 6vh;
         font-size: 1.8vh;
         width: 24vw;
@@ -331,6 +353,11 @@
         box-shadow: 0px 0px 5px 4px rgba(255, 255, 255, 0.129);
         
     }
+    #BlockButtonContainer{
+        height: 11vh;
+        display: flex;
+        justify-content: center;
+    }
 
     /* BLOCK  */
     #BlockTexts{
@@ -345,8 +372,10 @@
     #BlockAllText{
         user-select: none;
         width: 42.5vw;
+        height: 44vh;
         display: flex;
-        margin-bottom: 6vh;
+        margin-bottom: 8vh;
+        align-items: center;
     }
 
     #TextBlockButton{
