@@ -1,37 +1,37 @@
 from django.db import models
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
+from django.conf import settings
 
 class DocumentType(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=50, default="Thesis")
 
     def __str__(self):
         return self.name
 
-class DocumentStatus(models.Model):
-    name = models.CharField(max_length=100)
+class Carrer(models.Model):
+    name = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name
 
 class DocumentStage(models.Model):
-    name = models.CharField(max_length=100)
+    stage = models.CharField(max_length=30)
 
     def __str__(self):
-        return self.name
+        return self.stage
 
 class Document(models.Model):
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    document_type = models.ForeignKey(DocumentType, on_delete=models.CASCADE)
+    code = models.CharField(max_length=10, default="UnknownCode")
+    carrer = models.ForeignKey(Carrer, on_delete=models.SET_DEFAULT, default=1)
+    title = models.CharField(max_length=400, default="Untitled")
+    authors = models.JSONField(default=list)
+    year = models.CharField(max_length=4, default="0000")
+    url = models.URLField(default="https://example.com")
     is_visible = models.BooleanField(default=True)
-    status = models.ForeignKey(DocumentStatus, on_delete=models.CASCADE)
-    stage = models.ForeignKey(DocumentStage, on_delete=models.CASCADE)
-    progress_percentage = models.IntegerField(default=0)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='documents')
+    stage = models.ForeignKey(DocumentStage, on_delete=models.SET_NULL, null=True)
+    progress_percentage = models.FloatField(default=0.0)
+    document_type = models.ForeignKey(DocumentType, on_delete=models.SET_NULL, null=True)
+    # uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='uploaded_documents')
 
     def __str__(self):
         return self.title
+
