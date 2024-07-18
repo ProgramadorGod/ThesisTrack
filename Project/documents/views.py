@@ -20,14 +20,14 @@ def document_list(request):
     documents = Document.objects.all()
 
     if query:
+        query_upper = query.upper()
+        query_lower = query.lower()
+
         documents = documents.filter(
-            Q(title__icontains=query) |
+            Q(title__icontains=query_upper) |
             Q(authors__icontains=query) | # Modifica según los campos de tu modelo
-            Q(year__icontains=query) |
-            Q(carrer__name__icontains=query) 
-
-        
-
+            Q(year__icontains=query) | 
+            Q(carrer__name__icontains=query_lower) 
         )
 
     documents = documents.order_by(sort_by)  # Ordenar por el campo especificado

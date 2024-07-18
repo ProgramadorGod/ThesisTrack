@@ -114,6 +114,12 @@
     padding-top: 5px;
 }
 
+#PersonalBrowser{
+    width: 50vw;
+    border-radius: 0px solid #ffffff00;
+    
+    height: 50px;
+}
 
 #authorname{
     text-transform: capitalize;

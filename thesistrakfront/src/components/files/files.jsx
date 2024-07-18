@@ -57,7 +57,7 @@ const Files = ({ PortToUse }) => {
   }, []); // Arreglo de dependencias vacío para ejecutar solo una vez
 
   const handleSearch = async (e) => {
-    const query = e.target.value.toUpperCase();
+    const query = e.target.value;
     setSearchQuery(query);
     await fetchDocuments(query);
   };
@@ -70,6 +70,7 @@ const Files = ({ PortToUse }) => {
     <div id="totaldocumentscontainer">
       <div>
         <input
+          id="PersonalBrowser"
           type="text"
           placeholder="Buscar documentos..."
           value={searchQuery}
