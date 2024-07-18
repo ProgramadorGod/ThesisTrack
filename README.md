@@ -180,7 +180,7 @@ Este proyecto está bajo la licencia MIT. Consulta el archivo [LICENSE](LICENSE)
 
 ## Contacto
 
-Para cualquier duda o sugerencia, por favor contacta a Luis (godprogrammer) en su [correo electrónico](mailto:godprogrammer@example.com).
+Para cualquier duda o sugerencia, por favor contacta a Luis (godprogrammer) en su [correo electrónico](pipenet12@gmail.com).
 
   ---
                                   ++++*******==++++++++++******#*+++-+++                            
