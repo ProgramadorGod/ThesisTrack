@@ -13,11 +13,14 @@ const Document = ({ document }) => (
       <div className='Description'> 
         Este documento fue realizado en la era previa al calendario B del 2024 sin embargo puedes analizar su descripción leyendo la introducción del documento, seguramente te pueda ser de mucha utilidad.
       </div>
+      <div className='Year'> Year: {'\u00A0'} {document.year}</div>
+
       <div className='Author'>
         <div>Authors: {'\u00A0'}</div>
         {document.authors.map((author, index) => (
           <span key={index}> {author}{'\u00A0'}-{'\u00A0'}</span>
         ))}
+        
       </div>
       <div className='DownloadButton'>
         <a id='DownloadText' href={document.url}>

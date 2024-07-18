@@ -22,7 +22,12 @@ def document_list(request):
     if query:
         documents = documents.filter(
             Q(title__icontains=query) |
-            Q(authors__icontains=query)  # Modifica según los campos de tu modelo
+            Q(authors__icontains=query) | # Modifica según los campos de tu modelo
+            Q(year__icontains=query) |
+            Q(carrer__name__icontains=query) 
+
+        
+
         )
 
     documents = documents.order_by(sort_by)  # Ordenar por el campo especificado

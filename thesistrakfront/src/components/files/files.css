@@ -101,6 +101,13 @@
     padding-bottom: 15px;
 }
 
+.Year{
+    display: flex;
+    font-size: 0.8rem;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
 .Status{
     display: flex;
     font-size: 0.8rem;
