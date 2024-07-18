@@ -10,6 +10,7 @@
     "echarts": "^5.5.1",
     "echarts-for-react": "^3.0.2",
     "framer-motion": "^11.2.12",
+    "intersection-observer": "^0.12.2",
     "js-cookie": "^3.0.5",
     "lottie-react": "^2.4.0",
     "ngrok": "^5.0.0-beta.2",
@@ -20,6 +21,7 @@
     "react-loader-spinner": "^6.1.6",
     "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
+    "react-select": "^5.8.0",
     "sweetalert2": "^11.12.1",
     "web-vitals": "^2.1.4"
   },

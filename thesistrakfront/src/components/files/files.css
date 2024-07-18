@@ -101,6 +101,13 @@
     padding-bottom: 15px;
 }
 
+.Status{
+    display: flex;
+    font-size: 0.8rem;
+    padding-top: 5px;
+}
+
+
 #authorname{
     text-transform: capitalize;
     
