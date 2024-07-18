@@ -1,7 +1,3 @@
-Aquí tienes el README actualizado para incluir una lista detallada de las dependencias del frontend:
-
----
-
 # ThesisTrack
 
 ThesisTrack es una aplicación web para gestionar proyectos de grado en la universidad Unipaz. Está desarrollada con Django y React, utilizando SQLite como base de datos. Este proyecto tiene como objetivo facilitar la organización, búsqueda y seguimiento de los proyectos de grado presentados por los estudiantes.
