@@ -76,10 +76,13 @@ export const AppProvider = ({children}) => {
     
 
         const [WindowWidth, setWindowWidth] = useState(window.innerWidth)
+        const [WindowHeight, setWindowHeight] = useState(window.innerHeight);
 
-        const handleResize = () =>{
-            setWindowWidth(window.innerWidth)
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+            setWindowHeight(window.innerHeight);
         }
+        
     
         useEffect(()=>{
             window.addEventListener("resize", handleResize);
@@ -92,7 +95,7 @@ export const AppProvider = ({children}) => {
             isloading, setisloading, isLogged, setisLogged, profile, setProfile, name, setname, userid, setUserid,
             isActive,setisActive,
             PortToUse,
-            fetchProfile, WindowWidth
+            fetchProfile, WindowWidth, WindowHeight
             
 
 

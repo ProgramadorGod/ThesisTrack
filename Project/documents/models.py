@@ -8,7 +8,7 @@ class DocumentType(models.Model):
         return self.name
 
 class Carrer(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=130)
 
     def __str__(self):
         return self.name

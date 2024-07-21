@@ -67,7 +67,7 @@
 
     #SessionContainer {
         height: 100vh;
-        
+        justify-items: center;
         align-items: center;
         display: flex;
         justify-content: center;
@@ -119,7 +119,8 @@
         height: 55vh;
         width: 55vw;
         grid-template-columns: 1fr 1fr;
-        box-shadow: 0.2vw 0.2vw 2vw 0.2vw rgba(0, 0, 0, 0.527);
+        border: 0.1vw solid rgba(0, 0, 0, 0.205);
+        box-shadow: -1vw 1vw 1vw 0.2vw rgba(0, 0, 0, 0.247);
         border-radius: 0.9vw;
         overflow: hidden;
         background-color: rgb(255, 255, 255);
@@ -286,7 +287,7 @@
     #ContainerInactive{
         width: 100%;    
         overflow: hidden;
-        background-color: rgba(255, 0, 0, 0);
+        /* background-color: rgba(255, 0, 0, 0); */
         color: wheat;
         height: 100%;
         z-index: 1;
@@ -300,7 +301,7 @@
 
     #Blocker{
         position: absolute;
-        height: 55vh;
+        height: 55.2vh;
         width: 27.5vw;
         z-index: 0;
         /* background-color: rgb(1, 8, 50); */

@@ -1,12 +1,13 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import DocumentViewSet,CarrerViewSet
+from . import views
 
 router = DefaultRouter()
-router.register(r'documents', DocumentViewSet)
-router.register(r'carrers', CarrerViewSet)
+router.register(r'documents', views.DocumentViewSet)
+router.register(r'carrers', views.CarrerViewSet)
 
 
 urlpatterns = [
+    path("documentz/", views.document_list, name="document-list"),
     path('',include(router.urls))
 ]

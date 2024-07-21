@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import Document, DocumentStage, DocumentType,Carrer
 
+
+
 class DocumentTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = DocumentType
