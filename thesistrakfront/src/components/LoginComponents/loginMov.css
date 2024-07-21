@@ -77,6 +77,8 @@
         display: grid;
         grid-template-rows: 1fr 1fr;
         justify-content: center;
+        justify-items: center;
+        padding-bottom: 20vh;
         
     }
 
@@ -338,7 +340,7 @@
 
     #Blocker{
         position: absolute;
-        height: 55vh;
+        height: 55.2vh;
         width: 30.5vw;
         z-index: 0;
         /* background-color: rgb(1, 8, 50); */
@@ -374,7 +376,7 @@
         width: 42.5vw;
         height: 44vh;
         display: flex;
-        margin-bottom: 8vh;
+        /* margin-bottom: 8vh; */
         align-items: center;
     }
 
@@ -398,8 +400,9 @@
         margin-top: 1vh;
     }
 
+    
     .MainBlockText{
-        font-size: 5vw !important;
+        font-size: 5vh !important;
         display: flex;
         width: 27.5vw;
         flex-wrap: wrap;
@@ -408,7 +411,7 @@
     
 
     .NormalBlockText{
-        font-size: 2vw !important;
+        font-size: 2.5vh !important;
         color: rgb(219, 198, 160);
         text-wrap: nowrap;
     }
@@ -417,4 +420,16 @@
 }
 
 
+
+
+
+@media (max-width:700px){
+    #MovContainer{
+        margin-top: 10vh;
+        height: 80vh;
+        width: 100vw;
+        font-size: 10vh;
+    }
+
+}
 

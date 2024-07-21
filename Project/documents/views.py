@@ -18,10 +18,13 @@ def document_list(request):
     query = request.GET.get('query', '')
     sort_by = request.GET.get('sort_by', 'title')  # Ordenar por título por defecto
     documents = Document.objects.all()
+    carrer_id = request.GET.get('carrer_id', None)
+    year = request.GET.get('year', None)
 
     if query:
         query_upper = query.upper()
         query_lower = query.lower()
+        
 
         documents = documents.filter(
             Q(title__icontains=query_upper) |
@@ -30,7 +33,15 @@ def document_list(request):
             Q(carrer__name__icontains=query_lower) 
         )
 
+    if carrer_id:
+        documents = documents.filter(carrer_id=carrer_id)
+    
+    if year:
+        documents = documents.filter(year=year)
+
     documents = documents.order_by(sort_by)  # Ordenar por el campo especificado
+
+
 
     paginator = DocumentPagination()
     result_page = paginator.paginate_queryset(documents, request)

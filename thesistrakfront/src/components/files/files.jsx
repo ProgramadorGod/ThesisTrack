@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./files.css";
 import axios from "axios";
 import Loadingrectangle from "../loading/loading";
 import Document from "./Document";
+import { RxDoubleArrowDown, RxZoomIn } from "react-icons/rx";
+import InputSpotlightBorderCSS from "./effect";
+import { debounce } from 'lodash';
+import LoadingFiles from "./LoadingFiles";
+
 
 const Files = ({ PortToUse }) => {
   const [AllDocuments, setAllDocuments] = useState([]);
@@ -56,28 +61,91 @@ const Files = ({ PortToUse }) => {
     fetchData();
   }, []); // Arreglo de dependencias vacío para ejecutar solo una vez
 
+
+  const debouncedFetchDocuments = useCallback(
+    debounce((query) =>{
+      fetchDocuments(query);
+
+    },200),[]
+
+  )
+
+
   const handleSearch = async (e) => {
     const query = e.target.value;
     setSearchQuery(query);
-    await fetchDocuments(query);
+    debouncedFetchDocuments(query)
   };
 
   if (isLoading) {
-    return <Loadingrectangle />;
+    
+    return( 
+      <div id="totaldocumentscontainer">
+      <div id="BrowserContainer">
+        <div id="SearchInputContainer">
+          <InputSpotlightBorderCSS 
+            searchQuery={searchQuery}
+            handleSearch={handleSearch}
+            id="PersonalBrowser"
+            type="text"
+
+          ></InputSpotlightBorderCSS>
+
+          {/* <input
+            id="PersonalBrowser"
+            type="text"
+            placeholder="   Buscar Documentos, Tesis, Investigaciones, Pasantias y más "
+            value={searchQuery}
+            onChange={handleSearch}
+          /> */}
+
+          <div id="ZoomIcon">
+            <RxZoomIn></RxZoomIn>
+          </div>
+        </div>
+        <div id="WaitingContainer">
+          
+          <LoadingFiles></LoadingFiles>
+        </div>
+      </div>
+
+      {/* <div id="FiltersContainer">
+        <div id="FiltersText">
+          Filters
+        </div>
+        <div>lol</div>
+
+      </div> */}
+    </div>
+      
+  )
   }
 
   return (
     <div id="totaldocumentscontainer">
-      <div>
-        <input
-          id="PersonalBrowser"
-          type="text"
-          placeholder="Buscar documentos..."
-          value={searchQuery}
-          onChange={handleSearch}
-        />
-      </div>
-      <>
+      <div id="BrowserContainer">
+        <div id="SearchInputContainer">
+          <InputSpotlightBorderCSS 
+            searchQuery={searchQuery}
+            handleSearch={handleSearch}
+            id="PersonalBrowser"
+            type="text"
+
+          ></InputSpotlightBorderCSS>
+
+          {/* <input
+            id="PersonalBrowser"
+            type="text"
+            placeholder="   Buscar Documentos, Tesis, Investigaciones, Pasantias y más "
+            value={searchQuery}
+            onChange={handleSearch}
+          /> */}
+
+          <div id="ZoomIcon">
+            <RxZoomIn></RxZoomIn>
+          </div>
+        </div>
+        <>
         {AllDocuments.map((document) => (
           <Document key={document.id} document={document} />
         ))}
@@ -88,7 +156,27 @@ const Files = ({ PortToUse }) => {
           </button>
         )}
       </>
+      </div>
+
+      <div id="FiltersContainer">
+        <div id="FiltersText">
+          FILTERS
+        </div>
+        <div id="Filters">
+          <div id="Carrers-Section">
+            <div>
+              CARRERS
+            </div>
+            <div>
+              <RxDoubleArrowDown id="Carrers-Icon"></RxDoubleArrowDown>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
     </div>
+    
   );
 };
 

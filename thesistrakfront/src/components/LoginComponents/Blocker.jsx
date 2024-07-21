@@ -5,9 +5,11 @@ import {motion} from "framer-motion"
 
 const Blocker = ({IsLogin, LoadingFetch,ToggleIsLogin}) => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
+    const [WindowHeight, setWindowHeight] = useState(window.innerHeight);
+    const [FontSize, setFontSize] = useState("")
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
+      setWindowHeight(window.innerHeight);
     };
   
     useEffect(() => {
@@ -23,22 +25,31 @@ const Blocker = ({IsLogin, LoadingFetch,ToggleIsLogin}) => {
       }
     };
 
-    
+    const getFontSize = () =>{
+        if (WindowHeight < (windowWidth*1.2)){
+            return "3vw !important"
+        }
+    }
+
+    const lol = ()=>{
+        return "-0.1vh"
+    }
 
   
     return (
             <motion.div id="Blocker"
                 
                 initial={{opacity:0.4}}
-                animate={{opacity:1 , 
-                left: getLeftPosition(),
-                borderTopLeftRadius:IsLogin?0:windowWidth*0.009,
-                borderBottomLeftRadius:IsLogin?0:windowWidth*0.009,
-                borderTopRightRadius:IsLogin?windowWidth*0.009:0,
-                borderBottomRightRadius:IsLogin?windowWidth*0.009:0,
-                backgroundImage: IsLogin 
-                ? "linear-gradient(to right, #010832, #17257d)" 
-                : "linear-gradient(to left, #010832, #17257d)"
+                animate={{opacity:1 ,
+                    y:lol(),
+                    left: getLeftPosition(),
+                    borderTopLeftRadius:IsLogin?0:windowWidth*0.009,
+                    borderBottomLeftRadius:IsLogin?0:windowWidth*0.009,
+                    borderTopRightRadius:IsLogin?windowWidth*0.009:0,
+                    borderBottomRightRadius:IsLogin?windowWidth*0.009:0,
+                    backgroundImage: IsLogin 
+                    ? "linear-gradient(to right, #010832, #17257d)" 
+                    : "linear-gradient(to left, #010832, #17257d)"
 
                 }}
                 transition={{
@@ -46,7 +57,10 @@ const Blocker = ({IsLogin, LoadingFetch,ToggleIsLogin}) => {
 
                 duration:0.2,
                 }}
-                style={{ left: getLeftPosition() }}
+                style={{borderTopLeftRadius:IsLogin?0:windowWidth*0.009,
+                    borderBottomLeftRadius:IsLogin?0:windowWidth*0.009,
+                    borderTopRightRadius:IsLogin?windowWidth*0.009:0,
+                    borderBottomRightRadius:IsLogin?windowWidth*0.009:0, }}
                 >
 
                 
@@ -55,7 +69,9 @@ const Blocker = ({IsLogin, LoadingFetch,ToggleIsLogin}) => {
                         {IsLogin?
                             (
                                 <div id='BlockTexts'>
-                                <h1 className='MainBlockText'>
+                                <h1 className='MainBlockText'
+                                    style={{}}
+                                >
                                     Hello, <div style={{textWrap:"nowrap"}}> &nbsp;Friend!</div>
                                 </h1>
                                 <h4 className='NormalBlockText'>
