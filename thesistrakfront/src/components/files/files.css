@@ -200,11 +200,13 @@
 }
 
 #Filters{
-    width: 15vw;
+    width: 18vw;
     background-color: #edededb0;
-    padding-left: 3vw;
+    
     font-family: "Apple";
-
+    align-items: center;
+    align-content: center;
+    justify-content: center;
     padding-bottom: 10vh;
     display: flex;
 }
@@ -212,9 +214,18 @@
 #Carrers-Section{
     margin-top: 2vh;
     display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    
 }
 
-#Carres-Icon{
+#Carrers-Section-Text{
+    font-size: 14px;
+    
+}
+
+#Carrers-Icon{
     font-size: 10px;
 }
 
