@@ -62,6 +62,9 @@
     transform: rotate(360deg);
   }
 }
+body{
+  overflow-y: hidden;
+}
 
 .body {
   align-items: center;
@@ -86,6 +89,7 @@ html {
 
 #BasicGroup{
   height: auto;
+  
 
 }
 
@@ -105,7 +109,7 @@ html {
   align-items: center;
   box-shadow: #031038 0.1vh 0vh 0.8vh 0.4vh ;
   overflow: hidden;
-  z-index: 99;
+  z-index: 999;
 }
 
 @keyframes fadeInRotate {

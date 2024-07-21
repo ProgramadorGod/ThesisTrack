@@ -14,12 +14,13 @@ import GoogleIcon from "../../media/google.png"
 import Blocker from './Blocker';
 import Register from './Register';
 import Button from './Button';
+import MovLogin from './MovLogin';
 
 axios.defaults.withCredentials = true;
 
 
 const Login = () => {
-  const {  isLogged, PortToUse, fetchProfile} = useAppContext();
+  const {  isLogged, PortToUse, fetchProfile, WindowWidth, WindowHeight} = useAppContext();
 
 
   const [LoadingFetch, setLoadingFetch]= useState(false)
@@ -149,6 +150,15 @@ const Login = () => {
 
   
 
+  if (WindowWidth < (WindowHeight)){
+      return(
+        <div>
+          <MovLogin></MovLogin>
+        </div>
+      )
+  }
+  
+
 
   return (
     <div id='SessionContainer'  className={`${LoadingFetch ? "Disabled":""}`}>
@@ -195,12 +205,12 @@ const Login = () => {
           <motion.div id='LoginSquare' 
           initial = {{opacity:0}}
           animate={{opacity: IsLogin ? 1 : 0, 
-            x:IsLogin ? 0:100, 
+            x:IsLogin ? 0:500, 
             width: IsLogin ? "":0,
             userSelect:IsLogin? "all":"none", 
           
           }}
-          transition={{duration:0.3}}
+          transition={{duration:0.1}}
           className={`${IsLogin ? "InLogin":""}`}
           
           >

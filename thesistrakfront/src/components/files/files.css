@@ -20,12 +20,13 @@
     justify-content: center;
     font-family: "Apple";
     align-content: center;
-    margin-bottom: 30px;
+    margin-bottom: 4vh;
 }
 
 #totaldocumentscontainer{
     padding-top: 12vh;
-    height: 88vh;
+    display: flex;
+    /* height: 88vh; */
 
 }
 
@@ -34,13 +35,14 @@
 #kind{
     display: flex;
     align-content: center;
-    font-size: 12px;
+    font-size: 0.8rem;
     padding-top: 2vh;
+    align-items: centerV;
     color: #67696E;
 }
 
 #logo{
-    padding-top: 0.6px;
+    padding-top: 0.05vw;
     color: #FAB73C;
     /* padding-left: 1px; */
 
@@ -101,7 +103,123 @@
     padding-bottom: 15px;
 }
 
+.Year{
+    display: flex;
+    font-size: 0.8rem;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.Status{
+    display: flex;
+    font-size: 0.8rem;
+    padding-top: 5px;
+}
+
+#PersonalBrowser{
+    width: 48vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    /* border-radius: 0px solid #ffffff00; */
+    font-family: "Apple";
+    min-height: 34px;
+    max-height: 44px;
+    font-size: 16px;
+    height: 7vh;
+}
+
+#PersonalBrowser:focus{
+    outline: none;    
+}
+
+#BrowserContainer{
+    font-family: "Apple";
+    width: 75vw;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-end;
+    align-items: flex-end;
+}
+
+#ZoomIcon{
+    color: rgb(9, 9, 9);
+    fill: rgb(39, 39, 39);
+    cursor: text;
+    pointer-events: none;   
+    margin-left: 46vw;
+    position: absolute;
+    
+
+}
+
+#SearchInputContainer{
+    position: relative;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    
+}
+
 #authorname{
     text-transform: capitalize;
     
+}
+
+#FiltersContainer{
+    /* padding-top: 10vh; */
+    display: flex;
+    width: 18vw;
+
+    margin-left: 2vw;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* background-color: rgba(85, 45, 0, 0.11); */
+}
+
+#FiltersText{
+    border-top-right-radius:0.4vh;
+    border-top-left-radius:0.4vh ;
+    height: 7vh;
+    background-color: #edededb0;
+    /* margin-top: 0.5vh; */
+    border: 0.24vw outset #edededb0;
+    min-height: 34px;
+    max-height: 44px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    color: black;
+    font-family: "Apple";
+    width: 18vw;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+#Filters{
+    width: 15vw;
+    background-color: #edededb0;
+    padding-left: 3vw;
+    font-family: "Apple";
+
+    padding-bottom: 10vh;
+    display: flex;
+}
+
+#Carrers-Section{
+    margin-top: 2vh;
+    display: flex;
+}
+
+#Carres-Icon{
+    font-size: 10px;
+}
+
+#WaitingContainer{
+    /* margin-top: 12vh; */
+    width: 50vw;
+    background-color: #FFFFFF;
 }

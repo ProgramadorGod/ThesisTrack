@@ -1,74 +1,182 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from "react";
 import "./files.css";
-import axios from 'axios';
-import { RxCheckCircled, RxCheckbox, RxFile, RxQuestionMark, RxTokens } from 'react-icons/rx';
-import Profile from '../profile/profile';
-import Loadingrectangle from '../loading/loading';
+import axios from "axios";
+import Loadingrectangle from "../loading/loading";
+import Document from "./Document";
+import { RxDoubleArrowDown, RxZoomIn } from "react-icons/rx";
+import InputSpotlightBorderCSS from "./effect";
+import { debounce } from 'lodash';
+import LoadingFiles from "./LoadingFiles";
+
 
 const Files = ({ PortToUse }) => {
-  const [Documents, setDocuments] = useState([]);
-  const [Carrers, setCarrers] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // Estado de carga
+  const [AllDocuments, setAllDocuments] = useState([]);
+  const [NextPage, setNextPage] = useState(null);
+  const [isLoading, setisLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const fetchDocuments = async () => {
-    const response = await axios.get(PortToUse + "api/documents/", {
-      withCredentials: true,
-    });
-    setDocuments(response.data);
+  const fetchDocuments = async (query = "") => {
+    try {
+      const response = await axios.get(PortToUse + "api/documentz/", {
+        params: { query },
+        withCredentials: true,
+      });
+      setAllDocuments(response.data.results);
+      setNextPage(response.data.next);
+      localStorage.setItem("documents", JSON.stringify(response.data.results));
+    } catch (error) {
+      console.error("Error Trying To Fetch Documents: ", error);
+    }
   };
 
-  const fetchCarrers = async () => {
-    const response = await axios.get(PortToUse + "api/carrers/", {
-      withCredentials: true,
-    });
-    setCarrers(response.data);
+  const AddDocuments = async () => {
+    if (NextPage) {
+      try {
+        const response = await axios.get(NextPage, {
+          withCredentials: true,
+        });
+        setAllDocuments((prevDocuments) => [
+          ...prevDocuments,
+          ...response.data.results,
+        ]);
+        setNextPage(response.data.next);
+        localStorage.setItem(
+          "documents",
+          JSON.stringify([
+            ...AllDocuments,
+            ...response.data.results,
+          ])
+        );
+      } catch (error) {
+        console.error("Error Trying To Fetch Documents: ", error);
+      }
+    }
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      await Promise.all([fetchDocuments(), fetchCarrers()]);
-      setIsLoading(false); // Termina la carga después de obtener los datos
+      await fetchDocuments();
+      setisLoading(false);
     };
-
     fetchData();
-  }, []);
+  }, []); // Arreglo de dependencias vacío para ejecutar solo una vez
 
-  const handleDocumentClick = (documentid) => {
-    console.log("CLICKED THE DOCUMENT : ", documentid);
+
+  const debouncedFetchDocuments = useCallback(
+    debounce((query) =>{
+      fetchDocuments(query);
+
+    },200),[]
+
+  )
+
+
+  const handleSearch = async (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    debouncedFetchDocuments(query)
   };
 
   if (isLoading) {
-    return <Loadingrectangle />; // Muestra el componente de carga mientras se cargan los datos
+    
+    return( 
+      <div id="totaldocumentscontainer">
+      <div id="BrowserContainer">
+        <div id="SearchInputContainer">
+          <InputSpotlightBorderCSS 
+            searchQuery={searchQuery}
+            handleSearch={handleSearch}
+            id="PersonalBrowser"
+            type="text"
+
+          ></InputSpotlightBorderCSS>
+
+          {/* <input
+            id="PersonalBrowser"
+            type="text"
+            placeholder="   Buscar Documentos, Tesis, Investigaciones, Pasantias y más "
+            value={searchQuery}
+            onChange={handleSearch}
+          /> */}
+
+          <div id="ZoomIcon">
+            <RxZoomIn></RxZoomIn>
+          </div>
+        </div>
+        <div id="WaitingContainer">
+          
+          <LoadingFiles></LoadingFiles>
+        </div>
+      </div>
+
+      {/* <div id="FiltersContainer">
+        <div id="FiltersText">
+          Filters
+        </div>
+        <div>lol</div>
+
+      </div> */}
+    </div>
+      
+  )
   }
 
   return (
-    <div id='totaldocumentscontainer'>
-      {/* <Profile /> */}
-      
-      {Documents.map((document) => (
-        <div id="FileComponent" key={document.id}>
-          <div className='ThesisContainer'>
-            <div id='kind'>
-              <RxTokens id='logo' />
-              {document.code} {'\u00A0'} / {'\u00A0'} {document.carrer_name}
+    <div id="totaldocumentscontainer">
+      <div id="BrowserContainer">
+        <div id="SearchInputContainer">
+          <InputSpotlightBorderCSS 
+            searchQuery={searchQuery}
+            handleSearch={handleSearch}
+            id="PersonalBrowser"
+            type="text"
+
+          ></InputSpotlightBorderCSS>
+
+          {/* <input
+            id="PersonalBrowser"
+            type="text"
+            placeholder="   Buscar Documentos, Tesis, Investigaciones, Pasantias y más "
+            value={searchQuery}
+            onChange={handleSearch}
+          /> */}
+
+          <div id="ZoomIcon">
+            <RxZoomIn></RxZoomIn>
+          </div>
+        </div>
+        <>
+        {AllDocuments.map((document) => (
+          <Document key={document.id} document={document} />
+        ))}
+
+        {NextPage && (
+          <button onClick={AddDocuments} className="load-more-button">
+            Cargar más
+          </button>
+        )}
+      </>
+      </div>
+
+      <div id="FiltersContainer">
+        <div id="FiltersText">
+          FILTERS
+        </div>
+        <div id="Filters">
+          <div id="Carrers-Section">
+            <div>
+              CARRERS
             </div>
-            <div className='Title'>{document.title}</div>
-            <div className='Description'> {document.description}</div>
-            <div className='Author'>
-              <div>Author:</div>
-              {document.authors.map((author, index) => (
-                <span key={index}> {author}{'\u00A0'}-{'\u00A0'}</span>
-              ))}
-            </div>
-            <div className='DownloadButton'>
-              <a id='DownloadText' href={document.url}>
-                <RxFile className='icondoc' /> Accede Ahora (Libro Electrónico)
-              </a>
+            <div>
+              <RxDoubleArrowDown id="Carrers-Icon"></RxDoubleArrowDown>
             </div>
           </div>
         </div>
-      ))}
+
+      </div>
+
     </div>
+    
   );
 };
 
