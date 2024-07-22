@@ -222,7 +222,14 @@
 
 #Carrers-Section-Text{
     font-size: 14px;
-    
+    width: 18vw;
+    height: 6vh;
+    display: flex;
+    background-color: #ffffff;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    border: rgba(0, 0, 0, 0.144) solid 0.1vh;
 }
 
 #Carrers-Icon{

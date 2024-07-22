@@ -15,12 +15,12 @@ class Carrer(models.Model):
 
 class DocumentStage(models.Model):
     stage = models.CharField(max_length=30)
-
+    
     def __str__(self):
         return self.stage
 
 class Document(models.Model):
-    code = models.CharField(max_length=10, default="UnknownCode")
+    code = models.CharField(max_length=10)
     carrer = models.ForeignKey(Carrer, on_delete=models.SET_DEFAULT, default=1)
     title = models.CharField(max_length=400, default="Untitled")
     authors = models.JSONField(default=list)

@@ -158,7 +158,7 @@ const Files = ({ PortToUse }) => {
       </>
       </div>
 
-      {/* <div id="FiltersContainer">
+      <div id="FiltersContainer">
         <div id="FiltersText">
           FILTERS
         </div>
@@ -167,13 +167,13 @@ const Files = ({ PortToUse }) => {
             <div id="Carrers-Section-Text">
               CARRERS
             </div>
-            <div>
+            {/* <div>
               <RxDoubleArrowDown id="Carrers-Icon"></RxDoubleArrowDown>
-            </div>
+            </div> */}
           </div>
         </div>
 
-      </div> */}
+      </div>
 
     </div>
     
