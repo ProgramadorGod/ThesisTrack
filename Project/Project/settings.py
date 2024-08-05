@@ -101,6 +101,7 @@ CORS_ALLOWED_ORIGINS = [
 
     "http://192.168.0.17:3000",
 
+    'http://10.7.49.90:3000',
      # Cambia esto a la URL de tu frontend
 ]
 
@@ -109,12 +110,18 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     'http://127.0.0.1:3000',
     'http://192.168.0.17:3000',
+    'http://10.7.49.90:3000',
+    'http://10.7.49.90',
+    'http://10.7.49.90:8000',
 ]
 
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
-    'http://127.0.0.1:3000',  # La URL de tu frontend
+    'http://127.0.0.1:3000', 
+    'http://10.7.49.90:3000',
+    'http://10.7.49.90',
+    'http://10.7.49.90:8000', # La URL de tu frontend
 ]
 
 # Database
@@ -126,7 +133,7 @@ DATABASES = {
         'NAME': 'ttdatabase',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST':'localhost',
+        'HOST':'127.0.0.1',
         'PORT':'3306'
 
 

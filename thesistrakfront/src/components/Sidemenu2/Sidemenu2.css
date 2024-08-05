@@ -1,9 +1,79 @@
 @media (min-width:0px) {
     #SideMenu2-Container{
+        
         width: 10vh;
-        height: 100vh;
-        background-color: red;
+        margin-top: 20vh;
+        height: 70vh;
+        background-color: #ffffff;
         position: absolute;
+        border-top-right-radius: 2vh;
+        border-bottom-right-radius: 2vh;
+        box-shadow: inset 0 0 1vh #000000;
+
+        /* border-top-left-radius: 2vh;
+        border-bottom-left-radius: 2vh; */
     }
     
+    #Menu-items{
+        width: 100%;
+        height: 100%;
+        border-top-right-radius: 2vh;
+        border-bottom-right-radius: 2vh;
+        background-color: rgba(255, 255, 255, 0.345);
+        display: grid;
+        justify-content: start;
+        align-items: center;
+        
+    }
+    .item{
+        display: flex;
+        width: 100%;
+
+        cursor: pointer;   
+
+        background-color: rgba(0, 255, 255, 0);
+    }
+    
+    #Icon{
+        width: 4vh;
+        height: 4vh;
+        margin-left: 3vh;
+    }
+
+    .item-group{
+        display: flex;
+        font-family: "Apple";
+        font-size: 3vh;
+    }
+}
+
+
+@media (min-width:700px){
+    .Text{
+        margin-top: 0.4vh;
+        margin-left: 6vh;
+        display: none;
+    }
+
+    .TextActive{
+        display: flex;
+    }
+}
+
+@media (max-width:700px) {
+    .Text{
+        margin-top: 0.4vh;
+        margin-left: 6vh;
+        display: none;
+    }
+
+    #Icon{
+        display: none;
+
+    }
+    
+    .IconActive{
+        display: flex !important;
+    }
+
 }

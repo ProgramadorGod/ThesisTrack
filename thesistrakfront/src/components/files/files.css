@@ -179,7 +179,7 @@
     /* background-color: rgba(85, 45, 0, 0.11); */
 }
 
-#FiltersText{
+.FiltersText{
     border-top-right-radius:0.4vh;
     border-top-left-radius:0.4vh ;
     height: 7vh;
@@ -197,6 +197,10 @@
     align-content: center;
     align-items: center;
     justify-content: center;
+}
+
+#YearsFilter{
+    margin-top: 2vh;
 }
 
 #Filters{
