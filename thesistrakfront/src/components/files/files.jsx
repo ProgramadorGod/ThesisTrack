@@ -158,21 +158,7 @@ const Files = ({ PortToUse }) => {
       </>
       </div>
 
-      <div id="FiltersContainer">
-        <div className="FiltersText">
-          CARRER
-        </div>
-        
 
-        <div className="FiltersText" id="YearsFilter">
-          YEAR
-        </div>
-
-        <div className="FiltersText" id="YearsFilter">
-          TYPE
-        </div>
-
-      </div>
 
     </div>
     

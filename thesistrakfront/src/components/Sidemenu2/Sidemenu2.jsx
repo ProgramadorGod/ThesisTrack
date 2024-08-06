@@ -86,17 +86,21 @@ const Sidemenu2 = ({isActive}) => {
 
     const GetInitialPosition = () =>{
         if (WindowWidth > 700){
-            return isActive ? "21vw" : "11vh"
+            return isActive ? "10.5vh" : "0vh"
         }else{
-            return isActive ? "12vh" : "0vh"
+            return isActive ? "10.5vh" : "0vh"
         }
     }
 
     return (
         <motion.div 
         animate={{width:GetInitialPosition()}}
-        transition={{duration:0.12,
-            type:"spring"
+        transition={{duration:0.01,
+            type:"spring",
+            damping:5,
+            shiftness:700,
+            mass:0.1,
+
         }}
         id='SideMenu2-Container'
 
@@ -105,8 +109,13 @@ const Sidemenu2 = ({isActive}) => {
             <div id="Menu-items">
                 <div className="item" onClick={handleHomeClick}>
                     <div className="item-group">
+                        <div>
                         <HomeIcon id="Icon" className={`${isActive ? "IconActive":""}`}></HomeIcon>
-                        <div className={`${isActive ? "TextActive":""} Text`}>HOME</div>
+
+                        </div>
+                        <motion.div
+                            animate={{ x: isActive ? 10 : -50, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}
+                            className={`${isActive ? "TextActive":""} Text`}>HOME</motion.div>
                     </div>
                     
                 </div>
@@ -114,45 +123,100 @@ const Sidemenu2 = ({isActive}) => {
                 <div className="item" onClick={handleProfileClick}>
                     <div className="item-group">
                         <ProfIcon id="Icon" className={`${isActive ? "IconActive":""}`}></ProfIcon>
-                        <div className={`${isActive ? "TextActive":""} Text`}>PROFILE</div>
+                        <motion.div 
+                        
+                        animate={{ x: isActive ? 10 : -50, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}
+                        className={`${isActive ? "TextActive":""} Text`}>
+                            
+                            PROFILE
+                            
+                        </motion.div>
 
                     </div>
 
                 </div>
 
                 <div className="item" onClick={handleMyFilesClick}>
-                    
+                    <div className="item-group">
                     <FileIcon id="Icon" className={`${isActive ? "IconActive":""}`}></FileIcon>
+                    <motion.div 
+                        
+                        animate={{ x: isActive ? 10 : -50, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}
+                        className={`${isActive ? "TextActive":""} Text`}>
+                            
+                            FILES
+                            
+                        </motion.div>
+                    </div>   
+                    
                     
                     
                 </div>
 
                 <div className="item" onClick={handleGpt}>
-                    
-                    
+                    <div className="item-group">
                     <GptIcon id="Icon" className={`${isActive ? "IconActive":""}`}></GptIcon>
+                    <motion.div 
+                        
+                        animate={{ x: isActive ? 10 : -50, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}
+                        className={`${isActive ? "TextActive":""} Text`}>
+                            
+                            ASISTENTE
+                            
+                        </motion.div>
+                    </div>   
+                    
                     
                     
                 </div>
 
                 <div className="item" onClick={handleGraphics}>
-                    
+                    <div className="item-group">
                     <StatsIcon id="Icon" className={`${isActive ? "IconActive":""}`}></StatsIcon>
+                    <motion.div 
+                        
+                        animate={{ x: isActive ? 10 : -50, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}
+                        className={`${isActive ? "TextActive":""} Text`}>
+                            
+                            GRAPHICS
+                            
+                        </motion.div>
+                    </div>   
+                    
                     
                     
                 </div>
 
                 <div className="item" onClick={handleSettings}>
-                    
-                    
+                    <div className="item-group">
                     <Settings id="Icon" className={`${isActive ? "IconActive":""}`}></Settings>
-                                        
+                    <motion.div 
+                        
+                        animate={{ x: isActive ? 10 : -50, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff"}}
+                        className={`${isActive ? "TextActive":""} Text`}>
+                            
+                            SETTINGS
+                            
+                        </motion.div>
+                    </div>   
+                    
+                    
+                    
                 </div>
 
                 <div className="item" onClick={handleHelp}>
-                    
-                    
+                    <div className="item-group">
                     <Help id="Icon" className={`${isActive ? "IconActive":""}`}></Help>
+                    <motion.div 
+                        
+                        animate={{ x: isActive ? 10 : -50, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}
+                        className={`${isActive ? "TextActive":""} Text`}>
+                            
+                            HELP
+                            
+                        </motion.div>
+                    </div>   
+                    
                     
                     
                 </div>

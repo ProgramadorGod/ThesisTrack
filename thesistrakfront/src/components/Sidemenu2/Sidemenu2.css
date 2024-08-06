@@ -1,7 +1,7 @@
 @media (min-width:0px) {
     #SideMenu2-Container{
         
-        width: 10vh;
+        width: 10vw;
         margin-top: 20vh;
         height: 70vh;
         background-color: #ffffff;
@@ -28,8 +28,11 @@
     .item{
         display: flex;
         width: 100%;
-
         cursor: pointer;   
+        height: 100%;
+        align-items: center;
+        border-top-right-radius: 2vh;
+        border-bottom-right-radius: 2vh;
 
         background-color: rgba(0, 255, 255, 0);
     }
@@ -37,13 +40,15 @@
     #Icon{
         width: 4vh;
         height: 4vh;
+        
         margin-left: 3vh;
+        padding-right: 3.5vh;
     }
 
     .item-group{
         display: flex;
         font-family: "Apple";
-        font-size: 3vh;
+        font-size: 1.3vw;
     }
 }
 
@@ -51,8 +56,9 @@
 @media (min-width:700px){
     .Text{
         margin-top: 0.4vh;
-        margin-left: 6vh;
+        margin-left: 1.5vw;
         display: none;
+        align-items: center;
     }
 
     .TextActive{
@@ -63,7 +69,7 @@
 @media (max-width:700px) {
     .Text{
         margin-top: 0.4vh;
-        margin-left: 6vh;
+        margin-left: 6vw;
         display: none;
     }
 
