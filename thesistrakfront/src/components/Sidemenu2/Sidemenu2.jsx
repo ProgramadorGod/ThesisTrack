@@ -86,7 +86,7 @@ const Sidemenu2 = ({isActive}) => {
 
     const GetInitialPosition = () =>{
         if (WindowWidth > 700){
-            return isActive ? "10.5vh" : "0vh"
+            return isActive ? "21vw" : "11vh"
         }else{
             return isActive ? "10.5vh" : "0vh"
         }
