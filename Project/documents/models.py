@@ -35,3 +35,20 @@ class Document(models.Model):
     def __str__(self):
         return self.title
 
+
+class NewDocument(models.Model):
+    code = models.CharField(max_length=10)
+    carrer = models.ForeignKey(Carrer, on_delete=models.SET_DEFAULT, default=1)
+    title = models.CharField(max_length=400, default="Untitled")
+    authors = models.JSONField(default=list)
+    year = models.CharField(max_length=4, default="0000")
+    file = models.FileField(upload_to="files/")
+    is_visible = models.BooleanField(default=True)
+    stage = models.ForeignKey(DocumentStage, on_delete=models.SET_NULL, null=True)
+    progress_percentage = models.FloatField(default=0.0)
+    document_type = models.ForeignKey(DocumentType, on_delete=models.SET_NULL, null=True)
+    # uploaded_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='uploaded_documents')
+
+    def __str__(self):
+        return self.title
+

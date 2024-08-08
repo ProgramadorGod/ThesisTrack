@@ -86,7 +86,7 @@ const Sidemenu2 = ({isActive}) => {
 
     const GetInitialPosition = () =>{
         if (WindowWidth > 700){
-            return isActive ? "21vw" : "11vh"
+            return isActive ? "10.5vh" : "0vh"
         }else{
             return isActive ? "10.5vh" : "0vh"
         }
@@ -107,115 +107,76 @@ const Sidemenu2 = ({isActive}) => {
         >
             
             <div id="Menu-items">
-                <div className="item" onClick={handleHomeClick}>
+                <div className={`${isActive ? "item":"unactive"}`} onClick={handleHomeClick}  tabIndex={2}>
                     <div className="item-group">
-                        <div>
+                        <motion.div animate={{ x: isActive ? 0 : -30, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}>
                         <HomeIcon id="Icon" className={`${isActive ? "IconActive":""}`}></HomeIcon>
 
-                        </div>
-                        <motion.div
-                            animate={{ x: isActive ? 10 : -50, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}
-                            className={`${isActive ? "TextActive":""} Text`}>HOME</motion.div>
+                        </motion.div>
+                        
                     </div>
                     
                 </div>
 
-                <div className="item" onClick={handleProfileClick}>
-                    <div className="item-group">
+                <div className={`${isActive ? "item":"unactive"}`} onClick={handleProfileClick} tabIndex={2}>
+                    <motion.div className="item-group"
+                    animate={{ x: isActive ? 0 : -30, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}>
                         <ProfIcon id="Icon" className={`${isActive ? "IconActive":""}`}></ProfIcon>
-                        <motion.div 
                         
-                        animate={{ x: isActive ? 10 : -50, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}
-                        className={`${isActive ? "TextActive":""} Text`}>
-                            
-                            PROFILE
-                            
-                        </motion.div>
 
-                    </div>
+                    </motion.div>
 
                 </div>
 
-                <div className="item" onClick={handleMyFilesClick}>
-                    <div className="item-group">
+                <div className={`${isActive ? "item":"unactive"}`} onClick={handleMyFilesClick} tabIndex={2}>
+                    <motion.div className="item-group"
+                    animate={{ x: isActive ? 0 : -30, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}>
                     <FileIcon id="Icon" className={`${isActive ? "IconActive":""}`}></FileIcon>
-                    <motion.div 
-                        
-                        animate={{ x: isActive ? 10 : -50, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}
-                        className={`${isActive ? "TextActive":""} Text`}>
-                            
-                            FILES
-                            
-                        </motion.div>
-                    </div>   
+                    
+                    </motion.div>   
                     
                     
                     
                 </div>
 
-                <div className="item" onClick={handleGpt}>
-                    <div className="item-group">
-                    <GptIcon id="Icon" className={`${isActive ? "IconActive":""}`}></GptIcon>
-                    <motion.div 
-                        
-                        animate={{ x: isActive ? 10 : -50, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}
-                        className={`${isActive ? "TextActive":""} Text`}>
-                            
-                            ASISTENTE
-                            
-                        </motion.div>
-                    </div>   
+                <div className={`${isActive ? "item":"unactive"}`} onClick={handleGpt} tabIndex={2}>
+                    <motion.div className="item-group"
+                    animate={{ x: isActive ? 0 : -30, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}
+
+                    >
+                        <GptIcon id="Icon" className={`${isActive ? "IconActive":""}`}></GptIcon>
+                    
+                    </motion.div>   
                     
                     
                     
                 </div>
 
-                <div className="item" onClick={handleGraphics}>
-                    <div className="item-group">
+                <div className={`${isActive ? "item":"unactive"}`} onClick={handleGraphics} tabIndex={2}>
+                    <motion.div className="item-group" animate={{ x: isActive ? 0 : -30, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}>
                     <StatsIcon id="Icon" className={`${isActive ? "IconActive":""}`}></StatsIcon>
-                    <motion.div 
-                        
-                        animate={{ x: isActive ? 10 : -50, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}
-                        className={`${isActive ? "TextActive":""} Text`}>
-                            
-                            GRAPHICS
-                            
-                        </motion.div>
-                    </div>   
+                    
+                    </motion.div>   
                     
                     
                     
                 </div>
 
-                <div className="item" onClick={handleSettings}>
-                    <div className="item-group">
+                <div className={`${isActive ? "item":"unactive"}`} onClick={handleSettings} tabIndex={2}>
+                    <motion.div className="item-group" animate={{ x: isActive ? 0 : -30, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}>
                     <Settings id="Icon" className={`${isActive ? "IconActive":""}`}></Settings>
-                    <motion.div 
-                        
-                        animate={{ x: isActive ? 10 : -50, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff"}}
-                        className={`${isActive ? "TextActive":""} Text`}>
-                            
-                            SETTINGS
-                            
-                        </motion.div>
-                    </div>   
+                    
+                    </motion.div>   
                     
                     
                     
                 </div>
 
-                <div className="item" onClick={handleHelp}>
-                    <div className="item-group">
+                <div className={`${isActive ? "item":"unactive"}`} onClick={handleHelp} tabIndex={2}>
+                    <motion.div className="item-group" animate={{ x: isActive ? 0 : -30, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}>
                     <Help id="Icon" className={`${isActive ? "IconActive":""}`}></Help>
-                    <motion.div 
-                        
-                        animate={{ x: isActive ? 10 : -50, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}
-                        className={`${isActive ? "TextActive":""} Text`}>
-                            
-                            HELP
-                            
-                        </motion.div>
-                    </div>   
+                   
+                    </motion.div>   
                     
                     
                     

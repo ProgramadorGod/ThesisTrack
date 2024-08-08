@@ -47,8 +47,12 @@
 
     .item-group{
         display: flex;
+        
         font-family: "Apple";
         font-size: 1.3vw;
+    }
+    .unactive{
+        display: none;
     }
 }
 

@@ -153,6 +153,15 @@ button.NavbarButton{
   height: 10.4vh;
   width: 10.4vh;
   align-items: center;
+
+  
+}
+
+button.NavbarButton:focus{
+  outline: none;
+  box-shadow: 0 0 0 0.2vh black; 
+/* box-shadow aplicado en todos los lados */
+
   
 }
 
@@ -165,6 +174,9 @@ button.NavbarButton{
 
 }
 
+#menubutton::focus{
+  outline: none;
+}
 
 
 
