@@ -1,12 +1,17 @@
+import base64
+import uuid
+import hashlib
+
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from django.core.files.base import ContentFile
 from django.db.models import Q
-from .models import Document, DocumentStage, DocumentType, Carrer
-from .serializers import DocumentSerializer, DocumentStageSerializer, DocumentTypeSerializer, CarrerSerializer
+from .models import UrlDocument, DocumentStage, DocumentType, Carrer, FileDocument
+from .serializers import DocumentSerializer, DocumentStageSerializer, DocumentTypeSerializer,FileDocumentSerializer, CarrerSerializer, CreateFileDocSerializer
 
 # Clase de paginación
 class DocumentPagination(PageNumberPagination):
@@ -17,7 +22,7 @@ class DocumentPagination(PageNumberPagination):
 def document_list(request):
     query = request.GET.get('query', '')
     sort_by = request.GET.get('sort_by', 'title')  # Ordenar por título por defecto
-    documents = Document.objects.all()
+    documents = UrlDocument.objects.all()
     carrer_id = request.GET.get('carrer_id', None)
     year = request.GET.get('year', None)
 
@@ -50,10 +55,23 @@ def document_list(request):
 
 # ViewSets para otras vistas
 class DocumentViewSet(viewsets.ModelViewSet):
-    queryset = Document.objects.all()
+    queryset = UrlDocument.objects.all()
     serializer_class = DocumentSerializer
     permission_classes = [AllowAny]
+
+# ViewSets para otras vistas
+class FileDocumentViewSet(viewsets.ModelViewSet):
+    queryset = FileDocument.objects.all()
+    serializer_class = FileDocumentSerializer
+    permission_classes = [AllowAny]
+
+
 
 class CarrerViewSet(viewsets.ModelViewSet):
     queryset = Carrer.objects.all()
     serializer_class = CarrerSerializer
+
+
+class DocumentTypeList(viewsets.ModelViewSet):
+    queryset = DocumentType.objects.all()
+    serializer_class = DocumentTypeSerializer

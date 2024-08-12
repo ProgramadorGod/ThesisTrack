@@ -18,7 +18,7 @@ export const AppProvider = ({children}) => {
     const [profile, setProfile] = useState(null);
     const [name, setname] = useState("");
     const [userid, setUserid] = useState([]);
-    const PortToUse = "http://127.0.0.1:8000/";
+    const PortToUse = "http://172.30.3.15:8000/";
 
 
 
@@ -48,6 +48,7 @@ export const AppProvider = ({children}) => {
                 console.log("Logged")
                 LocalData(response.data)
                 setisloading(false)
+                setisActive("Active")
                 
             }
             else{

@@ -107,7 +107,7 @@ const Sidemenu2 = ({isActive}) => {
         >
             
             <div id="Menu-items">
-                <div className={`${isActive ? "item":"unactive"}`} onClick={handleHomeClick}  tabIndex={2}>
+                <button className={`${isActive ? "item":"unactive"}`} onClick={handleHomeClick}  tabIndex={2}>
                     <div className="item-group">
                         <motion.div animate={{ x: isActive ? 0 : -30, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}>
                         <HomeIcon id="Icon" className={`${isActive ? "IconActive":""}`}></HomeIcon>
@@ -116,9 +116,9 @@ const Sidemenu2 = ({isActive}) => {
                         
                     </div>
                     
-                </div>
+                </button>
 
-                <div className={`${isActive ? "item":"unactive"}`} onClick={handleProfileClick} tabIndex={2}>
+                <button className={`${isActive ? "item":"unactive"}`} onClick={handleProfileClick} tabIndex={2}>
                     <motion.div className="item-group"
                     animate={{ x: isActive ? 0 : -30, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}>
                         <ProfIcon id="Icon" className={`${isActive ? "IconActive":""}`}></ProfIcon>
@@ -126,9 +126,9 @@ const Sidemenu2 = ({isActive}) => {
 
                     </motion.div>
 
-                </div>
+                </button>
 
-                <div className={`${isActive ? "item":"unactive"}`} onClick={handleMyFilesClick} tabIndex={2}>
+                <button className={`${isActive ? "item":"unactive"}`} onClick={handleMyFilesClick} tabIndex={2}>
                     <motion.div className="item-group"
                     animate={{ x: isActive ? 0 : -30, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}>
                     <FileIcon id="Icon" className={`${isActive ? "IconActive":""}`}></FileIcon>
@@ -137,9 +137,9 @@ const Sidemenu2 = ({isActive}) => {
                     
                     
                     
-                </div>
+                </button>
 
-                <div className={`${isActive ? "item":"unactive"}`} onClick={handleGpt} tabIndex={2}>
+                <button className={`${isActive ? "item":"unactive"}`} onClick={handleGpt} tabIndex={2}>
                     <motion.div className="item-group"
                     animate={{ x: isActive ? 0 : -30, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}
 
@@ -150,9 +150,9 @@ const Sidemenu2 = ({isActive}) => {
                     
                     
                     
-                </div>
+                </button>
 
-                <div className={`${isActive ? "item":"unactive"}`} onClick={handleGraphics} tabIndex={2}>
+                <button className={`${isActive ? "item":"unactive"}`} onClick={handleGraphics} tabIndex={2}>
                     <motion.div className="item-group" animate={{ x: isActive ? 0 : -30, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}>
                     <StatsIcon id="Icon" className={`${isActive ? "IconActive":""}`}></StatsIcon>
                     
@@ -160,9 +160,9 @@ const Sidemenu2 = ({isActive}) => {
                     
                     
                     
-                </div>
+                </button>
 
-                <div className={`${isActive ? "item":"unactive"}`} onClick={handleSettings} tabIndex={2}>
+                <button className={`${isActive ? "item":"unactive"}`} onClick={handleSettings} tabIndex={2}>
                     <motion.div className="item-group" animate={{ x: isActive ? 0 : -30, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}>
                     <Settings id="Icon" className={`${isActive ? "IconActive":""}`}></Settings>
                     
@@ -170,9 +170,9 @@ const Sidemenu2 = ({isActive}) => {
                     
                     
                     
-                </div>
+                </button>
 
-                <div className={`${isActive ? "item":"unactive"}`} onClick={handleHelp} tabIndex={2}>
+                <button className={`${isActive ? "item":"unactive"}`} onClick={handleHelp} tabIndex={2}>
                     <motion.div className="item-group" animate={{ x: isActive ? 0 : -30, opacity: isActive ? 1:0, color: isActive ? "#000000" : "#ffffff" }}>
                     <Help id="Icon" className={`${isActive ? "IconActive":""}`}></Help>
                    
@@ -180,7 +180,7 @@ const Sidemenu2 = ({isActive}) => {
                     
                     
                     
-                </div>
+                </button>
 
 
 
