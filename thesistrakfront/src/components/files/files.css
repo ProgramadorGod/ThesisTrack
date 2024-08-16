@@ -166,56 +166,26 @@
     
 }
 
-#FiltersContainer{
-    /* padding-top: 10vh; */
+#Filters-Container{
+    width: 50vw;
+    background-color: #FFFFFF;
     display: flex;
-    width: 18vw;
-
-    margin-left: 2vw;
-    align-items: center;
-    align-content: center;
-    flex-direction: column;
-    justify-content: flex-start;
-    /* background-color: rgba(85, 45, 0, 0.11); */
+    margin-top: 1vh;
 }
+.Carrers-Filter{
+    width: 13vw;
 
-#FiltersText{
-    border-top-right-radius:0.4vh;
-    border-top-left-radius:0.4vh ;
-    height: 7vh;
     background-color: #edededb0;
-    /* margin-top: 0.5vh; */
-    border: 0.24vw outset #edededb0;
-    min-height: 34px;
-    max-height: 44px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    color: black;
-    font-family: "Apple";
-    width: 18vw;
+    border: 0.1vw solid #bababa97;
+    /* border-radius: 1vh; */
+    font-size: 0.8rem;
     display: flex;
+    height: 4vh;
     align-content: center;
-    align-items: center;
     justify-content: center;
-}
+    align-items: center;
+    color: #2b3441;
 
-#Filters{
-    width: 15vw;
-    background-color: #edededb0;
-    padding-left: 3vw;
-    font-family: "Apple";
-
-    padding-bottom: 10vh;
-    display: flex;
-}
-
-#Carrers-Section{
-    margin-top: 2vh;
-    display: flex;
-}
-
-#Carres-Icon{
-    font-size: 10px;
 }
 
 #WaitingContainer{
