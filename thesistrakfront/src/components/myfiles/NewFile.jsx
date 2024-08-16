@@ -8,13 +8,51 @@ const NewFile = ({ setupladovisible, userid }) => {
     const [docTypes, setDocTypes] = useState([]);
     const [selectedUsers, setSelectedUsers] = useState([parseInt(userid)]);
     const [Title, setTitle] = useState('');
-    const [Carrer, setCarrer] = useState('');
+    const [Carrers, setCarrers] = useState([]);
+    const [Stages, setStages] = useState([]);
+    const [Stage, setStage] = useState('');
+    const [Code , setCode ] = useState('')
     const [file, setFile] = useState(null);
     const [description, setDescription] = useState('');
     const [docType, setDocType] = useState('');
     const [selectedType, setSelectedType] = useState([]);
+    const [Carrer, setCarrer] = useState('')
+    const [progressPercentage, setProgressPercentage] = useState(100); // Valor por defecto al 100%
+
 
     const { PortToUse } = useAppContext();
+
+    const handleSubmit = async(e) =>{
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('code', 'Not official')
+        formData.append('title', Title);
+        formData.append('description', description);
+        formData.append('year', '2024');
+        formData.append('file', file);
+        formData.append('progress_percentage','20')
+        formData.append('document_type', docType);
+
+
+        try{
+            const response = await axios.post(PortToUse + "api/upload-file", formData, {
+                withCredentials:true,
+            });
+            console.log("File uploaded successfully", response.data);
+
+
+        }catch (error){
+
+            console.error("Error uploading file", error);
+
+        }
+
+
+
+
+
+    }
 
     const fetchDocTypes = async () => {
         try {
@@ -33,7 +71,13 @@ const NewFile = ({ setupladovisible, userid }) => {
             const response = await axios.get(PortToUse + "api/carrers/", {
                 withCredentials: true,
             });
-            setCarrer(response.data);
+
+            setCarrers(response.data);
+            console.log( "lol: ",response.data);
+            response.data.map((carrer)=>{
+                console.log(carrer.name)
+            })
+
         } catch (error) {
             console.error("Error fetching document types", error);
         }
@@ -41,9 +85,30 @@ const NewFile = ({ setupladovisible, userid }) => {
 
 
 
+    const fetchStages = async () => {
+        try {
+            const response = await axios.get(PortToUse + "api/doc-stages/", {
+                withCredentials: true,
+            });
+
+            setStages(response.data);
+            console.log( "lol: ",response.data);
+        
+
+        } catch (error) {
+            console.error("Error fetching document types", error);
+        }
+    };
+
+
+
+
+
     useEffect(() => {
         fetchDocTypes();
         fetchCarrers();
+        fetchStages();
+        
     }, []); // Lista de dependencias vacía para ejecutar solo una vez
 
     return (
@@ -55,9 +120,12 @@ const NewFile = ({ setupladovisible, userid }) => {
                         onChange={(e) => setCarrer(e.target.value)}
 
                     >
-              
-
                         
+                        {Carrers.map((carrer)=> (
+                            <option key={carrer.id} value={carrer.id}> 
+                                {carrer.name}
+                            </option>
+                        ))}                      
 
                     </select>
 
@@ -67,6 +135,14 @@ const NewFile = ({ setupladovisible, userid }) => {
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder="Título"
                     />
+                    
+                    <input
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        placeholder='Desciption'
+                    
+                    />
+
                     <select
                         value={docType}
                         onChange={(e) => setDocType(e.target.value)}
@@ -77,10 +153,29 @@ const NewFile = ({ setupladovisible, userid }) => {
                             </option>
                         ))}
                     </select>
+
+                    <select
+                        value={Stage}
+                        onChange={(e) => setStage(e.target.value)}
+
+                    >
+                        
+                        {Stages.map((stage)=> (
+                            <option key={stage.id} value={stage.id}> 
+                                {stage.stage}
+                            </option>
+                        ))}
+
+                        
+
+                    </select>
+
                     <input
                         type="file"
                         onChange={(e) => setFile(e.target.files[0])}
                     />
+
+                    <button type='submit'> Subir archivo </button>
                 </form>
             </div>
         </div>

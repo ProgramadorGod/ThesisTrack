@@ -13,6 +13,7 @@ from django.db.models import Q
 from .models import UrlDocument, DocumentStage, DocumentType, Carrer, FileDocument
 from .serializers import DocumentSerializer, DocumentStageSerializer, DocumentTypeSerializer,FileDocumentSerializer, CarrerSerializer, CreateFileDocSerializer
 
+from datetime import datetime
 # Clase de paginación
 class DocumentPagination(PageNumberPagination):
     page_size = 30
@@ -59,12 +60,17 @@ class DocumentViewSet(viewsets.ModelViewSet):
     serializer_class = DocumentSerializer
     permission_classes = [AllowAny]
 
+    def perform_create(self, serializer):
+        serializer.save( year=datetime.now().year)
+
 # ViewSets para otras vistas
 class FileDocumentViewSet(viewsets.ModelViewSet):
     queryset = FileDocument.objects.all()
     serializer_class = FileDocumentSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
+    def perform_create(self, serializer):
+        serializer.save(authors = [self.request.user],  year=datetime.now().year)
 
 
 class CarrerViewSet(viewsets.ModelViewSet):
@@ -75,3 +81,8 @@ class CarrerViewSet(viewsets.ModelViewSet):
 class DocumentTypeList(viewsets.ModelViewSet):
     queryset = DocumentType.objects.all()
     serializer_class = DocumentTypeSerializer
+
+
+class DocumentStagesList(viewsets.ModelViewSet):
+    queryset = DocumentStage.objects.all()
+    serializer_class = DocumentStageSerializer

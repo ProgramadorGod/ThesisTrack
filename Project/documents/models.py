@@ -9,7 +9,7 @@ class DocumentType(models.Model):
 
 class Carrer(models.Model):
     name = models.CharField(max_length=130)
-
+    code  = models.CharField(max_length=10, default="New")
     def __str__(self):
         return self.name
 
