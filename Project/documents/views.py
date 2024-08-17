@@ -61,7 +61,9 @@ class DocumentViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
 
     def perform_create(self, serializer):
-        serializer.save( year=datetime.now().year)
+        file_document = serializer.save(year=datetime.now().year)
+        file_document.authors.add(self.request.user)
+
 
 # ViewSets para otras vistas
 class FileDocumentViewSet(viewsets.ModelViewSet):
@@ -70,7 +72,8 @@ class FileDocumentViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(authors = [self.request.user],  year=datetime.now().year)
+        # Asignar el usuario actual como autor del documento
+        serializer.save(authors=[self.request.user.username])
 
 
 class CarrerViewSet(viewsets.ModelViewSet):

@@ -3,6 +3,7 @@ from .models import UrlDocument, DocumentStage, DocumentType,Carrer, FileDocumen
 from datetime import datetime
 
 
+
 class FileDocumentSerializer(serializers.ModelSerializer):
     carrer_name = serializers.SerializerMethodField()
     stage_name = serializers.SerializerMethodField()
@@ -11,10 +12,12 @@ class FileDocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = FileDocument
         fields = [
-            "id", "code", "title", "url", "is_visible", 
+            "id", "title", "url", "is_visible", 
             "progress_percentage", "carrer", "file", "carrer_name", "stage", "stage_name",
             "document_type", "document_type_name"
-        ]    
+        ]
+        read_only_fields = ['authors']  # Especifica que el campo 'authors' es de solo lectura
+        
     def get_carrer_name(self, obj):
         return obj.carrer.name if obj.carrer else None
 

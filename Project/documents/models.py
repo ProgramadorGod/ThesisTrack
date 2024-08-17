@@ -20,7 +20,7 @@ class DocumentStage(models.Model):
         return self.stage
 
 class AbstractBaseDocument(models.Model):
-    code = models.CharField(max_length=10, default="New")
+    
     carrer = models.ForeignKey(Carrer, on_delete=models.SET_DEFAULT, default=1)
     title = models.CharField(max_length=400, default="Untitled")
     authors = models.JSONField(default=list)

@@ -11,7 +11,8 @@ const NewFile = ({ setupladovisible, userid }) => {
     const [Carrers, setCarrers] = useState([]);
     const [Stages, setStages] = useState([]);
     const [Stage, setStage] = useState('');
-    const [Code , setCode ] = useState('')
+    const [Code , setCode ] = useState('');
+    const [Visible, setVisible]  = useState(true);
     const [file, setFile] = useState(null);
     const [description, setDescription] = useState('');
     const [docType, setDocType] = useState('');
@@ -28,6 +29,7 @@ const NewFile = ({ setupladovisible, userid }) => {
         const formData = new FormData();
         formData.append('code', 'Not official')
         formData.append('title', Title);
+        formData.append('is_visible', Visible)
         formData.append('description', description);
         formData.append('year', '2024');
         formData.append('file', file);
@@ -36,7 +38,7 @@ const NewFile = ({ setupladovisible, userid }) => {
 
 
         try{
-            const response = await axios.post(PortToUse + "api/upload-file", formData, {
+            const response = await axios.post(PortToUse + "api/file_docs/", formData, {
                 withCredentials:true,
             });
             console.log("File uploaded successfully", response.data);
@@ -169,6 +171,18 @@ const NewFile = ({ setupladovisible, userid }) => {
                         
 
                     </select>
+
+                    <div className="progressContainer">
+                        <label htmlFor="progress">Progreso (%): {progressPercentage}%</label>
+                        <input
+                            type="range"
+                            id="progress"
+                            min="0"
+                            max="100"
+                            value={progressPercentage}
+                            onChange={(e) => setProgressPercentage(e.target.value)}
+                        />
+                    </div>
 
                     <input
                         type="file"
