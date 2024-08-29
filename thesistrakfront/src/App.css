@@ -3,7 +3,7 @@
   --color1: #282c34; /* Fondo de App-header */
   --color2: #61dafb; /* Enlaces */
   --color3: #ffffff; /* Fondo de html y body */
-  --color4: #273475; /* Fondo de navbar */
+  --color4: #0c195a; /* Fondo de navbar */
   --color5: #c0caf7e0; /* Color del icono en el navbar */
 }
 
@@ -14,7 +14,7 @@
   font-weight: normal;
   font-style: normal;
 }
-
+  
 @font-face {
   font-family: 'Runtoe';
   src: url('./fonts/Runtoe.ttf') format('opentype');
@@ -25,7 +25,7 @@
 
 
 .App {
-  text-align: center;
+  text-align: center; 
 }
 
 .App-logo {
@@ -62,6 +62,10 @@
     transform: rotate(360deg);
   }
 }
+body{
+  overflow-y: hidden;
+
+}
 
 .body {
   align-items: center;
@@ -86,6 +90,7 @@ html {
 
 #BasicGroup{
   height: auto;
+  
 
 }
 
@@ -99,23 +104,81 @@ html {
 #navbar {
   width: 100%;
   background-color: var(--color4);
-  height: 64px;
+  height: 10.4vh;
   position: absolute;
   display: flex;
   align-items: center;
-  box-shadow: #031038 1px 0px 3px 3px ;
+  box-shadow: #031038 0.1vh 0vh 0.8vh 0.4vh ;
   overflow: hidden;
-  z-index: 99;
+  z-index: 999;
 }
 
-#icon {
-  margin-left: 20px;
-  height: 50px;
-  width: 30px;
-  min-width: 30px;
-  color: var(--color5);
-  cursor: crosshair;
+@keyframes fadeInRotate {
+  0% {
+    opacity: 0;
+    transform: perspective(400px) rotateY(-90deg);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(400px) rotateY(0deg);
+  }
 }
+
+
+#icon {
+  width: 5vh;
+  height: 10.4vh;
+  
+  
+  color: rgb(184, 200, 255);
+  fill: rgb(184, 200, 255);
+  cursor: crosshair;
+  animation: fadeInRotate 0.2s ease-in-out;
+  user-select: none;
+  
+  
+
+}
+#icon:focus{
+  outline: none;
+}
+
+button.NavbarButton{
+  padding: 0px;
+  padding-left: 2.5vh;
+  background-color: rgba(255, 0, 0, 0);
+  border: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 10.4vh;
+  width: 10.4vh;
+  align-items: center;
+
+  
+}
+
+button.NavbarButton:focus{
+  outline: none;
+  box-shadow: 0 0 0 0.2vh black; 
+/* box-shadow aplicado en todos los lados */
+
+  
+}
+
+
+#menubutton{
+  user-select: none;
+  display: flex;
+  width: 10.4vh;
+  height: 10.4vh;
+
+}
+
+#menubutton::focus{
+  outline: none;
+}
+
 
 
 #navtext{
@@ -124,7 +187,6 @@ html {
   /* text-shadow: #000 1px 1px 1px ; */
   margin: 0px;  
   color: rgba(244, 250, 252, 0.986);
-  
 }
 
 #navtext2{
@@ -137,9 +199,9 @@ html {
 }
 #logott{
   /* padding-top: 7px; */
-  width: 100px;
+  height: 10.4vh;
   user-select: none;
-  padding-left: 2vw;
+  
 }
 
 #logout{
@@ -161,26 +223,43 @@ html {
 
 #logounipaz{
   object-fit: cover;
-  height: 64px;
+  height: 10.4vh;
   color: white;
-  padding-left:20px ;
+  padding-left:2vw ;
   user-select: none;
 
-  @media (max-width:600px){
-    display: none;
-    
-  }
-
 }
 
-#navbariconbutton{
-  background-color: #00000000;
-  border: 0px;
-}
+
+
+
+
 
 #profilepic{
   margin-left: auto;
   height: 56px;
   margin-right: 20px;
   user-select: none;
+}
+
+
+
+.close{
+  width: 6vh;
+  color: rgb(194, 208, 253);
+  fill: rgb(192, 204, 255);
+  opacity: 0;
+  /* transform: rotate(-180deg); */
+}
+
+.CloseiconActive{
+  opacity: 1 ;
+  /* transform: rotate(0deg) ; */
+  /* transition: 1s ease; */
+}
+
+
+#footer{
+  background-color: #031038;
+  height: 36px;
 }

@@ -1,83 +1,172 @@
-import React, { useEffect, useState } from 'react'
-import "./files.css"
-import axios from 'axios'
-import { RxCheckCircled, RxCheckbox, RxFile, RxQuestionMark, RxTokens } from 'react-icons/rx'
-import Profile from '../profile/profile'
+import React, { useCallback, useEffect, useState } from "react";
+import "./files.css";
+import axios from "axios";
+import Loadingrectangle from "../loading/loading";
+import Document from "./Document";
+import { RxDoubleArrowDown, RxZoomIn } from "react-icons/rx";
+import InputSpotlightBorderCSS from "./effect";
+import { debounce } from 'lodash';
+import LoadingFiles from "./LoadingFiles";
 
-const Files = () => {
-  const [Documents, setDocuments] = useState([]);
 
-  useEffect(()=>{
-    const fetchDocuments = async () =>{
-      const response = await axios.get("http://127.0.0.1:8000/documents/",{
+const Files = ({ PortToUse }) => {
+  const [AllDocuments, setAllDocuments] = useState([]);
+  const [NextPage, setNextPage] = useState(null);
+  const [isLoading, setisLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const fetchDocuments = async (query = "") => {
+    try {
+      const response = await axios.get(PortToUse + "api/documentz/", {
+        params: { query },
         withCredentials: true,
       });
-      setDocuments(response.data);
+      setAllDocuments(response.data.results);
+      setNextPage(response.data.next);
+      localStorage.setItem("documents", JSON.stringify(response.data.results));
+    } catch (error) {
+      console.error("Error Trying To Fetch Documents: ", error);
+    }
+  };
+
+  const AddDocuments = async () => {
+    if (NextPage) {
+      try {
+        const response = await axios.get(NextPage, {
+          withCredentials: true,
+        });
+        setAllDocuments((prevDocuments) => [
+          ...prevDocuments,
+          ...response.data.results,
+        ]);
+        setNextPage(response.data.next);
+        localStorage.setItem(
+          "documents",
+          JSON.stringify([
+            ...AllDocuments,
+            ...response.data.results,
+          ])
+        );
+      } catch (error) {
+        console.error("Error Trying To Fetch Documents: ", error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetchDocuments();
+      setisLoading(false);
     };
-    fetchDocuments();
-  },[])
-
-  const handleDocumentClick = (documentid) => {
-    console.log("CLICKED THE DOCUMENT : ", documentid)
-  }
-  
-
-  return (
-    <div id='totaldocumentscontainer'>
-      {/* <Profile/> */}
-
-      {Documents.map((document)=>(
-        <div id="FileComponent">
-          <div className='ThesisContainer'>
-            <div id='kind'> <RxTokens id='logo'/> {document.doc_type.name} </div>
-              <div className='Title'>{document.title}</div>
-              <div className='Description'> {document.description}</div>
-              <div className='Author'> 
-                <div> Author: </div> 
-                
-              {document.users && document.users.length > 0 && document.users.length < 3 ? (
-                
-                document.users.map(user => (
-                  <div key={user.id} className='authorname'>{'\u00A0'}-{'\u00A0'}{user.username} </div>
-                ))
-              ) : (
-                <div>No authors available</div>
-              )}
-              </div>
-
-              <div 
-                className='DownloadButton'                
-                
-                >
-                
-                <a id='DownloadText' href={document.filee} > <RxFile className='icondoc'></RxFile>     Accede Ahora (Libro Electrónico) </a>
-                {/* <div>{document.id}</div> */}
-              </div>
-
-          </div>
-        </div>
-      ))}
-  
-      
+    fetchData();
+  }, []); // Arreglo de dependencias vacío para ejecutar solo una vez
 
 
+  const debouncedFetchDocuments = useCallback(
+    debounce((query) =>{
+      fetchDocuments(query);
 
-    
-    
-    </div>
+    },200),[]
 
   )
-}
-
-export default Files
 
 
-// TESIS LAUREADAS, OBTENER INSIGNIA DE SOBRESALIENTE.
-// FUTURO DE LOS ESTUDIANTES PODER DEMOSTRAR EL PRESTIGIO Y LA IMPORTANCIA DE SUS PROYECTOS QUE TUVIERON EN LA INSTITUCIÓN
-// RELACIONAR PROYECTOS 
-// VOTACIONES PARA FINANCIAR PROYECTOS
-// UNIPAZ PUEDE DEMOSTRAR CON SOLIDEZ QUE PROYECTOS EXISTEN
-// MEJORAR EL CONOCIMIENTO DE LOS ESTUDIANTES PARA DESARROLLAR PROYECTOS Y PRESUPUESTOS 
-// ETIQUETA DE PROYECTOS CON PRESUPUESTOS
-// ESTRELLAS NIVEL DE PRESTIGIO
+  const handleSearch = async (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    debouncedFetchDocuments(query)
+  };
 
+  if (isLoading) {
+    
+    return( 
+      <div id="totaldocumentscontainer">
+      <div id="BrowserContainer">
+        <div id="SearchInputContainer">
+          <InputSpotlightBorderCSS 
+            searchQuery={searchQuery}
+            handleSearch={handleSearch}
+            id="PersonalBrowser"
+            type="text"
+
+          ></InputSpotlightBorderCSS>
+
+          {/* <input
+            id="PersonalBrowser"
+            type="text"
+            placeholder="   Buscar Documentos, Tesis, Investigaciones, Pasantias y más "
+            value={searchQuery}
+            onChange={handleSearch}
+          /> */}
+
+          <div id="ZoomIcon">
+            <RxZoomIn></RxZoomIn>
+          </div>
+        </div>
+        <div id="WaitingContainer">
+          
+          <LoadingFiles></LoadingFiles>
+        </div>
+      </div>
+
+      {/* <div id="FiltersContainer">
+        <div id="FiltersText">
+          Filters
+        </div>
+        <div>lol</div>
+
+      </div> */}
+    </div>
+      
+  )
+  }
+
+  return (
+    <div id="totaldocumentscontainer">
+      <div id="BrowserContainer">
+        <div id="SearchInputContainer">
+          <InputSpotlightBorderCSS 
+            searchQuery={searchQuery}
+            handleSearch={handleSearch}
+            id="PersonalBrowser"
+            type="text"
+
+          ></InputSpotlightBorderCSS>
+
+          {/* <input
+            id="PersonalBrowser"
+            type="text"
+            placeholder="   Buscar Documentos, Tesis, Investigaciones, Pasantias y más "
+            value={searchQuery}
+            onChange={handleSearch}
+          /> */}
+
+          <div id="ZoomIcon">
+            <RxZoomIn></RxZoomIn>
+          </div>
+        </div>
+        <div id="Filters-Container">
+          <div className="Carrers-Filter">Carrers</div>
+          <div className="Carrers-Filter">Year</div>
+        </div>
+        <>
+        {AllDocuments.map((document) => (
+          <Document key={document.id} document={document} />
+        ))}
+
+        {NextPage && (
+          <button onClick={AddDocuments} className="load-more-button">
+            Cargar más
+          </button>
+        )}
+      </>
+      </div>
+
+
+
+    </div>
+    
+  );
+};
+
+export default Files;

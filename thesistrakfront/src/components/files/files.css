@@ -1,96 +1,204 @@
-.ThesisContainer{
+.ThesisContainer {
     width: 50vw;
     display: grid;
-    /* border-top: 1px solid #D7D8DA; */
     border-bottom: 1px solid #D7D8DA;
     background-color: rgba(89, 151, 202, 0);
-    
 }
 
+@font-face {
+    font-family: 'Apple';
+    src: url('../../fonts/AppleGaramond.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
 
-#FileComponent{
-    /* padding-top: 5vh; */
+#FileComponent {
     display: flex;
     justify-content: center;
+    font-family: "Apple";
     align-content: center;
-    margin-bottom: 30px;
+    margin-bottom: 4vh;
 }
 
-#totaldocumentscontainer{
-    padding-top: 90px;
+#totaldocumentscontainer {
+    padding-top: 12vh;
+    display: flex;
 }
 
-#kind{
+#kind {
     display: flex;
     align-content: center;
-    font-size: 12px;
+    font-size: 0.8rem;
     padding-top: 2vh;
+    align-items: center;
     color: #67696E;
 }
 
-#logo{
-    padding-top: 0.6px;
+#logo {
+    padding-top: 0.05vw;
     color: #FAB73C;
-    /* padding-left: 1px; */
-
 }
 
-.Title{
+.Title {
     display: flex;
-    padding-top: 8px;
+    padding-top: 13px;
     font-size: 16px;
     text-transform: uppercase;
     color: black;
     text-shadow: 0.1px 0.1px black;
     text-align: left;
     padding-bottom: 10px;
-    padding-top: 13px;
 }
 
-.DownloadButton{
+.DownloadButton {
     display: flex;
     margin-top: auto;
-    text-decoration: none; /* Sin subrayado */
+    text-decoration: none;
     color: #6591D9;
     padding-bottom: 14px;
     font-size: 0.8rem;
-
 }
 
-#DownloadText{
+#DownloadText {
     padding: 10px;
-    text-decoration: none; /* Sin subrayado */
+    text-decoration: none;
     border: 1px solid #6591D9;
     border-radius: 5px;
     color: #6591D9;
     display: flex;
-    box-shadow: 1px 1px 5px 1px#6591d94b;
+    box-shadow: 1px 1px 5px 1px #6591d94b;
     font-size: 0.8rem;
-    
-    
-    
 }
 
-.icondoc{
+.icondoc {
     padding-top: 0.5px;
     padding-right: 5px;
 }
 
-.Description{
+.Description {
     font-size: 0.8rem;
     text-align: left;
     color: rgb(56, 56, 56);
     padding-bottom: 15px;
 }
 
-.Author{
+.Author {
     display: flex;
     font-size: 0.8rem;
     padding-top: 5px;
     padding-bottom: 15px;
 }
 
-#authorname{
+.Year {
+    display: flex;
+    font-size: 0.8rem;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.Status {
+    display: flex;
+    font-size: 0.8rem;
+    padding-top: 5px;
+}
+
+#PersonalBrowser {
+    width: 48vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    font-family: "Apple";
+    min-height: 34px;
+    max-height: 44px;
+    font-size: 16px;
+    height: 7vh;
+}
+
+#PersonalBrowser:focus {
+    outline: none;
+}
+
+#BrowserContainer {
+    font-family: "Apple";
+    width: 75vw;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-end;
+    align-items: flex-end;
+}
+
+#ZoomIcon {
+    color: rgb(9, 9, 9);
+    fill: rgb(39, 39, 39);
+    cursor: text;
+    pointer-events: none;
+    margin-left: 46vw;
+    position: absolute;
+}
+
+#SearchInputContainer {
+    position: relative;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#authorname {
     text-transform: capitalize;
-    
+}
+
+#Filters-Container {
+    width: 50vw;
+    background-color: #FFFFFF;
+    display: flex;
+    margin-top: 1vh;
+}
+
+.Carrers-Filter {
+    width: 13vw;
+}
+
+.FiltersText {
+    border-top-right-radius: 0.4vh;
+    border-top-left-radius: 0.4vh;
+    background-color: #edededb0;
+    border: 0.1vw solid #bababa97;
+    font-size: 0.8rem;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    height: 4vh;
+    color: #2b3441;
+}
+
+#YearsFilter {
+    margin-top: 2vh;
+}
+
+#Filters {
+    width: 18vw;
+    background-color: #edededb0;
+    font-family: "Apple";
+    align-items: center;
+    height: 4vh;
+    align-content: center;
+    justify-content: center;
+}
+
+#Carrers-Section-Text {
+    font-size: 14px;
+    width: 18vw;
+    height: 6vh;
+    display: flex;
+    background-color: #ffffff;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    border: rgba(0, 0, 0, 0.144) solid 0.1vh;
+}
+
+#WaitingContainer {
+    width: 50vw;
+    background-color: #FFFFFF;
 }

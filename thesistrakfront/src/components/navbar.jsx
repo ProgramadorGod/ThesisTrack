@@ -5,8 +5,9 @@ import avatar from "../media/perfil.png"
 import Sidemenu from "./SideMenu/Sidemenu";
 import { useState } from "react";
 import logo from "../media/logowhite.png";
+import {ReactComponent as Close} from "../media/cruz-pequena.svg"
 
-const Navbar= ({ChangeActive}) => {
+const Navbar= ({ChangeActive, isActive}) => {
 
 
 
@@ -15,16 +16,36 @@ const Navbar= ({ChangeActive}) => {
 
 
         <div id="navbar">
-            {/* <button id="navbariconbutton"> */}
-            <div>
-              <RxTextAlignLeft id="icon" onClick={ChangeActive}/>
+            
+            <div id="menubutton" >
+
+            {isActive ? (
+              <button 
+              onClick={ChangeActive} 
+              tabIndex={1} 
+              className="NavbarButton">
+
+                <Close id="icon"            
+                className={`close ${isActive ?"CloseiconActive":""}`} 
+                />
+
+              </button>
+
+
+
+            ):(
+
+              <button onClick={ChangeActive} tabIndex={1} className="NavbarButton"  >
+                <RxTextAlignLeft id="icon" aria-label="TextAlignedLeft"/>
+              </button>
+            )}
             </div>
             {/* </button>     */}
 
         
-            <img src={logo} id="logott"/>
+            <img src={logo} id="logott" alt="thesistrack"/>
 
-            <img src={logounipaz} id="logounipaz"></img>
+            <img src={logounipaz} id="logounipaz" alt="logounipaz"></img>
 
             {/* <div id="navtextcontainer">
               
@@ -38,7 +59,7 @@ const Navbar= ({ChangeActive}) => {
             </div> */}
 
 
-            <img src={avatar} id="profilepic"/>
+            {/* <img src={avatar} id="profilepic"/> */}
         </div>
 
         

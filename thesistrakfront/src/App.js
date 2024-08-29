@@ -1,45 +1,61 @@
-import logo from './logo.svg';
 import './App.css';
-import Login from './components/login';
+import Login from './components/LoginComponents/login';
 import Profile from './components/profile/profile';
 import axios from 'axios';
-import { useEffect, useRef, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import Navbar from './components/navbar';
 import Loadingrectangle from './components/loading/loading';
-import Files from './components/files/files';
-import Sidebar from './components/SideBar/Sidebar';
-import Sidemenu from './components/SideMenu/Sidemenu';
+// import Sidemenu from './components/SideMenu/Sidemenu';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './components/Home';
 import Echart from './components/Stadistics/Echart';
-import DocumentUpload from './components/upload/uploadfiles';
-import myfiles from './components/myfiles/myfiles';
 import Myfiles from './components/myfiles/myfiles';
+import Cookies from 'js-cookie';
 
-function App() {
-  const [isLogged, setisLogged] = useState(false);
-  const [isloading, setisloading] = useState(true);
-  const [isActive, setisActive] = useState("");
-  const [profile, setProfile] = useState(null);
-  const [name, setname] = useState(null);
-  const [carrers, setCarrers] = useState([]);
-  const [userid, setUserid] = useState([]);
+
+
+// const PortToUse = "http://192.168.0.17:8000/";
+
+
+import { AppProvider, useAppContext } from './AppContext';
+import Sidemenu2 from './components/Sidemenu2/Sidemenu2';
+
+const App = () => {
+  return (
+    <AppProvider>
+      <AppContent />
+    </AppProvider>
+  )
+}
+
+
+
+
+
+function AppContent() {
+
+  const LocalData = (itemstosave) =>{
+    localStorage.setItem("profiledata", JSON.stringify(itemstosave))
+  }
+
+  const { isloading, setisloading, isLogged, setisLogged, profile, setProfile, name, setname, userid, setUserid , isActive, setisActive, PortToUse, fetchProfile} = useAppContext();
+
+  
+
+  const token = localStorage.getItem("token");
+
 
   const ChangeActive = () =>{
     setisActive(prevActiveStatus =>( prevActiveStatus === "" ? "Active" : ""));
   } 
 
-
+  
 
   useEffect(()=>{
-    const fetchProfile = async () => {
-      try{
-        const token = localStorage.getItem('authToken');
-        const response = await axios.get('http://127.0.0.1:8000/profile/',{
-          withCredentials: true,  // Importante para enviar cookies de sesión
 
 
 
+<<<<<<< HEAD
         });
         if (response.status === 200){
           setisLogged(true);
@@ -48,28 +64,25 @@ function App() {
           setProfile(response.data);
           setCarrers(response.data.careers)
           setname(response.data.username)
+=======
+    fetchProfile();
 
-        }
-        else{
-          console.log("not logged")
-        }
+  },[])
+>>>>>>> c61e04dc752f0d321869f2804cae7397267cf181
 
+
+<<<<<<< HEAD
 
       
       }catch(error){
         console.error('Error fetching profile:', error);
         setisLogged(false);
         console.log("Not Logged")
+=======
+>>>>>>> c61e04dc752f0d321869f2804cae7397267cf181
 
-      }finally{
-        setisloading(false)
 
-      }
-      
-    };
-    fetchProfile();
 
-  },[])
 
   
 
@@ -82,20 +95,26 @@ function App() {
 
         <div id="body">
 
-        {isloading ? (<Loadingrectangle/> ): (isLogged ? <Sidemenu isActive={isActive} /> : "")}
+        {isloading ? (<Loadingrectangle/> ): (isLogged ? <Sidemenu2 isActive={isActive} /> : "")}
 
 
         <header>
 
-            <Navbar ChangeActive={ChangeActive}/>
+            <Navbar ChangeActive={ChangeActive} isActive={isActive}/>
             
         </header>
+
+
         <Routes>
-          <Route path='/' element={<Home isLogged={isLogged} isloading={isloading}/>}/> 
-          <Route path="/Profile" element={isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile profile={profile} name={name} carrers={carrers} /> : <Login />)}/>
+          <Route path='/' element={<Home/>}/> 
+          <Route path="/Profile" element={isloading ? (<Loadingrectangle/> ) : (isLogged ? <Profile profile={profile} name={name} /> : <Login/>)}/>
           {/* <Route path='/Files' element={isloading ? (<Loadingrectangle/>):(<DocumentUpload userid={userid}/>)}/> */}
           <Route path='/Files' element={isloading ?(<Loadingrectangle/>):(<Myfiles userid={userid}/>)} />
           <Route path='/Stadistics' element={<Echart/>} />
+          <Route path='/Settings' element={isloading ?(<Loadingrectangle/>):(<Myfiles userid={userid}/>)} />
+          <Route path='/IA' element={isloading ?(<Loadingrectangle/>):(<Myfiles userid={userid}/>)} />                    
+          <Route path='/Help' element={isloading ?(<Loadingrectangle/>):(<Myfiles userid={userid}/>)} />                    
+
         {/* Añadir más rutas aquí según sea necesario */}
         </Routes>          
 
@@ -105,6 +124,10 @@ function App() {
 
 
       </Router>
+
+      {/* <footer id='footer'>lol</footer> */}
+
+      
     </div>
   );
 }

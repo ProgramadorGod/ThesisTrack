@@ -1,0 +1,377 @@
+@font-face {
+    font-family: 'Apple';
+    src: url('../../fonts/AppleGaramond.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@keyframes rotate-gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
+  }
+
+@media (min-width: 700px) {
+
+
+
+    #LoginSquare {
+        width: 27.5vw;
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+
+    .ComboTextGoogle{
+        /* padding-bottom: 30px; */
+        transform: translateY(-4px);
+    }
+
+    #ComboRegister.ComboTextGoogle{
+        height: 8vh;
+        z-index: 0;
+        
+    }
+    #RegisterFormContainer{
+        margin-top: 7vh;
+        z-index: 1;
+    }
+
+    .Motiondiv:focus {
+        outline: none;
+    }
+
+    .Motiondiv {
+        width: 40px;
+        
+        height: 40px;
+        display: absolute;
+    }
+
+    #LottieContainer1 {
+        transform: translateY(0.1vh);
+        position: relative;
+    }
+
+    #LottieContainer2 {
+        position: absolute;
+        transform: translateY(-3.7vh);
+    }
+
+
+    #SessionContainer {
+        height: 100vh;
+        justify-items: center;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    #FormularyContainer{
+        transform: translateY(-5vh);
+    }
+
+    .GoogleButton {
+        border: 0px;
+        cursor: pointer;
+
+        background-color: rgba(207, 206, 205, 0.884);
+        border-radius: 50%;
+        height: 5vh;
+        width: 5vh;
+        transform: translateY(-8vh);
+    }
+    #FaGoogle{
+        font-size: 0.1vh;
+        width: 10px;
+        height: 10px;
+    }
+
+    #UserLab-Cont {
+        position: relative;
+        width: 20vw;
+    }
+    #PassLab-Cont{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+
+    #LoginText, #RegisterText{
+        font-size: 6vh;
+        user-select: none;
+        text-wrap: nowrap;    
+        transform: translateY(-6vh);
+        color: rgb(16, 2, 70);
+    }
+    
+    #LogRegBox {
+        display: grid;
+        height: 55vh;
+        width: 55vw;
+        grid-template-columns: 1fr 1fr;
+        border: 0.1vw solid rgba(0, 0, 0, 0.205);
+        box-shadow: -1vw 1vw 1vw 0.2vw rgba(0, 0, 0, 0.247);
+        border-radius: 0.9vw;
+        overflow: hidden;
+        background-color: rgb(255, 255, 255);
+    }
+
+    #MotionContainer {
+        height: 40px;
+        z-index: 99999;
+        padding-left: 20vw;
+        padding-right: 20vw;
+    }
+
+    #RegisterContainer {
+        display: flex;
+        justify-content: center;
+        width: 27.5vw;
+        align-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+
+
+    #Password-Input {
+        width: 18vw;
+        font-size: 3vh;
+        font-family: "Apple";
+        border: 0px;
+        border-top-left-radius: 0.2vw;
+        height: 4.8vh;
+        background-color: rgba(0, 0, 0, 0.116);
+        padding-right: 1vw;
+        
+        margin-top: 1vh;
+
+        padding-left: 1vw;
+    }
+    #Password-Input::placeholder{
+        user-select: none;
+    }
+    #Password-Input:focus{
+        outline: none;
+        
+    }
+    #Inputs{
+        display: flex;
+        flex-direction: column ;
+    }
+    #RegisterUserLab{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    #RegisterEmailLab{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    #RegisterPass1Lab{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    .input-underline {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 0.1vh;
+        background-color: rgb(6, 0, 34);
+      }
+
+    .input-underline2 {
+    position: relative;
+    z-index: 2;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgb(6, 0, 34);
+    
+    }
+
+    #Username-Input {
+        width: 18vw;
+        font-size: 3vh;
+        font-family: "Apple";
+        border: 0px;
+        border-top-right-radius: 0.2vw;
+        height: 4.8vh;
+        background-color: rgba(0, 0, 0, 0.116);
+        padding-left: 1vw;
+        padding-right: 1vw;
+        cursor: text;
+        
+    }
+    #Username-Input::placeholder{
+        user-select: none;
+    }
+
+    #Username-Input:focus {
+        outline: none;
+        outline-style: hidden;
+    }
+
+
+    #Email-Input {
+        width: 18vw;
+        font-size: 3vh;
+        font-family: "Apple";
+        border: 0px;
+        border-top-right-radius: 0.2vw;
+        height: 4.8vh;
+        background-color: rgba(0, 0, 0, 0.116);
+        padding-left: 1vw;
+        padding-right: 1vw;
+        cursor: text;
+    }
+    #Email-Input::placeholder{
+        user-select: none;
+    }
+
+    #Email-Input:focus {
+        outline: none;
+        outline-style: hidden;
+    }
+
+
+    #ButtonText{
+        user-select: none;
+    }
+    .SubmitFormButtom {
+        border: 0px solid rgb(16, 1, 84);
+        box-shadow: 0px 0px 10px 1px black;
+        background-color: rgb(1, 0, 32);
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+        height: 5vh;
+        border-radius: 0px;
+        cursor: pointer;
+        margin-top: 5vh;
+        
+        font-size: 1.8vh;
+        width: 12vw;
+        font-family: "Apple";
+
+    }
+
+
+    .Disabled{
+        /* background-color: gray; */
+        cursor: not-allowed;
+        
+        
+    }
+
+    .SubmitFormButtom:focus {
+        transition: font-size 0.3s ease, background-color 0.3s ease;
+
+        outline: none;
+    }
+
+
+    #ContainerInactive{
+        width: 100%;    
+        overflow: hidden;
+        /* background-color: rgba(255, 0, 0, 0); */
+        color: wheat;
+        height: 100%;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+
+    
+    }
+
+    #Blocker{
+        position: absolute;
+        height: 55.2vh;
+        width: 27.5vw;
+        z-index: 0;
+        /* background-color: rgb(1, 8, 50); */
+        left: 50vw;        
+        animation: rotate-gradient 5s infinite linear;
+    }
+
+    #BlockButton{
+        border: 0.1vh solid rgb(255, 255, 255);
+        border-radius: 0px;
+        box-shadow: 0px 0px 5px 4px rgba(255, 255, 255, 0.129);
+        
+    }
+
+    /* BLOCK  */
+
+    #BlockAllText{
+        user-select: none;
+    }
+    #BlockTexts{
+        width: 27.5vw;
+    }
+
+    #TextBlockButton{
+        user-select: none;
+    }
+
+    .Email-input{
+        margin-top: 1vh;
+    }
+
+    .MainBlockText{
+        font-size: 5vh;
+        display: flex;
+        width: 27.5vw;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+
+    .NormalBlockText{
+        font-size: 2.5vh;
+        color: rgb(219, 198, 160);
+        text-wrap: nowrap;
+    }
+    /*  */
+
+}
+
+
+#FaGoogle{
+    font-size: 0.1vh;
+    width: 2vh;
+    height: 2vh;
+    user-select: none;
+}
+
+
+/* @media (max-height:300px) {
+    #MotionContainer{
+        visibility: hidden !important;
+        display: none !important;
+    }
+    #LottieContainer1 {
+        visibility: hidden !important;
+    }
+
+    #LottieContainer2 {
+        visibility: hidden !important;
+
+    }
+    
+} */
