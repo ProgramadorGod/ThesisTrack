@@ -13,7 +13,8 @@
     width: 44vw;
     min-height: 34px;
     max-height: 44px;
-    
+    font-size: 1rem;
+    font-family: "Apple";
     height: 7vh;    
     padding-left: 1vw;
     padding-right: 5vw;

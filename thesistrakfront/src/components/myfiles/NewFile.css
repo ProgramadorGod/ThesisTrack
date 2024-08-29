@@ -1,0 +1,30 @@
+.NewFileContainer{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(211, 211, 211, 0.468);
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+    
+
+.FileBlock{
+    display: flex;
+    width: 70vw;
+    height: 50vh;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0.1vh 0.1vh 1.8vh 0.1vh rgba(0, 0, 0, 0.482);
+    justify-content: center;
+
+}
+
+
+.CarrerField{
+    height: 30px;
+    margin-top: 2vh;
+    width: 40vw;
+    outline: none;
+    border: 0px;
+}
