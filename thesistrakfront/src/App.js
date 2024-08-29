@@ -55,31 +55,11 @@ function AppContent() {
 
 
 
-<<<<<<< HEAD
-        });
-        if (response.status === 200){
-          setisLogged(true);
-          console.log("Logged")
-          setUserid(response.data.id)
-          setProfile(response.data);
-          setCarrers(response.data.careers)
-          setname(response.data.username)
-=======
     fetchProfile();
 
   },[])
->>>>>>> c61e04dc752f0d321869f2804cae7397267cf181
 
 
-<<<<<<< HEAD
-
-      
-      }catch(error){
-        console.error('Error fetching profile:', error);
-        setisLogged(false);
-        console.log("Not Logged")
-=======
->>>>>>> c61e04dc752f0d321869f2804cae7397267cf181
 
 
 
