@@ -52,9 +52,40 @@ function AppContent() {
   
 
   useEffect(()=>{
+    const fetchProfile = async () => {
+      try{
+        const token = localStorage.getItem('authToken');
+        const response = await axios.get('http://127.0.0.1:8000/profile/',{
+          withCredentials: true,  // Importante para enviar cookies de sesión
 
 
 
+        });
+        if (response.status === 200){
+          setisLogged(true);
+          console.log("Logged")
+
+        }
+        else{
+          console.log("not logged")
+        }
+
+        setUserid(response.data.id)
+        setProfile(response.data);
+        setCarrers(response.data.careers)
+        setname(response.data.username)
+      
+      }catch(error){
+        console.error('Error fetching profile:', error);
+        setisLogged(false);
+        console.log("Not Logged")
+
+      }finally{
+        setisloading(false)
+
+      }
+      
+    };
     fetchProfile();
 
   },[])
