@@ -1,0 +1,62 @@
+.relative {
+    position: relative;
+  }
+  
+  .input-wrapper {
+    /* width: 20rem; */
+    /* background-color: wheat; */
+  }
+  
+  .base-input {
+    /* height: 3rem; */
+    /* width: 100%; */
+    width: 44vw;
+    min-height: 34px;
+    max-height: 44px;
+    font-size: 1rem;
+    font-family: "Apple";
+    height: 7vh;    
+    padding-left: 1vw;
+    padding-right: 5vw;
+    cursor: default;
+    border-radius: 0.4vh;
+    border: 0.24vw outset #bababa97;
+    background-color: #edededb0;
+    cursor: text;
+    /* padding: 0.875rem; */
+    color: #01274f;
+    transition: border-color 0.5s;
+    outline: none;
+  }
+  
+  .base-input:focus {
+    border-color: #01274f;
+  }
+  
+  .base-input::placeholder {
+    color: #718096;
+    user-select: none;
+  }
+  
+  .overlay-input {
+    pointer-events: none;
+    width: 48vw;
+    min-height: 34px;
+    max-height: 44px;
+    
+    height: 7vh;    
+    padding-left: 1vw;
+    padding-right: 1vw;
+    cursor: default;
+    border-radius: 0.4vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+
+    cursor: default;
+    background-color: transparent;
+    /* padding: 0.875rem; */
+    opacity: 0;
+    transition: opacity 0.5s;
+  }

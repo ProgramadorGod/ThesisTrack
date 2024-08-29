@@ -1,18 +1,18 @@
 import React from 'react'
 import '../App.css';
-import Login from '../components/login';
-import Profile from './profile/profile';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import Navbar from '../components/navbar';
+import Login from '../components/LoginComponents/login';
 import Loadingrectangle from '../components/loading/loading';
 import Files from '../components/files/files';
-import Sidebar from '../components/SideBar/Sidebar';
-import Sidemenu from '../components/SideMenu/Sidemenu';
-import Echart from './Stadistics/Echart';
 
-const Home = ({isloading,isLogged}) => {
-    
+import { useAppContext } from '../AppContext';
+
+const Home = () => {
+  const { isloading, isLogged, PortToUse} = useAppContext();
+
+  // console.log(Documents)
+
+
+
   return (
     <div>
 
@@ -21,7 +21,7 @@ const Home = ({isloading,isLogged}) => {
             {/* <Sidebar/> */}
 
             {/* {isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile /> : <Login />)} */}
-            {isloading ? (<Loadingrectangle/> ): (isLogged ? <Files /> : <Login />)}
+            {isloading ? (<Loadingrectangle/> ): (isLogged ? <Files PortToUse={PortToUse}/> : <Login/>)}
         </div>
 
     </div>

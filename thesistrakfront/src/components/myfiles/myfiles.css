@@ -1,0 +1,41 @@
+.MainContainer{
+    width: 100vw;
+    height: 80vh;
+    margin-top: 14vh;
+    display: flex;
+    justify-content: center;
+    
+
+}
+
+.Uploading{
+    position: absolute;
+}
+
+.MyFilesContainer{
+    width: 50vw;
+    font-family: "Apple";
+    font-size: 1.2rem;
+    
+}
+
+.CreateNewFile{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    cursor: pointer;
+    background-color: rgb(241, 241, 241);
+    padding-top: 2vh;
+    padding-bottom: 2.6vh;
+    box-shadow: 0.1vh 0.1vh 0.9vh 0.1vh rgba(0, 0, 0, 0.515);
+
+}
+
+.AddButton{
+    width: 10vw;
+    display: flex;
+    padding-top: 0.3vh;
+    align-items: center;
+    /* background-color: rgba(220, 220, 220, 0.611); */
+
+
+}

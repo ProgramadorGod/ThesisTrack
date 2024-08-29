@@ -1,47 +1,166 @@
 #Sidemenucontainer{
     position: absolute;
-    height: 100%;
-    width: 66px;
-    background-color: #e0e0e0;
+    height: 100vh;
+    width: 70px;
+    background-color: #efefefe7;
     transition: 0.15s ease;
     z-index: 1;
     display: grid;
 
 
 }
+
+@font-face {
+    font-family: 'Apple2';
+    src: url('../../fonts/AppleGaramond-Bold.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+.Active{
+    /* padding-right: 14vw ; */
+    width: 22vw !important; 
+    content: lol;
+    
+}
+
+.buttomtext{
+    display: flex;
+    flex-wrap: wrap;    
+    align-content: center;
+    font-family: "Apple2";
+    opacity: 0;
+    font-size: 0.95rem;
+    height: 30px;
+    margin-left: 3vw;
+    /* font-family: "BabyPanda"; */
+    /* color: rgb(0, 0, 0); */
+    /* text-shadow: 0.1px 0.1px rgb(41, 40, 40); */
+
+    text-transform: uppercase;
+    transform: translateX(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease !important;
+
+}
+
+.buttomtext-active{
+    display: flex !important;
+    opacity: 1;
+    transform: translateX(0px) !important;
+    @media screen and (max-width:680px) {
+        opacity: 0;
+        display: none;
+        transition: opacity 0s ease, transform 0s ease !important;
+
+    }
+
+}
+
 @media screen and (max-width:680px) {
     #Sidemenucontainer{
         width: 0px;
     }
     #ItemsContainer{
         width: 0px;
+
     }
 
     .buttondiv{
-        visibility: hidden;
+        transform: translateX(-90px);
+        transition: 0.15s ease;
+
+    }
+
+    .ButtonActive{
+        transform: translateX(0px);
     }
 
     .Active{
-        width: 16vw !important;
-        padding-right: 0vw !important;
+        width: 66px !important ;
     }
 
 }
 
+
+
 .buttondiv{
     border: 0px;
-    background-color: #e0e0e0;
+    background-color: #efefefe7;
     user-select: none;
+    display: flex;
+    width: 70px;
+    
+    padding-top: 3vh;
+    padding-bottom: 3vh;
+    transition: 0.15s ease;
 
 }
 
-.Active{
-    padding-right: 14vw ;
+.buttondiv:hover{
+    background-color: #dcdbdbe7;
 
 }
+
+.PlacedIn{
+    background-color: #dcdbdbe7 !important;
+    color: rgb(2, 47, 138);
+    fill:rgb(1, 139, 8);
+}
+
+.HideText{
+    display: none;
+}
+
+.buttomitems{
+    display: flex;
+    margin-left: 14px;
+    
+}
+
+.buttomitems:hover{
+    fill: rgb(2, 69, 19) ;
+    color: rgb(2, 69, 19) ;
+}
+
+.ButtonActive{
+    width: 22vw;
+
+}
+
+.ButtonActive:hover{
+
+}
+
+
+
+@media (max-width:680px){
+    .ButtonActive{
+        width: 66px;
+        transition: 0.15s ease;
+
+    }
+    .nodisplay{
+        display: none !important;
+    }
+
+    .buttomtext{
+        display: none !important;
+        content: none;
+    }
+
+    .buttomitems{
+        display: block !important;
+        margin-left: 14px;
+    }
+}
+
+
+
+
 
 .Active *{
     visibility: visible ;
+    
 }
 
 #ItemsContainer{
@@ -64,9 +183,28 @@
     height: 30px;
     user-select: none;
     display: flex;
-    width: 100%;
+    
     cursor: grab;
-    margin-bottom: 30px;
+    width: 25px;
+
+
+    /* margin-bottom: 30px; */
+
+}
+
+.Hovered{
+    fill: rgb(3, 19, 97) ;
+    color: rgb(3, 19, 97) ;
+    text-decoration-color: rgb(4, 105, 29);
+    background-color: #dcdbdbe7;
+}
+
+.buttondiv:hover > *{
+    /* fill: wheat; */
+    fill: rgb(3, 97, 26) ;
+    color: rgb(3,97, 19) ;
+    text-decoration-color: rgb(4, 105, 29);
+
 
 }
 
