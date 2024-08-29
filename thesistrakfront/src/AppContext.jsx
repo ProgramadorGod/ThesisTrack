@@ -25,6 +25,20 @@ export const AppProvider = ({children}) => {
 
 
 
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
 
 
     const fetchProfile = async () => {
@@ -96,7 +110,7 @@ export const AppProvider = ({children}) => {
             isloading, setisloading, isLogged, setisLogged, profile, setProfile, name, setname, userid, setUserid,
             isActive,setisActive,
             PortToUse,
-            fetchProfile, WindowWidth, WindowHeight
+            fetchProfile, WindowWidth, WindowHeight, getCookie
             
 
 

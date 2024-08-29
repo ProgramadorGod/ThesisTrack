@@ -4,57 +4,58 @@ import "./NewFile.css";
 import { useAppContext } from '../../AppContext';
 
 const NewFile = ({ setupladovisible, userid }) => {
-    const [users, setUsers] = useState([]);
     const [docTypes, setDocTypes] = useState([]);
-    const [selectedUsers, setSelectedUsers] = useState([parseInt(userid)]);
-    const [Title, setTitle] = useState('');
-    const [Carrers, setCarrers] = useState([]);
-    const [Stages, setStages] = useState([]);
-    const [Stage, setStage] = useState('');
-    const [Code , setCode ] = useState('');
-    const [Visible, setVisible]  = useState(true);
-    const [file, setFile] = useState(null);
+    const [carrers, setCarrers] = useState([]);
+    const [stages, setStages] = useState([]);
+    const [title, setTitle] = useState('');
+    const [carrer, setCarrer] = useState('');
+    const [stage, setStage] = useState('');
+    const [code, setCode] = useState('');
+    const [visible, setVisible] = useState(true);
+    const [file, setFile] = useState(null); // Asegúrate de que sea null
     const [description, setDescription] = useState('');
     const [docType, setDocType] = useState('');
-    const [selectedType, setSelectedType] = useState([]);
-    const [Carrer, setCarrer] = useState('')
     const [progressPercentage, setProgressPercentage] = useState(100); // Valor por defecto al 100%
+    const [error, setError] = useState('');
 
+    const { PortToUse, getCookie } = useAppContext();
 
-    const { PortToUse } = useAppContext();
-
-    const handleSubmit = async(e) =>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const formData = new FormData();
-        formData.append('code', 'Not official')
-        formData.append('title', Title);
-        formData.append('is_visible', Visible)
-        formData.append('description', description);
-        formData.append('year', '2024');
-        formData.append('file', file);
-        formData.append('progress_percentage','20')
-        formData.append('document_type', docType);
-
-
-        try{
-            const response = await axios.post(PortToUse + "api/file_docs/", formData, {
-                withCredentials:true,
-            });
-            console.log("File uploaded successfully", response.data);
-
-
-        }catch (error){
-
-            console.error("Error uploading file", error);
-
+        if (!file) {
+            setError('Por favor, selecciona un archivo.');
+            return;
         }
 
+        const formData = new FormData();
+        formData.append('code', code);
+        formData.append('title', title);
+        formData.append('is_visible', visible);
+        formData.append('description', description);
+        formData.append('year', '2024');
+        formData.append('file', file); // Archivo debe estar presente
+        formData.append('progress_percentage', progressPercentage);
+        formData.append('document_type', docType);
+        formData.append('carrer', carrer);
+        formData.append('stage', stage);
 
-
-
-
-    }
+        try {
+            const response = await axios.post(PortToUse + "api/file_docs/", formData, {
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                withCredentials: true,
+            });
+            console.log("File uploaded successfully", response.data);
+            setError(''); // Limpiar mensaje de error
+            setupladovisible(false)
+        } catch (error) {
+            console.error("Error uploading file", error);
+            setError('Error al subir el archivo.'); // Mensaje de error genérico
+        }
+    };
 
     const fetchDocTypes = async () => {
         try {
@@ -67,88 +68,70 @@ const NewFile = ({ setupladovisible, userid }) => {
         }
     };
 
-
     const fetchCarrers = async () => {
         try {
             const response = await axios.get(PortToUse + "api/carrers/", {
                 withCredentials: true,
             });
-
             setCarrers(response.data);
-            console.log( "lol: ",response.data);
-            response.data.map((carrer)=>{
-                console.log(carrer.name)
-            })
-
         } catch (error) {
-            console.error("Error fetching document types", error);
+            console.error("Error fetching carrers", error);
         }
     };
-
-
 
     const fetchStages = async () => {
         try {
             const response = await axios.get(PortToUse + "api/doc-stages/", {
                 withCredentials: true,
             });
-
             setStages(response.data);
-            console.log( "lol: ",response.data);
-        
-
         } catch (error) {
-            console.error("Error fetching document types", error);
+            console.error("Error fetching document stages", error);
         }
     };
-
-
-
-
 
     useEffect(() => {
         fetchDocTypes();
         fetchCarrers();
         fetchStages();
-        
     }, []); // Lista de dependencias vacía para ejecutar solo una vez
 
     return (
         <div className='NewFileContainer' onClick={setupladovisible}>
             <div className='FileBlock' onClick={(e) => e.stopPropagation()}>
-                <form>
+                <form onSubmit={handleSubmit}>
+                    {error && <div className="error">{error}</div>} {/* Mostrar mensaje de error */}
+                    
                     <select
-                        value={Carrer}
+                        value={carrer}
                         onChange={(e) => setCarrer(e.target.value)}
-
+                        className='CarrerField'
                     >
-                        
-                        {Carrers.map((carrer)=> (
-                            <option key={carrer.id} value={carrer.id}> 
+                        <option value="">Choose a carrer</option>
+                        {carrers.map((carrer) => (
+                            <option key={carrer.id} value={carrer.id}>
                                 {carrer.name}
                             </option>
-                        ))}                      
-
+                        ))}
                     </select>
 
-
                     <input
-                        value={Title}
+                        value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        placeholder="Título"
+                        placeholder="Title"
                     />
-                    
+
                     <input
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        placeholder='Desciption'
-                    
+                        placeholder='Description'
                     />
 
                     <select
                         value={docType}
                         onChange={(e) => setDocType(e.target.value)}
                     >
+                        <option value="">Document Type</option>
                         {docTypes.map((type) => (
                             <option key={type.id} value={type.id}>
                                 {type.name}
@@ -157,23 +140,19 @@ const NewFile = ({ setupladovisible, userid }) => {
                     </select>
 
                     <select
-                        value={Stage}
+                        value={stage}
                         onChange={(e) => setStage(e.target.value)}
-
                     >
-                        
-                        {Stages.map((stage)=> (
-                            <option key={stage.id} value={stage.id}> 
+                        <option value="">Stage</option>
+                        {stages.map((stage) => (
+                            <option key={stage.id} value={stage.id}>
                                 {stage.stage}
                             </option>
                         ))}
-
-                        
-
                     </select>
 
                     <div className="progressContainer">
-                        <label htmlFor="progress">Progreso (%): {progressPercentage}%</label>
+                        <label htmlFor="progress">Progress (%): {progressPercentage}%</label>
                         <input
                             type="range"
                             id="progress"
@@ -187,9 +166,10 @@ const NewFile = ({ setupladovisible, userid }) => {
                     <input
                         type="file"
                         onChange={(e) => setFile(e.target.files[0])}
+                        
                     />
 
-                    <button type='submit'> Subir archivo </button>
+                    <button type='submit'>Upload Document</button>
                 </form>
             </div>
         </div>

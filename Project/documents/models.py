@@ -24,7 +24,7 @@ class AbstractBaseDocument(models.Model):
     carrer = models.ForeignKey(Carrer, on_delete=models.SET_DEFAULT, default=1)
     title = models.CharField(max_length=400, default="Untitled")
     authors = models.JSONField(default=list)
-    year = models.CharField(max_length=4, default="0000")
+    year = models.CharField(max_length=4, default="2024")
     is_visible = models.BooleanField(default=True)
     stage = models.ForeignKey(DocumentStage, on_delete=models.SET_NULL, null=True)
     progress_percentage = models.FloatField(default=0.0)
@@ -36,6 +36,7 @@ class AbstractBaseDocument(models.Model):
 
 class UrlDocument(AbstractBaseDocument):
     url = models.URLField(default="https://example.com")
+    description = models.CharField(max_length=400, default="This document is actually pretty awesome and the author doesn't want to steal you the surprise of discovery its content.")
 
 
     def __str__(self):
@@ -44,7 +45,7 @@ class UrlDocument(AbstractBaseDocument):
 
 class FileDocument(AbstractBaseDocument):
     file = models.FileField(upload_to="files/")
-
+    description = models.CharField(max_length=400, default="This document is actually pretty awesome and the author doesn't want to steal you the surprise of discovery its content.")
 
     def __str__(self):
         return self.title
