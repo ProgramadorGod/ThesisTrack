@@ -343,7 +343,7 @@
         height: 55.2vh;
         width: 30.5vw;
         z-index: 0;
-        /* background-color: rgb(1, 8, 50); */
+        /* background-color: #01083200; */
         left: 50vw;        
         animation: rotate-gradient 5s infinite linear;
     }
@@ -382,7 +382,7 @@
 
     #TextBlockButton{
         user-select: none;
-
+        /* lol */
     }
     @media(max-width: 570px){
         .MainBlockText{

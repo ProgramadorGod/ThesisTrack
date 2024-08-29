@@ -5,7 +5,7 @@ import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from 'react';
 import Navbar from './components/navbar';
 import Loadingrectangle from './components/loading/loading';
-import Sidemenu from './components/SideMenu/Sidemenu';
+// import Sidemenu from './components/SideMenu/Sidemenu';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './components/Home';
 import Echart from './components/Stadistics/Echart';
@@ -75,7 +75,7 @@ function AppContent() {
 
         <div id="body">
 
-        {isloading ? (<Loadingrectangle/> ): (isLogged ? <Sidemenu isActive={isActive} /> : "")}
+        {isloading ? (<Loadingrectangle/> ): (isLogged ? <Sidemenu2 isActive={isActive} /> : "")}
 
 
         <header>

@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path,include
+from django.conf import settings
+from django.conf.urls.static import static
 from .views import redirect_to_react
 
 urlpatterns = [
@@ -13,4 +15,4 @@ urlpatterns = [
     path("rest-auth/", include("dj_rest_auth.urls"), name="dj_rest_auth"),
     path('api/', include('documents.urls')),
     
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
