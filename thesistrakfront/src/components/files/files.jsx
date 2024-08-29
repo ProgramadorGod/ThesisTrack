@@ -145,6 +145,10 @@ const Files = ({ PortToUse }) => {
             <RxZoomIn></RxZoomIn>
           </div>
         </div>
+        <div id="Filters-Container">
+          <div className="Carrers-Filter">Carrers</div>
+          <div className="Carrers-Filter">Year</div>
+        </div>
         <>
         {AllDocuments.map((document) => (
           <Document key={document.id} document={document} />

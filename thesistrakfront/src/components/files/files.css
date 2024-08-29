@@ -1,21 +1,18 @@
-.ThesisContainer{
+.ThesisContainer {
     width: 50vw;
     display: grid;
-    /* border-top: 1px solid #D7D8DA; */
     border-bottom: 1px solid #D7D8DA;
     background-color: rgba(89, 151, 202, 0);
-    
 }
+
 @font-face {
     font-family: 'Apple';
     src: url('../../fonts/AppleGaramond.ttf') format('opentype');
     font-weight: normal;
     font-style: normal;
-  }
+}
 
-
-#FileComponent{
-    /* padding-top: 5vh; */
+#FileComponent {
     display: flex;
     justify-content: center;
     font-family: "Apple";
@@ -23,104 +20,92 @@
     margin-bottom: 4vh;
 }
 
-#totaldocumentscontainer{
+#totaldocumentscontainer {
     padding-top: 12vh;
     display: flex;
-    /* height: 88vh; */
-
 }
 
-
-
-#kind{
+#kind {
     display: flex;
     align-content: center;
     font-size: 0.8rem;
     padding-top: 2vh;
-    align-items: centerV;
+    align-items: center;
     color: #67696E;
 }
 
-#logo{
+#logo {
     padding-top: 0.05vw;
     color: #FAB73C;
-    /* padding-left: 1px; */
-
 }
 
-.Title{
+.Title {
     display: flex;
-    padding-top: 8px;
+    padding-top: 13px;
     font-size: 16px;
     text-transform: uppercase;
     color: black;
     text-shadow: 0.1px 0.1px black;
     text-align: left;
     padding-bottom: 10px;
-    padding-top: 13px;
 }
 
-.DownloadButton{
+.DownloadButton {
     display: flex;
     margin-top: auto;
-    text-decoration: none; /* Sin subrayado */
+    text-decoration: none;
     color: #6591D9;
     padding-bottom: 14px;
     font-size: 0.8rem;
-
 }
 
-#DownloadText{
+#DownloadText {
     padding: 10px;
-    text-decoration: none; /* Sin subrayado */
+    text-decoration: none;
     border: 1px solid #6591D9;
     border-radius: 5px;
     color: #6591D9;
     display: flex;
-    box-shadow: 1px 1px 5px 1px#6591d94b;
+    box-shadow: 1px 1px 5px 1px #6591d94b;
     font-size: 0.8rem;
-    
-    
-    
 }
 
-.icondoc{
+.icondoc {
     padding-top: 0.5px;
     padding-right: 5px;
 }
 
-.Description{
+.Description {
     font-size: 0.8rem;
     text-align: left;
     color: rgb(56, 56, 56);
     padding-bottom: 15px;
 }
 
-.Author{
+.Author {
     display: flex;
     font-size: 0.8rem;
     padding-top: 5px;
     padding-bottom: 15px;
 }
 
-.Year{
+.Year {
     display: flex;
     font-size: 0.8rem;
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
-.Status{
+.Status {
     display: flex;
     font-size: 0.8rem;
     padding-top: 5px;
 }
 
-#PersonalBrowser{
+#PersonalBrowser {
     width: 48vw;
     padding-left: 1vw;
     padding-right: 1vw;
-    /* border-radius: 0px solid #ffffff00; */
     font-family: "Apple";
     min-height: 34px;
     max-height: 44px;
@@ -128,11 +113,11 @@
     height: 7vh;
 }
 
-#PersonalBrowser:focus{
-    outline: none;    
+#PersonalBrowser:focus {
+    outline: none;
 }
 
-#BrowserContainer{
+#BrowserContainer {
     font-family: "Apple";
     width: 75vw;
     display: flex;
@@ -141,90 +126,67 @@
     align-items: flex-end;
 }
 
-#ZoomIcon{
+#ZoomIcon {
     color: rgb(9, 9, 9);
     fill: rgb(39, 39, 39);
     cursor: text;
-    pointer-events: none;   
+    pointer-events: none;
     margin-left: 46vw;
     position: absolute;
-    
-
 }
 
-#SearchInputContainer{
+#SearchInputContainer {
     position: relative;
     display: flex;
     align-content: center;
     justify-content: center;
     align-items: center;
-    
 }
 
-#authorname{
+#authorname {
     text-transform: capitalize;
-    
 }
 
-#FiltersContainer{
-    /* padding-top: 10vh; */
+#Filters-Container {
+    width: 50vw;
+    background-color: #FFFFFF;
     display: flex;
-    width: 18vw;
-
-    margin-left: 2vw;
-    align-items: center;
-    align-content: center;
-    flex-direction: column;
-    justify-content: flex-start;
-    /* background-color: rgba(85, 45, 0, 0.11); */
+    margin-top: 1vh;
 }
 
-.FiltersText{
-    border-top-right-radius:0.4vh;
-    border-top-left-radius:0.4vh ;
-    height: 7vh;
+.Carrers-Filter {
+    width: 13vw;
+}
+
+.FiltersText {
+    border-top-right-radius: 0.4vh;
+    border-top-left-radius: 0.4vh;
     background-color: #edededb0;
-    /* margin-top: 0.5vh; */
-    border: 0.24vw outset #edededb0;
-    min-height: 34px;
-    max-height: 44px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    color: black;
-    font-family: "Apple";
-    width: 18vw;
+    border: 0.1vw solid #bababa97;
+    font-size: 0.8rem;
     display: flex;
     align-content: center;
     align-items: center;
     justify-content: center;
+    height: 4vh;
+    color: #2b3441;
 }
 
-#YearsFilter{
+#YearsFilter {
     margin-top: 2vh;
 }
 
-#Filters{
+#Filters {
     width: 18vw;
     background-color: #edededb0;
-    
     font-family: "Apple";
     align-items: center;
+    height: 4vh;
     align-content: center;
     justify-content: center;
-    padding-bottom: 10vh;
-    display: flex;
 }
 
-#Carrers-Section{
-    margin-top: 2vh;
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    
-}
-
-#Carrers-Section-Text{
+#Carrers-Section-Text {
     font-size: 14px;
     width: 18vw;
     height: 6vh;
@@ -236,12 +198,7 @@
     border: rgba(0, 0, 0, 0.144) solid 0.1vh;
 }
 
-#Carrers-Icon{
-    font-size: 10px;
-}
-
-#WaitingContainer{
-    /* margin-top: 12vh; */
+#WaitingContainer {
     width: 50vw;
     background-color: #FFFFFF;
 }
