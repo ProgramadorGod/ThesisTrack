@@ -18,7 +18,7 @@ const Document = ({ document }) => {
                 </div>
                 <div className='Title'>{document.title}</div>
                 <div className='Description'>
-                    Este documento fue realizado en la era previa al calendario B del 2024, sin embargo puedes analizar su descripción leyendo la introducción del documento, seguramente te pueda ser de mucha utilidad.
+                    {document.description}
                 </div>
                 <div className='Year'>Year: {'\u00A0'} {document.year}</div>
                 <div className='Author'>

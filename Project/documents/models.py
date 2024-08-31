@@ -36,7 +36,7 @@ class AbstractBaseDocument(models.Model):
 
 class UrlDocument(AbstractBaseDocument):
     url = models.URLField(default="https://example.com")
-    description = models.CharField(max_length=400, default="This document is actually pretty awesome and the author doesn't want to steal you the surprise of discovery its content.")
+    description = models.CharField(max_length=400, default="Este documento fue realizado en la era previa al calendario B del 2024, sin embargo puedes analizar su descripción leyendo la introducción del documento, seguramente te pueda ser de mucha utilidad.")
 
 
     def __str__(self):

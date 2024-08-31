@@ -28,3 +28,6 @@ class Reward(models.Model):
         
     def __str__(self):
         return f"{self.user.username} - Level {self.level} - Points {self.points}"
+
+
+    
