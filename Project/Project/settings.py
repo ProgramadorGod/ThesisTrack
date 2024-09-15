@@ -57,9 +57,6 @@ INSTALLED_APPS = [
     'corsheaders',
 
 ]
-SECURE_SSL_REDIRECT = False
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
@@ -99,35 +96,52 @@ ALLOWED_HOSTS =["*"]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+
     "http://127.0.0.1:3000", 
+    "https://127.0.0.1:3000", 
+    "https://127.0.0.1:8000", 
+
     "http://192.168.0.17:3000",
-    "http://172.30.3.15:8000",
-    "http://10.7.49.90:3000",
-    "http://172.30.3.15:3000",
+
+    'http://172.30.3.15:8000',
+    'http://10.7.49.90:3000',
+    'http://172.30.3.15:3000',
+     # Cambia esto a la URL de tu frontend
 ]
+
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+
+SECURE_CONTENT_TYPE_NOSNIFF = False
+SECURE_BROWSER_XSS_FILTER = False
+X_FRAME_OPTIONS = 'DENY'
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "http://192.168.0.17:3000",
-    "http://10.7.49.90:3000",
-    "http://10.7.49.90",
-    "http://10.7.49.90:8000",
-    "http://172.30.3.15:8000",
-    "http://172.30.3.15:3000",
+    'http://127.0.0.1:3000',
+    'https://127.0.0.1:8000',
+
+    'http://192.168.0.17:3000',
+    'http://10.7.49.90:3000',
+    'http://10.7.49.90',
+    'http://10.7.49.90:8000',
+    'http://172.30.3.15:8000',
+    'http://172.30.3.15:3000'
+    
 ]
+
 
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ORIGIN_WHITELIST = [
-    "http://127.0.0.1:3000", 
-    "http://10.7.49.90:3000",
-    "http://172.30.3.15:8000",
-    "http://10.7.49.90",
-    "http://172.30.3.15:3000",
-    "http://10.7.49.90:8000", 
+    'http://127.0.0.1:3000', 
+    'http://10.7.49.90:3000',
+    'http://172.30.3.15:8000',
+    'http://10.7.49.90',
+    'http://172.30.3.15:3000'
+    'http://10.7.49.90:8000', # La URL de tu frontend
 ]
-
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

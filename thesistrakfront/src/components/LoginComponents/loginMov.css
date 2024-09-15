@@ -433,3 +433,14 @@
 
 }
 
+
+
+#MainContainerMovile{
+    height: 89.6vh;
+    margin-top: 10.4vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+}
