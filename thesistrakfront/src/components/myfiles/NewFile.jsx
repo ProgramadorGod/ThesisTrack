@@ -103,6 +103,8 @@ const NewFile = ({ setupladovisible, userid }) => {
   return (
     <div
       onClick={setupladovisible}
+      className="NewFileContainer"
+
       style={{
         display: "flex",
         justifyContent: "center",
@@ -111,13 +113,13 @@ const NewFile = ({ setupladovisible, userid }) => {
     >
       <div
         onClick={(e) => e.stopPropagation()} // Evita que el clic se propague al div externo
-
+        className="FileBlock"
         style={{
           display: "flex",
           justifyContent: "center",
           alignContent: "center",
           alignItems: "center",
-          background: "green",
+          // background: "green",
           zIndex: "9999999",
           position: "absolute",
           height: "100vh",
@@ -201,7 +203,7 @@ const NewFile = ({ setupladovisible, userid }) => {
       </div>
       <div
         style={{
-          background: "red",
+          // background: "red",
           zIndex: "99999",
           position: "fixed",
           left: "0px",
