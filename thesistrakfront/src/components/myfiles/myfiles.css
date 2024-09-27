@@ -1,7 +1,7 @@
 .MainContainer{
     width: 100vw;
     height: 80vh;
-    margin-top: 14vh;
+    margin-top: 10vh;
     display: flex;
     justify-content: center;
     
@@ -16,6 +16,7 @@
     width: 50vw;
     font-family: "Apple";
     font-size: 1.2rem;
+    margin-top: 4vh;
     
 }
 
@@ -38,4 +39,8 @@
     /* background-color: rgba(220, 220, 220, 0.611); */
 
 
+}
+
+.Proyects{
+    margin-bottom: 0.5vh;
 }

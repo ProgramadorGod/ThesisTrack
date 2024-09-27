@@ -5,6 +5,7 @@ import { FaPlus } from "react-icons/fa";
 import NewFile from "./NewFile";
 import { useAppContext } from "../../AppContext";
 import Document from "../files/Document";
+import Loadingrectangle from "../loading/loading";
 
 const Myfiles = ({ userid }) => {
   const [UploadVisible, setUploadVisible] = useState(false);
@@ -49,7 +50,13 @@ const Myfiles = ({ userid }) => {
             <div>Create New File</div>
             <div
               style={{
-                display: "flex",
+                _display: "flex",
+                get display() {
+                  return this._display;
+                },
+                set display(value) {
+                  this._display = value;
+                },
                 alignItems: "center",
                 justifyContent: "flex-end",
               }}
@@ -62,11 +69,18 @@ const Myfiles = ({ userid }) => {
 
           <div className="MyDocumentsList">
             {isLoading ? (
-              <p>Loading...</p>
+              <>
+                <h2 className="Proyects"> MY PROYECTS  </h2>
+                <Loadingrectangle></Loadingrectangle>
+
+              </>
             ) : (
-              MyDocuments.map((document) => (
-                <Document key={document.id} document={document} />
-              ))
+              <>
+                <h2 className="Proyects"> MY PROYECTS  </h2>
+                {MyDocuments.map((document) => (
+                  <Document key={document.id} document={document} />
+                ))}
+              </>
             )}
           </div>
         </div>

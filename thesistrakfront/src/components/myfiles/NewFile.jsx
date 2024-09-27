@@ -122,12 +122,11 @@ const NewFile = ({ setupladovisible, userid }) => {
           // background: "green",
           zIndex: "9999999",
           position: "absolute",
-          height: "100vh",
-          width:"50%"
+          
         }}
       >
         <div style={{width:"100%"}}>
-          <form>
+          <form onSubmit={handleSubmit}>
             {error && <div className="error">{error}</div>}{" "}
             <div>
               <select
