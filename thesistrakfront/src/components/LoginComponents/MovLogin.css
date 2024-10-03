@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'Runtoe';
+    src: url('../../fonts/Runtoe.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+#FirstText{
+    margin-top:3vh ;
+    font-family: "Runtoe";
+    font-size: 3vh;
+}
+
+.FormMov{
+
+    display: flex;
+    flex-direction: column;
+}

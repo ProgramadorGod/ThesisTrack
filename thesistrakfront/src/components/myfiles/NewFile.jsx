@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { motion } from "framer-motion";
+import Button from "@mui/material/Button";
 import "./NewFile.css";
 import { useAppContext } from "../../AppContext";
 
@@ -15,8 +17,9 @@ const NewFile = ({ setupladovisible, userid }) => {
   const [file, setFile] = useState(null); // Asegúrate de que sea null
   const [description, setDescription] = useState("");
   const [docType, setDocType] = useState("");
-  const [progressPercentage, setProgressPercentage] = useState(100); // Valor por defecto al 100%
+  const [progressPercentage, setProgressPercentage] = useState(10); // Valor por defecto al 100%
   const [error, setError] = useState("");
+  const [OnView, setOnView] = useState(false);
 
   const { PortToUse, getCookie } = useAppContext();
 
@@ -104,14 +107,20 @@ const NewFile = ({ setupladovisible, userid }) => {
     <div
       onClick={setupladovisible}
       className="NewFileContainer"
-
       style={{
         display: "flex",
         justifyContent: "center",
         alignContent: "center",
       }}
     >
-      <div
+      <motion.div
+        initial={{ opacity: 0, height: 0 }}
+        animate={{ opacity: 1, height: 450 }}
+        transition={{
+          type: "spring",
+          opacity: { duration: 0.3 },
+          height: { duration: 0.55, type: "spring" },
+        }}
         onClick={(e) => e.stopPropagation()} // Evita que el clic se propague al div externo
         className="FileBlock"
         style={{
@@ -122,22 +131,25 @@ const NewFile = ({ setupladovisible, userid }) => {
           // background: "green",
           zIndex: "9999999",
           position: "absolute",
-          
         }}
       >
-        <div style={{width:"100%"}}>
+        <div style={{ width: "100%" }}>
           <form onSubmit={handleSubmit}>
             {error && <div className="error">{error}</div>}{" "}
             <div>
               <select
                 value={carrer}
                 onChange={(e) => setCarrer(e.target.value)}
-                style={{width:"100%"}}
-                //className="CarrerField"
+                // style={{width:"40%"}}
+                className="CarrerField"
               >
                 <option value="">Choose a carrer</option>
                 {carrers.map((carrer) => (
-                  <option key={carrer.id} value={carrer.id}>
+                  <option
+                    key={carrer.id}
+                    value={carrer.id}
+                    style={{ width: "40%", fontSize: "0.6rem" }}
+                  >
                     {carrer.name}
                   </option>
                 ))}
@@ -146,6 +158,7 @@ const NewFile = ({ setupladovisible, userid }) => {
             <div>
               <input
                 value={title}
+                className="CarrerField"
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Title"
               />
@@ -155,23 +168,29 @@ const NewFile = ({ setupladovisible, userid }) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Description"
+                className="CarrerField"
               />
             </div>
             <div>
               <select
                 value={docType}
                 onChange={(e) => setDocType(e.target.value)}
+                className="CarrerField"
               >
                 <option value="">Document Type</option>
                 {docTypes.map((type) => (
-                  <option key={type.id} value={type.id}>
+                  <option key={type.id} value={type.id} className="CarrerField">
                     {type.name}
                   </option>
                 ))}
               </select>
             </div>
             <div>
-              <select value={stage} onChange={(e) => setStage(e.target.value)}>
+              <select
+                value={stage}
+                className="CarrerField"
+                onChange={(e) => setStage(e.target.value)}
+              >
                 <option value="">Stage</option>
                 {stages.map((stage) => (
                   <option key={stage.id} value={stage.id}>
@@ -196,10 +215,10 @@ const NewFile = ({ setupladovisible, userid }) => {
             <div>
               <input type="file" onChange={(e) => setFile(e.target.files[0])} />
             </div>
-            <button type="submit">Upload Document</button>
+            <Button variant="contained">Subir Archivo</Button>
           </form>
         </div>
-      </div>
+      </motion.div>
       <div
         style={{
           // background: "red",

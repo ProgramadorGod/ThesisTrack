@@ -15,16 +15,21 @@
     width: 70vw;
     height: 90vh;
     background-color: rgb(255, 255, 255);
+    
     box-shadow: 0.1vh 0.1vh 1.8vh 0.1vh rgba(0, 0, 0, 0.482);
     justify-content: center;
 
 }
 
 
+
+
 .CarrerField{
     height: 30px;
     margin-top: 2vh;
-    width: 40vw;
-    outline: none;
+    width: 80%;
+    
+    background-color: #EFEFEF;
     border: 0px;
+
 }
