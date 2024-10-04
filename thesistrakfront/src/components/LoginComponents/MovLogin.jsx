@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"; // Para manejar la navegación
 import "./MovLogin.css";
+import Button from "./Button";
 
 const MovLogin = () => {
   const navigate = useNavigate();
@@ -19,9 +20,14 @@ const MovLogin = () => {
     <div id="MainContainerMovile">
       <div id="FirstText">English</div>
       <form className="FormMov">
-        <input type="email" placeholder="Email" required />
-        <input type="password" placeholder="Password" required />
-        <button type="submit">Login</button>
+        <input className="MailMov" type="email" placeholder="Email" required />
+        <input className="PassMov" type="password" placeholder="Password" required />
+        <Button
+              IsLogin={IsLogin}
+              Loading={LoadingFetch}
+              text1={"LOGIN"}
+              text2={"LOGIN"}
+            ></Button>
         <button onClick={handleForgotPassword} className="forgot-password">
           ¿Olvidaste tu contraseña?
         </button>

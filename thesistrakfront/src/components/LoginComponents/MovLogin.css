@@ -16,4 +16,35 @@
 
     display: flex;
     flex-direction: column;
+    margin-top: 10vh;
+}
+
+
+.MailMov{
+    width: 80vw;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    height: 55px;
+    margin-bottom: 4vh;
+    border-radius: 10px;
+    border: 1px solid rgba(57, 57, 57, 0.262);
+}
+
+
+.PassMov{
+    width: 80vw;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    height: 55px;
+    border-radius: 10px;
+
+    margin-bottom: 4vh;
+    border: 1px solid rgba(57, 57, 57, 0.262);
+}
+
+.ButtonMov{
+    border-radius: 30px;
+    height: 30px;
+    background-color: #0C195A;
+    border: 0px;
 }

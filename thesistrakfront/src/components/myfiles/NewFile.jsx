@@ -215,7 +215,7 @@ const NewFile = ({ setupladovisible, userid }) => {
             <div>
               <input type="file" onChange={(e) => setFile(e.target.files[0])} />
             </div>
-            <Button variant="contained">Subir Archivo</Button>
+            <Button variant="contained" type="submit">Subir Archivo</Button>
           </form>
         </div>
       </motion.div>
