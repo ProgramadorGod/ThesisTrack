@@ -25,6 +25,7 @@
     padding-left: 5vw;
     padding-right: 5vw;
     height: 55px;
+    font-weight: bold;
     margin-bottom: 4vh;
     border-radius: 10px;
     border: 1px solid rgba(57, 57, 57, 0.262);
@@ -37,7 +38,7 @@
     padding-right: 5vw;
     height: 55px;
     border-radius: 10px;
-
+    font-weight: bold;
     margin-bottom: 4vh;
     border: 1px solid rgba(57, 57, 57, 0.262);
 }
@@ -47,4 +48,14 @@
     height: 30px;
     background-color: #0C195A;
     border: 0px;
+}
+
+.forgot-password{
+    background-color: none;
+    border: none;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-weight: bold;
 }

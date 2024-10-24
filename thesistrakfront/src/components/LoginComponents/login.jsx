@@ -4,7 +4,7 @@ import axios from "axios";
 import { useAppContext } from "../../AppContext";
 import "./login.css";
 import "./loginMov.css";
-import { useNavigate } from 'react-router-dom'; // Importar useNavigate
+import { useNavigate } from "react-router-dom"; // Importar useNavigate
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import Bird from "../../media/Pigeon4.json";
@@ -123,7 +123,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isLogged) {
-      navigate('/'); // Redirigir al usuario a la página principal si está logueado
+      navigate("/"); // Redirigir al usuario a la página principal si está logueado
     }
   }, [isLogged, navigate]);
 
@@ -144,10 +144,20 @@ const Login = () => {
     };
   }, []);
 
-  if (WindowWidth < WindowHeight) {
+  if (WindowWidth < WindowHeight * 1.5) {
     return (
       <div>
-        <MovLogin></MovLogin>
+        <MovLogin
+                  IsLogin={IsLogin}
+                  LoadingFetch={LoadingFetch}
+                  handleLoginForm={handleLoginForm}
+                  username={username}
+                  setUsername={setUsername} // Pasamos el estado de username
+                  password={password}
+                  setPassword={setPassword}
+        >
+          {" "}
+        </MovLogin>
       </div>
     );
   }

@@ -5,6 +5,7 @@ import profilepic from "../../media/perfil.png";
 import "./profile.css";
 import { useAppContext } from '../../AppContext';
 import axios from 'axios';
+import ProgressBar from "@ramonak/react-progress-bar";
 
 const Profile = () => {
 
@@ -55,6 +56,15 @@ const Profile = () => {
           </div> */}
           <a id='logout' className='ProfCardItem' onClick={HandleLogout}> { capitalize("Logout")}</a>
 
+        </div>
+
+        <div className='LateralSection'>
+            <div id='XpBar' >
+              <div>PROFESSIONAL CONTRIBUTION</div>
+              <div>LEVEL 1</div>
+              <ProgressBar className='XP' completed={60} />
+
+            </div>
         </div>
 
       </div>

@@ -21,18 +21,30 @@
   align-items: center;
   justify-content: start;
   font-family: "Apple";
-  margin-top: 100px;
+  margin-top: 16vh;
   margin-left: 24vw;
-  margin-bottom: 30px;
+  height: 80vh;
+  
 }
 
 .ProfCardItem{
   width: 25vw;
-  font-size: 18px;
+  font-size: 2.3vh;
   color: rgb(28, 2, 61);
 }
 
+#XpBar{
+  display: flex;
+  width: 35vw;
+  height: 20vh;
+  flex-direction: column;
+  padding-left: 5vw;
+}
 
+.XP{
+  width: 35vw;
+
+}
 
 #ProfileContainer{
   
@@ -40,13 +52,14 @@
   overflow: hidden;
   
   display: grid;
-  font-size: 2vw;
+
   width: 25vw;
   border-radius: 0.8vw;
-  padding-bottom: 50px;
-  padding-top: 50px;
-  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.211);
+  padding-bottom: 5vh;
+  padding-top: 5vh;
+  box-shadow: 0px 0px 0.5vh 0.2vh rgba(0, 0, 0, 0.211);
   color: white;
+  height: 70vh;
 
 
 
@@ -57,31 +70,12 @@
 }
 
 
-@media (max-width:680px){
-  #ProfileContainer{
-    width: 70vw;
-
-
-  } 
-  
-  #ProfileComponent{
-    width: 100vw;
-    margin-left: 0px;
-    justify-content: center;
-  }
-
-
-  .ProfCardItem{
-    width: 70vw;
-  }
-  
-
-  #ProfileMenuPic{
-    width: 15vw !important;
-    
-  }
-  
+.LateralSection{
+  display: flex;
+  width:40vw;
+  height: 80vh;
 }
+
 
 /* #ProfileContainer >*{
 
@@ -102,3 +96,5 @@
   user-select: none;
 
 }
+
+

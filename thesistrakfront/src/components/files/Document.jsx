@@ -1,5 +1,5 @@
 import React from 'react';
-import { RxFile, RxTokens } from 'react-icons/rx';
+import { RxEyeOpen, RxFile, RxTokens } from 'react-icons/rx';
 
 const Document = ({ document }) => {
     const isNotGoogleDriveLink = !document.url.includes('drive.google.com');
@@ -15,6 +15,9 @@ const Document = ({ document }) => {
                 <div id='kind'>
                     <RxTokens id='logo' />
                     {document.code} {'\u00A0'} / {'\u00A0'} {document.carrer_name}
+                    <div className='Views'>
+                        <RxEyeOpen id='Eye'></RxEyeOpen>0 views 
+                    </div>
                 </div>
                 <div className='Title'>{document.title}</div>
                 <div className='Description'>
