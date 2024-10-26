@@ -58,14 +58,7 @@ const Profile = () => {
 
         </div>
 
-        <div className='LateralSection'>
-            <div id='XpBar' >
-              <div>PROFESSIONAL CONTRIBUTION</div>
-              <div>LEVEL 1</div>
-              <ProgressBar className='XP' completed={60} />
 
-            </div>
-        </div>
 
       </div>
   

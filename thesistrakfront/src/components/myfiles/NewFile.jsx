@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import Button from "@mui/material/Button";
+import { Button, TextField, Grid, MenuItem, Select, InputLabel, FormControl, Slider, Box, Typography } from "@mui/material";
 import "./NewFile.css";
 import { useAppContext } from "../../AppContext";
 
@@ -96,6 +96,10 @@ const NewFile = ({ setupladovisible, userid }) => {
       console.error("Error fetching document stages", error);
     }
   };
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile); // Almacena el archivo seleccionado
+  };
 
   useEffect(() => {
     fetchDocTypes();
@@ -133,8 +137,8 @@ const NewFile = ({ setupladovisible, userid }) => {
           position: "absolute",
         }}
       >
-        <div style={{ width: "100%" }}>
-          <form onSubmit={handleSubmit}>
+        <div style={{ width: "100%" }} >
+          <form onSubmit={handleSubmit} id="AllfieldsContainer">
             {error && <div className="error">{error}</div>}{" "}
             <div>
               <select
@@ -199,23 +203,34 @@ const NewFile = ({ setupladovisible, userid }) => {
                 ))}
               </select>
             </div>
-            <div>
-              <label htmlFor="progress">
-                Progress (%): {progressPercentage}%
-              </label>
-              <input
-                type="range"
-                id="progress"
-                min="0"
-                max="100"
+            <div id="Slider">
+              <Typography gutterBottom>
+                Progreso: {progressPercentage}%
+              </Typography>
+              <Slider
+              
                 value={progressPercentage}
-                onChange={(e) => setProgressPercentage(e.target.value)}
+                onChange={(e, newValue) => setProgressPercentage(newValue)}
+                min={0}
+                max={100}
               />
             </div>
             <div>
-              <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+              <div>
+                <Button
+                  variant="contained"
+                  component="label"
+                  fullWidth
+                  id="SelectB"
+                >
+                  {file ? file.name : "Seleccionar Archivo"}
+                  <input type="file" hidden onChange={handleFileChange} />
+                </Button>
+              </div>{" "}
             </div>
-            <Button variant="contained" type="submit">Subir Archivo</Button>
+            <Button variant="contained" type="submit">
+              Subir Archivo
+            </Button>
           </form>
         </div>
       </motion.div>

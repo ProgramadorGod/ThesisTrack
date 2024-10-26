@@ -22,12 +22,26 @@
 }
 
 
+#AllfieldsContainer{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+#SelectB{
+    width: 50vw;
+    margin-bottom: 4vh;
+}
+#Slider{
+    width: 50vw;
+}
 
 
 .CarrerField{
-    height: 30px;
+    height: 5vh;
     margin-top: 2vh;
-    width: 80%;
+    width: 55vw;
     
     background-color: #EFEFEF;
     border: 0px;

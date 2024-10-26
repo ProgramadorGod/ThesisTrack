@@ -19,6 +19,7 @@ import Cookies from "js-cookie";
 import { AppProvider, useAppContext } from "./AppContext";
 import Sidemenu2 from "./components/Sidemenu2/Sidemenu2";
 import IA from "./components/IA/IA";
+import Help from "./components/Help/Help";
 
 const App = () => {
   return (
@@ -136,7 +137,7 @@ function AppContent() {
                 isloading ? (
                   <Loadingrectangle />
                 ) : isLogged ? (
-                  <Myfiles userid={userid} />
+                  <Help userid={userid} />
                 ) : (
                   <Navigate to="/login" />
                 )

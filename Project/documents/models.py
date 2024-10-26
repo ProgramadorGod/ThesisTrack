@@ -29,7 +29,7 @@ class AbstractBaseDocument(models.Model):
     stage = models.ForeignKey(DocumentStage, on_delete=models.SET_NULL, null=True)
     progress_percentage = models.FloatField(default=0.0)
     document_type = models.ForeignKey(DocumentType, on_delete=models.SET_NULL, null=True)
-
+    visualizations = models.IntegerField(default=1)
     class Meta:
         abstract = True
 

@@ -16,7 +16,7 @@ const Document = ({ document }) => {
                     <RxTokens id='logo' />
                     {document.code} {'\u00A0'} / {'\u00A0'} {document.carrer_name}
                     <div className='Views'>
-                        <RxEyeOpen id='Eye'></RxEyeOpen>0 views 
+                        <RxEyeOpen id='Eye'></RxEyeOpen>{document.visualizations} views 
                     </div>
                 </div>
                 <div className='Title'>{document.title}</div>

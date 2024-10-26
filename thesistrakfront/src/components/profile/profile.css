@@ -37,13 +37,20 @@
   display: flex;
   width: 35vw;
   height: 20vh;
+  font-size: 2.3vh;
   flex-direction: column;
   padding-left: 5vw;
 }
 
 .XP{
   width: 35vw;
+  padding-top: 1vh;
+  height: 4vh;
+  font-size: 2.3vh;
+}
 
+#XpText1{
+  display: flex;
 }
 
 #ProfileContainer{

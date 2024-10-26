@@ -5,7 +5,7 @@ import "./Stadistics.css";
 const Echart = () => {
     const option ={
         title:{
-            text:"Ejemplo Estadísticas"
+            text:"Proyectos Por Carrera"
         },
         tooltip:{},
         xAxis:{
@@ -21,17 +21,17 @@ const Echart = () => {
 
     const option2 ={
         title:{
-            text:"Ejemplo Estadísticas2"
+            text:"Tendencia Por Año"
         },
         tooltip:{},
         xAxis:{
-            data:["mayo", "junio","julio","agosto"]
+            data:["2015","2016","2017","2018","2019", "2020","2021","2022"]
         },
         yAxis:{},
         series:[{
             name:"Proyectos",
             type:"line",
-            data:[15,35,17,9,22]
+            data:[15,35,17,9,22,40,50,92]
         }]
     }
 

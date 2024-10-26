@@ -135,12 +135,6 @@ const Sidemenu2 = ({ isActive }) => {
                     </motion.div>
                 </button>
 
-                <button className={`${isActive ? "item" : "unactive"}`} onClick={handleSettings} tabIndex={2}>
-                    <motion.div className="item-group" animate={{ x: isActive ? 0 : -30, opacity: isActive ? 1 : 0, color: isActive ? "#000000" : "#ffffff" }}>
-                        <Settings id="Icon" className={`${isActive ? "IconActive" : ""}`}></Settings>
-                    </motion.div>
-                </button>
-
                 <button className={`${isActive ? "item" : "unactive"}`} onClick={handleHelp} tabIndex={2}>
                     <motion.div className="item-group" animate={{ x: isActive ? 0 : -30, opacity: isActive ? 1 : 0, color: isActive ? "#000000" : "#ffffff" }}>
                         <Help id="Icon" className={`${isActive ? "IconActive" : ""}`}></Help>
