@@ -14,5 +14,6 @@ urlpatterns = [
     path("documentz/", views.document_list, name="document-list"),
     path('',include(router.urls)),
     path('upgradeview/<int:pk>/', views.document_detail, name='document-detail'),
-
+    path('document-count-by-carrer/', views.document_count_by_carrer, name="document-count-by-carrer"),
+    path('document-count-by-year/', views.document_count_by_year, name="document-count-by-year")
 ]

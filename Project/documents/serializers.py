@@ -80,5 +80,4 @@ class DocumentSerializer(serializers.ModelSerializer):
     def get_document_type_name(self, obj):
         return obj.document_type.name if obj.document_type else None
     
-
-
+ 

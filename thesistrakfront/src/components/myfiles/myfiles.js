@@ -12,7 +12,7 @@ const Myfiles = ({ userid }) => {
   const [MyDocuments, setMyDocuments] = useState([]);
   const [isLoading, setisLoading] = useState(true);
   const { PortToUse } = useAppContext();
-
+  console.log("WTF")
   const toggleUpload = () => {
     setUploadVisible(!UploadVisible);
   };
@@ -33,6 +33,7 @@ const Myfiles = ({ userid }) => {
   useEffect(() => {
     fetchMyDocuments();
   }, []); // Arreglo de dependencias vacío para ejecutar solo una vez
+
 
   return (
     <div className={`${UploadVisible ? "Uploading" : ""}`}>
@@ -78,7 +79,8 @@ const Myfiles = ({ userid }) => {
               <>
                 <h2 className="Proyects"> MY PROYECTS  </h2>
                 {MyDocuments.map((document) => (
-                  <Document key={document.id} document={document} />
+                  // <Document key={document.id} document={document} />
+                  <Document key={document.id} document={document}></Document>
                 ))}
               </>
             )}

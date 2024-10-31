@@ -30,6 +30,7 @@ const App = () => {
 };
 
 function AppContent() {
+  console.log("AA")
   const {
     isloading,
     isLogged,

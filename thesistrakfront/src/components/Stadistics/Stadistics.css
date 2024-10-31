@@ -1,7 +1,7 @@
 #StadisticsComponent{
     width: 100vw;
     margin-left: 0vw;
-    margin-top: 10vw;
+    margin-top: 10vh;
 
     display: flex;
     justify-content: center;
@@ -12,6 +12,12 @@
 }
 
 .StadisticItem{
-    width: 500px;
+    width: 80vw;
+    margin-left: 10vw;
+    margin-bottom: 10vh;
     
+}
+
+#TimeLapse{
+    margin-left: 5vw;
 }

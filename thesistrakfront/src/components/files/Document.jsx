@@ -1,13 +1,55 @@
 import React from 'react';
 import { RxEyeOpen, RxFile, RxTokens } from 'react-icons/rx';
+import { useEffect, useState } from "react";
 
 const Document = ({ document }) => {
-    const isNotGoogleDriveLink = !document.url.includes('drive.google.com');
+
+    const [visualizations, setVisualizations] = useState(document.visualizations);
+
+    if (!document) {
+        return <div>Error: Document data is missing.</div>;
+    }
 
 
-    const fileUrl = isNotGoogleDriveLink 
-        ? `http://127.0.0.1:8000/media/${document.url}`
-        : document.url;
+    const fileUrl = document.file 
+    ? `http://127.0.0.1:8000${document.file}` 
+    : document.url;
+
+    
+
+
+    const handleDownloadClick = async () => {
+        try {
+            // Incrementar visualizaciones
+            const response  = await fetch(`http://127.0.0.1:8000/api/upgradeview/${document.id}/`, {
+                method: 'GET',
+            });
+
+            if (response.ok){
+                const data  = await response.json()
+                setVisualizations(data.visualizations)
+
+                window.open(fileUrl, '_blank')
+            }else{
+                console.error("Error al agregar la visualización")
+            }
+
+
+
+            // Redirigir al archivo para descargar
+            window.open(fileUrl, '_blank');
+        } catch (error) {
+            console.error("Error al incrementar visualizaciones:", error);
+        }
+
+    };
+
+
+
+    // Verificamos si `document.file` está presente
+
+
+    console.log("File URL:", fileUrl); // Para verificar si la URL se genera correctamente
 
     return (
         <div id="FileComponent" key={document.id}>
@@ -16,13 +58,11 @@ const Document = ({ document }) => {
                     <RxTokens id='logo' />
                     {document.code} {'\u00A0'} / {'\u00A0'} {document.carrer_name}
                     <div className='Views'>
-                        <RxEyeOpen id='Eye'></RxEyeOpen>{document.visualizations} views 
+                        <RxEyeOpen id='Eye' />{visualizations} views 
                     </div>
                 </div>
                 <div className='Title'>{document.title}</div>
-                <div className='Description'>
-                    {document.description}
-                </div>
+                <div className='Description'>{document.description}</div>
                 <div className='Year'>Year: {'\u00A0'} {document.year}</div>
                 <div className='Author'>
                     <div>Authors: {'\u00A0'}</div>
@@ -34,8 +74,8 @@ const Document = ({ document }) => {
                     ))}
                 </div>
                 <div className='DownloadButton'>
-                    <a id='DownloadText' href={fileUrl} target="_blank" rel="noopener noreferrer">
-                        <RxFile className='icondoc' /> {isNotGoogleDriveLink ? 'Accede Ahora (Documento Digital)' : 'Accede Ahora (Libro Electrónico)'}
+                    <a id='DownloadText' href={fileUrl} target="_blank" rel="noopener noreferrer" onClick={handleDownloadClick}>
+                        <RxFile className='icondoc' /> {document.file ? 'Accede Ahora (Documento Digital)' : 'Accede Ahora (Libro Electrónico)'}
                     </a>
                 </div>
             </div>
