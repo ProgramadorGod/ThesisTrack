@@ -2,7 +2,7 @@
     margin-top: 10vh;
     width: 100vw;
     flex-direction: column;
-    background-color: beige;
+    background-color: rgba(0, 0, 0, 0.131);
     display: flex;
     align-items: center;
     min-height: 90vh;
@@ -12,16 +12,14 @@
   
   .Intern {
     background-color: rgb(255, 255, 255);
-    min-height: 80vh;
+    min-height: 90vh;
     width: 65vw;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-content: center;
     border: 0.4vh solid #ccc;
-    
     border-radius: 0.3vh;
-    margin-top: 3vh;
     padding: 0.5vh;
   }
   

@@ -1,0 +1,9 @@
+version: '3'
+
+services: 
+
+  front-end:
+    build: .
+    ports: 
+      - "5173:5173"
+    command: npm start

@@ -112,29 +112,42 @@ def get_filtered_documents(request, username=None):
 
 
     else:
-                # Crear el filtro para la búsqueda si no se proporciona username
+        # Crear el filtro para la búsqueda si no se proporciona username
         query_filter = Q()
-        
-        if query:
 
+        if query:
+            # Búsqueda exacta con el query completo en title, year, y carrer__name
+            query_filter |= (
+                Q(title__icontains=query) |
+                Q(year__icontains=query) |
+                Q(carrer__name__icontains=query)
+            )
+
+            # Búsqueda fragmentada solo en authors
             query_parts = query.split()
             for part in query_parts:
-                query_filter |= (
-                    Q(authors__icontains=part) |
-                    Q(title__icontains=part) |
-                    Q(year__icontains=part) |
-                    Q(carrer__name__icontains=part)
-                )
+                query_filter |= Q(authors__icontains=part)
+            
             documents = documents.filter(query_filter)
-            file_documents = file_documents.filter(query_filter)
+            print("docments: ", documents)
+
+            if not documents.exists():
+                query_filter = Q()
+
+                for part in query_parts:
+                    print("part: ", part , ", part_length: ", part.length )
+
+                    if part.length > 4:
+                        print("part: ", part , ", part_length: ", part.length )
+                        query_filter |= Q(title__icontains=part)
+                documents = documents.filter(query_filter)
+
 
         if carrer_id:
             documents = documents.filter(carrer_id=carrer_id)
-            file_documents = file_documents.filter(carrer_id=carrer_id)
 
         if year:
             documents = documents.filter(year=year)
-            file_documents = file_documents.filter(year=year)
 
         if not query:
             documents = documents.order_by('authors')
@@ -143,36 +156,37 @@ def get_filtered_documents(request, username=None):
             serializer = DocumentSerializer(result_page, many=True)
             return paginator.get_paginated_response(serializer.data)
 
-        # Anotar el número de coincidencias por documento
+        # Anotar el número de coincidencias: fragmentado en authors, completo en los demás
         for part in query_parts:
             documents = documents.annotate(
                 match_count=Count(
                     Case(
-                        When(Q(authors__icontains=part) | Q(title__icontains=part) | Q(year__icontains=part) | Q(carrer__name__icontains=part), then=1),
-                        output_field=IntegerField()
-                    )
-                )
-            )
-            file_documents = file_documents.annotate(
-                match_count=Count(
-                    Case(
-                        When(Q(authors__icontains=part) | Q(title__icontains=part) | Q(year__icontains=part) | Q(carrer__name__icontains=part), then=1),
+                        When(Q(authors__icontains=part), then=1),
                         output_field=IntegerField()
                     )
                 )
             )
 
-        # Si no se encuentra un filtro de búsqueda
+        documents = documents.annotate(
+            match_count=Count(
+                Case(
+                    When(Q(title__icontains=query) | Q(year__icontains=query) | Q(carrer__name__icontains=query), then=1),
+                    output_field=IntegerField()
+                )
+            )
+        )
 
-
-        # Combinar y ordenar por cantidad de coincidencias y luego por el campo `sort_by`
-        combined_docs = documents.union(file_documents).order_by('-match_count', sort_by)
+        # Ordenar por cantidad de coincidencias y luego por el campo `sort_by`
+        combined_docs = documents.order_by('-match_count', sort_by)
 
         # Paginación
         paginator = DocumentPagination()
         result_page = paginator.paginate_queryset(combined_docs, request)
         serializer = DocumentSerializer(result_page, many=True)
         return paginator.get_paginated_response(serializer.data)
+
+
+
 
 
 
