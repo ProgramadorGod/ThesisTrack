@@ -31,7 +31,7 @@ const SideMenuIcon = ({ icon, isActive }) => {
     );
 };
 
-const Sidemenu2 = ({ isActive }) => {
+const Sidemenu2 = ({ isActive, setisActive }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const inHome = location.pathname === "/";
@@ -56,24 +56,37 @@ const Sidemenu2 = ({ isActive }) => {
     }, [isActive]);
 
     const handleProfileClick = () => {
+        setisActive("")
         navigate("/profile");
     };
     const handleHomeClick = () => {
+        setisActive("")
+
         navigate("/");
     };
     const handleMyFilesClick = () => {
+        setisActive("")
+
         navigate("/Files");
     };
     const handleGraphics = () => {
+        setisActive("")
+
         navigate("/Stadistics");
     };
     const handleSettings = () => {
+        setisActive("")
+
         navigate("/Settings");
     };
     const handleGpt = () => {
+        setisActive("")
+
         navigate("/IA");
     };
     const handleHelp = () => {
+        setisActive("")
+
         navigate("/Help");
     };
 
@@ -91,11 +104,11 @@ const Sidemenu2 = ({ isActive }) => {
         <motion.div
             animate={{ width: GetInitialPosition() }}
             transition={{
-                duration: 0.01,
+                duration: 4,
                 type: "spring",
                 damping: 5,
-                shiftness: 700,
-                mass: 0.1,
+                shiftness: 500,
+                mass: 0.01,
             }}
             id='SideMenu2-Container'
         >

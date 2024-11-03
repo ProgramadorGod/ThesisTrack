@@ -10,7 +10,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from django.db.models import Q, Count, Case, When, IntegerField, F
+from django.db.models import Q, Count, Case, When, IntegerField, F, Value, Sum
 from .models import UrlDocument, DocumentStage, DocumentType, Carrer, FileDocument
 from .serializers import DocumentSerializer, DocumentStageSerializer, DocumentTypeSerializer, FileDocumentSerializer, CarrerSerializer, CreateFileDocSerializer
 
@@ -69,79 +69,42 @@ def get_filtered_documents(request, username=None):
     documents = UrlDocument.objects.all()
     file_documents = FileDocument.objects.all()
 
-    # Inicializar query_filter como None para evitar el error
-    query_filter = None
-
-    # Si se proporciona un username, filtramos por ese usuario
+    # Filtrar por username si es necesario
     if username:
-        print("Username:", username)
-        # Filtro preliminar con icontains
         author_filter = Q(authors__icontains=username)
         file_documents = file_documents.filter(author_filter)
         
-        # Filtra en Python solo los documentos con coincidencias exactas
+        # Filtrar solo documentos con coincidencias exactas en authors
         exact_file_documents = [file_doc for file_doc in file_documents if file_doc.authors == [username]]
         
-        # Combina los resultados exactos en listas separadas
-        print("Exact File Documents:", len(exact_file_documents))
-
-        # Usa los documentos exactos en lugar de los filtrados inicialmente
-        combined_docs =  exact_file_documents
-
+        # Aplicar filtros adicionales (query, carrer_id, year) solo a documentos exactos
         if query:
             query_filter = (Q(title__icontains=query) | Q(authors__icontains=query) | Q(year__icontains=query))
-            print("Query:", query)
-            
-            # Filtrar query solo en los documentos exactos
             exact_file_documents = [file_doc for file_doc in exact_file_documents if query_filter.check(file_doc)]
-
+        
         if carrer_id:
             exact_file_documents = [file_doc for file_doc in exact_file_documents if file_doc.carrer_id == carrer_id]
 
         if year:
             exact_file_documents = [file_doc for file_doc in exact_file_documents if file_doc.year == year]
 
-        # Combinar ambos querysets y ordenarlos
-        combined_docs =  exact_file_documents
+        # Ordenar y paginar resultados
+        combined_docs = exact_file_documents
         combined_docs.sort(key=lambda x: getattr(x, sort_by))
-
         paginator = DocumentPagination()
         result_page = paginator.paginate_queryset(combined_docs, request)
         serializer = FileDocumentSerializer(result_page, many=True)
         return paginator.get_paginated_response(serializer.data)
 
-
     else:
-        # Crear el filtro para la búsqueda si no se proporciona username
         query_filter = Q()
+        query_parts = query.split() if query else []
 
         if query:
-            # Búsqueda exacta con el query completo en title, year, y carrer__name
-            query_filter |= (
-                Q(title__icontains=query) |
-                Q(year__icontains=query) |
-                Q(carrer__name__icontains=query)
-            )
-
-            # Búsqueda fragmentada solo en authors
-            query_parts = query.split()
+            # Crear anotaciones y ponderación
             for part in query_parts:
-                query_filter |= Q(authors__icontains=part)
-            
+                query_filter |= Q(authors__icontains=part) | Q(title__icontains=part) | Q(year__icontains=part) | Q(carrer__name__icontains=part)
             documents = documents.filter(query_filter)
-            print("docments: ", documents)
-
-            if not documents.exists():
-                query_filter = Q()
-
-                for part in query_parts:
-                    print("part: ", part , ", part_length: ", part.length )
-
-                    if part.length > 4:
-                        print("part: ", part , ", part_length: ", part.length )
-                        query_filter |= Q(title__icontains=part)
-                documents = documents.filter(query_filter)
-
 
         if carrer_id:
             documents = documents.filter(carrer_id=carrer_id)
@@ -156,28 +119,21 @@ def get_filtered_documents(request, username=None):
             serializer = DocumentSerializer(result_page, many=True)
             return paginator.get_paginated_response(serializer.data)
 
-        # Anotar el número de coincidencias: fragmentado en authors, completo en los demás
-        for part in query_parts:
-            documents = documents.annotate(
-                match_count=Count(
-                    Case(
-                        When(Q(authors__icontains=part), then=1),
-                        output_field=IntegerField()
-                    )
-                )
-            )
-
+        # Anotar el número de coincidencias en todos los campos relevantes
         documents = documents.annotate(
-            match_count=Count(
+            match_score=Sum(
                 Case(
-                    When(Q(title__icontains=query) | Q(year__icontains=query) | Q(carrer__name__icontains=query), then=1),
+                    When(Q(authors__icontains=query), then=3),
+                    When(Q(title__icontains=query), then=2),
+                    When(Q(year__icontains=query), then=1),
+                    When(Q(carrer__name__icontains=query), then=1),
                     output_field=IntegerField()
                 )
             )
         )
 
-        # Ordenar por cantidad de coincidencias y luego por el campo `sort_by`
-        combined_docs = documents.order_by('-match_count', sort_by)
+        # Ordenar por la puntuación de coincidencias y luego por el campo `sort_by`
+        combined_docs = documents.order_by('-match_score', sort_by)
 
         # Paginación
         paginator = DocumentPagination()
@@ -253,6 +209,18 @@ def document_count_by_carrer(request):
 def document_count_by_year(request):
     document_count = (
         UrlDocument.objects.values('year')
+        .annotate(total_documents = Count('id'))
+        .order_by('-total_documents')
+    )
+
+    data = list(document_count)
+    return JsonResponse(data,safe=False, json_dumps_params={'ensure_ascii':False})
+
+
+
+def document_count_carrer_and_year(request):
+    document_count = (
+        UrlDocument.objects.values('carrer__name', 'year')
         .annotate(total_documents = Count('id'))
         .order_by('-total_documents')
     )

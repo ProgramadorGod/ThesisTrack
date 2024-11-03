@@ -46,10 +46,10 @@ const Document = ({ document }) => {
 
 
 
-    // Verificamos si `document.file` está presente
 
 
-    console.log("File URL:", fileUrl); // Para verificar si la URL se genera correctamente
+
+    // console.log("File URL:", fileUrl); 
 
     return (
         <div id="FileComponent" key={document.id}>

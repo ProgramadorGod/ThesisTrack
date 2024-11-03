@@ -1,6 +1,6 @@
 @media (min-width:0px) {
     #SideMenu2-Container{
-        
+        z-index: 99999;
         width: 10vw;
         margin-top: 20vh;
         height: 70vh;

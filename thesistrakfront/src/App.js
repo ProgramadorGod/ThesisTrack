@@ -61,7 +61,7 @@ function AppContent() {
           {isloading ? (
             <Loadingrectangle />
           ) : isLogged ? (
-            <Sidemenu2 isActive={isActive} />
+            <Sidemenu2 isActive={isActive} setisActive={setisActive} />
           ) : (
             ""
           )}
