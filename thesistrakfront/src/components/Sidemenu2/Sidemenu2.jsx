@@ -23,7 +23,7 @@ const SideMenuIcon = ({ icon, isActive }) => {
             }}
             animate={{
                 borderRadius: isActive ? "50%" : "0%",
-                transition: { duration: 0.5 },
+                transition: { duration: 4 },
             }}
         >
             {icon}

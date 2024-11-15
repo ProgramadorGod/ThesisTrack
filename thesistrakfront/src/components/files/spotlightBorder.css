@@ -10,7 +10,7 @@
   .base-input {
     /* height: 3rem; */
     /* width: 100%; */
-    width: 44vw;
+    width: 64vw;
     min-height: 34px;
     max-height: 44px;
     font-size: 1rem;
@@ -40,7 +40,7 @@
   
   .overlay-input {
     pointer-events: none;
-    width: 48vw;
+    width: 68vw;
     min-height: 34px;
     max-height: 44px;
     

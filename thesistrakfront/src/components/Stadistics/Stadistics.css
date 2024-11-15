@@ -1,23 +1,56 @@
-#StadisticsComponent{
-    width: 100vw;
-    margin-left: 0vw;
-    margin-top: 10vh;
-
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    grid-template-columns: 1fr 1fr;
-    flex-direction: column;
-    align-content: center;
+@font-face {
+  font-family: 'Runtoe';
+  src: url('../../fonts/Runtoe.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }
 
-.StadisticItem{
-    width: 80vw;
-    margin-left: 10vw;
-    margin-bottom: 10vh;
+#StadisticsComponent {  
+    scroll-snap-type: y mandatory; /* Ajuste vertical obligatorio */
+    overflow-y: scroll; /* Scroll vertical */
+    height: 100vh; /* Cada sección llena la pantalla */
+    /* margin-top: 12vh; */
+}
+
+.StadisticItem {
+    scroll-snap-align: start; /* Ajusta cada sección al inicio del viewport */
+    height: 80vh; /* Cada sección ocupa una vista completa */
+    padding-top: 12vh;
+    width: 90vw; /* Para que llene el ancho de la pantalla */
+    display: flex;
+    margin-left: 15vw;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+#Cake{
     
 }
 
 #TimeLapse{
     margin-left: 5vw;
+    padding-top: 16vh;
 }
+
+#GraphTitle{
+    /* margin-bottom: 6vh; */
+    align-items: center;
+    width: 80vw;
+    padding-right: 10vw;
+    font-family: "Runtoe";
+}
+#p{
+    width: fit-content;
+    border-bottom: 0.2vh solid black;
+}
+
+
+#Combination{
+    margin-left: 10vw;
+    
+}
+
+#Pages{
+    margin-left: 10vw;
+}
+

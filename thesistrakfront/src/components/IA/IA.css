@@ -11,7 +11,7 @@
   }
   
   .Intern {
-    background-color: rgb(255, 255, 255);
+    background-color: #dedede;
     min-height: 90vh;
     width: 65vw;
     display: flex;

@@ -10,6 +10,7 @@ router.register(r'doc-types', views.DocumentTypeList)
 router.register(r'doc-stages', views.DocumentStagesList)
 router.register(r'my-docs', views.UserDocumentsViewSet, basename="user-documents" )
 
+
 urlpatterns = [
     path("documentz/", views.document_list, name="document-list"),
     path('',include(router.urls)),
