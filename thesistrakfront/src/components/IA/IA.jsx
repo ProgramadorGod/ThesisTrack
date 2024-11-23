@@ -43,7 +43,7 @@ const IA = () => {
             Authorization: `Bearer ${API_KEY}`,
           },
           body: JSON.stringify({
-            model: "gpt-3.5-turbo", // Usando GPT-4
+            model: "gpt-4-turbo", // Usando GPT-4
             messages: formattedMessages, // Enviar el historial de mensajes completo
           }),
         });

@@ -64,6 +64,10 @@ def get_filtered_documents(request, username=None):
     sort_by = request.GET.get('sort_by', 'title')
     carrer_id = request.GET.get('carrer_id', None)
     year = request.GET.get('year', None)
+    show_titles = request.GET.get('show_titles', 'true') == 'true'
+    show_carrers = request.GET.get('show_carrers', 'true') == 'true'
+    show_authors = request.GET.get('show_authors', 'true') == 'true'
+    show_years = request.GET.get('show_years', 'true') == 'true'
 
     # Inicializar queryset de documentos
     documents = UrlDocument.objects.all()
@@ -79,7 +83,16 @@ def get_filtered_documents(request, username=None):
         
         # Aplicar filtros adicionales (query, carrer_id, year) solo a documentos exactos
         if query:
-            query_filter = (Q(title__icontains=query) | Q(authors__icontains=query) | Q(year__icontains=query))
+            if show_titles:
+                query_filter |= Q(title__icontains=query)
+            if show_authors:
+                query_filter |= Q(authors__icontains=query)
+            if show_years:
+                query_filter |= Q(year__icontains=query)
+            if show_carrers:
+                query_filter |= Q(carrer__name__icontains=query)            
+
+
             exact_file_documents = [file_doc for file_doc in exact_file_documents if query_filter.check(file_doc)]
         
         if carrer_id:
@@ -103,8 +116,15 @@ def get_filtered_documents(request, username=None):
         if query:
             # Crear anotaciones y ponderación
             for part in query_parts:
-                query_filter |= Q(authors__icontains=part) | Q(title__icontains=part) | Q(year__icontains=part) | Q(carrer__name__icontains=part)
-            documents = documents.filter(query_filter)
+                if show_titles:
+                    query_filter |= Q(title__icontains=query)
+                if show_authors:
+                    query_filter |= Q(authors__icontains=part)
+                if show_years:
+                    query_filter |= Q(year__icontains=part)
+                if show_carrers:
+                    query_filter |= Q(carrer__name__icontains=part)            
+                documents = documents.filter(query_filter)
 
         if carrer_id:
             documents = documents.filter(carrer_id=carrer_id)
@@ -113,7 +133,7 @@ def get_filtered_documents(request, username=None):
             documents = documents.filter(year=year)
 
         if not query:
-            documents = documents.order_by('authors')
+            documents = documents.order_by('title')
             paginator = DocumentPagination()
             result_page = paginator.paginate_queryset(documents, request)
             serializer = DocumentSerializer(result_page, many=True)

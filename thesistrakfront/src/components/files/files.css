@@ -70,6 +70,10 @@
     font-size: 0.8rem;
 }
 
+.DownloadButton:hover{
+    color:#000000
+}
+
 #DownloadText {
     padding: 10px;
     text-decoration: none;
@@ -79,6 +83,14 @@
     display: flex;
     box-shadow: 1px 1px 5px 1px #6591d94b;
     font-size: 0.8rem;
+    transition: all 0.2s;
+}
+
+#DownloadText:hover{
+    color: #010231 !important;
+    border:  1px solid #010231 !important; 
+    transition: all 0.2s;
+    /* background-color: black !important;  */
 }
 
 .icondoc {
@@ -288,4 +300,84 @@
 
 #FiltersInsideCircleContainer{
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
+
+#FilterTitle{
+    margin-top: 3vh;
+    margin-left: 6vw;
+    font-size: 2rem;
+    font-family: "Apple";
+    font-weight: 900;
+}
+
+.FilterOption{
+    margin-left:  6vw;
+    font-family: "Apple";
+    font-weight: 400;
+}
+
+#Switches{
+    
+    margin-top: 2vh;
+    display: flex;
+}
+
+#YearSubtitle{
+    font-weight: 600;
+    font-family: "Apple";
+}
+
+#SliderContainer{
+    width: 69vw;
+    margin-top: 3vh;
+    align-items: center;
+    margin-left: 6vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#Range{
+    display: flex;
+    margin-top: 1vh;
+    align-items: center;
+
+}
+
+#TextInRange{
+}
+
+#RealSlider{
+    margin-left: 0.5vw;
+    color: rgb(41, 41, 41);
+    width: 31vw;
+}
+
+#Explanaition{
+    margin-left: 4vw;
+    font-family: "Apple";
+}
+
+.CarrerButtom{
+    border-radius: 1vh;
+    border: 0.1vh solid rgba(177, 176, 176, 0.589);
+    cursor: pointer;
+    margin: 1vh;
+    user-select: none;
+    padding: 1vh;
+}
+#CarrersGroup{
+    margin-top: 2vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    font-size: 0.7rem;
+}
+
+.Text{
+    font-family: "Apple";
+    font-weight: 600;
+
+}
+

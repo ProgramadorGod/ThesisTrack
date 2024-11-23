@@ -257,7 +257,7 @@ const Echart = () => {
   // Configuración del gráfico de línea (Tendencia Por Año)
   const option2 = {
     title: {
-      text: "Tendencia Por Año",
+      text: "Cantidad De Proyectos Por Año",
       left: "center",
     },
     tooltip: {

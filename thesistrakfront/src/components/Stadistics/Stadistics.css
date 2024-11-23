@@ -9,6 +9,7 @@
     scroll-snap-type: y mandatory; /* Ajuste vertical obligatorio */
     overflow-y: scroll; /* Scroll vertical */
     height: 100vh; /* Cada sección llena la pantalla */
+    overflow-x: hidden;
     /* margin-top: 12vh; */
 }
 
