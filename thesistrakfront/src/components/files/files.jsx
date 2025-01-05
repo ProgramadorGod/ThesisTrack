@@ -235,10 +235,10 @@ useEffect(() => {
 
         <motion.div
           className="FiltersSection"
-          initial={{ x: 100 }}
-          animate={{ x: 0 }}
+          initial={{ x: 0, opacity:0 }}
+          animate={{ x: 0, opacity:1}}
           transition={{
-            x: {duration:0.2},
+            
             
             
           }}

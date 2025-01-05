@@ -28,28 +28,24 @@ const Filters = ({
   setShowTitles,
   setShowYears,
 }) => {
-
-
-    const handleFilterChange = (filterName) => (event) => {
-        switch (filterName) {
-          case "showTitles":
-            setShowTitles((prev) => !prev);
-            break;
-          case "showCarrers":
-            setShowCarrers((prev) => !prev);
-            break;
-          case "showAuthors":
-            setShowAuthors((prev) => !prev);
-            break;
-          case "showYears":
-            setShowYears((prev) => !prev);
-            break;
-          default:
-            break;
-        }
-        
-      };
- 
+  const handleFilterChange = (filterName) => (event) => {
+    switch (filterName) {
+      case "showTitles":
+        setShowTitles((prev) => !prev);
+        break;
+      case "showCarrers":
+        setShowCarrers((prev) => !prev);
+        break;
+      case "showAuthors":
+        setShowAuthors((prev) => !prev);
+        break;
+      case "showYears":
+        setShowYears((prev) => !prev);
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <motion.div

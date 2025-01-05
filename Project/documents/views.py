@@ -247,3 +247,7 @@ def document_count_carrer_and_year(request):
 
     data = list(document_count)
     return JsonResponse(data,safe=False, json_dumps_params={'ensure_ascii':False})
+
+
+
+

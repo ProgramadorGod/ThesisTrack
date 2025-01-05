@@ -6,8 +6,8 @@
         height: 70vh;
         background-color: #ffffff;
         position: absolute;
-        border-top-right-radius: 2vh;
-        border-bottom-right-radius: 2vh;
+        border-top-right-radius: 1vh;
+        border-bottom-right-radius: 1vh;
         box-shadow: inset 0 0 1vh #000000;
 
         /* border-top-left-radius: 2vh;
@@ -17,8 +17,8 @@
     #Menu-items{
         width: 100%;
         height: 100%;
-        border-top-right-radius: 2vh;
-        border-bottom-right-radius: 2vh;
+        border-top-right-radius: 0vh;
+        border-bottom-right-radius: 0vh;
         background-color: rgba(255, 255, 255, 0.345);
         display: grid;
         justify-content: start;

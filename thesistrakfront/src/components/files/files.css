@@ -245,7 +245,14 @@
 
 }
 
-
+@keyframes backgroundTransition {
+    0% {
+        background-color: black;
+    }
+    100% {
+        background-color: #0c195ae8;
+    }
+}
 #PlusIcon {
     width: 8vw;
     padding-top: 12px;
@@ -256,7 +263,7 @@
     border-bottom: 20px solid #ffffff; /* Color que simula el fondo de la página */
     border-right: 20px solid transparent;
     cursor: grab;
-
+    animation: backgroundTransition 0.5s ease-in-out forwards;
 }
 
 
@@ -313,15 +320,21 @@
 }
 
 .FilterOption{
-    margin-left:  6vw;
+    
     font-family: "Apple";
     font-weight: 400;
+    display: grid;
 }
 
 #Switches{
     
     margin-top: 2vh;
-    display: flex;
+    display: grid;
+    width: 63vw;
+    margin-left: 6vw;
+    justify-items: center;
+    margin-right: 6vw;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 #YearSubtitle{
@@ -330,10 +343,11 @@
 }
 
 #SliderContainer{
-    width: 69vw;
+    width: 63vw;
     margin-top: 3vh;
     align-items: center;
     margin-left: 6vw;
+    margin-right: 6vw;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
