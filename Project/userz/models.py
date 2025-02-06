@@ -16,6 +16,8 @@ class Account(AbstractUser):
     documents_downloaded = models.IntegerField(default=0)
     comments_made = models.IntegerField(default=0)
     feedback_received = models.IntegerField(default=0)
+    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)  # Nuevo campo
+
 
     def __str__(self) -> str:
         return (self.username)

@@ -34,14 +34,14 @@
         cursor: pointer;   
         height: 100%;
         align-items: center;
-        border-top-right-radius: 2vh;
+        border-top-right-radius: 1.4vh;
         border-bottom-right-radius: 2vh;
 
-        background-color: rgba(0, 255, 255, 0);
+        background-color: rgba(24, 74, 239, 0);
     }
     
     .item:focus{
-        outline: 0.1vh solid black;
+        outline: 0.1vh solid rgba(12, 0, 46, 0.364);
     }
     
     #Icon{

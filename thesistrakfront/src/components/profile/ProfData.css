@@ -1,0 +1,11 @@
+#ProfDataContainer{
+    display: flex;
+    margin-top: 14vh;
+    align-items: center;
+    justify-content: center;
+
+}
+
+#UserCircle{
+    font-size: 5vh;
+}

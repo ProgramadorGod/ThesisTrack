@@ -154,13 +154,14 @@ button.NavbarButton{
   height: 10.4vh;
   width: 10.4vh;
   align-items: center;
-
+  border-radius: 10px;
+  border-color: rgba(12, 2, 42, 0.702);
   
 }
 
 button.NavbarButton:focus{
   outline: none;
-  box-shadow: 0 0 0 0.2vh black; 
+  box-shadow: 0 0 0 0.2vh rgba(5, 1, 46, 0.702); 
 /* box-shadow aplicado en todos los lados */
 
   
