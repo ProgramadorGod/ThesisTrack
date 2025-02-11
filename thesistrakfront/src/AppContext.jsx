@@ -11,7 +11,7 @@ export const AppProvider = ({children}) => {
       }
 
 
-
+    const [ProfilePic, setProfilePic]  = useState("media/profile_pictures/default.jpg");
     const [isLogged, setisLogged] = useState(false);
     const [isloading, setisloading] = useState(true);
     const [isActive, setisActive] = useState("");
@@ -74,6 +74,7 @@ export const AppProvider = ({children}) => {
             // setCarrers(response.data.careers)
             setname(response.data.Username)
             setisLogged(true);
+            setProfilePic(response.data.ProfilePicture)
 
             // handleCloseWindow()
             
@@ -110,7 +111,7 @@ export const AppProvider = ({children}) => {
             isloading, setisloading, isLogged, setisLogged, profile, setProfile, name, setname, userid, setUserid,
             isActive,setisActive,
             PortToUse,
-            fetchProfile, WindowWidth, WindowHeight, getCookie
+            fetchProfile, WindowWidth, WindowHeight, getCookie, ProfilePic
             
 
 

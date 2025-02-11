@@ -11,6 +11,7 @@ class AccountSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "UserType",
+            "profile_picture"
         ]
 
 

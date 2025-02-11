@@ -16,9 +16,17 @@ class Account(AbstractUser):
     documents_downloaded = models.IntegerField(default=0)
     comments_made = models.IntegerField(default=0)
     feedback_received = models.IntegerField(default=0)
-    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)  # Nuevo campo
+    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True, default="profile_pictures/default.jpg")  # Nuevo campo
 
 
     def __str__(self) -> str:
         return (self.username)
+    
+    
+    
+    def get_profile_picture_url(self):
+        """Devuelve la URL de la imagen de perfil o una por defecto si no hay ninguna."""
+        if self.profile_picture:
+            return self.profile_picture.url
+        return "/media/profile_pictures/default.jpg"  
     
