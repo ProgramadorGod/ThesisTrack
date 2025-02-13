@@ -19,7 +19,7 @@ export const AppProvider = ({children}) => {
     const [name, setname] = useState("");
     const [userid, setUserid] = useState([]);
     const PortToUse = "http://127.0.0.1:8000/";
-
+    const [userType, setUserType] = useState("Guest")
 
 
 
@@ -75,7 +75,7 @@ export const AppProvider = ({children}) => {
             setname(response.data.Username)
             setisLogged(true);
             setProfilePic(response.data.ProfilePicture)
-
+            setUserType(response.data.UserType)
             // handleCloseWindow()
             
             }catch(error){
@@ -111,7 +111,7 @@ export const AppProvider = ({children}) => {
             isloading, setisloading, isLogged, setisLogged, profile, setProfile, name, setname, userid, setUserid,
             isActive,setisActive,
             PortToUse,
-            fetchProfile, WindowWidth, WindowHeight, getCookie, ProfilePic
+            fetchProfile, WindowWidth, WindowHeight, getCookie, ProfilePic, userType
             
 
 

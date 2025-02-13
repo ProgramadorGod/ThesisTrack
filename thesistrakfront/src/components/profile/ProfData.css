@@ -1,8 +1,18 @@
+@font-face {
+    font-family: 'Apple';
+    src: url('../../fonts/AppleGaramond.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  
+
 #ProfDataContainer{
     display: flex;
     margin-top: 14vh;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 
 }
 
@@ -17,14 +27,53 @@
     position: absolute;
     clip-path: circle(50%);
     
-    
+    color: #0c012cd5;
 }
 
 #UserProfilePictureContainer{
     width: 30vw;
     height: 10vw;
     display: flex;
-    
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     position: relative;
 
 }
+
+#Name{
+    padding-top: 0.5vh;
+    font-size: 4vh;
+    font-family:"Apple";
+
+    font-weight: 90px;
+}
+
+#UserType{
+    font-size: 2vh;
+    font-family:"Apple";
+    font-weight: 10px;
+    color: rgb(148, 118, 62);
+}
+
+
+#Linea{
+    width: 60vw;
+    margin-top: 5vh;
+    
+    border-top: 0.1vh solid rgba(0, 0, 0, 0.479);
+    
+    
+  }
+  
+  #EmailContainer{
+    display: flex;
+    width: 50vw;
+    padding-top: 2vh;
+
+    align-items: center;
+  }
+  
+  #EmailLabel{
+    color: rgba(104, 74, 18, 0.811);
+  }

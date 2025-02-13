@@ -105,3 +105,21 @@
 }
 
 
+#Linea{
+  width: 60vw;
+  margin-top: 5vh;
+  
+  border-top: 0.1vh solid rgba(0, 0, 0, 0.479);
+  
+  
+}
+
+#EmailContainer{
+  display: flex;
+  width: 50vw;
+}
+
+#EmailLabel{
+  padding-top: 2vh;
+  color: rgb(148, 118, 62);
+}
