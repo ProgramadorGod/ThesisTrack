@@ -1,13 +1,30 @@
 .ThesisContainer {
-    width: 70vw;
+    width: 90vw;
     display: grid;
     border-bottom: 1px solid #D7D8DA;
     background-color: rgba(89, 151, 202, 0);
 }
 
+
+@media (min-width:800px){
+    .ThesisContainer {
+        width: 70vw;
+        display: grid;
+        border-bottom: 1px solid #D7D8DA;
+        background-color: rgba(89, 151, 202, 0);
+    }   
+}
+
 @font-face {
     font-family: 'Apple';
     src: url('../../fonts/AppleGaramond.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: 'Apple2';
+    src: url('../../fonts/HussarBoldCondensed-mmrV.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
@@ -21,7 +38,7 @@
 }
 
 #totaldocumentscontainer {
-    padding-top: 12vh;
+    padding-top: 20px;
     display: flex;
 }
 
@@ -53,7 +70,7 @@
 .Title {
     display: flex;
     padding-top: 13px;
-    font-size: 16px;
+    font-size: 15px;
     text-transform: uppercase;
     color: black;
     text-shadow: 0.1px 0.1px black;
@@ -107,6 +124,9 @@
 
 .Author {
     display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
     font-size: 0.8rem;
     padding-top: 5px;
     padding-bottom: 15px;
@@ -210,6 +230,8 @@
     justify-content: center;
 }
 
+
+
 #Carrers-Section-Text {
     font-size: 14px;
     width: 18vw;
@@ -235,15 +257,70 @@
 }
 
 #FiltersDisplayMenu{
-    width: 14vw;
-    height:40px;
+    width: 50px;
+    height:55px;
     display: flex;
+    margin-right: 5px;
     justify-content: flex-end;
-    margin-top: 2.5vh;
+    background-color: #0c195a;
+    position: fixed;
     align-items: center;
+    z-index: 99998;
+    top: 35px;
+    cursor: pointer;
+    box-shadow: 5px 7px 10px #041ca7;
+    clip-path: polygon(
+        0% 0%, 100% 0%, 
+        100% 100%, 95% 100%, 
+        50% 80%, 5% 100%, 
+        0% 100%
+    );
+
+    display: none;
+
+}
+
+@media (min-width:800px){
+    #FiltersDisplayMenu{
+        width: 50px;
+        height:90px;
+        display: flex;
+        justify-content: flex-end;
+        background-color: #0c195a;
+        position: fixed;
+        align-items: center;
+        z-index: 99998;
+        top: 10vh;
+        cursor: pointer;
+        /* box-shadow: 10px 5px 7px 10px #000000; */
+        clip-path: polygon(
+            0% 0%, 100% 0%, 
+            100% 100%, 95% 100%, 
+            50% 80%, 5% 100%, 
+            0% 100%
+        );
+    
+    
+    }
     
 
 }
+
+#FilterIcon{
+    color: rgb(255, 255, 255);
+    position: absolute;
+    top: 15px;
+    left: 17px;
+}
+@media (min-width:800px){
+    #FilterIcon{
+        color: rgb(255, 255, 255);
+        position: absolute;
+        top: 30px;
+        left: 17px;
+    }
+}
+
 
 @keyframes backgroundTransition {
     0% {
@@ -395,3 +472,10 @@
 
 }
 
+
+
+@media (max-width:800px){
+    #totaldocumentscontainer{
+        padding-top: 20px;
+    }
+}

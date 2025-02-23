@@ -7,14 +7,6 @@
   
   
 
-#ProfDataContainer{
-    display: flex;
-    margin-top: 14vh;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-
-}
 
 #UserCircle{
     font-size: 5vh;
@@ -38,6 +30,13 @@
     justify-content: flex-start;
     align-items: center;
     position: relative;
+    /* box-shadow: 10px 10px 10px 10px black; */
+
+
+}
+
+#UserProfilePicture{
+    box-shadow: 10px 10px 10px 10px black;
 
 }
 
@@ -59,21 +58,103 @@
 
 #Linea{
     width: 60vw;
-    margin-top: 5vh;
+    margin-top: 1vh;
     
     border-top: 0.1vh solid rgba(0, 0, 0, 0.479);
-    
+    margin-bottom: 1vh;
     
   }
   
+#EmailContainer{
+  display: grid;
+  width: 50vw;
+  justify-items: center;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  align-items: center;
+  grid-template-columns: 1fr ;
+}
+
+
+
+@media (min-width:400px){
+
+  
   #EmailContainer{
-    display: flex;
+    display: grid;
     width: 50vw;
     padding-top: 2vh;
-
+    padding-bottom: 2vh;
     align-items: center;
+    grid-template-columns: 1fr 1fr ;
   }
   
   #EmailLabel{
+    display: flex;
     color: rgba(104, 74, 18, 0.811);
+    padding-top: 0px;
+    
   }
+  #Email{
+    display: flex;
+  }
+
+}
+
+
+#Buttons{
+  display: grid;
+  grid-template-columns:1fr 1fr;
+  padding-top: 20px;
+  column-gap: 30px;
+  padding-bottom: 20px;
+  
+
+}
+
+
+#wtf{
+  width: 80px;
+  background-color: rgb(179, 180, 245);
+  padding-left: 4px;
+  padding-right: 4px;
+  border: 0px;
+  font-size: medium;
+  box-shadow: 1px 1px 1px rgb(20, 1, 65);
+  border: 0px;
+  cursor: pointer;
+  height: 40px;
+  font-family: "Apple";
+}
+
+#Edit{
+  background-color: rgb(179, 180, 245);
+  cursor: pointer;
+  box-shadow: 1px 1px 1px rgb(20, 1, 65);
+  border: 0px;
+  font-size: medium;
+  width: 80px;
+  padding-left: 4px;
+  padding-right: 4px;
+  font-family: "Apple";
+}
+
+#ProfDataContainer{
+  display: flex;
+  margin-top: 14vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+}
+
+@media (max-width:800px){
+  #ProfDataContainer{
+    display: flex;
+    margin-top: 60px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+} 
+}

@@ -9,6 +9,7 @@ import { color } from "framer-motion";
 const Echart = () => {
   const [carrerData, setCarrerData] = useState([]);
   const [yearData, setYearData] = useState([]);
+  const API_BASE_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
   const [carrersList, setCarrersList] = useState([]);
   const [documentsByYear, setDocumentsByYear] = useState({});
   const [trendData, setTrendData] = useState([]); // Para la nueva gráfica de tendencias
@@ -88,7 +89,7 @@ const Echart = () => {
 
   // Fetch de los datos para Proyectos por Carrera
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/document-count-by-carrer-and-year/")
+    fetch(API_BASE_URL+ "/api/document-count-by-carrer-and-year/")
       .then((response) => response.json())
       .then((data) => {
         // Organizar datos por año y carrera
@@ -119,7 +120,7 @@ const Echart = () => {
   console.log(trendData);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/document-count-by-carrer/")
+    fetch(API_BASE_URL+"/api/document-count-by-carrer/")
       .then((response) => response.json())
       .then((data) => {
         // Ordenar los datos por cantidad de documentos
@@ -151,7 +152,7 @@ const Echart = () => {
 
   // Fetch de los datos para Tendencia Por Año
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/document-count-by-year/")
+    fetch(API_BASE_URL + "/api/document-count-by-year/")
       .then((response) => response.json())
       .then((data) => {
         const sortedData = data.sort((a, b) => a.year - b.year);
@@ -163,7 +164,7 @@ const Echart = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/document-count-by-carrer-and-year/")
+    fetch(API_BASE_URL + "/api/document-count-by-carrer-and-year/")
       .then((response) => response.json())
       .then((data) => {
         // Organizar datos por carrera

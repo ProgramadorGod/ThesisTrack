@@ -1,4 +1,5 @@
-/* Definición de colores */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+ /* Definición de colores */
 :root {
   --color1: #282c34; /* Fondo de App-header */
   --color2: #61dafb; /* Enlaces */
@@ -8,6 +9,341 @@
 }
 
 
+#navbar{
+  height: 40px;
+  background-color: #0c195a;
+  position: fixed;
+  z-index: 999;
+  top:0px;
+  width: 100%;
+}
+
+#menubutton{
+  height: 40px;
+  display: flex;
+
+}
+
+#Menu-items{
+  display: flex;
+  flex-direction: column;
+}
+.NavbarButton{
+  height: 40px;
+  color: whitesmoke;
+  border: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #0c195a;
+
+}
+
+#logott{
+  /* margin-left: 30px; */
+  height: 40px;
+
+}
+
+#logounipaz{
+  height: 40px;
+  margin-left: auto;
+  margin-right: 10px;
+  display: none;
+}
+
+@keyframes fadeInRotate {
+  0% {
+    opacity: 0;
+    transform: perspective(400px) rotateY(-90deg);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(400px) rotateY(0deg);
+  }
+}
+
+#icon{
+  height: 37px;
+
+  width: 25px;
+  color: rgb(184, 200, 255);
+  fill: rgb(184, 200, 255);
+  cursor: crosshair;
+  animation: fadeInRotate 0.2s ease-in-out;
+  user-select: none;  
+}
+
+#navbar{
+  display: flex;
+}
+
+#SideMenu2-Container{
+  display: none;
+  
+}
+.item{
+  width: 50px;
+  border: 0px;
+  background-color: rgba(255, 255, 255, 0);
+}
+#Icon{
+  width: 20px;
+  padding-left: 7px;
+  height: 60px;
+}
+
+.unactive{
+  display: none;
+}
+
+@media (min-width:800px) {
+
+  #Icon{
+    width: 20px;
+    padding-left: 0px;
+    height: 60px;
+  }
+  .App {
+    text-align: center; 
+  }
+  
+  .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+  
+  .App-header {
+    background-color: var(--color1);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .App-link {
+    color: var(--color2);
+  }
+  
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  body{
+    overflow-y: hidden;
+  
+  }
+  
+  .body {
+    align-items: center;
+    align-content: center;
+    overflow: visible;
+  }
+  
+  html {
+    background-color: var(--color3);
+    width: 100%;
+  }
+  
+  #body {
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    background-color: var(--color3);
+  }
+  
+  #BasicGroup{
+    height: auto;
+    
+  
+  }
+  
+  #SideBar{
+    position: absolute;
+    width: 13%;
+    height: 100%;
+    background-color: var(--color4);
+  }
+  
+  #navbar {
+    width: 100%;
+    background-color: var(--color4);
+    height: 10.4vh;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    box-shadow: #031038 0.1vh 0vh 0.8vh 0.4vh ;
+    overflow: hidden;
+    z-index: 999;
+  }
+  
+  @keyframes fadeInRotate {
+    0% {
+      opacity: 0;
+      transform: perspective(400px) rotateY(-90deg);
+    }
+    100% {
+      opacity: 1;
+      transform: perspective(400px) rotateY(0deg);
+    }
+  }
+  
+  
+  #icon {
+    width: 5vh;
+    height: 10.4vh;
+    
+    
+    color: rgb(184, 200, 255);
+    fill: rgb(184, 200, 255);
+    cursor: crosshair;
+    animation: fadeInRotate 0.2s ease-in-out;
+    user-select: none;
+    
+    
+  
+  }
+  #icon:focus{
+    outline: none;
+  }
+  
+  button.NavbarButton{
+    padding: 0px;
+    padding-left: 2.5vh;
+    background-color: rgba(255, 0, 0, 0);
+    border: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 10.4vh;
+    width: 10.4vh;
+    align-items: center;
+    border-radius: 10px;
+    border-color: rgba(12, 2, 42, 0.702);
+    
+  }
+  
+  button.NavbarButton:focus{
+    outline: none;
+    box-shadow: 0 0 0 0.2vh rgba(5, 1, 46, 0.702); 
+  /* box-shadow aplicado en todos los lados */
+  
+    
+  }
+  
+  
+  #menubutton{
+    user-select: none;
+    display: flex;
+    width: 10.4vh;
+    height: 10.4vh;
+  
+  }
+  
+  #menubutton::focus{
+    outline: none;
+  }
+  
+  
+  
+  #navtext{
+    font-family: "Runtoe";
+    font-size: 1.2rem;
+    /* text-shadow: #000 1px 1px 1px ; */
+    margin: 0px;  
+    color: rgba(244, 250, 252, 0.986);
+  }
+  
+  #navtext2{
+    font-family: "Runtoe";
+    margin: 0px;
+    font-size: 1.2rem;
+    /* text-shadow: #000 1px 1px 1px ; */
+    
+    color: white;
+  }
+  #logott{
+    /* padding-top: 7px; */
+    height: 10.4vh;
+    user-select: none;
+    
+  }
+  
+  #logout{
+    color: var(--color4);
+    text-decoration: none;
+  }
+  
+  
+  #navtextcontainer{
+    padding-left: 20px;
+    display: flex;
+    user-select: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-weight: normal;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  
+  #logounipaz{
+    object-fit: cover;
+    height: 10.4vh;
+    color: white;
+    padding-left:2vw ;
+    user-select: none;
+  
+  }
+  
+  
+  
+  
+  
+  
+  #profilepic{
+    margin-left: auto;
+    height: 56px;
+    margin-right: 20px;
+    user-select: none;
+  }
+  
+  
+  
+  .close{
+    width: 6vh;
+    color: rgb(194, 208, 253);
+    fill: rgb(192, 204, 255);
+    opacity: 0;
+    /* transform: rotate(-180deg); */
+  }
+  
+  .CloseiconActive{
+    opacity: 1 ;
+    /* transform: rotate(0deg) ; */
+    /* transition: 1s ease; */
+  }
+  
+  
+  #footer{
+    background-color: #031038;
+    height: 36px;
+  }  
+}
 @font-face {
   font-family: 'BabyPanda';
   src: url('./fonts/Baby Panda.ttf') format('opentype');
@@ -22,245 +358,3 @@
   font-style: normal;
 }
 
-
-
-.App {
-  text-align: center; 
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--color1);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: var(--color2);
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-body{
-  overflow-y: hidden;
-
-}
-
-.body {
-  align-items: center;
-  align-content: center;
-  overflow: visible;
-}
-
-html {
-  background-color: var(--color3);
-  width: 100%;
-}
-
-#body {
-  align-self: center;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100vw;
-  height: 100vh;
-  overflow-x: hidden;
-  background-color: var(--color3);
-}
-
-#BasicGroup{
-  height: auto;
-  
-
-}
-
-#SideBar{
-  position: absolute;
-  width: 13%;
-  height: 100%;
-  background-color: var(--color4);
-}
-
-#navbar {
-  width: 100%;
-  background-color: var(--color4);
-  height: 10.4vh;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  box-shadow: #031038 0.1vh 0vh 0.8vh 0.4vh ;
-  overflow: hidden;
-  z-index: 999;
-}
-
-@keyframes fadeInRotate {
-  0% {
-    opacity: 0;
-    transform: perspective(400px) rotateY(-90deg);
-  }
-  100% {
-    opacity: 1;
-    transform: perspective(400px) rotateY(0deg);
-  }
-}
-
-
-#icon {
-  width: 5vh;
-  height: 10.4vh;
-  
-  
-  color: rgb(184, 200, 255);
-  fill: rgb(184, 200, 255);
-  cursor: crosshair;
-  animation: fadeInRotate 0.2s ease-in-out;
-  user-select: none;
-  
-  
-
-}
-#icon:focus{
-  outline: none;
-}
-
-button.NavbarButton{
-  padding: 0px;
-  padding-left: 2.5vh;
-  background-color: rgba(255, 0, 0, 0);
-  border: 0px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  height: 10.4vh;
-  width: 10.4vh;
-  align-items: center;
-  border-radius: 10px;
-  border-color: rgba(12, 2, 42, 0.702);
-  
-}
-
-button.NavbarButton:focus{
-  outline: none;
-  box-shadow: 0 0 0 0.2vh rgba(5, 1, 46, 0.702); 
-/* box-shadow aplicado en todos los lados */
-
-  
-}
-
-
-#menubutton{
-  user-select: none;
-  display: flex;
-  width: 10.4vh;
-  height: 10.4vh;
-
-}
-
-#menubutton::focus{
-  outline: none;
-}
-
-
-
-#navtext{
-  font-family: "Runtoe";
-  font-size: 1.2rem;
-  /* text-shadow: #000 1px 1px 1px ; */
-  margin: 0px;  
-  color: rgba(244, 250, 252, 0.986);
-}
-
-#navtext2{
-  font-family: "Runtoe";
-  margin: 0px;
-  font-size: 1.2rem;
-  /* text-shadow: #000 1px 1px 1px ; */
-  
-  color: white;
-}
-#logott{
-  /* padding-top: 7px; */
-  height: 10.4vh;
-  user-select: none;
-  
-}
-
-#logout{
-  color: var(--color4);
-  text-decoration: none;
-}
-
-
-#navtextcontainer{
-  padding-left: 20px;
-  display: flex;
-  user-select: none;
-  flex-wrap: wrap;
-  justify-content: center;
-  font-weight: normal;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-
-#logounipaz{
-  object-fit: cover;
-  height: 10.4vh;
-  color: white;
-  padding-left:2vw ;
-  user-select: none;
-
-}
-
-
-
-
-
-
-#profilepic{
-  margin-left: auto;
-  height: 56px;
-  margin-right: 20px;
-  user-select: none;
-}
-
-
-
-.close{
-  width: 6vh;
-  color: rgb(194, 208, 253);
-  fill: rgb(192, 204, 255);
-  opacity: 0;
-  /* transform: rotate(-180deg); */
-}
-
-.CloseiconActive{
-  opacity: 1 ;
-  /* transform: rotate(0deg) ; */
-  /* transition: 1s ease; */
-}
-
-
-#footer{
-  background-color: #031038;
-  height: 36px;
-}

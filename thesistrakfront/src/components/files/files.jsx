@@ -30,6 +30,7 @@ const Files = ({ PortToUse }) => {
 
 
 
+
   const fetchCarrers = async (query = "") => {
     try {
       const response = await axios.get(PortToUse + "api/carrers/", {
@@ -233,7 +234,7 @@ useEffect(() => {
           </>
         </div>
 
-        <motion.div
+        <motion.div 
           className="FiltersSection"
           initial={{ x: 0, opacity:0 }}
           animate={{ x: 0, opacity:1}}
@@ -243,9 +244,7 @@ useEffect(() => {
             
           }}
         >
-          <div id="FiltersDisplayMenu">
-            <FaFilter id="PlusIcon" onClick={toogleFilters}></FaFilter>
-          </div>
+          
         </motion.div>
       </div>
     </div>

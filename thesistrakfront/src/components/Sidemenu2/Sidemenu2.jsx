@@ -96,7 +96,7 @@ const Sidemenu2 = ({ isActive, setisActive }) => {
         if (WindowWidth > 700) {
             return isActive ? "10.5vh" : "0vh";
         } else {
-            return isActive ? "10.5vh" : "0vh";
+            return isActive ? "50px" : "0vh";
         }
     };
 

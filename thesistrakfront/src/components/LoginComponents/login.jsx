@@ -77,7 +77,7 @@ const Login = () => {
     } catch (error) {
       if (error.response && error.response.status === 403) {
         // Refresh CSRF token
-        const csrfResponse = await axios.get(PortToUse + "api/refresh_csrf/");
+        const csrfResponse = await axios.get(PortToUse + "/api/refresh_csrf/");
         const NewCsrfToken = csrfResponse.data.csrfToken;
         setLoadingFetch(false);
 
@@ -99,7 +99,7 @@ const Login = () => {
   };
 
   const handleLogin = () => {
-    const googleLoginUrl = PortToUse + "accounts/google/login/?next=/";
+    const googleLoginUrl = PortToUse + "/accounts/google/login/?next=/";
     window.location.href = googleLoginUrl;
   };
 

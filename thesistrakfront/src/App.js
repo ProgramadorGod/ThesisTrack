@@ -66,9 +66,9 @@ function AppContent() {
             ""
           )}
 
-          <header>
+          {/* <header>
             <Navbar ChangeActive={ChangeActive} isActive={isActive} />
-          </header>
+          </header> */}
 
           <Routes>
             <Route path="/" element={<Home />} />

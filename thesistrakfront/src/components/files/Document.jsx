@@ -63,13 +63,14 @@ const Document = ({ document }) => {
                 </div>
                 <div className='Title'>{document.title}</div>
                 <div className='Description'>{document.description}</div>
-                <div className='Year'>Year: {'\u00A0'} {document.year}</div>
+                <div className='Year'>Año De Creación:{'\u00A0'} {document.year}</div>
+                <div className='Year'>Autores:</div>
                 <div className='Author'>
-                    <div>Authors: {'\u00A0'}</div>
+                    <div> {'\u00A0'}</div>
                     {document.authors.map((author, index) => (
                         <span key={index}>
                             {author}
-                            {index < document.authors.length - 1 && ' \u00A0 - \u00A0 '}
+                            {index < document.authors.length - 1 && ' \u00A0 \u00A0 '}
                         </span>
                     ))}
                 </div>
