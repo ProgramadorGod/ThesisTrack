@@ -9,7 +9,7 @@ import { color } from "framer-motion";
 const Echart = () => {
   const [carrerData, setCarrerData] = useState([]);
   const [yearData, setYearData] = useState([]);
-  const API_BASE_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
+  const API_BASE_URL =  "http://192.168.89.32:8000";
   const [carrersList, setCarrersList] = useState([]);
   const [documentsByYear, setDocumentsByYear] = useState({});
   const [trendData, setTrendData] = useState([]); // Para la nueva gráfica de tendencias

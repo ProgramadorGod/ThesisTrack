@@ -78,7 +78,7 @@ const Filters = ({
             opacity: showFilters ? 1 : 0,
             y: showFilters ? [-200, 400, 80] : [80, 400, -100],
             width: showFilters ? "100vw" : "10vw",
-            height: showFilters ? "100vw" : "10vw",
+            height: showFilters ? "100vh" : "10vw",
             borderRadius: showFilters ? "0%" : "50%",
             backgroundColor: showFilters ? "#ffffff" : "#070022b9",
           }}
@@ -148,6 +148,7 @@ const Filters = ({
                 <Slider
                   id="RealSlider"
                   getAriaLabel={() => "Rango de años"}
+
                   value={yearRange}
                   onChange={handleYearChange}
                   valueLabelDisplay="auto"

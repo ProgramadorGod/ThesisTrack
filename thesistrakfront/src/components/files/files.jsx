@@ -19,6 +19,8 @@ const Files = ({ PortToUse }) => {
   const [isLoading, setisLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [showFilters, setShowFilters] = useState(false);
+  const [showFilters2, setShowFilters2] = useState(false);
+
   const [showTitles, setShowTitles] = useState(true);
   const [showCarrers, setShowCarrers] = useState(true);
   const [showAuthors, setShowAuthors] = useState(true);
@@ -59,7 +61,7 @@ const Files = ({ PortToUse }) => {
   };
 
   const toogleFilters2 = () => {
-    setShowFilters(false);
+    setShowFilters2((prevState) => !prevState);
   };
 
 useEffect(() => {
@@ -159,6 +161,8 @@ useEffect(() => {
             <div id="ZoomIcon">
               <RxZoomIn></RxZoomIn>
             </div>
+
+            <div id="FilterButtom"><FaFilter/></div>
           </div>
           <div id="WaitingContainer">
             <LoadingFiles></LoadingFiles>
@@ -219,6 +223,8 @@ useEffect(() => {
             <div id="ZoomIcon">
               <RxZoomIn></RxZoomIn>
             </div>
+            <div id="FilterButtom" onClick={toogleFilters2}><FaFilter/></div>
+
           </div>
 
           <>

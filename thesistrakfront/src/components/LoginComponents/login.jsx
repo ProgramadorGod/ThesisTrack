@@ -19,7 +19,7 @@ import MovLogin from "./MovLogin";
 axios.defaults.withCredentials = true;
 
 const Login = () => {
-  const { isLogged, PortToUse, fetchProfile, WindowWidth, WindowHeight } =
+  const { isLogged, PortToUse, fetchProfile, WindowWidth, WindowHeight, setisActive} =
     useAppContext();
 
   const [LoadingFetch, setLoadingFetch] = useState(false);
@@ -69,6 +69,7 @@ const Login = () => {
 
       if (response.status === 200) {
         console.log("worked");
+        setisActive(true)
         console.log(isLogged);
         setLoadingFetch(false);
         fetchProfile();

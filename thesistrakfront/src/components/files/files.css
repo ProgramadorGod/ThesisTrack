@@ -5,7 +5,6 @@
     background-color: rgba(89, 151, 202, 0);
 }
 
-
 @media (min-width:800px){
     .ThesisContainer {
         width: 70vw;
@@ -114,6 +113,9 @@
     padding-top: 0.5px;
     padding-right: 5px;
 }
+.inputwrapper{
+    width: 90vw;
+}
 
 .Description {
     font-size: 0.8rem;
@@ -162,8 +164,8 @@
 
 #BrowserContainer {
     font-family: "Apple";
-    width: 70vw;
-    margin-left:15vw;
+    width: 80vw;
+    margin-left:10vw;
     display: flex;
     flex-direction: column;
     align-content: flex-end;
@@ -171,20 +173,67 @@
 }
 
 #ZoomIcon {
-    color: rgb(9, 9, 9);
-    fill: rgb(39, 39, 39);
-    cursor: text;
-    pointer-events: none;
-    margin-left:64vw;
-    position: absolute;
+    display: none;
+}
+
+@media(min-width:800px){
+    #ZoomIcon{
+        display: flex;
+        color: rgb(9, 9, 9);
+        fill: rgb(39, 39, 39);
+        cursor: text;
+        pointer-events: none;
+        margin-left:64vw;
+        position: absolute;
+    }
+}
+
+
+
+#FilterButtom{
+    display: flex;
+    width: 13vw;
+    margin-left: 12px;
+    margin-top: 2px;
+    height: 6.5vh;
+    background-color: rgba(0, 0, 0, 0.042);
+    border: 1px solid #100354;
+    border-radius: 2px;
+    box-shadow: 0px 0px 1px 1px #100354;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    min-height: 32px;
+    max-height: 40px;
 }
 
 #SearchInputContainer {
     position: relative;
     display: flex;
     align-content: center;
-    justify-content: center;
+    justify-content:flex-start;
     align-items: center;
+    
+}
+
+@media (min-width:800px) {
+    #FilterButtom{
+        display: none;
+    }
+}
+
+
+
+@media (min-width:800px) {
+    #SearchInputContainer {
+        position: relative;
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        width: 90vw;
+    }
+
 }
 
 #authorname {
@@ -230,8 +279,6 @@
     justify-content: center;
 }
 
-
-
 #Carrers-Section-Text {
     font-size: 14px;
     width: 18vw;
@@ -248,7 +295,6 @@
     width: 50vw;
     background-color: #FFFFFF;
 }
-
 
 .FiltersSection{
     display: flex;
@@ -299,11 +345,7 @@
             50% 80%, 5% 100%, 
             0% 100%
         );
-    
-    
     }
-    
-
 }
 
 #FilterIcon{
@@ -312,6 +354,7 @@
     top: 15px;
     left: 17px;
 }
+
 @media (min-width:800px){
     #FilterIcon{
         color: rgb(255, 255, 255);
@@ -321,7 +364,6 @@
     }
 }
 
-
 @keyframes backgroundTransition {
     0% {
         background-color: black;
@@ -330,6 +372,7 @@
         background-color: #0c195ae8;
     }
 }
+
 #PlusIcon {
     width: 8vw;
     padding-top: 12px;
@@ -343,44 +386,34 @@
     animation: backgroundTransition 0.5s ease-in-out forwards;
 }
 
-
-
 #AbsoluteCircle{
     position: absolute;
-    width: 75vw;
+    width: 100vw;
     display: flex;
     justify-content: center;
-    height: 90vh;
-    padding-bottom: 10vh;
+    height: 100vh;
+    padding-bottom: 0px;
     overflow: hidden;
     background-color: #2b344100;
-    padding-left: 12.5vw;
-    padding-right: 12.5vw;
+
     z-index: 99999;
-    
 }
 
 #CircleContainer{
-    height: 90vh;
+    height: 100vh;
     overflow: hidden;
-    width: 75vw;
+    width: 100vw;
     display: flex;
     justify-content: center;
 }
-
 
 #Circle{
     background-color: #010231;
     width: 10vw;
     border-radius: 50%;
     height: 10vw;
-    
-
     /* box-shadow: 6px 0px 20px rgba(6, 1, 58, 0.596); */
-
-
 }
-
 
 #FiltersInsideCircleContainer{
     display: flex;
@@ -397,14 +430,12 @@
 }
 
 .FilterOption{
-    
     font-family: "Apple";
     font-weight: 400;
     display: grid;
 }
 
 #Switches{
-    
     margin-top: 2vh;
     display: grid;
     width: 63vw;
@@ -434,7 +465,6 @@
     display: flex;
     margin-top: 1vh;
     align-items: center;
-
 }
 
 #TextInRange{
@@ -459,6 +489,7 @@
     user-select: none;
     padding: 1vh;
 }
+
 #CarrersGroup{
     margin-top: 2vh;
     display: grid;
@@ -469,10 +500,7 @@
 .Text{
     font-family: "Apple";
     font-weight: 600;
-
 }
-
-
 
 @media (max-width:800px){
     #totaldocumentscontainer{

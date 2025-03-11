@@ -11,7 +11,7 @@ class AccountListCreate(APIView):
 
     def get(self, request):
         user = request.user
-        profile_picture_url = request.build_absolute_uri(user.profile_picture.url) if user.profile_picture else request.build_absolute_uri(settings.MEDIA_URL + "profile_pictures/default.jpg")
+        profile_picture_url = request.build_absolute_uri(user.profile_picture.url) if user.profile_picture else request.build_absolute_uri(settings.MEDIA_URL + "profile_pictures/einstein.jpeg")
 
         return Response({
             "ID": user.id,

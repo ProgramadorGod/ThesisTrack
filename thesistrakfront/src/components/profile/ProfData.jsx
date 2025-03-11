@@ -44,12 +44,13 @@ const ProfData = () => {
       <div id="UserProfilePictureContainer">
         <div></div>
         <ReactRoundedImage
-          id="UserProfilePicture"
+          
           image={ProfilePic}
-          roundedColor="#000000"
+          roundedColor="#02034c"
           roundedSize="2"
           imageWidth="100"
           imageHeight="100"
+          
         />
         <div id="Name">{name.charAt(0).toUpperCase() + name.slice(1)}</div>
 

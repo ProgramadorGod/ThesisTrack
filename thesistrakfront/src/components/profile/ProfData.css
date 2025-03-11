@@ -15,7 +15,7 @@
 #UserProfilePicture{
     width: 10vw;
     height: 10vw;
-    object-fit: contain;
+    object-fit: none;
     position: absolute;
     clip-path: circle(50%);
     
@@ -25,6 +25,8 @@
 #UserProfilePictureContainer{
     width: 30vw;
     height: 10vw;
+    padding-top: 20px;
+
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -36,8 +38,7 @@
 }
 
 #UserProfilePicture{
-    box-shadow: 10px 10px 10px 10px black;
-
+  
 }
 
 #Name{
@@ -115,8 +116,9 @@
 
 #wtf{
   width: 80px;
-  background-color: rgb(179, 180, 245);
+  background-color: #02034c;
   padding-left: 4px;
+  color: wheat;
   padding-right: 4px;
   border: 0px;
   font-size: medium;
@@ -128,7 +130,8 @@
 }
 
 #Edit{
-  background-color: rgb(179, 180, 245);
+  background-color: #02034c;
+  color: wheat;
   cursor: pointer;
   box-shadow: 1px 1px 1px rgb(20, 1, 65);
   border: 0px;
@@ -141,7 +144,7 @@
 
 #ProfDataContainer{
   display: flex;
-  margin-top: 14vh;
+  margin-top: 0px;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -151,7 +154,7 @@
 @media (max-width:800px){
   #ProfDataContainer{
     display: flex;
-    margin-top: 60px;
+    margin-top: 0px;
     align-items: center;
     justify-content: center;
     flex-direction: column;

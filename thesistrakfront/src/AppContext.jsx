@@ -11,10 +11,10 @@ export const AppProvider = ({children}) => {
       }
 
 
-    const [ProfilePic, setProfilePic]  = useState("media/profile_pictures/default.jpg");
+    const [ProfilePic, setProfilePic]  = useState("media/profile_pictures/einstein.jpg");
     const [isLogged, setisLogged] = useState(false);
     const [isloading, setisloading] = useState(true);
-    const [isActive, setisActive] = useState("");
+    const [isActive, setisActive] = useState(false);
     const [profile, setProfile] = useState(null);
     const [name, setname] = useState("");
     const [userid, setUserid] = useState([]);
@@ -119,7 +119,6 @@ export const AppProvider = ({children}) => {
             isActive,setisActive,
             PortToUse,
             fetchProfile, WindowWidth, WindowHeight, getCookie, ProfilePic, userType, email
-
 
 
         }}>

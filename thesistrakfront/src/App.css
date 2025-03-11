@@ -8,6 +8,10 @@
   --color5: #c0caf7e0; /* Color del icono en el navbar */
 }
 
+#body{
+  overflow-x: hidden;
+  overflow-y: visible !important;
+}
 
 #navbar{
   height: 40px;
@@ -24,10 +28,7 @@
 
 }
 
-#Menu-items{
-  display: flex;
-  flex-direction: column;
-}
+
 .NavbarButton{
   height: 40px;
   color: whitesmoke;
@@ -77,23 +78,22 @@
   display: flex;
 }
 
-#SideMenu2-Container{
-  display: none;
-  
-}
+
 .item{
   width: 50px;
   border: 0px;
   background-color: rgba(255, 255, 255, 0);
+  z-index: 99;
+  
 }
-#Icon{
-  width: 20px;
-  padding-left: 7px;
-  height: 60px;
-}
+
 
 .unactive{
   display: none;
+}
+
+.item-group{
+  z-index: 99;
 }
 
 @media (min-width:800px) {
@@ -142,7 +142,7 @@
     }
   }
   body{
-    overflow-y: hidden;
+    overflow-x: hidden;
   
   }
   

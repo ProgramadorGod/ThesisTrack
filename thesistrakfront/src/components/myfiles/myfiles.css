@@ -1,7 +1,7 @@
 .MainContainer{
     width: 100vw;
     height: 80vh;
-    margin-top: 10vh;
+    margin-top: 0vh;
     display: flex;
     justify-content: center;
     
@@ -13,7 +13,7 @@
 }
 
 .MyFilesContainer{
-    width: 50vw;
+    width: 80vw;
     font-family: "Apple";
     font-size: 1.2rem;
     margin-top: 4vh;
