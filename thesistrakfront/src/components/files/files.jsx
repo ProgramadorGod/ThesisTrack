@@ -12,6 +12,7 @@ import { motion, spring } from "framer-motion";
 import { duration, Slider, Switch } from "@mui/material";
 import SwitchBase from "@mui/material/internal/SwitchBase";
 import Filters from "./Filters";
+import Filters2 from "./Filters2";
 
 const Files = ({ PortToUse }) => {
   const [AllDocuments, setAllDocuments] = useState([]);
@@ -28,11 +29,24 @@ const Files = ({ PortToUse }) => {
   const [carrers, setCarrers] = useState([]);
 
   const [yearRange, setYearRange] = useState([2001, 2024]);
-
-
-
-
-
+  const handleFilterChange = (filterName) => (event) => {
+    switch (filterName) {
+      case "showTitles":
+        setShowTitles((prev) => !prev);
+        break;
+      case "showCarrers":
+        setShowCarrers((prev) => !prev);
+        break;
+      case "showAuthors":
+        setShowAuthors((prev) => !prev);
+        break;
+      case "showYears":
+        setShowYears((prev) => !prev);
+        break;
+      default:
+        break;
+    }
+  };
   const fetchCarrers = async (query = "") => {
     try {
       const response = await axios.get(PortToUse + "api/carrers/", {
@@ -64,15 +78,12 @@ const Files = ({ PortToUse }) => {
     setShowFilters2((prevState) => !prevState);
   };
 
-useEffect(() => {
-  fetchDocuments(searchQuery); // Llamar a la función cuando cambian los filtros
-  setisLoading(false);
-}, [showTitles, showCarrers, showAuthors, showYears, yearRange]); // Dependencias de los filtros
+  useEffect(() => {
+    fetchDocuments(searchQuery); // Llamar a la función cuando cambian los filtros
+    setisLoading(false);
+  }, [showTitles, showCarrers, showAuthors, showYears, yearRange]); // Dependencias de los filtros
 
-
-  const fetchDocuments = async (query = "" ) => {
-
-
+  const fetchDocuments = async (query = "") => {
     try {
       console.log("Valores actuales del filtro:", {
         showTitles,
@@ -122,12 +133,11 @@ useEffect(() => {
     }
   };
 
- 
   const debouncedFetchDocuments = useCallback(
     debounce((query) => {
       fetchDocuments(query);
     }, 200),
-    [showAuthors, showCarrers,showTitles, showYears]
+    [showAuthors, showCarrers, showTitles, showYears]
   );
 
   const handleSearch = async (e) => {
@@ -135,8 +145,6 @@ useEffect(() => {
     setSearchQuery(query);
     debouncedFetchDocuments(query);
   };
-
-  
 
   if (isLoading) {
     return (
@@ -162,7 +170,9 @@ useEffect(() => {
               <RxZoomIn></RxZoomIn>
             </div>
 
-            <div id="FilterButtom"><FaFilter/></div>
+            <div id="FilterButtom">
+              <FaFilter />
+            </div>
           </div>
           <div id="WaitingContainer">
             <LoadingFiles></LoadingFiles>
@@ -182,7 +192,7 @@ useEffect(() => {
 
   const filterProps = {
     toogleFilters2,
-    showFilters,
+    showFilters2,
     showAuthors,
     showCarrers,
     showTitles,
@@ -199,9 +209,7 @@ useEffect(() => {
 
   return (
     <div>
-      <div id="">
-        <Filters {...filterProps}></Filters>
-      </div>
+      <div id="">{showFilters2 && <Filters2 {...filterProps} />}</div>
       <div id="totaldocumentscontainer">
         <div id="BrowserContainer">
           <div id="SearchInputContainer">
@@ -223,8 +231,9 @@ useEffect(() => {
             <div id="ZoomIcon">
               <RxZoomIn></RxZoomIn>
             </div>
-            <div id="FilterButtom" onClick={toogleFilters2}><FaFilter/></div>
-
+            <div id="FilterButtom" onClick={toogleFilters2}>
+              <FaFilter />
+            </div>
           </div>
 
           <>
@@ -240,18 +249,12 @@ useEffect(() => {
           </>
         </div>
 
-        <motion.div 
+        <motion.div
           className="FiltersSection"
-          initial={{ x: 0, opacity:0 }}
-          animate={{ x: 0, opacity:1}}
-          transition={{
-            
-            
-            
-          }}
-        >
-          
-        </motion.div>
+          initial={{ x: 0, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{}}
+        ></motion.div>
       </div>
     </div>
   );

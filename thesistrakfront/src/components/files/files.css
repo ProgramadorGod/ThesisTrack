@@ -415,16 +415,15 @@
     /* box-shadow: 6px 0px 20px rgba(6, 1, 58, 0.596); */
 }
 
-#FiltersInsideCircleContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
+
 
 #FilterTitle{
-    margin-top: 3vh;
+    /* margin-top: 3vh; */
     margin-left: 6vw;
+    display: flex;
+    justify-content: center;
     font-size: 2rem;
+    width: 90vw;
     font-family: "Apple";
     font-weight: 900;
 }
@@ -438,8 +437,8 @@
 #Switches{
     margin-top: 2vh;
     display: grid;
-    width: 63vw;
-    margin-left: 6vw;
+    width: 100vw;
+    /* margin-left: 6vw; */
     justify-items: center;
     margin-right: 6vw;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -447,22 +446,21 @@
 
 #YearSubtitle{
     font-weight: 600;
+    width: 90vw;
+
+    margin-left: 2vw;
     font-family: "Apple";
+    display: flex;
+    justify-content: center;
+
 }
 
-#SliderContainer{
-    width: 63vw;
-    margin-top: 3vh;
-    align-items: center;
-    margin-left: 6vw;
-    margin-right: 6vw;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
+
 
 #Range{
     display: flex;
+    justify-content: center;
+    width: 95vw;
     margin-top: 1vh;
     align-items: center;
 }
@@ -473,7 +471,7 @@
 #RealSlider{
     margin-left: 0.5vw;
     color: rgb(41, 41, 41);
-    width: 31vw;
+    width: 80vw;
 }
 
 #Explanaition{
@@ -493,8 +491,9 @@
 #CarrersGroup{
     margin-top: 2vh;
     display: grid;
+    width: 94vw;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    font-size: 0.7rem;
+    font-size: 8px;
 }
 
 .Text{

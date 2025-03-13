@@ -4,6 +4,27 @@
   font-weight: normal;
   font-style: normal;
 }
+
+#StadisticsComponent {  
+    scroll-snap-type: y mandatory; /* Ajuste vertical obligatorio */
+    overflow-y: scroll; /* Scroll vertical */
+    height: 100vh; /* Cada sección llena la pantalla */
+    overflow-x: hidden;
+    /* margin-top: 12vh; */
+}
+    
+.StadisticItem {
+    scroll-snap-align: start; /* Ajusta cada sección al inicio del viewport */
+    height: 97vh;
+    padding-top: 3vh; /* Cada sección ocupa una vista completa */
+    width: 90vw; /* Para que llene el ancho de la pantalla */
+    display: flex;
+    margin-left: 5vw;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+
 @media (min-width:800px){
     #StadisticsComponent {  
         scroll-snap-type: y mandatory; /* Ajuste vertical obligatorio */
@@ -15,12 +36,12 @@
     
     .StadisticItem {
         scroll-snap-align: start; /* Ajusta cada sección al inicio del viewport */
-        height: 80vh; /* Cada sección ocupa una vista completa */
-        padding-top: 12vh;
+        height: 100vh; /* Cada sección ocupa una vista completa */
         width: 90vw; /* Para que llene el ancho de la pantalla */
         display: flex;
         margin-left: 15vw;
-        align-items: flex-end;
+        padding: 0px;
+        align-items: center;
         justify-content: center;
     }
     
@@ -30,7 +51,7 @@
     
     #TimeLapse{
         margin-left: 5vw;
-        padding-top: 16vh;
+        /* padding-top: 16vh; */
     }
     
     #GraphTitle{

@@ -48,7 +48,7 @@ const Myfiles = ({ userid }) => {
       <div className="MainContainer">
         <div className="MyFilesContainer">
           <div className="CreateNewFile" onClick={toggleUpload}>
-            <div>Create New File</div>
+            <div id="NewFileText">Crear Nuevo Archivo</div>
             <div
               style={{
                 _display: "flex",

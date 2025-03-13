@@ -9,7 +9,8 @@ import { color } from "framer-motion";
 const Echart = () => {
   const [carrerData, setCarrerData] = useState([]);
   const [yearData, setYearData] = useState([]);
-  const API_BASE_URL =  "http://192.168.89.32:8000";
+  const API_BASE_URL =  "http://127.0.0.1:8000/";
+  // const API_BASE_URL =  process.env.REACT_APP_API_URL;
   const [carrersList, setCarrersList] = useState([]);
   const [documentsByYear, setDocumentsByYear] = useState({});
   const [trendData, setTrendData] = useState([]); // Para la nueva gráfica de tendencias
@@ -51,7 +52,17 @@ const Echart = () => {
   }
 
   fillArrayWithSameValue(dataaverage, 92, 24);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 800);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 800);
+    };
+  
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  
 
   let data = [
     80.6,
@@ -89,7 +100,7 @@ const Echart = () => {
 
   // Fetch de los datos para Proyectos por Carrera
   useEffect(() => {
-    fetch(API_BASE_URL+ "/api/document-count-by-carrer-and-year/")
+    fetch(API_BASE_URL+ "api/document-count-by-carrer-and-year/")
       .then((response) => response.json())
       .then((data) => {
         // Organizar datos por año y carrera
@@ -120,7 +131,7 @@ const Echart = () => {
   console.log(trendData);
 
   useEffect(() => {
-    fetch(API_BASE_URL+"/api/document-count-by-carrer/")
+    fetch(API_BASE_URL+"api/document-count-by-carrer/")
       .then((response) => response.json())
       .then((data) => {
         // Ordenar los datos por cantidad de documentos
@@ -152,7 +163,7 @@ const Echart = () => {
 
   // Fetch de los datos para Tendencia Por Año
   useEffect(() => {
-    fetch(API_BASE_URL + "/api/document-count-by-year/")
+    fetch(API_BASE_URL + "api/document-count-by-year/")
       .then((response) => response.json())
       .then((data) => {
         const sortedData = data.sort((a, b) => a.year - b.year);
@@ -164,7 +175,7 @@ const Echart = () => {
   }, []);
 
   useEffect(() => {
-    fetch(API_BASE_URL + "/api/document-count-by-carrer-and-year/")
+    fetch(API_BASE_URL + "api/document-count-by-carrer-and-year/")
       .then((response) => response.json())
       .then((data) => {
         // Organizar datos por carrera
@@ -222,27 +233,23 @@ const Echart = () => {
     tooltip: {
       trigger: "item",
     },
-
-    legend: {
+    legend: isMobile ? {} : {
       orient: "vertical",
-
       left: "left",
       textStyle: {
-        fontSize: 9, // Cambia el tamaño de la fuente aquí
-        color: "#333", // Opcional: establece el color de la leyenda
+        fontSize: 9,
+        color: "#333",
       },
       itemGap: 10,
       type: "scroll",
-      formatter: function (name, value) {
-        return name.length > 25 ? name.substring(0, 25) + "..." : name; // Limitar a 20 caracteres
-      },
+      formatter: (name) => name.length > 25 ? name.substring(0, 25) + "..." : name,
     },
     series: [
       {
         name: "Proyectos",
         type: "pie",
-        radius: ["30%", "75%"], // Añade más espacio al gráfico
-        avoidLabelOverlap: true, // Evita superposición de etiquetas
+        radius: ["30%", "75%"],
+        avoidLabelOverlap: true,
         data: carrerData,
         emphasis: {
           itemStyle: {
