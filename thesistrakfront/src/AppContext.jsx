@@ -18,16 +18,16 @@ export const AppProvider = ({children}) => {
     const [profile, setProfile] = useState(null);
     const [name, setname] = useState("");
     const [userid, setUserid] = useState([]);
-    // const PortToUse = process.env.REACT_APP_API_URL;
-    let PortToUse = "http://127.0.0.1:8000/";
+    const PortToUse = process.env.REACT_APP_API_URL;
+    // let PortToUse = "http://127.0.0.1:8000/";
     const [userType, setUserType] = useState("Guest")
     const [email, setEmail] = useState("There's no Email Address")
     
     
 // || "http://127.0.0.1:8000"
 
-    // const API_BASE_URL = process.env.REACT_APP_API_URL;
-    const API_BASE_URL = "http://127.0.0.1:8000/"
+    const API_BASE_URL = process.env.REACT_APP_API_URL;
+    // const API_BASE_URL = "http://127.0.0.1:8000/"
     
     // PortToUse = API_BASE_URL
 

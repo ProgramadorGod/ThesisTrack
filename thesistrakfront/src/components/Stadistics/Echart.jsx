@@ -410,6 +410,8 @@ const Echart = () => {
 
   return (
     <div id="StadisticsComponent">
+    <p style={{fontSize:"90px"}}>Estado de ismobile: {isMobile ? "Móvil" : "No Móvil"}</p>
+
       {/* Elemento 1 */}
       <Element name="section1" className="StadisticItem" id="Cake">
         <div>
