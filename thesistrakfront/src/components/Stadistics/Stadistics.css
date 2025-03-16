@@ -5,6 +5,18 @@
   font-style: normal;
 }
 
+
+.MobileCheck{
+    display: flex;
+    z-index: 999;
+    position: absolute;
+    width: 50vw;
+    height: 90px;
+    margin-left: 10vw;
+    
+}
+
+
 #StadisticsComponent {  
     scroll-snap-type: y mandatory; /* Ajuste vertical obligatorio */
     overflow-y: scroll; /* Scroll vertical */
@@ -17,11 +29,16 @@
     scroll-snap-align: start; /* Ajusta cada sección al inicio del viewport */
     height: 97vh;
     padding-top: 3vh; /* Cada sección ocupa una vista completa */
-    width: 90vw; /* Para que llene el ancho de la pantalla */
+    width: 100vw; /* Para que llene el ancho de la pantalla */
     display: flex;
-    margin-left: 5vw;
+    margin-left:0px;
     align-items: flex-start;
     justify-content: center;
+
+}
+
+.echarts-for-react{
+    width:100vw !important;
 }
 
 

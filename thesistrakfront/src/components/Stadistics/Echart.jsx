@@ -9,7 +9,7 @@ import { color } from "framer-motion";
 const Echart = () => {
   const [carrerData, setCarrerData] = useState([]);
   const [yearData, setYearData] = useState([]);
-  const API_BASE_URL =  "http://127.0.0.1:8000/";
+  const API_BASE_URL = "http://127.0.0.1:8000/";
   // const API_BASE_URL =  process.env.REACT_APP_API_URL;
   const [carrersList, setCarrersList] = useState([]);
   const [documentsByYear, setDocumentsByYear] = useState({});
@@ -42,12 +42,12 @@ const Echart = () => {
     "2024",
   ];
 
-  let dataaverage = [92]   
+  let dataaverage = [92];
 
   function fillArrayWithSameValue(array, value, times) {
     array.length = 0; // Vacía el array
     for (let i = 0; i < times; i++) {
-        array.push(value);
+      array.push(value);
     }
   }
 
@@ -56,13 +56,12 @@ const Echart = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 800);
+      setIsMobile(window.innerWidth < 801);
     };
-  
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  
 
   let data = [
     80.6,
@@ -89,7 +88,6 @@ const Echart = () => {
     67.72,
     68.71,
     79.18,
-    
   ];
 
   let yMax = 150; // Asumiendo que el máximo valor es 150 para las barras
@@ -100,7 +98,7 @@ const Echart = () => {
 
   // Fetch de los datos para Proyectos por Carrera
   useEffect(() => {
-    fetch(API_BASE_URL+ "api/document-count-by-carrer-and-year/")
+    fetch(API_BASE_URL + "api/document-count-by-carrer-and-year/")
       .then((response) => response.json())
       .then((data) => {
         // Organizar datos por año y carrera
@@ -131,7 +129,7 @@ const Echart = () => {
   console.log(trendData);
 
   useEffect(() => {
-    fetch(API_BASE_URL+"api/document-count-by-carrer/")
+    fetch(API_BASE_URL + "api/document-count-by-carrer/")
       .then((response) => response.json())
       .then((data) => {
         // Ordenar los datos por cantidad de documentos
@@ -232,23 +230,32 @@ const Echart = () => {
     },
     tooltip: {
       trigger: "item",
+      show: true,
     },
-    legend: isMobile ? {} : {
-      orient: "vertical",
-      left: "left",
-      textStyle: {
-        fontSize: 9,
-        color: "#333",
-      },
-      itemGap: 10,
-      type: "scroll",
-      formatter: (name) => name.length > 25 ? name.substring(0, 25) + "..." : name,
-    },
+
+
+    legend: isMobile
+      ? { show: false }
+      : {
+          orient: "vertical",
+          show: true,
+          left: "left",
+          textStyle: {
+            fontSize: 9,
+            color: "#333",
+          },
+          itemGap: 10,
+          type: "scroll",
+          formatter: (name) =>
+            name.length > 25 ? name.substring(0, 25) + "..." : name,
+        },
+    
+        
     series: [
       {
         name: "Proyectos",
         type: "pie",
-        radius: ["30%", "75%"],
+        radius: isMobile ? ["20%", "50%"] : ["35%", "85%"],
         avoidLabelOverlap: true,
         data: carrerData,
         emphasis: {
@@ -279,7 +286,7 @@ const Echart = () => {
       type: "value",
     },
     grid: {
-      left: 0,
+      left: 50,
     },
     series: [
       {
@@ -344,24 +351,33 @@ const Echart = () => {
       type: "value",
       name: "Total Documentos",
     },
-    legend: {
-      data: trendData.map((item) => item.carrera),
-      left: "left",
-      orient: "vertical",
-      top: "top",
-      type: "scroll",
-      textStyle: {
-        fontSize: 8, // Cambia el tamaño de la fuente aquí
-        color: "#000", // Opcional: establece el color de la leyenda
-      },
 
-      formatter: function (carrera) {
-        return carrera.length > 25 ? carrera.substring(0, 25) + "..." : carrera; // Limitar a 20 caracteres
-      },
-    },
+    ...(isMobile
+      ? { legend: { show: false } }
+      : {
+          legend: {
+            show: true,
+            data: trendData.map((item) => item.carrera),
+            left: "left",
+            orient: "vertical",
+            top: "top",
+            type: "scroll",
+            textStyle: {
+              fontSize: 8, // Cambia el tamaño de la fuente aquí
+              color: "#000", // Opcional: establece el color de la leyenda
+            },
+
+            formatter: function (carrera) {
+              return carrera.length > 25
+                ? carrera.substring(0, 25) + "..."
+                : carrera; // Limitar a 20 caracteres
+            },
+          },
+        }),
     grid: {
-      left: 250,
-      top: 40, // Ajusta este valor según el espacio que quieras entre el título y el gráfico
+      left: isMobile ? 56:190,
+      right: 56,
+      top: 40 , // Ajusta este valor según el espacio que quieras entre el título y el gráfico
     },
     series: trendData.map((carrera) => ({
       name: carrera.carrera,
@@ -370,7 +386,6 @@ const Echart = () => {
       data: carrera.data.map((d) => [d.year, d.total_documents]),
     })),
   };
-  
 
   const option4 = {
     title: {
@@ -388,30 +403,28 @@ const Echart = () => {
     },
     series: [
       {
-        type:"line",
-        data:dataaverage,
-        tooltip:{
-          trigger:"item",
-          formatter: function(params){
+        type: "line",
+        data: dataaverage,
+        tooltip: {
+          trigger: "item",
+          formatter: function (params) {
             return `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background-color:${params.color};margin-right:5px;"></span> Promedio: ${params.value}`;
-          }
-        }
+          },
+        },
       },
       {
         type: "bar",
         data: data,
-        itemStyle:{color:"#000000c5"}
+        itemStyle: { color: "#000000c5" },
       },
     ],
     grid: {
-      left:30
+      left: 50,
     },
   };
 
   return (
     <div id="StadisticsComponent">
-    <p style={{fontSize:"90px"}}>Estado de ismobile: {isMobile ? "Móvil" : "No Móvil"}</p>
-
       {/* Elemento 1 */}
       <Element name="section1" className="StadisticItem" id="Cake">
         <div>
