@@ -98,8 +98,15 @@ def get_filtered_documents(request, username=None):
         if carrer_id:
             exact_file_documents = [file_doc for file_doc in exact_file_documents if file_doc.carrer_id == carrer_id]
 
-        if year:
-            exact_file_documents = [file_doc for file_doc in exact_file_documents if file_doc.year == year]
+        year_values = request.GET.getlist('year')
+        if year_values:
+            try:
+                
+                min_year, max_year = map(int, year_values)
+                documents = documents.filter(year__range=(min_year, max_year))
+            except ValueError:
+                pass
+                
 
         # Ordenar y paginar resultados
         combined_docs = exact_file_documents
@@ -129,8 +136,14 @@ def get_filtered_documents(request, username=None):
         if carrer_id:
             documents = documents.filter(carrer_id=carrer_id)
 
-        if year:
-            documents = documents.filter(year=year)
+        year_values = request.GET.getlist('year')
+        if year_values:
+            try:
+                
+                min_year, max_year = map(int, year_values)
+                documents = documents.filter(year__range=(min_year, max_year))
+            except ValueError:
+                pass
 
         if not query:
             documents = documents.order_by('title')
@@ -247,7 +260,5 @@ def document_count_carrer_and_year(request):
 
     data = list(document_count)
     return JsonResponse(data,safe=False, json_dumps_params={'ensure_ascii':False})
-
-
 
 

@@ -12,7 +12,7 @@
 
 .FileBlock{
     display: flex;
-    width: 70vw;
+    width: 93vw;
     height: 90vh;
     background-color: rgb(255, 255, 255);
     
@@ -43,7 +43,7 @@
     margin-top: 2vh;
     width: 55vw;
     
-    background-color: #EFEFEF;
+    background-color: #EFEFEF;  
     border: 0px;
 
 }

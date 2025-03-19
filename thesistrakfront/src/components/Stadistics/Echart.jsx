@@ -9,8 +9,8 @@ import { color } from "framer-motion";
 const Echart = () => {
   const [carrerData, setCarrerData] = useState([]);
   const [yearData, setYearData] = useState([]);
-  const API_BASE_URL = "http://127.0.0.1:8000/";
-  // const API_BASE_URL =  process.env.REACT_APP_API_URL;
+  // const API_BASE_URL = "http://127.0.0.1:8000/";
+  const API_BASE_URL =  process.env.REACT_APP_API_URL;
   const [carrersList, setCarrersList] = useState([]);
   const [documentsByYear, setDocumentsByYear] = useState({});
   const [trendData, setTrendData] = useState([]); // Para la nueva gráfica de tendencias
@@ -270,7 +270,7 @@ const Echart = () => {
   };
 
   // Configuración del gráfico de línea (Tendencia Por Año)
-  const option2 = {
+  const option2 = { 
     title: {
       text: "Cantidad De Proyectos Por Año",
       left: "center",

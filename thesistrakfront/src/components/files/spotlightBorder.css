@@ -15,12 +15,12 @@
     max-height: 44px;
     font-size: 1rem;
     font-family: "Apple";
-    height: 7vh;    
+    height: 7vh;
     padding-left: 1vw;
     padding-right: 5vw;
     cursor: default;
     border-radius: 0.4vh;
-    border: 0.24vw outset #bababa97;
+    border: 3px outset #bababa97;
     background-color: #edededb0;
     cursor: text;
     /* padding: 0.875rem; */
@@ -53,10 +53,22 @@
     left: 0;
     top: 0;
     z-index: 10;
+    border:3px outset #040a47 !important;
 
     cursor: default;
     background-color: transparent;
     /* padding: 0.875rem; */
     opacity: 0;
     transition: opacity 0.5s;
+  }
+
+
+
+  @media ( min-width:800px){
+    .base-input {
+      width: 54vw;
+    }
+    .overlay-input {
+      width: 58vw;
+    }
   }

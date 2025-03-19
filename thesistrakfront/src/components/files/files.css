@@ -183,7 +183,7 @@
         fill: rgb(39, 39, 39);
         cursor: text;
         pointer-events: none;
-        margin-left:64vw;
+        margin-left:54vw;
         position: absolute;
     }
 }
@@ -218,7 +218,8 @@
 
 @media (min-width:800px) {
     #FilterButtom{
-        display: none;
+        display: flex;
+        width: 8vw;
     }
 }
 
@@ -229,8 +230,9 @@
         position: relative;
         display: flex;
         align-content: center;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
+        margin-left:20vw;
         width: 90vw;
     }
 
@@ -426,6 +428,9 @@
     width: 90vw;
     font-family: "Apple";
     font-weight: 900;
+    text-shadow: 1px 1px 1px #000000;
+    user-select: none;
+    padding-top:0vh;
 }
 
 .FilterOption{

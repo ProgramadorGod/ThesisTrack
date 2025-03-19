@@ -49,6 +49,22 @@ const Filters2 = ({
     }
   }, [showFilters2]);
 
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        toogleFilters2();
+      }
+    };
+
+    if (showFilters2) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [showFilters2, toogleFilters2]);
+
   return (
     <AnimatePresence>
       {(showFilters2 || animateState !== "initial") && (
@@ -166,7 +182,7 @@ const Filters2 = ({
                     AÑO DE PUBLICACIÓN |{" "}
                     <div id="Explanaition">
                       <strong>Años seleccionados:</strong> {yearRange[0]} -{" "}
-                      {yearRange[1]}
+                      {yearRange[1]} 
                     </div>
                   </div>
                   <div id="Range">

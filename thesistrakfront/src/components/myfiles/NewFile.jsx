@@ -119,7 +119,7 @@ const NewFile = ({ setupladovisible, userid }) => {
     >
       <motion.div
         initial={{ opacity: 0, height: 0 }}
-        animate={{ opacity: 1, height: 450 }}
+        animate={{ opacity: 1, height: "70vh" }}
         transition={{
           type: "spring",
           opacity: { duration: 0.3 },

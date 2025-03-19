@@ -1,124 +1,75 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import "./uploadfiles.css"
+import "./uploadfiles.css";
 
-const DocumentUpload = ({userid}) => {
-  const [show, setShow] = useState(false);
+const DocumentUpload = ({ userid }) => {
   const [users, setUsers] = useState([]);
   const [docTypes, setDocTypes] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([parseInt(userid)]);
   const [title, setTitle] = useState('');
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState('');
-  const [docType, setDocType] = useState('');
   const [selectedType, setSelectedType] = useState([]);
-<<<<<<< HEAD
 
-=======
-  
->>>>>>> c61e04dc752f0d321869f2804cae7397267cf181
   useEffect(() => {
-    // Fetch users and docTypes
-    axios.get('http://127.0.0.1:8000/users/',{
-    // Incluir cookies en la solicitud
-    withCredentials: true,
+    axios.get('http://127.0.0.1:8000/users/', { withCredentials: true })
+      .then(response => {
+        const filteredUsers = response.data.filter(user => user.id !== userid);
+        setUsers(filteredUsers);
+      });
 
+    axios.get('http://127.0.0.1:8000/documents/types/')
+      .then(response => {
+        setDocTypes(response.data);
+      });
+  }, [userid]);
 
-
-    }).then(response => {
-      
-
-      console.log(response.data)
-      console.log(userid)
-      const FiltredUsers = (response.data).filter(user => user.id !== userid)
-      console.log("looool", FiltredUsers)
-      setUsers(FiltredUsers);
-
-    });
-
-
-    axios.get('http://127.0.0.1:8000/documents/types/').then(response => {
-      setDocTypes(response.data);
-    });
-  }, []);
-
-  
   const handleUserChange = (e) => {
     const options = e.target.options;
-    const selectedUsers = [parseInt(userid)];
-    for (let i = 0, l = options.length; i < l; i++) {
+    const selected = [parseInt(userid)];
+    for (let i = 0; i < options.length; i++) {
       if (options[i].selected) {
-<<<<<<< HEAD
-        alert(options[i].value)
-        alert(selectedUsers)
-        selectedUsers.push(options[i].value);
+        selected.push(parseInt(options[i].value));
       }
     }
-
-    alert(selectedUsers)
-    setSelectedUsers(selectedUsers);
-=======
-        selectedUsers.push(parseInt(options[i].value));
-      }
-    }
-
-    setSelectedUsers(selectedUsers)
-    
->>>>>>> c61e04dc752f0d321869f2804cae7397267cf181
+    setSelectedUsers(selected);
   };
-
-
 
   const handleTypeChange = (e) => {
     const options = e.target.options;
-    const selectedType = [];
-    for (let i = 0, l = options.length; i < l; i++) {
+    const selected = [];
+    for (let i = 0; i < options.length; i++) {
       if (options[i].selected) {
-        selectedType.push(options[i].value);
+        selected.push(options[i].value);
       }
     }
-    
-    setSelectedType(selectedType);
+    setSelectedType(selected);
   };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData();
-<<<<<<< HEAD
-    selectedUsers.forEach(user => data.append('users', selectedUsers));
-=======
-
-    
-
-    data.append("users", selectedUsers);
-
->>>>>>> c61e04dc752f0d321869f2804cae7397267cf181
+    selectedUsers.forEach(user => data.append('users', user));
     data.append('title', title);
     data.append('filee', file);
     data.append('description', description);
-    selectedType.forEach(user => data.append('doc_type', selectedType));
-    console.log("selected users: ", selectedUsers)
-    
-    console.log("userss:", data.users)
+    selectedType.forEach(type => data.append('doc_type', type));
+
     axios.post('http://127.0.0.1:8000/documents/upload/', data, {
       headers: {
         'Content-Type': 'multipart/form-data',
         'Accept': 'application/json',
-        'X-CSRFToken': getCookie('csrftoken') 
-
+        'X-CSRFToken': getCookie('csrftoken')
       },
-      withCredentials:true,
+      withCredentials: true,
     })
     .then(response => {
-      console.log(response.data);
-      alert("Submitted successfully")
+      alert("Submitted successfully");
     })
     .catch(error => {
       console.error('Error uploading document:', error);
     });
   };
-
 
   function getCookie(name) {
     let cookieValue = null;
@@ -126,7 +77,7 @@ const DocumentUpload = ({userid}) => {
       const cookies = document.cookie.split(';');
       for (let i = 0; i < cookies.length; i++) {
         const cookie = cookies[i].trim();
-        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        if (cookie.startsWith(name + '=')) {
           cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
           break;
         }
@@ -136,45 +87,37 @@ const DocumentUpload = ({userid}) => {
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit} id='FORMULARY'>
-        <div id='userscontainer' className='ItemFormContainer'>
-          <label htmlFor="users" id='UserText'>Users</label>
-          <select  name="users" id="users" onChange={handleUserChange}>
-            {users.map(user => (
-              <option key={user.id} value={user.id}>{user.username}</option>
-            ))}
-          </select>
-        </div>
-        <div className='ItemFormContainer'>
-          <label htmlFor="title">Title</label>
-          <input type="text" name="title" id="title" value={title} onChange={(e) => setTitle(e.target.value)} required />
-        </div>
-        <div className='ItemFormContainer'>
-          <label htmlFor="file">File</label>
-          <input type="file" name="file" id="file" onChange={(e) => setFile(e.target.files[0])} required />
-        </div>
-        <div className='ItemFormContainer'>
-          <label htmlFor="description">Description</label>
-          <textarea name="description" id="description" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
-        </div>
-        <div className='ItemFormContainer'>
-          <label htmlFor="docType">Doc Type</label>
-          <select name="docType" id="docType" onChange={handleTypeChange} required>
-            {docTypes.map(docType => (
-              <option key={docType.id} value={docType.id}>{docType.name}</option>
-            ))}
-          </select>
-        </div>
-        <button type="submit">Upload Document</button>
-      </form>
-      
-
-      
-
-
-    </>
-
+    <form onSubmit={handleSubmit} id='FORMULARY'>
+      <div className='ItemFormContainer'>
+        <label htmlFor="users">Users</label>
+        <select multiple name="users" id="users" onChange={handleUserChange}>
+          {users.map(user => (
+            <option key={user.id} value={user.id}>{user.username}</option>
+          ))}
+        </select>
+      </div>
+      <div className='ItemFormContainer'>
+        <label htmlFor="title">Title</label>
+        <input type="text" name="title" id="title" value={title} onChange={(e) => setTitle(e.target.value)} required />
+      </div>
+      <div className='ItemFormContainer'>
+        <label htmlFor="file">File</label>
+        <input type="file" name="file" id="file" onChange={(e) => setFile(e.target.files[0])} required />
+      </div>
+      <div className='ItemFormContainer'>
+        <label htmlFor="description">Description</label>
+        <textarea name="description" id="description" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+      </div>
+      <div className='ItemFormContainer'>
+        <label htmlFor="docType">Doc Type</label>
+        <select multiple name="docType" id="docType" onChange={handleTypeChange} required>
+          {docTypes.map(docType => (
+            <option key={docType.id} value={docType.id}>{docType.name}</option>
+          ))}
+        </select>
+      </div>
+      <button type="submit">Upload Document</button>
+    </form>
   );
 };
 

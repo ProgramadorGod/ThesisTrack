@@ -29,24 +29,7 @@ const Files = ({ PortToUse }) => {
   const [carrers, setCarrers] = useState([]);
 
   const [yearRange, setYearRange] = useState([2001, 2024]);
-  const handleFilterChange = (filterName) => (event) => {
-    switch (filterName) {
-      case "showTitles":
-        setShowTitles((prev) => !prev);
-        break;
-      case "showCarrers":
-        setShowCarrers((prev) => !prev);
-        break;
-      case "showAuthors":
-        setShowAuthors((prev) => !prev);
-        break;
-      case "showYears":
-        setShowYears((prev) => !prev);
-        break;
-      default:
-        break;
-    }
-  };
+
   const fetchCarrers = async (query = "") => {
     try {
       const response = await axios.get(PortToUse + "api/carrers/", {
@@ -92,18 +75,35 @@ const Files = ({ PortToUse }) => {
         showCarrers,
         yearRange,
       });
+  
+      const params = {
+        query,
+        sort_by: "title",
+        show_titles: showTitles,
+        show_authors: showAuthors,
+        show_carrers: showCarrers,
+        show_years: showYears,
+      };
+  
+      // Agregar los años individualmente
+      if (showYears && yearRange.length === 2) {
+        params.year = [yearRange[0], yearRange[1]];
+      }
+  
       const response = await axios.get(PortToUse + "api/documentz/", {
-        params: {
-          query,
-          sort_by: "title",
-          year: showYears ? yearRange : null,
-          show_titles: showTitles,
-          show_authors: showAuthors,
-          show_carrers: showCarrers,
-          show_years: showYears,
+        params,
+        paramsSerializer: (params) => {
+          return Object.entries(params)
+            .map(([key, value]) =>
+              Array.isArray(value)
+                ? value.map((v) => `${key}=${encodeURIComponent(v)}`).join("&")
+                : `${key}=${encodeURIComponent(value)}`
+            )
+            .join("&");
         },
         withCredentials: true,
       });
+  
       setAllDocuments(response.data.results);
       setNextPage(response.data.next);
       localStorage.setItem("documents", JSON.stringify(response.data.results));
@@ -111,6 +111,7 @@ const Files = ({ PortToUse }) => {
       console.error("Error Trying To Fetch Documents: ", error);
     }
   };
+  
 
   const AddDocuments = async () => {
     if (NextPage) {
