@@ -16,7 +16,7 @@
 
 @font-face {
     font-family: 'Apple';
-    src: url('../../fonts/AppleGaramond.ttf') format('opentype');
+    src: url('../../fonts/Bleeker.ttf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
@@ -31,7 +31,7 @@
 #FileComponent {
     display: flex;
     justify-content: center;
-    font-family: "Apple";
+    font-family: 'Apple', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     align-content: center;
     margin-bottom: 4vh;
 }
@@ -178,7 +178,7 @@
 
 @media(min-width:800px){
     #ZoomIcon{
-        display: flex;
+        display: none;
         color: rgb(9, 9, 9);
         fill: rgb(39, 39, 39);
         cursor: text;

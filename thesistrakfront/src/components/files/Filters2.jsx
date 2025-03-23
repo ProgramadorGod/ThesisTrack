@@ -162,7 +162,7 @@ const Filters2 = ({
                     />
                   </div>
                   <div className="FilterOption">
-                    AÑOS
+                    ÉPOCA
                     <Switch
                       checked={showYears} // Estado actual
                       onClick={handleFilterChange("showYears")} // Cambios controlados
@@ -181,7 +181,7 @@ const Filters2 = ({
                   <div id="YearSubtitle">
                     AÑO DE PUBLICACIÓN |{" "}
                     <div id="Explanaition">
-                      <strong>Años seleccionados:</strong> {yearRange[0]} -{" "}
+                      <strong>Selección:</strong> {yearRange[0]} -{" "}
                       {yearRange[1]} 
                     </div>
                   </div>

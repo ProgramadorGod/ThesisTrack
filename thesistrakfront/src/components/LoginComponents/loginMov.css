@@ -441,14 +441,24 @@
     margin-top:2vh;
     margin-left: 2.5%;
     margin-right: 2.5%;
-    border: 1px solid rgba(0, 0, 0, 0.178);
+    /* border: 1px solid rgba(0, 0, 0, 0.178); */
     overflow: visible;
     border-radius: 10px;
-    box-shadow: 3px 5px 5px 1px rgba(0, 0, 0, 0.5);
+    /* box-shadow: 3px 5px 5px 1px rgba(0, 0, 0, 0.5); */
     width: 95%;
     display: flex;
     align-items: center;
     align-self: center;
     justify-content: flex-start;
     flex-direction: column;
+}
+#SubTitleText {
+    width: 85vw;
+    font-size: 3vh;
+    text-align: center; /* Centra el texto en su propio ancho */
+    display: flex;
+    flex-direction: column; /* Asegura que cada línea se trate como un bloque independiente */
+    align-items: center; /* Centra cada línea individualmente */
+    justify-content: center; /* Centra en el eje vertical */
+    margin: 0 auto; /* Centra el bloque horizontalmente */
 }

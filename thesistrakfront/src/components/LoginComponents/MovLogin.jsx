@@ -1,8 +1,7 @@
 // MovLogin.js
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./MovLogin.css";
-import {motion} from "framer-motion";
 import ButtonMov from "./ButtonMov";
 
 const MovLogin = ({
@@ -24,61 +23,48 @@ const MovLogin = ({
     navigate("/forgot-password");
   };
 
-  const [isSignUp, setIsSignUp] = useState(false);
-
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="relative w-80 p-6 rounded-2xl shadow-lg bg-white overflow-hidden"
-      >
-        {/* Fondo decorativo */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute w-full h-full bg-gradient-to-br from-blue-400 to-gray-900 clip-wave"></div>
+    <div id="MainContainerMovile">
+
+      <div id="FirstText">ThesisTrack</div>
+      <div id="SubTitleText">Con ThesisTrack, descubrir los proyectos de grado de la Unipaz se siente tan fácil y gratificante como debería ser.</div>
+      <form className="FormMov" onSubmit={handleLoginForm}>
+        <input
+          className="MailMov"
+          type="text"
+          placeholder="Correo"
+          value={username} // Vinculamos el valor de username
+          onChange={(e) => setUsername(e.target.value)} // Actualizamos el estado de username
+          required
+        />
+        <input
+          className="PassMov"
+          type="password"
+          placeholder="Contraseña"
+          value={password} // Vinculamos el valor de password
+          onChange={(e) => setPassword(e.target.value)} // Actualizamos el estado de password
+          required
+        />
+        <ButtonMov
+          IsLogin={IsLogin}
+          Loading={LoadingFetch}
+          text1={"Iniciando Sesión"}
+          text2={"Iniciar Sesión"}
+        />
+        <div id="ForgotPasswordContainer">
+          <button onClick={handleForgotPassword} className="forgot-password">
+            ¿Olvidaste tu contraseña?
+          </button>
         </div>
 
-        {/* Contenido */}
-        <div className="relative z-10">
-          <h2 className="text-white text-2xl font-semibold text-center">
-            {isSignUp ? "Create Account" : "Welcome Back"}
-          </h2>
-
-          <form className="mt-6">
-            {isSignUp && (
-              <input
-                type="text"
-                placeholder="Name"
-                className="w-full p-3 mb-3 bg-gray-100 rounded-lg outline-none"
-              />
-            )}
-            <input
-              type="email"
-              placeholder="Email"
-              className="w-full p-3 mb-3 bg-gray-100 rounded-lg outline-none"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full p-3 mb-3 bg-gray-100 rounded-lg outline-none"
-            />
-
-            <button className="w-full p-3 bg-gray-800 text-white rounded-lg">
-              {isSignUp ? "Sign Up" : "Sign In"}
-            </button>
-          </form>
-
-          {/* Alternar entre Login y Registro */}
-          <p
-            className="text-sm text-center text-white mt-4 cursor-pointer"
-            onClick={() => setIsSignUp(!isSignUp)}
-          >
-            {isSignUp ? "Already have an account? Sign In" : "Sign up"}
-          </p>
-        </div>
-      </motion.div>
+      </form>
+      <div id="options">
+        <button onClick={handleRegister} className="register">
+          Registrarse
+        </button>
+      </div>
     </div>
   );
-}
+};
+
 export default MovLogin;

@@ -63,7 +63,7 @@ const Document = ({ document }) => {
                 </div>
                 <div className='Title'>{document.title}</div>
                 <div className='Description'>{document.description}</div>
-                <div className='Year'>Año De Creación:{'\u00A0'} {document.year}</div>
+                <div className='Year'>Etapa De Creación:{'\u00A0'} {document.year}</div>
                 <div className='Year'>Autores:</div>
                 <div className='Author'>
                     <div> {'\u00A0'}</div>
