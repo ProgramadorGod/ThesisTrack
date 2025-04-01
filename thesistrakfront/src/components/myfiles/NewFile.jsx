@@ -119,7 +119,7 @@ const NewFile = ({ setupladovisible, userid }) => {
     >
       <motion.div
         initial={{ opacity: 0, height: 0 }}
-        animate={{ opacity: 1, height: "70vh" }}
+        animate={{ opacity: 1, height: "90vh" }}
         transition={{
           type: "spring",
           opacity: { duration: 0.3 },
@@ -134,7 +134,7 @@ const NewFile = ({ setupladovisible, userid }) => {
           alignItems: "center",
           // background: "green",
           zIndex: "9999999",
-          position: "absolute",
+          position: "fixed",
         }}
       >
         <div style={{ width: "100%" }} >

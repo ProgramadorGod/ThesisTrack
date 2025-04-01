@@ -436,9 +436,10 @@
 
 
 #MainContainerMovile{
-    height: 83vh;
+    height: 96vh;
     margin-bottom: 4vh;
-    margin-top:2vh;
+    font-family: "Apple";
+
     margin-left: 2.5%;
     margin-right: 2.5%;
     /* border: 1px solid rgba(0, 0, 0, 0.178); */

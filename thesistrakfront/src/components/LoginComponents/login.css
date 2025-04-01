@@ -20,6 +20,8 @@
 
     #LoginSquare {
         width: 27.5vw;
+        margin-top: 0vh;
+        margin-bottom: 5vh;
         display: flex;
         align-content: center;
         justify-content: center;
@@ -29,8 +31,10 @@
     
 
     .ComboTextGoogle{
-        /* padding-bottom: 30px; */
-        transform: translateY(-4px);
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
     }
 
     #ComboRegister.ComboTextGoogle{
@@ -39,7 +43,7 @@
         
     }
     #RegisterFormContainer{
-        margin-top: 7vh;
+        margin-top: 3vh;
         z-index: 1;
     }
 
@@ -75,22 +79,27 @@
     }
 
     #FormularyContainer{
-        transform: translateY(-5vh);
+        margin-top:4vh;
     }
 
     .GoogleButton {
         border: 0px;
         cursor: pointer;
-
         background-color: rgba(207, 206, 205, 0.884);
         border-radius: 50%;
         height: 5vh;
+        display: flex;
+        justify-content: center;
         width: 5vh;
-        transform: translateY(-8vh);
+    }
+    #ButtonContainer{
+        display: flex;
+        justify-content: center;
     }
     #FaGoogle{
         font-size: 0.1vh;
         width: 10px;
+        margin-top: 1.2vh;
         height: 10px;
     }
 
@@ -108,10 +117,14 @@
 
     #LoginText, #RegisterText{
         font-size: 6vh;
+        margin-top: 0px;
         user-select: none;
         text-wrap: nowrap;    
-        transform: translateY(-6vh);
         color: rgb(16, 2, 70);
+    }
+
+    #LoginText{
+        margin-bottom: 1vh;
     }
     
     #LogRegBox {
@@ -153,6 +166,7 @@
         height: 4.8vh;
         background-color: rgba(0, 0, 0, 0.116);
         padding-right: 1vw;
+        padding-top: 4px;
         
         margin-top: 1vh;
 
@@ -199,7 +213,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 1px;
+    height: 0.1vh;
     background-color: rgb(6, 0, 34);
     
     }
@@ -215,10 +229,12 @@
         padding-left: 1vw;
         padding-right: 1vw;
         cursor: text;
+        padding-top:4px;
         
     }
     #Username-Input::placeholder{
         user-select: none;
+        
     }
 
     #Username-Input:focus {
@@ -237,6 +253,7 @@
         background-color: rgba(0, 0, 0, 0.116);
         padding-left: 1vw;
         padding-right: 1vw;
+        padding-top: 4px;
         cursor: text;
     }
     #Email-Input::placeholder{
@@ -315,13 +332,16 @@
         border: 0.1vh solid rgb(255, 255, 255);
         border-radius: 0px;
         box-shadow: 0px 0px 5px 4px rgba(255, 255, 255, 0.129);
-        
+        position: absolute;
+        top:35vh;
+        left:7.5vw;
     }
-
+    
     /* BLOCK  */
 
     #BlockAllText{
         user-select: none;
+        transform: translateY(-5vh);
     }
     #BlockTexts{
         width: 27.5vw;
@@ -329,6 +349,9 @@
 
     #TextBlockButton{
         user-select: none;
+        font-size: 2vh;
+        scale: 1 !important;
+        margin-top:0.4vh;
     }
 
     .Email-input{

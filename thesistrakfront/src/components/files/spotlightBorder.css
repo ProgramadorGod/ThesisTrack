@@ -18,6 +18,7 @@
     height: 7vh;
     padding-left: 1vw;
     padding-right: 5vw;
+    padding-top:3px;
     cursor: default;
     border-radius: 0.4vh;
     border: 3px outset #bababa97;
@@ -43,7 +44,7 @@
     width: 68vw;
     min-height: 34px;
     max-height: 44px;
-    
+    padding-top: 3px;
     height: 7vh;    
     padding-left: 1vw;
     padding-right: 1vw;

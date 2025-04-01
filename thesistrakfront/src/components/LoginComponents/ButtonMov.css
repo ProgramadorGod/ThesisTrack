@@ -1,6 +1,8 @@
 #ButtonContainerMov{
     display: flex;
     width: 100%;
+    font-family: "Apple";
+
 }
 
 
@@ -11,4 +13,13 @@
     border: none;
     font-weight: lighter;
     color: white;
+    cursor: pointer;
+    font-family: "Apple";
+
+}
+
+
+#ButtonText{
+    font-size: 2vh;
+    margin-top: 0.5vh;
 }

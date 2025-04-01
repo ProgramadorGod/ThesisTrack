@@ -122,12 +122,13 @@ const Register = ({IsLogin, handleLogin, GoogleIcon, getCsrfToken, fetchProfile}
 
             <div className='ComboTextGoogle' id='ComboRegister'>
                 <h1 id="RegisterText">Register</h1>            
-                <button
+                
+            </div>
+            <div
                 className='GoogleButton' 
                 onClick={handleLogin}
                 disabled={IsLogin}  
-                aria-label='Aria Google'><img src={GoogleIcon} id='FaGoogle'/></button>
-            </div>
+                aria-label='Aria Google'><img src={GoogleIcon} id='FaGoogle'/></div>
 
 
             <form onSubmit={handleRegisterForm} id='RegisterFormContainer'>

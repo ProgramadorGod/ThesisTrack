@@ -20,6 +20,8 @@ import { AppProvider, useAppContext } from "./AppContext";
 import Sidemenu2 from "./components/Sidemenu2/Sidemenu2";
 import IA from "./components/IA/IA";
 import Help from "./components/Help/Help";
+import Register from "./components/LoginComponents/Register";
+import { MovRegister } from "./components/LoginComponents/MovRegister";
 
 const App = () => {
   return (
@@ -72,6 +74,7 @@ function AppContent() {
 
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/Register" element={<MovRegister/>} />
             <Route
               path="/Profile"
               element={

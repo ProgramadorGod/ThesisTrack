@@ -75,10 +75,10 @@ const Blocker = ({IsLogin, LoadingFetch,ToggleIsLogin}) => {
                                     Hello, <div style={{textWrap:"nowrap"}}> &nbsp;Friend!</div>
                                 </h1>
                                 <h4 className='NormalBlockText'>
-                                    <div>
+                                    <div id='FirstSubText' style={{display:"flex", justifyContent:"center"}}>
                                         Enter your personal details and
                                     </div>
-                                    <div>
+                                    <div id='SecondSubText' style={{display:"flex", justifyContent:"center"}}>
                                         join to our team
                                     </div>
 
@@ -91,10 +91,10 @@ const Blocker = ({IsLogin, LoadingFetch,ToggleIsLogin}) => {
                                     Welcome <div style={{textWrap:"nowrap"}}> &nbsp;Back!</div>
                                 </h1>
                                 <h4 className='NormalBlockText'>
-                                    <div>
+                                    <div style={{display:"flex", justifyContent:"center"}}>
                                         To keep in touch
                                     </div>
-                                    <div>
+                                    <div style={{display:"flex", justifyContent:"center"}}>
                                         login with your credentials
                                     </div>
 
