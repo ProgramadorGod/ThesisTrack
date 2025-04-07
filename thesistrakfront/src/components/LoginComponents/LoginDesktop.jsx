@@ -26,13 +26,17 @@ const Login = () => {
     WindowWidth,
     WindowHeight,
     setisActive,
+    LoadingFetch,
+    username,
+    password,
+    setUsername,
+    setPassword,
+    handleLoginForm,
   } = useAppContext();
 
-  const [LoadingFetch, setLoadingFetch] = useState(false);
   const [UsernameFocus, setUsernameFocus] = useState(false);
   const [PasswordFocus, setPasswordFocus] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+
 
   const [IsLogin, setIsLogin] = useState(true);
   const navigate = useNavigate(); // Inicializar el hook useNavigate
@@ -53,57 +57,7 @@ const Login = () => {
     document.cookie = `csrftoken=${token}; path=/`;
   };
 
-  const handleLoginForm = async (e) => {
-    e.preventDefault();
-    if (LoadingFetch) return; // Evitar enviar si ya hay una petición en proceso
-
-    setLoadingFetch(true);
-
-    try {
-      const response = await axios.post(
-        PortToUse + "api/login2/",
-        {
-          username,
-          password,
-        },
-        {
-          headers: {
-            "X-CSRFToken": getCsrfToken(),
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        console.log("worked");
-        setisActive(true);
-        console.log(isLogged);
-        setLoadingFetch(false);
-        fetchProfile();
-      }
-      setLoadingFetch(false);
-    } catch (error) {
-      if (error.response && error.response.status === 403) {
-        // Refresh CSRF token
-        const csrfResponse = await axios.get(PortToUse + "/api/refresh_csrf/");
-        const NewCsrfToken = csrfResponse.data.csrfToken;
-        setLoadingFetch(false);
-
-        setCsrfToken(NewCsrfToken);
-
-        alert("CSRF token refreshed, please try again.");
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: error.response.data.Detail,
-          text: "Try Again!",
-          timer: 1500,
-          timerProgressBar: true,
-        });
-      }
-      console.log("ERROR TRYING TO LOGIN, ", error);
-    }
-    setLoadingFetch(false);
-  };
+  
 
   const handleLogin = () => {
     const googleLoginUrl = PortToUse + "/accounts/google/login/?next=/";
@@ -282,11 +236,9 @@ const Login = () => {
         </motion.div>
 
         <Register
-          IsLogin={IsLogin}
           handleLogin={handleLogin}
           GoogleIcon={GoogleIcon}
-          getCsrfToken={getCsrfToken}
-          fetchProfile={fetchProfile}
+
         />
 
         <Blocker

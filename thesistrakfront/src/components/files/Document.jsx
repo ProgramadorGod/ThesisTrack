@@ -1,18 +1,24 @@
 import React from 'react';
 import { RxEyeOpen, RxFile, RxTokens } from 'react-icons/rx';
 import { useEffect, useState } from "react";
+import { useAppContext } from '../../AppContext';
 
 const Document = ({ document }) => {
+  const { API_BASE_URL } = useAppContext();
+  const NEWAPIBASE = API_BASE_URL.endsWith("/") 
+  ? API_BASE_URL.slice(0, -1) 
+  : API_BASE_URL;
 
-    const [visualizations, setVisualizations] = useState(document.visualizations);
 
+  const [visualizations, setVisualizations] = useState(document.visualizations);
+    
     if (!document) {
         return <div>Error: Document data is missing.</div>;
     }
 
 
     const fileUrl = document.file 
-    ? `http://127.0.0.1:8000${document.file}` 
+    ? `${NEWAPIBASE}${document.file}` 
     : document.url;
 
     
@@ -21,7 +27,7 @@ const Document = ({ document }) => {
     const handleDownloadClick = async () => {
         try {
             // Incrementar visualizaciones
-            const response  = await fetch(`http://127.0.0.1:8000/api/upgradeview/${document.id}/`, {
+            const response  = await fetch(`${API_BASE_URL}api/upgradeview/${document.id}/`, {
                 method: 'GET',
             });
 

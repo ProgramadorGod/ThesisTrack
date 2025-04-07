@@ -4,20 +4,29 @@ import { motion } from "framer-motion";
 import "./MovLogin.css";
 import ButtonMov from "./ButtonMov";
 import Button from "./Button";
+import { useAppContext } from "../../AppContext";
 
 const MovLogin = ({
   IsLogin,
-  LoadingFetch,
-  handleLoginForm,
-  username,
-  setUsername,
-  password,
-  setPassword,
+
 }) => {
   const navigate = useNavigate();
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
-
+  const {
+    isLogged,
+    PortToUse,
+    fetchProfile,
+    WindowWidth,
+    WindowHeight,
+    setisActive,
+    LoadingFetch,
+    username,
+    password,
+    setUsername,
+    setPassword,
+    handleLoginForm,
+  } = useAppContext();
   // Detectar si el teclado está visible en móviles
   useEffect(() => {
     const handleResize = () => {
@@ -29,6 +38,7 @@ const MovLogin = ({
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [windowHeight]);
+  
 
   const handleRegister = () => navigate("/register");
   const handleForgotPassword = () => navigate("/forgot-password");

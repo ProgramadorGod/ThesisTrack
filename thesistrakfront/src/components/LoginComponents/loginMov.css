@@ -462,4 +462,7 @@
     align-items: center; /* Centra cada línea individualmente */
     justify-content: center; /* Centra en el eje vertical */
     margin: 0 auto; /* Centra el bloque horizontalmente */
+    user-select: none;
 }
+
+

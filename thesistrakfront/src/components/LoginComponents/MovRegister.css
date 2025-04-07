@@ -26,9 +26,9 @@
 }
 
 #SubtitleMovRegister {
-    font-size: 2.5vh;
+    font-size: 3vh;
     font-family: 'Apple';
-    color: #333;
+    color: #000000;
     margin-bottom: 4vh;
     width: 80vw;
 }

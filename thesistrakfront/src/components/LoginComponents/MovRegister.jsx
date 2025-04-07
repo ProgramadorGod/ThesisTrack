@@ -16,94 +16,51 @@ import GoogleIcon from "../../media/google.png";
 import Blocker from "./Blocker";
 import Register from "./Register";
 import Button from "./Button";
+import Login from "./LoginDesktop";
 
-export const MovRegister = ({ IsLogin, handleLoginForm, getCsrfToken,setIsLogin }) => {
+export const MovRegister = ({
+
+  setIsLogin,
+}) => {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [password1, setPassword1] = useState("");
-  const [password2, setPassword2] = useState("");
+
   const [loading, setLoading] = useState(false);
   const [isFocused, setIsFocused] = useState(false); // Estado para detectar foco
-  const [LoadingFetch, setLoadingFetch] = useState(false);
   const [password, setPassword] = useState("");
-  const ToggleIsLogin = () => {
-    setIsLogin((prevIsLogin) => !prevIsLogin);
-  };
   const {
     isLogged,
     PortToUse,
-    fetchProfile,
+    IsLogin,
+    handleRegisterForm,
+    handleLogin,
+    Username,
+    setUsername2,
+    EmailReg,
+    setEmailReg,
+    Password1,
+    setPassword1,
+    Loading,
+    Password2,
+    setPassword2,
+
     WindowWidth,
     WindowHeight,
+    fetchProfile,
     setisActive,
+    LoadingFetch,
+
+    handleLoginForm,
   } = useAppContext();
 
-  const handleRegisterForm = async (e) => {
-    e.preventDefault();
-    if (loading) return;
-    setLoading(true);
+  const handleGoLogin = () => navigate("/");
 
-    try {
-      const response = await axios.post(
-        PortToUse + "api/auth/registration/",
-        {
-          username,
-          email,
-          password1,
-          password2,
-        },
-        {
-          headers: {
-            "X-CSRFToken": getCsrfToken(),
-          },
-        }
-      );
-
-      Swal.fire({
-        icon: "success",
-        title: "Registro exitoso",
-        text: "Ahora puedes iniciar sesión",
-        timer: 2000,
-        timerProgressBar: true,
-      });
-
-      try {
-        const response2 = await axios.post(
-          PortToUse + "api/login2/",
-          {
-            username,
-            password: password1,
-          },
-          {
-            headers: {
-              "X-CSRFToken": getCsrfToken(),
-            },
-          }
-        );
-
-        if (response2.status === 200) {
-          fetchProfile();
-          navigate("/dashboard");
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    } catch (error) {
-      const errorMessages = error.response
-        ? Object.entries(error.response.data)
-            .map(([field, messages]) => `${field}: ${messages.join(", ")}`)
-            .join("\n")
-        : "Ocurrió un error inesperado.";
-
-      Swal.fire({
-        icon: "error",
-        title: "Error en el registro",
-        text: errorMessages,
-      });
-    }
-    setLoading(false);
+  const ToggleIsLogin = () => {
+    setIsLogin((prevIsLogin) => !prevIsLogin);
   };
+
+
+
   if (WindowWidth < WindowHeight * 1.5) {
     return (
       <div id="ContainerMovRegister">
@@ -122,54 +79,47 @@ export const MovRegister = ({ IsLogin, handleLoginForm, getCsrfToken,setIsLogin 
           <input
             type="text"
             placeholder="Usuario"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={Username}
+            onChange={(e) => setUsername2(e.target.value)}
             required
           />
           <input
             type="email"
             placeholder="Correo electrónico"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={EmailReg}
+            onChange={(e) => setEmailReg(e.target.value)}
             required
           />
           <input
             type="password"
             placeholder="Contraseña"
-            value={password1}
+            value={Password1}
             onChange={(e) => setPassword1(e.target.value)}
             required
           />
           <input
             type="password"
             placeholder="Confirmar contraseña"
-            value={password2}
+            value={Password2}
             onChange={(e) => setPassword2(e.target.value)}
             required
           />
           <ButtonMov
-            IsLogin={IsLogin}
+            IsLogin={!IsLogin}
             Loading={loading}
             text1={"Registrando..."}
             text2={"Registrarse"}
-            type="submit"
+            
           />
         </motion.form>
+        <button className="register" onClick={handleGoLogin}>
+          Inicia Sesión
+        </button>
       </div>
     );
   }
   return (
-    <LoginDesktop
-      IsLogin={IsLogin}
-      LoadingFetch={LoadingFetch}
-      username={username}
-      setUsername={setUsername}
-      password={password}
-      setPassword={setPassword}
-      ToggleIsLogin={ToggleIsLogin}
-      fetchProfile={fetchProfile}
-      setisActive={setisActive}
-    />
+    <Login/>
   );
 };
 

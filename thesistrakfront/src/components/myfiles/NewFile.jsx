@@ -1,11 +1,25 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { Button, TextField, Grid, MenuItem, Select, InputLabel, FormControl, Slider, Box, Typography } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Grid,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+  Slider,
+  Box,
+  Typography,
+} from "@mui/material";
 import "./NewFile.css";
 import { useAppContext } from "../../AppContext";
+import { HiX } from "react-icons/hi";
+import Swal from "sweetalert2";
+import { set } from "lodash";
 
-const NewFile = ({ setupladovisible, userid }) => {
+const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
   const [docTypes, setDocTypes] = useState([]);
   const [carrers, setCarrers] = useState([]);
   const [stages, setStages] = useState([]);
@@ -22,6 +36,20 @@ const NewFile = ({ setupladovisible, userid }) => {
   const [OnView, setOnView] = useState(false);
 
   const { PortToUse, getCookie } = useAppContext();
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setupladovisible(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [setupladovisible]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,12 +83,31 @@ const NewFile = ({ setupladovisible, userid }) => {
           withCredentials: true,
         }
       );
+
       console.log("File uploaded successfully", response.data);
-      setError(""); // Limpiar mensaje de error
+      setError("");
+      onFileUpload();
+
+      // 🎉 Aquí va el SweetAlert
+      Swal.fire({
+        icon: "success",
+        title: "Archivo subido",
+        text: "¡Tu documento fue cargado exitosamente!",
+        confirmButtonColor: "#1976d2",
+      });
+
       setupladovisible(false);
     } catch (error) {
       console.error("Error uploading file", error);
-      setError("Error al subir el archivo."); // Mensaje de error genérico
+      setError("Error al subir el archivo.");
+      setupladovisible(false);
+      // ❌ Alerta de error
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Hubo un problema al subir el archivo.",
+        confirmButtonColor: "#d32f2f",
+      });
     }
   };
 
@@ -137,7 +184,11 @@ const NewFile = ({ setupladovisible, userid }) => {
           position: "fixed",
         }}
       >
-        <div style={{ width: "100%" }} >
+        <div id="HiX" onClick={setupladovisible}>
+          {" "}
+          <HiX></HiX>{" "}
+        </div>{" "}
+        <div style={{ width: "100%" }}>
           <form onSubmit={handleSubmit} id="AllfieldsContainer">
             {error && <div className="error">{error}</div>}{" "}
             <div>
@@ -145,9 +196,9 @@ const NewFile = ({ setupladovisible, userid }) => {
                 value={carrer}
                 onChange={(e) => setCarrer(e.target.value)}
                 // style={{width:"40%"}}
-                className="CarrerField"
+                className="CarrerFieldSelect"
               >
-                <option value="">Choose a carrer</option>
+                <option value="">Escoge Una Carrera</option>
                 {carrers.map((carrer) => (
                   <option
                     key={carrer.id}
@@ -164,14 +215,14 @@ const NewFile = ({ setupladovisible, userid }) => {
                 value={title}
                 className="CarrerField"
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Title"
+                placeholder="Título"
               />
             </div>
             <div>
               <input
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="Description"
+                placeholder="Descripción"
                 className="CarrerField"
               />
             </div>
@@ -179,9 +230,9 @@ const NewFile = ({ setupladovisible, userid }) => {
               <select
                 value={docType}
                 onChange={(e) => setDocType(e.target.value)}
-                className="CarrerField"
+                className="CarrerFieldSelect"
               >
-                <option value="">Document Type</option>
+                <option value="">Tipo De Documento</option>
                 {docTypes.map((type) => (
                   <option key={type.id} value={type.id} className="CarrerField">
                     {type.name}
@@ -192,10 +243,10 @@ const NewFile = ({ setupladovisible, userid }) => {
             <div>
               <select
                 value={stage}
-                className="CarrerField"
+                className="CarrerFieldSelect"
                 onChange={(e) => setStage(e.target.value)}
               >
-                <option value="">Stage</option>
+                <option value="">Fase Del Proyecto</option>
                 {stages.map((stage) => (
                   <option key={stage.id} value={stage.id}>
                     {stage.stage}
@@ -203,7 +254,7 @@ const NewFile = ({ setupladovisible, userid }) => {
                 ))}
               </select>
             </div>
-            <div id="Slider">
+            {/* <div id="Slider">
               <Typography gutterBottom>
                 Progreso: {progressPercentage}%
               </Typography>
@@ -214,8 +265,8 @@ const NewFile = ({ setupladovisible, userid }) => {
                 min={0}
                 max={100}
               />
-            </div>
-            <div>
+            </div> */}
+            <div id="NewFileButton">
               <div>
                 <Button
                   variant="contained"

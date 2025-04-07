@@ -16,6 +16,7 @@ const ProfData = () => {
     name,
     userType,
     setname,
+    role,
     userid,
     setUserid,
     isActive,
@@ -69,6 +70,11 @@ const ProfData = () => {
         <div id="EmailContainer">
           <div id="EmailLabel"> Carrer </div>
           <div id="Email"> Software Engenieer</div>
+        </div>
+        <div id="Linea"></div>
+        <div id="EmailContainer">
+          <div id="EmailLabel"> Tipo De Usuario </div>
+          <div id="Email"> {role} </div>
         </div>
         <div id="Linea"></div>
       </div>

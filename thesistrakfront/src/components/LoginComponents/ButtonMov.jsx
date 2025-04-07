@@ -5,7 +5,6 @@ import "./ButtonMov.css"
 const ButtonMov = ({IsLogin,Loading, text1,text2}) => {
   return (
     <div id='ButtonContainerMov'>
-
     <motion.button 
         disabled={!IsLogin}
         whileHover={{ scale: 1.05 , backgroundColor: ( Loading ? "#1c2d2e":"#024791" )}}
@@ -19,7 +18,7 @@ const ButtonMov = ({IsLogin,Loading, text1,text2}) => {
         title='LOGIN'
         >
         <div id='ButtonTextMov'>
-            {Loading ? text1 : text2}
+            {Loading ? text1 : text2} 
 
         </div>
                     

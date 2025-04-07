@@ -11,7 +11,21 @@ const Myfiles = ({ userid }) => {
   const [UploadVisible, setUploadVisible] = useState(false);
   const [MyDocuments, setMyDocuments] = useState([]);
   const [isLoading, setisLoading] = useState(true);
-  const { PortToUse } = useAppContext();
+  const { API_BASE_URL } = useAppContext();
+  useEffect(() => {
+    if (UploadVisible) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    // Limpieza por si acaso
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [UploadVisible]);
+
+
   console.log("WTF")
   const toggleUpload = () => {
     setUploadVisible(!UploadVisible);
@@ -19,7 +33,7 @@ const Myfiles = ({ userid }) => {
 
   const fetchMyDocuments = async () => {
     try {
-      const response = await axios.get(`${PortToUse}api/my-docs/`, {
+      const response = await axios.get(`${API_BASE_URL}api/my-docs/`, {
         withCredentials: true,
       });
       setMyDocuments(response.data.results);
@@ -34,6 +48,7 @@ const Myfiles = ({ userid }) => {
     fetchMyDocuments();
   }, []); // Arreglo de dependencias vacío para ejecutar solo una vez
 
+// Arreglo de dependencias vacío para ejecutar solo una vez
 
   return (
     <div className={`${UploadVisible ? "Uploading" : ""}`}>
@@ -48,7 +63,7 @@ const Myfiles = ({ userid }) => {
       <div className="MainContainer">
         <div className="MyFilesContainer">
           <div className="CreateNewFile" onClick={toggleUpload}>
-            <div id="NewFileText">Crear Nuevo Archivo</div>
+            <div id="CreateNewText">Create New File</div>
             <div
               style={{
                 _display: "flex",

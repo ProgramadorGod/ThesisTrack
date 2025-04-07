@@ -32,7 +32,7 @@ const App = () => {
 };
 
 function AppContent() {
-  console.log("AA")
+  console.log("AA");
   const {
     isloading,
     isLogged,
@@ -74,7 +74,10 @@ function AppContent() {
 
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/Register" element={<MovRegister/>} />
+            <Route
+              path="/Register"
+              element={isLogged ? <Navigate to="/" /> : <MovRegister />}
+            />
             <Route
               path="/Profile"
               element={

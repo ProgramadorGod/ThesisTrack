@@ -14,10 +14,11 @@
     display: flex;
     width: 93vw;
     height: 90vh;
+    flex-direction: column;
     background-color: rgb(255, 255, 255);
     
     box-shadow: 0.1vh 0.1vh 1.8vh 0.1vh rgba(0, 0, 0, 0.482);
-    justify-content: center;
+    justify-content: flex-start !important;
 
 }
 
@@ -26,6 +27,7 @@
     display: flex;
     flex-direction: column;
     align-content: center;
+    font-family: "Apple";
     align-items: center;
 }
 
@@ -39,11 +41,42 @@
 
 
 .CarrerField{
-    height: 5vh;
-    margin-top: 2vh;
+    height: 8vh;
+    margin-top: 1.5vh;
+    margin-bottom: 1.5vh;
+    padding-left: 3vw;
+    padding-right: 3vw;
+    font-family: "Apple";
     width: 55vw;
     
     background-color: #EFEFEF;  
     border: 0px;
+    
 
+}
+.CarrerFieldSelect{
+    height: 8vh;
+    margin-top: 1.5vh;
+    margin-bottom: 1.5vh;
+
+    font-family: "Apple";
+    width: 61vw;
+    padding-left: 3vw;
+    padding-right: 3vw;
+    
+    background-color: #EFEFEF;  
+    border: 0px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M35 50l35 35 35-35' stroke='%23333' stroke-width='20' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1.5vw center; /* 👈 aquí ajustas la flechita */
+    background-size: 1rem;
+}
+
+
+#NewFileButton{
+    margin-top:3vh;
 }

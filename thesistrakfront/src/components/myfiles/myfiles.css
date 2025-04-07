@@ -30,21 +30,29 @@
     background-color: rgb(241, 241, 241);
     width: 90vw;
     padding-top: 2vh;
-    padding-bottom: 2.6vh;
+    padding-bottom: 2vh;
     box-shadow: 0.1vh 0.1vh 0.9vh 0.1vh rgba(0, 0, 0, 0.515);
 
+}
+
+#CreateNewText{
+    display: flex;
+    justify-content: center;
+    transform: translateY(0.2vh);
 }
 
 @media (min-width:800px){
     .CreateNewFile{
         width: 70vw;
+        display: grid;
+        
     }
 }
 
 .AddButton{
     width: 10vw;
     display: flex;
-    padding-top: 0.3vh;
+    transform: translateY(-0.3vh);
     align-items: center;
     /* background-color: rgba(220, 220, 220, 0.611); */
 

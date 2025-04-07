@@ -1,42 +1,69 @@
 import React, { useState, useEffect } from "react";
-import "./IA.css";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+import {
+  Container,
+  Box,
+  Paper,
+  List,
+  ListItem,
+  ListItemText,
+  TextField,
+  Button,
+  Typography,
+  Divider,
+} from "@mui/material";
 
 const IA = () => {
+  // Recuperar conversaciones guardadas en localStorage
+  const theme = createTheme({
+    typography: {
+      fontFamily: '"Apple", sans-serif', // Se cambia a la fuente personalizada "Apple"
+    },
+  });
   const [conversations, setConversations] = useState(() => {
     const savedConversations = localStorage.getItem("conversations");
     return savedConversations ? JSON.parse(savedConversations) : [];
   });
   const [currentConversation, setCurrentConversation] = useState([]);
   const [input, setInput] = useState("");
-  const API_KEY = "sk-QXZgiIh9Cc5fRQMESLypuqwGmc4A6KJjnvjwQ_IUeIT3BlbkFJInWBm-8TeyQa9I-o1LM03Nj9fTFFlOIud5YTUBmjgA "; // Reemplaza con tu nueva clave de API segura
+  // Reemplaza con tu nueva clave de API segura
+  const API_KEY =
+    "sk-QXZgiIh9Cc5fRQMESLypuqwGmc4A6KJjnvjwQ_IUeIT3BlbkFJInWBm-8TeyQa9I-o1LM03Nj9fTFFlOIud5YTUBmjgA";
 
-  // Guardar en localStorage cuando las conversaciones cambien
+  // Guardar conversaciones en localStorage al cambiar
   useEffect(() => {
     localStorage.setItem("conversations", JSON.stringify(conversations));
   }, [conversations]);
 
+  // Inicia una nueva conversación guardando la actual
   const startNewConversation = () => {
-    setConversations((prevConversations) => [
-      ...prevConversations,
-      { id: Date.now(), messages: currentConversation },
-    ]);
-    setCurrentConversation([]);
+    if (currentConversation.length > 0) {
+      setConversations((prev) => [
+        ...prev,
+        { id: Date.now(), messages: currentConversation },
+      ]);
+      setCurrentConversation([]);
+    }
   };
 
+  // Enviar mensaje y recibir respuesta de GPT
   const handleSend = async () => {
-    if (input.trim() !== "") {
-      const newMessage = { sender: "user", text: input };
-      const updatedConversation = [...currentConversation, newMessage];
-      setCurrentConversation(updatedConversation);
-      setInput("");
+    if (input.trim() === "") return;
+    const newMessage = { sender: "user", text: input };
+    const updatedConversation = [...currentConversation, newMessage];
+    setCurrentConversation(updatedConversation);
+    setInput("");
 
-      const formattedMessages = updatedConversation.map((msg) => ({
-        role: msg.sender === "user" ? "user" : "assistant",
-        content: msg.text,
-      }));
+    const formattedMessages = updatedConversation.map((msg) => ({
+      role: msg.sender === "user" ? "user" : "assistant",
+      content: msg.text,
+    }));
 
-      try {
-        const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    try {
+      const response = await fetch(
+        "https://api.openai.com/v1/chat/completions",
+        {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -44,68 +71,127 @@ const IA = () => {
           },
           body: JSON.stringify({
             model: "gpt-4-turbo", // Usando GPT-4
-            messages: formattedMessages, // Enviar el historial de mensajes completo
+            messages: formattedMessages,
           }),
-        });
+        }
+      );
 
-        const data = await response.json();
-        const gptResponse = data.choices[0].message.content;
+      const data = await response.json();
+      const gptResponse = data.choices[0].message.content;
 
-        setCurrentConversation((prevMessages) => [
-          ...prevMessages,
-          { sender: "gpt", text: gptResponse },
-        ]);
-      } catch (error) {
-        console.error("Error al obtener la respuesta de GPT:", error);
-        setCurrentConversation((prevMessages) => [
-          ...prevMessages,
-          { sender: "gpt", text: "Error al obtener la respuesta." },
-        ]);
-      }
+      setCurrentConversation((prev) => [
+        ...prev,
+        { sender: "gpt", text: gptResponse },
+      ]);
+    } catch (error) {
+      console.error("Error al obtener la respuesta de GPT:", error);
+      setCurrentConversation((prev) => [
+        ...prev,
+        { sender: "gpt", text: "Error al obtener la respuesta." },
+      ]);
     }
   };
 
   return (
-    <div className="MAINIAContainer">
-      <div className="Intern">
-        <div className="ChatWindow">
-          {currentConversation.map((msg, index) => (
-            <div
-              key={index}
-              className={`Message ${msg.sender === "user" ? "UserMessage" : "GPTMessage"}`}
+    <ThemeProvider theme={theme}>
+      <Container maxWidth="sm" id="IAContainer">
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100vh",
+            pt: 2,
+          }}
+          id="IAContainer"
+        >
+          {/* Área de Chat Actual */}
+          <Paper
+            sx={{ flex: 1, p: 2, mb: 2, overflowY: "auto" }}
+            elevation={3}
+            id="IAContainer"
+          >
+            <List>
+              {currentConversation.map((msg, index) => (
+                <ListItem key={index} id="IAContainer">
+                  <ListItemText
+                    id="IAContainer"
+                    primary={msg.text}
+                    primaryTypographyProps={{
+                      color:
+                        msg.sender === "user" ? "primary" : "text.secondary",
+                      align: msg.sender === "user" ? "right" : "left",
+                    }}
+                  />
+                </ListItem>
+              ))}
+            </List>
+          </Paper>
+
+          {/* Entrada y Botones */}
+          <Box sx={{ display: "flex", gap: 1 }} id="IAContainer">
+            <TextField
+              id="IAContainer"
+              fullWidth
+              variant="outlined"
+              placeholder="Escribe tu mensaje..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") handleSend();
+              }}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSend}
+              id="IAContainer"
             >
-              {msg.text}
-            </div>
-          ))}
-        </div>
-        <div className="InputContainer">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Escribe tu mensaje..."
-          />
-          <button onClick={handleSend}>Enviar</button>
-          <button onClick={startNewConversation}>Nueva Conversación</button>
-        </div>
-      </div>
-      <div className="PreviousConversations">
-        <h3>Conversaciones anteriores</h3>
-        {conversations.map((conv) => (
-          <div key={conv.id} className="ConversationPreview">
-            <h4>Conversación {new Date(conv.id).toLocaleString()}</h4>
-            {conv.messages.map((msg, idx) => (
-              <div
-                key={idx}
-                className={`Message ${msg.sender === "user" ? "UserMessage" : "GPTMessage"}`}
-              >
-                {msg.text}
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
+              Enviar
+            </Button>
+          </Box>
+          <Button
+            variant="text"
+            onClick={startNewConversation}
+            sx={{ mt: 1, alignSelf: "flex-end" }}
+          >
+            Nueva Conversación
+          </Button>
+
+          <Divider sx={{ my: 2 }} />
+
+          {/* Listado de Conversaciones Previas */}
+          <Typography variant="h6" gutterBottom>
+            Conversaciones anteriores
+          </Typography>
+          <Paper sx={{ maxHeight: 200, overflowY: "auto", p: 1 }} elevation={1}>
+            <List>
+              {conversations.map((conv) => (
+                <Box key={conv.id} sx={{ mb: 2 }}>
+                  <Typography variant="subtitle2">
+                    {`Conversación ${new Date(conv.id).toLocaleString()}`}
+                  </Typography>
+                  <List disablePadding>
+                    {conv.messages.map((msg, idx) => (
+                      <ListItem key={idx} sx={{ pl: 2 }}>
+                        <ListItemText
+                          primary={msg.text}
+                          primaryTypographyProps={{
+                            color:
+                              msg.sender === "user"
+                                ? "primary"
+                                : "text.secondary",
+                          }}
+                        />
+                      </ListItem>
+                    ))}
+                  </List>
+                </Box>
+              ))}
+            </List>
+          </Paper>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 };
 

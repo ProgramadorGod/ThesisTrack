@@ -1,3 +1,6 @@
+#AIContainer{
+  font-family: "Apple";
+}
 .MAINIAContainer {
     width: 100vw;
     flex-direction: column;
@@ -7,7 +10,9 @@
     min-height: 90vh;
     justify-content: center;
     align-content: center;
+    font-family: "Apple2";
   }
+
   
   .Intern {
     background-color: #ffffffa4;
@@ -53,9 +58,10 @@
   }
   
   .InputContainer {
-    display: flex;
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
     padding: 10px;
-    width: 80vw;
+    width: 90vw;
   }
   
   .InputContainer input {
