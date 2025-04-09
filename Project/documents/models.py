@@ -50,9 +50,3 @@ class FileDocument(AbstractBaseDocument):
     def __str__(self):
         return self.title
 
-
-
-def document_count_by_carrer(request):
-    document_count = (
-        UrlDocument.objects.values('carrer__name')
-    )

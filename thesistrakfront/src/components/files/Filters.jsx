@@ -10,7 +10,6 @@ import LoadingFiles from "./LoadingFiles";
 import { FaFilter, FaPlus } from "react-icons/fa";
 import { motion, spring } from "framer-motion";
 import { duration, Slider, Switch } from "@mui/material";
-import SwitchBase from "@mui/material/internal/SwitchBase";
 
 const Filters = ({
   toogleFilters2,

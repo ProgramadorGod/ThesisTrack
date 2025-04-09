@@ -38,7 +38,6 @@ const MovLogin = ({
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [windowHeight]);
-  
 
   const handleRegister = () => navigate("/register");
   const handleForgotPassword = () => navigate("/forgot-password");

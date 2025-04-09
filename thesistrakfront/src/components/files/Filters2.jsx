@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./Filters2.css";
-import { Slider, Switch } from "@mui/material";
 import { HiX } from "react-icons/hi"; // Ícono de cierre (X)
+
+import { Slider, Switch } from "@mui/material";
 
 const Filters2 = ({
   toogleFilters2,

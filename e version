@@ -1,0 +1,21 @@
+[0;1;32m●[0m docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+     Active: [0;1;32mactive (running)[0m since Tue 2025-04-08 10:04:20 -05; 3h 39min ago
+TriggeredBy: [0;1;32m●[0m docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 1528 (dockerd)
+      Tasks: 13
+     Memory: 26.8M
+     CGroup: /system.slice/docker.service
+             └─1528 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+abr 08 10:04:18 godprogrammer-VivoBook-ASUSLaptop-X421DA-M413DA dockerd[1528]: time="2025-04-08T10:04:18.801581395-05:00" level=info msg="Creating a containerd client" address=/run/containerd/containerd.sock timeout=1m0s
+abr 08 10:04:18 godprogrammer-VivoBook-ASUSLaptop-X421DA-M413DA dockerd[1528]: time="2025-04-08T10:04:18.915175482-05:00" level=info msg="[graphdriver] using prior storage driver: overlay2"
+abr 08 10:04:19 godprogrammer-VivoBook-ASUSLaptop-X421DA-M413DA dockerd[1528]: time="2025-04-08T10:04:19.068930599-05:00" level=info msg="Loading containers: start."
+abr 08 10:04:19 godprogrammer-VivoBook-ASUSLaptop-X421DA-M413DA dockerd[1528]: time="2025-04-08T10:04:19.835630762-05:00" level=info msg="Loading containers: done."
+abr 08 10:04:19 godprogrammer-VivoBook-ASUSLaptop-X421DA-M413DA dockerd[1528]: time="2025-04-08T10:04:19.890834205-05:00" level=info msg="Docker daemon" commit=6430e49 containerd-snapshotter=false storage-driver=overlay2 version=28.0.4
+abr 08 10:04:19 godprogrammer-VivoBook-ASUSLaptop-X421DA-M413DA dockerd[1528]: time="2025-04-08T10:04:19.891185675-05:00" level=info msg="Initializing buildkit"
+abr 08 10:04:20 godprogrammer-VivoBook-ASUSLaptop-X421DA-M413DA dockerd[1528]: time="2025-04-08T10:04:20.191542899-05:00" level=info msg="Completed buildkit initialization"
+abr 08 10:04:20 godprogrammer-VivoBook-ASUSLaptop-X421DA-M413DA dockerd[1528]: time="2025-04-08T10:04:20.201385736-05:00" level=info msg="Daemon has completed initialization"
+abr 08 10:04:20 godprogrammer-VivoBook-ASUSLaptop-X421DA-M413DA dockerd[1528]: time="2025-04-08T10:04:20.201466347-05:00" level=info msg="API listen on /run/docker.sock"
+abr 08 10:04:20 godprogrammer-VivoBook-ASUSLaptop-X421DA-M413DA systemd[1]: Started Docker Application Container Engine.

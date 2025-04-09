@@ -1,3 +1,4 @@
+import os
 """
 Django settings for Project project.
 
@@ -106,6 +107,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://192.168.89.32:3000",
     "http://192.168.89.32:8000",
     "http://172.30.3.15:8000",
+    "http://172.18.0.3:8000",
+    "http://172.18.0.3:3000",
     "http://10.7.49.90:3000",
     "http://172.30.6.97:8000",
     "http://172.30.6.97:3000",
@@ -125,6 +128,8 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     'http://127.0.0.1:3000',
     'https://127.0.0.1:8000',
+    "http://172.18.0.3:3000",
+    "http://172.18.0.3:8000",
     "http://172.30.6.97:8000",
     "http://172.30.6.97:3000",
     'http://192.168.0.17:3000',
@@ -154,6 +159,8 @@ CORS_ORIGIN_WHITELIST = [
     'http://172.10.8.55:8000',
     'http://192.168.0.19:8000',
     "http://localhost:3000",
+    "http://172.18.0.3:3000",
+    "http://172.18.0.3:8000",
     'http://192.168.0.19:3000',
     "http://172.30.6.97:8000",
     "http://172.30.6.97:3000",    
@@ -169,10 +176,10 @@ CORS_ORIGIN_WHITELIST = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ttdatabase',
+        'NAME': 'thesis_db',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST':'127.0.0.1',
+        'HOST':'db',
         'PORT':'3306'
 
 
@@ -198,7 +205,21 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, "templates")],  # Asegura que Django encuentre las plantillas
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -255,7 +276,6 @@ SOCIALACCOUNT_QUERY_EMAIL = True
 
 
 
-import os
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 

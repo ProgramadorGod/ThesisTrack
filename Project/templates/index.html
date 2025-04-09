@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo - ThesisTrack</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .routes {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .routes ul {
+            list-style: none;
+            padding: 0;
+        }
+        .routes li {
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .routes a {
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+        .routes a:hover {
+            background: #0056b3;
+            border-radius: 5px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenido al Panel Administrativo</h1>
+        <p>Desde aquí puedes acceder a las diferentes rutas disponibles en el backend.</p>
+
+        <div class="routes">
+            <h2>🔗 Rutas disponibles:</h2>
+            <ul>
+                <li><a href="/admin/">Panel de Administración</a></li>
+                {% comment %} <li><a href="/api/auth/">Autenticación API</a></li> {% endcomment %}
+                <li><a href="/api/auth/registration/">Registro de Usuarios</a></li>
+                <li><a href="/api/">Usuarios (Userz API)</a></li>
+                <li><a href="/accounts/">AllAuth - Cuentas</a></li>
+                <li><a href="/rest-auth/">DJ Rest Auth</a></li>
+                <li><a href="/api/">Documentos API</a></li> 
+            </ul>
+        </div>
+
+        <a class="btn" id="react-link" target="_blank">Ir a React (Puerto 3000)</a>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const host = window.location.hostname;  // Obtiene la IP del servidor actual
+                document.getElementById("react-link").href = `http://${host}:3000`; // Construye la URL con el puerto 3000
+            });
+        </script>
+            </div>
+</body>
+</html>
