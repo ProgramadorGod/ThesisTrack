@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+
+  postgres:
+    image: postgres:15
+    restart: unless-stopped
+    container_name: thesis_track_db
+    environment:
+      - POSTGRES_USER=${DATABASE_USER:-}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD:-}
+    ports:
+      - ${DATABASE_PORT:-}:${DATABASE_PORT:-}
+    volumes:
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: -p ${DATABASE_PORT:-}
+
+  web:
+    image: thesis_track
+    command: python manage.py runserver 0.0.0.0:${SERVER_PORT:-}
+    container_name: thesis_track_backend
+    tty: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app:Z
+    environment:
+      # Project env config.
+      - DEBUG=${DEBUG:-}
+
+      # Database config.
+      - DATABASE_ENGINE=${DATABASE_ENGINE:-}
+      - DATABASE_HOST=${DATABASE_HOST:-}
+      - DATABASE_PORT=${DATABASE_PORT:-}
+      - DATABASE_NAME=${DATABASE_NAME:-}
+      - DATABASE_USER=${DATABASE_USER:-}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD:-}
+
+    depends_on:
+      - postgres
+
+  nginx:
+    image: thesis_track_nginx
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    ports:
+      - ${SERVER_PORT:-}:${SERVER_PORT:-}
+    depends_on:
+      - postgres
+      - web
