@@ -14,7 +14,7 @@ RUN npm install --legacy-peer-deps --loglevel=verbose
 COPY . .
 
 # Compila la app si es build de producción
-# RUN npm run build
+RUN npm run build
 
 # Comando por defecto
 CMD ["npm", "run", "dev"]

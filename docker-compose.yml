@@ -3,19 +3,14 @@ version: '3.3'
 services:
   backend:
     build: ./Project
-
     environment:
       DB_HOST: db
-
     ports:
       - "8001:8000"
     volumes:
       - ./Project:/app
     depends_on:
       - db
-
-     
-    
 
   frontend:
     build: ./thesistrakfront
@@ -26,7 +21,7 @@ services:
     command: npm start
 
   db:
-    image: mysql:8 # o postgres, según lo que uses
+    image: mysql:8
     restart: always
     environment:
       MYSQL_DATABASE: thesis_db
