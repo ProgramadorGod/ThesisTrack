@@ -1,52 +1,57 @@
-version: '3'
+version: '3.3'
 
 services:
-
   postgres:
     image: postgres:15
     restart: unless-stopped
     container_name: thesis_track_db
     environment:
-      - POSTGRES_USER=${DATABASE_USER:-}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD:-}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
     ports:
-      - ${DATABASE_PORT:-}:${DATABASE_PORT:-}
+      - "5432:5432"  # Útil en desarrollo; en producción quizás no expongas el puerto
     volumes:
       - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
-    command: -p ${DATABASE_PORT:-}
+    command: -p ${DATABASE_PORT}  # Asegúrate de que sea consistente (por lo general, 5432)
 
   web:
     image: thesis_track
-    command: python manage.py runserver 0.0.0.0:${SERVER_PORT:-}
-    container_name: thesis_track_backend
-    tty: true
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: thesis_track_backend
+    command: >
+      sh -c "
+        until nc -z -v -w30 postgres 5432;
+        do
+          echo 'Esperando a la base de datos...';
+          sleep 2;
+        done;
+        python manage.py runserver ${LOCAL_IP}:${SERVER_PORT}
+      "
+    ports:
+      - "${WEB_PORT_HOST}:${SERVER_PORT}"  # Ejemplo: 8000:8000
+    tty: true
     volumes:
       - .:/app:Z
     environment:
-      # Project env config.
-      - DEBUG=${DEBUG:-}
-
-      # Database config.
-      - DATABASE_ENGINE=${DATABASE_ENGINE:-}
-      - DATABASE_HOST=${DATABASE_HOST:-}
-      - DATABASE_PORT=${DATABASE_PORT:-}
-      - DATABASE_NAME=${DATABASE_NAME:-}
-      - DATABASE_USER=${DATABASE_USER:-}
-      - DATABASE_PASSWORD=${DATABASE_PASSWORD:-}
-
+      - DEBUG=${DEBUG}
+      - DATABASE_ENGINE=${DATABASE_ENGINE}
+      - DATABASE_HOST=${DATABASE_HOST}   # Debe ser 'postgres'
+      - DATABASE_PORT=${DATABASE_PORT}   # Usualmente 5432
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
     depends_on:
       - postgres
 
   nginx:
-    image: thesis_track_nginx
     build:
       context: .
       dockerfile: ./nginx/Dockerfile
+    image: thesis_track_nginx
+    container_name: project-nginx
     ports:
-      - ${SERVER_PORT:-}:${SERVER_PORT:-}
+      - "${SERVER_PORT2}:${SERVER_PORT}"  # Ejemplo: 8080:8000
     depends_on:
-      - postgres
       - web

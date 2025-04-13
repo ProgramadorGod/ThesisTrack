@@ -12,3 +12,7 @@ django-admin-interface==0.28.8
 django-cors-headers==4.3.1
 mysqlclient==2.2.4
 psycopg2
+dotenv
+psycopg
+psycopg2-binary
+bs4
