@@ -1,9 +1,7 @@
 import "./App.css";
 import Login from "./components/LoginComponents/login";
 import Profile from "./components/profile/profile";
-import axios from "axios";
-import { createContext, useContext, useEffect, useState } from "react";
-import Navbar from "./components/navbar";
+
 import Loadingrectangle from "./components/loading/loading";
 import {
   BrowserRouter as Router,
@@ -14,14 +12,15 @@ import {
 import Home from "./components/Home";
 import Echart from "./components/Stadistics/Echart";
 import Myfiles from "./components/myfiles/myfiles";
-import Cookies from "js-cookie";
+
 
 import { AppProvider, useAppContext } from "./AppContext";
 import Sidemenu2 from "./components/Sidemenu2/Sidemenu2";
 import IA from "./components/IA/IA";
 import Help from "./components/Help/Help";
-import Register from "./components/LoginComponents/Register";
+
 import { MovRegister } from "./components/LoginComponents/MovRegister";
+import { useEffect } from "react";
 
 const App = () => {
   return (
@@ -44,13 +43,6 @@ function AppContent() {
     fetchProfile,
   } = useAppContext();
 
-  const token = localStorage.getItem("token");
-
-  const ChangeActive = () => {
-    setisActive((prevActiveStatus) =>
-      prevActiveStatus === "" ? "Active" : ""
-    );
-  };
 
   useEffect(() => {
     fetchProfile();

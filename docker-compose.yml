@@ -29,4 +29,4 @@ services:
       MYSQL_PASSWORD: pass
       MYSQL_ROOT_PASSWORD: root
     ports:
-      - "5432:5432"
+      - "5433:5432"
