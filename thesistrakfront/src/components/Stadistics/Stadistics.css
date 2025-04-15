@@ -40,7 +40,11 @@
 .echarts-for-react{
     width:100vw !important;
 }
-
+#p{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 @media (min-width:800px){
     #StadisticsComponent {  
@@ -50,6 +54,8 @@
         overflow-x: hidden;
         /* margin-top: 12vh; */
     }
+
+
     
     .StadisticItem {
         scroll-snap-align: start; /* Ajusta cada sección al inicio del viewport */

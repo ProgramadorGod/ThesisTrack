@@ -123,6 +123,9 @@ CSRF_COOKIE_SECURE = False
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     'http://192.168.0.19',
+    'http://192.168.0.19:8080',
+    'http://192.168.0.19:3000',
+    'http://192.168.0.19:8000',
     "http://127.0.0.1:3000",
     "https://127.0.0.1:8000",
     "http://172.18.0.3:3000",

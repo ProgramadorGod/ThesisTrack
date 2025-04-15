@@ -9,10 +9,12 @@ services:
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
     ports:
-      - "5432:5432"  # Útil en desarrollo; en producción quizás no expongas el puerto
+      - "5432:5432" 
     volumes:
+      - thesis_db_data:/var/lib/postgresql/data
       - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
-    command: -p ${DATABASE_PORT}  # Asegúrate de que sea consistente (por lo general, 5432)
+
+    command: -p ${DATABASE_PORT}
 
   web:
     image: thesis_track
@@ -34,6 +36,8 @@ services:
     tty: true
     volumes:
       - .:/app:Z
+      - /home/godprogrammer/Pages:/data/pages
+
     environment:
       - DEBUG=${DEBUG}
       - DATABASE_ENGINE=${DATABASE_ENGINE}
@@ -55,3 +59,9 @@ services:
       - "${SERVER_PORT2}:${SERVER_PORT}"  # Ejemplo: 8080:8000
     depends_on:
       - web
+      - postgres  # Added dependency on postgres
+
+
+
+volumes:
+  thesis_db_data:
