@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Apple';
-    src: url('../../fonts/AppleGaramond.ttf') format('opentype');
+    src: url('../../fonts/Catrinity.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
   }
@@ -26,7 +26,7 @@
     width: 30vw;
     height: 10vw;
     padding-top: 20px;
-
+    font-family: "Apple";
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -144,9 +144,10 @@
 
 #ProfDataContainer{
   display: flex;
+  height: 100%;
   margin-top: 0px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
 
 }
@@ -156,8 +157,14 @@
     display: flex;
     margin-top: 0px;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
 
 } 
+}
+.ProfileWrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* o el alto que necesites */
+  overflow: hidden;
 }

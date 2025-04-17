@@ -63,7 +63,7 @@ const Myfiles = ({ userid }) => {
       <div className="MainContainer">
         <div className="MyFilesContainer">
           <div className="CreateNewFile" onClick={toggleUpload}>
-            <div id="CreateNewText">Create New File</div>
+            <div id="CreateNewText">Crear Nuevo Documento</div>
             <div
               style={{
                 _display: "flex",
@@ -86,13 +86,13 @@ const Myfiles = ({ userid }) => {
           <div className="MyDocumentsList">
             {isLoading ? (
               <>
-                <h2 className="Proyects"> MY PROYECTS  </h2>
+                <h2 className="Proyects"> MIS PROYECTOS  </h2>
                 <Loadingrectangle></Loadingrectangle>
 
               </>
             ) : (
               <>
-                <h2 className="Proyects"> MY PROYECTS  </h2>
+                <h2 className="Proyects"> MIS PROYECTOS </h2>
                 {MyDocuments.map((document) => (
                   // <Document key={document.id} document={document} />
                   <Document key={document.id} document={document}></Document>

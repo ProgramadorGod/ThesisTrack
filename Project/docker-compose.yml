@@ -37,6 +37,7 @@ services:
     volumes:
       - .:/app:Z
       - /home/godprogrammer/Pages:/data/pages
+      - ./media:/app/media
 
     environment:
       - DEBUG=${DEBUG}
@@ -59,7 +60,9 @@ services:
       - "${SERVER_PORT2}:${SERVER_PORT}"  # Ejemplo: 8080:8000
     depends_on:
       - web
-      - postgres  # Added dependency on postgres
+      - postgres
+    volumes:
+      - ./media:/app/media
 
 
 

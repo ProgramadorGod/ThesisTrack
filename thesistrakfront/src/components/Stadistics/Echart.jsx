@@ -10,7 +10,7 @@ const Echart = () => {
   const [carrerData, setCarrerData] = useState([]);
   const [yearData, setYearData] = useState([]);
   // const API_BASE_URL = "http://127.0.0.1:8000/";
-  const API_BASE_URL =  process.env.REACT_APP_API_URL;
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
   const [carrersList, setCarrersList] = useState([]);
   const [documentsByYear, setDocumentsByYear] = useState({});
   const [trendData, setTrendData] = useState([]); // Para la nueva gráfica de tendencias
@@ -128,6 +128,7 @@ const Echart = () => {
 
   console.log(trendData);
 
+  // Fetch de los datos para Proyectos por Carrera
   useEffect(() => {
     fetch(API_BASE_URL + "api/document-count-by-carrer/")
       .then((response) => response.json())
@@ -145,12 +146,13 @@ const Echart = () => {
           ...topFour.map((item) => ({
             value: item.total_documents,
             name: item.carrer__name,
-            label: { show: true }, // Mostrar etiquetas para las 4 carreras principales
+            label: { show: true },
+            // Mostrar etiquetas para las 4 carreras principales
           })),
           ...others.map((item) => ({
             value: item.total_documents,
             name: item.carrer__name,
-            label: { show: false },
+            label: { show: false, fontFamily: "Apple" },
           })),
         ];
 
@@ -227,12 +229,26 @@ const Echart = () => {
     title: {
       text: "Proyectos Por Carrera",
       left: "center",
+      textStyle: {
+        fontFamily: "Apple",
+      },
     },
     tooltip: {
       trigger: "item",
-      show: true,
+      formatter: function (params) {
+        // Puedes personalizar este contenido según lo que muestres
+        return `<div style="white-space: normal;">${params.seriesName}<br/>${params.name}: ${params.value} (${params.percent}%)</div>`;
+      },
+      textStyle: {
+        fontSize: isMobile ? 12 : 15,
+        lineHeight: 20,
+      },
+      extraCssText: `
+        white-space: normal;
+        max-width: ${isMobile ? "120px" : "300px"};
+        padding: 8px;
+      `,
     },
-
 
     legend: isMobile
       ? { show: false }
@@ -242,6 +258,7 @@ const Echart = () => {
           left: "left",
           textStyle: {
             fontSize: 9,
+            fontFamily: "Apple",
             color: "#333",
           },
           itemGap: 10,
@@ -249,8 +266,7 @@ const Echart = () => {
           formatter: (name) =>
             name.length > 25 ? name.substring(0, 25) + "..." : name,
         },
-    
-        
+
     series: [
       {
         name: "Proyectos",
@@ -258,11 +274,20 @@ const Echart = () => {
         radius: isMobile ? ["20%", "50%"] : ["35%", "85%"],
         avoidLabelOverlap: true,
         data: carrerData,
+        label: {
+          fontFamily: "Apple",
+        },
+        textStyle: {
+          fontFamily: "Apple",
+        },
         emphasis: {
           itemStyle: {
             shadowBlur: 10,
             shadowOffsetX: 0,
             shadowColor: "rgba(0, 0, 0, 0.5)",
+            textStyle: {
+              fontFamily: "Apple",
+            },
           },
         },
       },
@@ -270,20 +295,34 @@ const Echart = () => {
   };
 
   // Configuración del gráfico de línea (Tendencia Por Año)
-  const option2 = { 
+  const option2 = {
     title: {
       text: "Cantidad De Proyectos Por Año",
       left: "center",
+      textStyle: {
+        fontFamily: "Apple",
+      },
     },
     tooltip: {
       trigger: "axis",
+      textStyle: {
+        fontFamily: "Apple",
+      },
     },
     xAxis: {
       type: "category",
       data: yearData.years || [],
+      boundaryGap: false, // <--- Esto es CLAVE
+
+      axisLabel: {
+        fontFamily: "Apple", // Aquí también
+      },
     },
     yAxis: {
       type: "value",
+      axisLabel: {
+        fontFamily: "Apple", // Aquí también
+      },
     },
     grid: {
       left: 50,
@@ -291,8 +330,14 @@ const Echart = () => {
     series: [
       {
         name: "Proyectos",
+        textStyle: {
+          fontFamily: "Apple",
+        },
         type: "line",
         data: yearData.totals || [],
+        label: {
+          fontFamily: "Apple",
+        },
       },
     ],
   };
@@ -320,17 +365,23 @@ const Echart = () => {
       labelLayout: { moveOverlap: "shiftY" },
     })),
   };
+  const colors = ["#5470C6", "#91CC75", "#EE6666", "#FAC858", "#73C0DE", "#3BA272", "#FC8452", "#9A60B4", "#EA7CCC"];
 
   const trendOption = {
     title: {
       text: "Tendencia por Carrera y Año",
       left: "center",
+      textStyle: {
+        fontFamily: "Apple",
+      },
     },
     tooltip: {
       trigger: "axis",
       textStyle: {
         fontSize: 13,
+        fontFamily: "Apple",
       },
+
       formatter: function (params) {
         let tooltipContent = "";
         params.forEach((param) => {
@@ -346,10 +397,24 @@ const Echart = () => {
     xAxis: {
       type: "category",
       name: "Año",
+      axisLabel: {
+        textStyle: {
+          fontFamily: "Apple",
+        },
+      },
     },
     yAxis: {
       type: "value",
       name: "Total Documentos",
+      nameTextStyle:{
+        fontFamily: "Apple",
+        
+      },
+      axisLabel: {
+        textStyle: {
+          fontFamily: "Apple",
+        },
+      },
     },
 
     ...(isMobile
@@ -359,12 +424,16 @@ const Echart = () => {
             show: true,
             data: trendData.map((item) => item.carrera),
             left: "left",
+            textStyle: {
+              fontFamily: "Apple",
+            },
             orient: "vertical",
             top: "top",
             type: "scroll",
             textStyle: {
               fontSize: 8, // Cambia el tamaño de la fuente aquí
               color: "#000", // Opcional: establece el color de la leyenda
+              fontFamily: "Apple",
             },
 
             formatter: function (carrera) {
@@ -375,16 +444,29 @@ const Echart = () => {
           },
         }),
     grid: {
-      left: isMobile ? 56:190,
+      left: isMobile ? 56 : 190,
       right: 56,
-      top: 40 , // Ajusta este valor según el espacio que quieras entre el título y el gráfico
+      top: 40, // Ajusta este valor según el espacio que quieras entre el título y el gráfico
     },
-    series: trendData.map((carrera) => ({
+    series: trendData.map((carrera, index) => ({
       name: carrera.carrera,
       type: "line",
       showSymbol: false,
       data: carrera.data.map((d) => [d.year, d.total_documents]),
-    })),
+      lineStyle: {
+        width: 2,
+      },
+      emphasis: {
+        focus: "series", // resalta solo esta
+        blurScope: "coordinateSystem", // atenúa las demás dentro del mismo gráfico
+        lineStyle: {
+          width: 4, // solo agranda, no cambia color
+          // no pongas color aquí para que respete el original
+        },
+      },
+    }))
+    
+    
   };
 
   const option4 = {

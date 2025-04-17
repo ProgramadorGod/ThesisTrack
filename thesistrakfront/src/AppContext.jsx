@@ -9,6 +9,10 @@ export const AppProvider = ({ children }) => {
     localStorage.setItem("profiledata", JSON.stringify(itemstosave));
   };
 
+  console.log("TESTING TIMES ")
+
+  const [Carrers, setCarrers] = useState([]);
+
   const [ProfilePic, setProfilePic] = useState(
     "media/profile_pictures/einstein.jpg"
   );
@@ -16,7 +20,7 @@ export const AppProvider = ({ children }) => {
   const [isloading, setisloading] = useState(true);
   const [isActive, setisActive] = useState(false);
   const [profile, setProfile] = useState(null);
-  const [role, setRole] = useState("")
+  const [role, setRole] = useState("");
   const [name, setname] = useState("");
   const [userid, setUserid] = useState([]);
 
@@ -127,6 +131,8 @@ export const AppProvider = ({ children }) => {
   // ===========================================================================================================
   // ===========================================================================================================
 
+
+  // REGISTRATION FORM
   // ============================================================================================================
   // ============================================================================================================
   const handleRegisterForm = async (e) => {
@@ -207,6 +213,10 @@ export const AppProvider = ({ children }) => {
     setLoading(false);
   };
 
+  // ============================================================================================================
+
+
+
   const fetchProfile = async () => {
     try {
       // const token = localStorage.getItem('authToken');
@@ -222,20 +232,44 @@ export const AppProvider = ({ children }) => {
         console.log("Logged");
         LocalData(response.data);
         setisloading(false);
-        setisActive("Active");
+        setisActive("Active"); //SidemenuEnabler
       } else {
         console.log("not logged");
       }
 
       setUserid(response.data.ID);
       setProfile(response.data);
-      // setCarrers(response.data.careers)
-      setname(response.data.Username);
+      fetchCarrers();
+      setname(response.data.username);
       setRole(response.data.Role);
       setisLogged(true);
-      setProfilePic(response.data.ProfilePicture);
+
+      // Verificar si la URL de la imagen contiene el puerto 8000
+      let profilePicUrl = response.data.profile_picture;
+
+      if (profilePicUrl) {
+        const url = new URL(
+          profilePicUrl.startsWith("http")
+            ? profilePicUrl
+            : "http://" + profilePicUrl
+        );
+
+        if (!url.port) {
+          url.port = "8000";
+        }
+
+        profilePicUrl = url.href;
+      }
+
+      setProfilePic(profilePicUrl);
+
+      console.log(profilePicUrl);
+      console.log("Response completa:", response.data);
+      console.log(response.data.ProfilePicture);
+      console.log("Response completa:", response.data);
+
       setUserType(response.data.UserType);
-      setEmail(response.data.UserMail);
+      setEmail(response.data.email);
       // handleCloseWindow()
     } catch (error) {
       console.error("Error fetching profile:", error);
@@ -245,7 +279,7 @@ export const AppProvider = ({ children }) => {
       setisloading(false);
     }
   };
-
+  const isMobile = window.innerWidth <= 799;
   const [WindowWidth, setWindowWidth] = useState(window.innerWidth);
   const [WindowHeight, setWindowHeight] = useState(window.innerHeight);
 
@@ -257,6 +291,21 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const fetchCarrers = async (query = "") => {
+    try {
+      const response = await axios.get(PortToUse + "api/carrers/", {
+        withCredentials: true,
+      });
+      setCarrers(response.data);
+    } catch (error) {
+      console.error("Error fetching carrers", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCarrers();
   }, []);
 
   return (
@@ -282,6 +331,7 @@ export const AppProvider = ({ children }) => {
         ProfilePic,
         userType,
         email,
+        isMobile,
         API_BASE_URL,
         role,
         handleLoginForm,
@@ -292,6 +342,7 @@ export const AppProvider = ({ children }) => {
         setUsername,
         password,
         Username,
+        Carrers,
         setPassword,
         setPassword1,
         setPassword2,
@@ -305,11 +356,7 @@ export const AppProvider = ({ children }) => {
     >
       {children}
     </AppContext.Provider>
-    
   );
-  
 };
-
-
 
 export const useAppContext = () => useContext(AppContext);

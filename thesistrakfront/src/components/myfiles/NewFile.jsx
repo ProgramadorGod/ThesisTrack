@@ -35,7 +35,7 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
   const [error, setError] = useState("");
   const [OnView, setOnView] = useState(false);
 
-  const { PortToUse, getCookie } = useAppContext();
+  const { PortToUse, getCookie, isMobile } = useAppContext();
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -122,16 +122,11 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
     }
   };
 
-  const fetchCarrers = async () => {
-    try {
-      const response = await axios.get(PortToUse + "api/carrers/", {
-        withCredentials: true,
-      });
-      setCarrers(response.data);
-    } catch (error) {
-      console.error("Error fetching carrers", error);
-    }
-  };
+  const {Carrers}  = useAppContext();
+
+  useEffect(() => {
+    setCarrers(Carrers);
+  }, [Carrers]);
 
   const fetchStages = async () => {
     try {
@@ -150,7 +145,7 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
 
   useEffect(() => {
     fetchDocTypes();
-    fetchCarrers();
+
     fetchStages();
   }, []); // Lista de dependencias vacía para ejecutar solo una vez
 
@@ -166,7 +161,7 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
     >
       <motion.div
         initial={{ opacity: 0, height: 0 }}
-        animate={{ opacity: 1, height: "90vh" }}
+        animate={{ opacity: 1, height: "80vh", y: isMobile ? -55 : 0 }}
         transition={{
           type: "spring",
           opacity: { duration: 0.3 },
@@ -273,13 +268,26 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
                   component="label"
                   fullWidth
                   id="SelectB"
+                  sx={{
+                    backgroundColor: '#000000',
+                    color: '#ffffff',
+                    '&:hover': {
+                      backgroundColor: '#333333',
+                    },
+                  }}
                 >
                   {file ? file.name : "Seleccionar Archivo"}
                   <input type="file" hidden onChange={handleFileChange} />
                 </Button>
               </div>{" "}
             </div>
-            <Button variant="contained" type="submit">
+            <Button
+              variant="contained"
+              type="submit"
+              sx={{ backgroundColor: '#1976d2', '&:hover': { backgroundColor: '#115293' } }}
+
+              
+            >
               Subir Archivo
             </Button>
           </form>

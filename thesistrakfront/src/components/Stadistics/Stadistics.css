@@ -6,6 +6,7 @@
 }
 
 
+
 .MobileCheck{
     display: flex;
     z-index: 999;
@@ -16,9 +17,23 @@
     
 }
 
+    
+#GraphTitle{
+    /* margin-bottom: 6vh; */
+    align-items: center;
+    width: 80vw;
+    padding-right: 10vw;
+    font-family: "Runtoe";
+}
+#p{
+    width: fit-content;
+    border-bottom: 0.2vh solid black;
+    margin-left:5vh
+}
+
 
 #StadisticsComponent {  
-    scroll-snap-type: y mandatory; /* Ajuste vertical obligatorio */
+    scroll-snap-tRype: y mandatory; /* Ajuste vertical obligatorio */
     overflow-y: scroll; /* Scroll vertical */
     height: 100vh; /* Cada sección llena la pantalla */
     overflow-x: hidden;
@@ -43,6 +58,7 @@
 #p{
     display: flex;
     align-items: center;
+    font-family: "Apple";
     justify-content: center;
 }
 
@@ -76,24 +92,18 @@
         margin-left: 5vw;
         /* padding-top: 16vh; */
     }
-    
-    #GraphTitle{
-        /* margin-bottom: 6vh; */
-        align-items: center;
-        width: 80vw;
-        padding-right: 10vw;
-        font-family: "Runtoe";
-    }
-    #p{
-        width: fit-content;
-        border-bottom: 0.2vh solid black;
-    }
-    
+
+
     
     #Combination{
         margin-left: 10vw;
         
     }
+    #p{
+        
+        margin-left:0vw
+    }
+    
     
     #Pages{
         margin-left: 10vw;

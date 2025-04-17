@@ -5,7 +5,7 @@ import { useAppContext } from "../../AppContext";
 import ReactRoundedImage from "react-rounded-image";
 import axios from "axios";
 
-const ProfData = () => {
+const ProfData = ({onEdit}) => {
   const {
     isloading,
     setisloading,
@@ -53,12 +53,12 @@ const ProfData = () => {
           imageHeight="100"
           
         />
-        <div id="Name">{name.charAt(0).toUpperCase() + name.slice(1)}</div>
+        <div id="Name">{typeof name === "string" ? name.charAt(0).toUpperCase() + name.slice(1) : ""}</div>
 
         <div id="UserType"> {userType} </div>
         <div id="Buttons">
           <button id="wtf" onClick={HandleLogout}>Logout</button> 
-          <button id="Edit">Edit </button>
+          <button id="Edit" >Edit </button>
         </div>
         {/* <a id='logout' className='ProfCardItem' onClick={HandleLogout}> { capitalize("Logout")}</a> */}
         <div id="Linea"></div>

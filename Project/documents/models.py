@@ -19,9 +19,8 @@ class DocumentStage(models.Model):
     def __str__(self):
         return self.stage
 
-class AbstractBaseDocument(models.Model):
-    
-    carrer = models.ForeignKey(Carrer, on_delete=models.SET_DEFAULT, default=1)
+class AbstractBaseDocument(models.Model):    
+    carrer = models.ForeignKey(Carrer, on_delete=models.CASCADE)
     title = models.CharField(max_length=600, default="Untitled")
     authors = models.JSONField(default=list)
     year = models.CharField(max_length=10, default="2024")

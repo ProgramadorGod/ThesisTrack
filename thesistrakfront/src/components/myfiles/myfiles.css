@@ -1,3 +1,12 @@
+@font-face {
+    font-family: 'Apple';
+    src: url('../../fonts/Catrinity.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  
+  
 .MainContainer{
     width: 100vw;
     height: 80vh;
@@ -37,6 +46,7 @@
 
 #CreateNewText{
     display: flex;
+    margin-left: 5vw;
     justify-content: center;
     transform: translateY(0.2vh);
 }
@@ -61,6 +71,9 @@
 
 .Proyects{
     margin-bottom: 0.5vh;
+    font-family: "Apple";
+    display: flex;
+    justify-content: center;
 }
 
 #NewFileText{

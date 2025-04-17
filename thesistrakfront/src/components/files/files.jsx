@@ -12,6 +12,7 @@ import { motion, spring } from "framer-motion";
 import { duration, Slider, Switch } from "@mui/material";
 import Filters from "./Filters";
 import Filters2 from "./Filters2";
+import { useAppContext } from "../../AppContext";
 
 const Files = ({ PortToUse }) => {
   const [AllDocuments, setAllDocuments] = useState([]);
@@ -28,21 +29,11 @@ const Files = ({ PortToUse }) => {
   const [carrers, setCarrers] = useState([]);
 
   const [yearRange, setYearRange] = useState([2001, 2024]);
-
-  const fetchCarrers = async (query = "") => {
-    try {
-      const response = await axios.get(PortToUse + "api/carrers/", {
-        withCredentials: true,
-      });
-      setCarrers(response.data);
-    } catch (error) {
-      console.error("Error fetching carrers", error);
-    }
-  };
+  const {Carrers} = useAppContext();
 
   useEffect(() => {
-    fetchCarrers();
-  }, []);
+    setCarrers(Carrers);
+  }, [Carrers]);
 
   const handleYearChange = (event, newValue) => {
     setYearRange(newValue);
