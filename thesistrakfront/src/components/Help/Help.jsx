@@ -1,3 +1,4 @@
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import React from 'react';
 import {
   Container,
@@ -25,6 +26,11 @@ import CodeIcon from '@mui/icons-material/Code';
 import BuildIcon from '@mui/icons-material/Build';
 import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 
+const theme = createTheme({
+  typography: {
+    fontFamily: '"Apple", sans-serif',
+  },
+});
 // Componente para la cabecera principal
 const Header = () => (
   <Box sx={{ textAlign: 'center', mb: 4 }}>
@@ -305,22 +311,26 @@ const Footer = () => (
   </Box>
 );
 
+
 const Help = () => {
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
-      <Header />
-      <AboutProject />
-      <Divider sx={{ mb: 6 }} />
-      <ProjectTypes />
-      <Divider sx={{ mb: 6 }} />
-      <ProjectSteps />
-      <Divider sx={{ mb: 6 }} />
-      <Tips />
-      <Divider sx={{ mb: 6 }} />
-      <Resources />
-      <Footer />
-    </Container>
+    <ThemeProvider theme={theme}>
+      <Container maxWidth="md" sx={{ py: 4 }}>
+        <Header />
+        <AboutProject />
+        <Divider sx={{ mb: 6 }} />
+        <ProjectTypes />
+        <Divider sx={{ mb: 6 }} />
+        <ProjectSteps />
+        <Divider sx={{ mb: 6 }} />
+        <Tips />
+        <Divider sx={{ mb: 6 }} />
+        <Resources />
+        <Footer />
+      </Container>
+    </ThemeProvider>
   );
 };
+
 
 export default Help;

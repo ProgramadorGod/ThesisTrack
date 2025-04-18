@@ -26,7 +26,7 @@ const Myfiles = ({ userid }) => {
   }, [UploadVisible]);
 
 
-  console.log("WTF")
+
   const toggleUpload = () => {
     setUploadVisible(!UploadVisible);
   };

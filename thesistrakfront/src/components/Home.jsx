@@ -20,7 +20,6 @@ const Home = () => {
 
         <div id='BasicGroup'>
             {/* <Sidebar/> */}
-            <Sidemenu2 isActive={isActive}></Sidemenu2>
 
             {/* {isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile /> : <Login />)} */}
             {isloading ? (<Loadingrectangle/> ): (isLogged ? <Files PortToUse={PortToUse}/> : <Login/>)}

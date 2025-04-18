@@ -5,6 +5,8 @@ import "./Stadistics.css";
 import { Link, Element } from "react-scroll";
 import bookanimation from "../../media/bookanimation.json";
 import { color } from "framer-motion";
+import ProjectsByCareerChart from "./Charts/ProjectsByCareerChart";
+import ProjectsByYearChart from "./Charts/ProjectsByYear";
 
 const Echart = () => {
   const [carrerData, setCarrerData] = useState([]);
@@ -121,12 +123,12 @@ const Echart = () => {
           }, {});
 
         setDocumentsByYear(sortedData);
-        console.log("Datos organizados y ordenados: ", sortedData);
+        // console.log("Datos organizados y ordenados: ", sortedData);
       })
       .catch((error) => console.error("Error al obtener los datos:", error));
   }, []);
 
-  console.log(trendData);
+  // console.log(trendData);
 
   // Fetch de los datos para Proyectos por Carrera
   useEffect(() => {
@@ -217,7 +219,7 @@ const Echart = () => {
         });
 
         setTrendData(filledData);
-        console.log("Datos completos con años faltantes: ", filledData);
+        // console.log("Datos completos con años faltantes: ", filledData);
       })
       .catch((error) =>
         console.error("Error al obtener los datos de tendencia:", error)
@@ -225,122 +227,8 @@ const Echart = () => {
   }, []);
 
   // Configuración del gráfico de pastel (Proyectos por Carrera)
-  const option = {
-    title: {
-      text: "Proyectos Por Carrera",
-      left: "center",
-      textStyle: {
-        fontFamily: "Apple",
-      },
-    },
-    tooltip: {
-      trigger: "item",
-      formatter: function (params) {
-        // Puedes personalizar este contenido según lo que muestres
-        return `<div style="white-space: normal;">${params.seriesName}<br/>${params.name}: ${params.value} (${params.percent}%)</div>`;
-      },
-      textStyle: {
-        fontSize: isMobile ? 12 : 15,
-        lineHeight: 20,
-      },
-      extraCssText: `
-        white-space: normal;
-        max-width: ${isMobile ? "120px" : "300px"};
-        padding: 8px;
-      `,
-    },
 
-    legend: isMobile
-      ? { show: false }
-      : {
-          orient: "vertical",
-          show: true,
-          left: "left",
-          textStyle: {
-            fontSize: 9,
-            fontFamily: "Apple",
-            color: "#333",
-          },
-          itemGap: 10,
-          type: "scroll",
-          formatter: (name) =>
-            name.length > 25 ? name.substring(0, 25) + "..." : name,
-        },
 
-    series: [
-      {
-        name: "Proyectos",
-        type: "pie",
-        radius: isMobile ? ["20%", "50%"] : ["35%", "85%"],
-        avoidLabelOverlap: true,
-        data: carrerData,
-        label: {
-          fontFamily: "Apple",
-        },
-        textStyle: {
-          fontFamily: "Apple",
-        },
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: "rgba(0, 0, 0, 0.5)",
-            textStyle: {
-              fontFamily: "Apple",
-            },
-          },
-        },
-      },
-    ],
-  };
-
-  // Configuración del gráfico de línea (Tendencia Por Año)
-  const option2 = {
-    title: {
-      text: "Cantidad De Proyectos Por Año",
-      left: "center",
-      textStyle: {
-        fontFamily: "Apple",
-      },
-    },
-    tooltip: {
-      trigger: "axis",
-      textStyle: {
-        fontFamily: "Apple",
-      },
-    },
-    xAxis: {
-      type: "category",
-      data: yearData.years || [],
-      boundaryGap: false, // <--- Esto es CLAVE
-
-      axisLabel: {
-        fontFamily: "Apple", // Aquí también
-      },
-    },
-    yAxis: {
-      type: "value",
-      axisLabel: {
-        fontFamily: "Apple", // Aquí también
-      },
-    },
-    grid: {
-      left: 50,
-    },
-    series: [
-      {
-        name: "Proyectos",
-        textStyle: {
-          fontFamily: "Apple",
-        },
-        type: "line",
-        data: yearData.totals || [],
-        label: {
-          fontFamily: "Apple",
-        },
-      },
-    ],
-  };
 
   const option3 = {
     title: { text: "Crecimiento por Carrera", left: "center" },
@@ -375,6 +263,8 @@ const Echart = () => {
         fontFamily: "Apple",
       },
     },
+    animationDuration: 1000,
+    animationEasing: "cubicOut",
     tooltip: {
       trigger: "axis",
       textStyle: {
@@ -516,10 +406,9 @@ const Echart = () => {
 
           {/* Gráfico u otro contenido */}
           <div className="ChartContainer">
-            <ReactEcharts
-              option={option}
-              style={{ height: "70vh", width: "100vw" }}
-            />
+
+            <ProjectsByCareerChart data={carrerData} isMobile={isMobile} />
+
           </div>
         </div>
       </Element>
@@ -527,10 +416,7 @@ const Echart = () => {
       {/* Elemento 2 */}
       <Element name="section2" className="StadisticItem" id="TimeLapse">
         {/* Gráfico u otro contenido */}
-        <ReactEcharts
-          option={option2}
-          style={{ height: "80vh", width: "80vw" }}
-        />
+        <ProjectsByYearChart yearData={yearData} />
       </Element>
       <Element name="section3" className="StadisticItem" id="Combination">
         {/* Gráfico u otro contenido */}

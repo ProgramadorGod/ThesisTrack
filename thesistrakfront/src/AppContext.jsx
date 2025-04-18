@@ -1,159 +1,133 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { fetchProfileData } from "./fetchProfileData";
 
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
+  // Configuración general
+  const PortToUse = process.env.REACT_APP_API_URL;
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
+
+  // Función para guardar datos localmente
   const LocalData = (itemstosave) => {
     localStorage.setItem("profiledata", JSON.stringify(itemstosave));
   };
 
-  console.log("TESTING TIMES ")
-
-  const [Carrers, setCarrers] = useState([]);
-
-  const [ProfilePic, setProfilePic] = useState(
-    "media/profile_pictures/einstein.jpg"
-  );
+  // Estados generales
   const [isLogged, setisLogged] = useState(false);
   const [isloading, setisloading] = useState(true);
   const [isActive, setisActive] = useState(false);
   const [profile, setProfile] = useState(null);
+  const [ProfilePic, setProfilePic] = useState("media/profile_pictures/einstein.jpg");
   const [role, setRole] = useState("");
   const [name, setname] = useState("");
   const [userid, setUserid] = useState([]);
-
-  const PortToUse = process.env.REACT_APP_API_URL;
-  // let PortToUse = "http://127.0.0.1:8000/";
   const [userType, setUserType] = useState("Guest");
   const [email, setEmail] = useState("There's no Email Address");
-  const [Loading, setLoading] = useState(false);
+  const [Carrers, setCarrers] = useState([]);
 
-  // || "http://127.0.0.1:8000"
+  // Estado para tamaño de ventana
+  const [WindowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [WindowHeight, setWindowHeight] = useState(window.innerHeight);
+  const isMobile = WindowWidth <= 799;
 
-  const API_BASE_URL = process.env.REACT_APP_API_URL;
-  // const API_BASE_URL = "http://127.0.0.1:8000/"
-
-  // PortToUse = API_BASE_URL
-
+  // Registro
   const [Username, setUsername2] = useState("");
   const [EmailReg, setEmailReg] = useState("");
   const [Password1, setPassword1] = useState("");
   const [Password2, setPassword2] = useState("");
+  const [Loading, setLoading] = useState(false);
 
-  // LOGIN FORM
-  // ===========================================================================================================
-  // ===========================================================================================================
+  // Login
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [LoadingFetch, setLoadingFetch] = useState(false);
 
-  function getCookie(name) {
+  // CSRF
+  const getCookie = (name) => {
     let cookieValue = null;
     if (document.cookie && document.cookie !== "") {
       const cookies = document.cookie.split(";");
       for (let i = 0; i < cookies.length; i++) {
         const cookie = cookies[i].trim();
-        if (cookie.substring(0, name.length + 1) === name + "=") {
+        if (cookie.startsWith(name + "=")) {
           cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
           break;
         }
       }
     }
     return cookieValue;
-  }
+  };
 
-  const [LoadingFetch, setLoadingFetch] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const getCsrfToken = () => {
-    const csrfToken = document.cookie
+    return document.cookie
       .split("; ")
       .find((row) => row.startsWith("csrftoken="))
       ?.split("=")[1];
-    return csrfToken;
   };
+
   const setCsrfToken = (token) => {
     document.cookie = `csrftoken=${token}; path=/`;
   };
 
+  // Login handler
   const handleLoginForm = async (e) => {
     e.preventDefault();
-    if (LoadingFetch) return; // Evitar enviar si ya hay una petición en proceso
-
+    if (LoadingFetch) return;
     setLoadingFetch(true);
 
     try {
       const response = await axios.post(
-        PortToUse + "api/login2/",
-        {
-          username,
-          password,
-        },
-        {
-          headers: {
-            "X-CSRFToken": getCsrfToken(),
-          },
-        }
+        `${PortToUse}api/login2/`,
+        { username, password },
+        { headers: { "X-CSRFToken": getCsrfToken() } }
       );
 
       if (response.status === 200) {
-        console.log("worked");
         setisActive(true);
-        console.log(isLogged);
-        setLoadingFetch(false);
         fetchProfile();
         setUsername("");
         setPassword("");
       }
-      setLoadingFetch(false);
     } catch (error) {
-      if (error.response && error.response.status === 403) {
-        // Refresh CSRF token
-        const csrfResponse = await axios.get(PortToUse + "/api/refresh_csrf/");
-        const NewCsrfToken = csrfResponse.data.csrfToken;
-        setLoadingFetch(false);
-
-        setCsrfToken(NewCsrfToken);
-
+      if (error.response?.status === 403) {
+        const csrfResponse = await axios.get(`${PortToUse}/api/refresh_csrf/`);
+        const newToken = csrfResponse.data.csrfToken;
+        setCsrfToken(newToken);
         alert("CSRF token refreshed, please try again.");
       } else {
         Swal.fire({
           icon: "error",
-          title: error.response.data.Detail,
+          title: error.response?.data?.Detail || "Login failed",
           text: "Try Again!",
           timer: 1500,
           timerProgressBar: true,
         });
       }
-      console.log("ERROR TRYING TO LOGIN, ", error);
+      console.error("Error logging in:", error);
+    } finally {
+      setLoadingFetch(false);
     }
-    setLoadingFetch(false);
   };
-  // ===========================================================================================================
-  // ===========================================================================================================
 
-
-  // REGISTRATION FORM
-  // ============================================================================================================
-  // ============================================================================================================
+  // Registro handler
   const handleRegisterForm = async (e) => {
     e.preventDefault();
     if (Loading) return;
-
     setLoading(true);
+
     try {
       const response = await axios.post(
-        PortToUse + "api/auth/registration/",
+        `${PortToUse}api/auth/registration/`,
         {
           username: Username,
           email: EmailReg,
           password1: Password1,
           password2: Password1,
         },
-        {
-          headers: {
-            "X-CSRFToken": getCsrfToken(),
-          },
-        }
+        { headers: { "X-CSRFToken": getCsrfToken() } }
       );
 
       Swal.fire({
@@ -165,21 +139,13 @@ export const AppProvider = ({ children }) => {
       });
 
       try {
-        const response2 = await axios.post(
-          PortToUse + "api/login2/",
-          {
-            username: Username,
-            password: Password1,
-          },
-          {
-            headers: {
-              "X-CSRFToken": getCsrfToken(),
-            },
-          }
+        const loginResponse = await axios.post(
+          `${PortToUse}api/login2/`,
+          { username: Username, password: Password1 },
+          { headers: { "X-CSRFToken": getCsrfToken() } }
         );
 
-        if (response2.status === 200) {
-          console.log("worked");
+        if (loginResponse.status === 200) {
           setUsername2("");
           setPassword1("");
           setEmailReg("");
@@ -190,112 +156,47 @@ export const AppProvider = ({ children }) => {
         alert(e);
       }
     } catch (error) {
-      console.log("Register failed");
-      if (error.response) {
-        const errorMessages = Object.entries(error.response.data)
-          .map(([field, messages]) => `${field}: ${messages.join(", ")}`)
-          .join("\n");
+      console.error("Registration failed", error);
+      const errorMessages = error.response
+        ? Object.entries(error.response.data)
+            .map(([field, messages]) => `${field}: ${messages.join(", ")}`)
+            .join("\n")
+        : "An unexpected error occurred. Please try again later.";
 
-        Swal.fire({
-          icon: "error",
-          title: "Registration failed",
-          text: errorMessages,
-        });
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Registration failed",
-          text: "An unexpected error occurred. Please try again later.",
-        });
-      }
+      Swal.fire({
+        icon: "error",
+        title: "Registration failed",
+        text: errorMessages,
+      });
     }
 
     setLoading(false);
   };
 
-  // ============================================================================================================
-
-
-
-  const fetchProfile = async () => {
-    try {
-      // const token = localStorage.getItem('authToken');
-      const response = await axios.get(API_BASE_URL + "api/accounts/", {
-        withCredentials: true, // Importante para enviar cookies de sesión
-
-        // headers:{
-        // Authorization:`Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5NjQxMTg3LCJpYXQiOjE3MTk2NDA4ODcsImp0aSI6IjFjMDE0YTIxZjNiMTRmMjZhYmFkZWQzZjhmYWZiOGU2IiwidXNlcl9pZCI6MX0.y5hUZPjyxVmy1bDG_NkABBqSgZEEEfKGbA8SN3-AzfI`
-        // },
-      });
-
-      if (response.status === 200) {
-        console.log("Logged");
-        LocalData(response.data);
-        setisloading(false);
-        setisActive("Active"); //SidemenuEnabler
-      } else {
-        console.log("not logged");
-      }
-
-      setUserid(response.data.ID);
-      setProfile(response.data);
-      fetchCarrers();
-      setname(response.data.username);
-      setRole(response.data.Role);
-      setisLogged(true);
-
-      // Verificar si la URL de la imagen contiene el puerto 8000
-      let profilePicUrl = response.data.profile_picture;
-
-      if (profilePicUrl) {
-        const url = new URL(
-          profilePicUrl.startsWith("http")
-            ? profilePicUrl
-            : "http://" + profilePicUrl
-        );
-
-        if (!url.port) {
-          url.port = "8000";
-        }
-
-        profilePicUrl = url.href;
-      }
-
-      setProfilePic(profilePicUrl);
-
-      console.log(profilePicUrl);
-      console.log("Response completa:", response.data);
-      console.log(response.data.ProfilePicture);
-      console.log("Response completa:", response.data);
-
-      setUserType(response.data.UserType);
-      setEmail(response.data.email);
-      // handleCloseWindow()
-    } catch (error) {
-      console.error("Error fetching profile:", error);
-      setisLogged(false);
-      console.log("Not Logged");
-    } finally {
-      setisloading(false);
-    }
+  // Perfil
+  const fetchProfile = () => {
+    fetchProfileData({
+      API_BASE_URL,
+      LocalData,
+      setisloading,
+      setisActive,
+      setUserid,
+      setProfile,
+      setname,
+      setRole,
+      setisLogged,
+      setUserType,
+      setEmail,
+      setProfilePic,
+      fetchCarrers,
+    });
   };
-  const isMobile = window.innerWidth <= 799;
-  const [WindowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [WindowHeight, setWindowHeight] = useState(window.innerHeight);
+  
 
-  const handleResize = () => {
-    setWindowWidth(window.innerWidth);
-    setWindowHeight(window.innerHeight);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const fetchCarrers = async (query = "") => {
+  // Carreras
+  const fetchCarrers = async () => {
     try {
-      const response = await axios.get(PortToUse + "api/carrers/", {
+      const response = await axios.get(`${PortToUse}api/carrers/`, {
         withCredentials: true,
       });
       setCarrers(response.data);
@@ -306,6 +207,17 @@ export const AppProvider = ({ children }) => {
 
   useEffect(() => {
     fetchCarrers();
+  }, []);
+
+  // Resize
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      setWindowHeight(window.innerHeight);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -341,17 +253,16 @@ export const AppProvider = ({ children }) => {
         username,
         setUsername,
         password,
-        Username,
-        Carrers,
         setPassword,
-        setPassword1,
-        setPassword2,
+        Username,
         setUsername2,
-        setEmailReg,
         EmailReg,
+        setEmailReg,
         Password1,
+        setPassword1,
         Password2,
         setPassword2,
+        Carrers,
       }}
     >
       {children}
