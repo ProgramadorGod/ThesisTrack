@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./ProfData.css";
 import { FaUserCircle } from "react-icons/fa";
 import { useAppContext } from "../../AppContext";
@@ -10,6 +10,7 @@ const ProfData = ({onEdit}) => {
     isloading,
     setisloading,
     isLogged,
+    fetchProfile,
     setisLogged,
     profile,
     setProfile,
@@ -25,6 +26,10 @@ const ProfData = ({onEdit}) => {
     ProfilePic,
     email,
   } = useAppContext();
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
 
   const HandleLogout = async (e) => {
     setisLogged(false);
@@ -53,7 +58,9 @@ const ProfData = ({onEdit}) => {
           imageHeight="100"
           
         />
-        <div id="Name">{typeof name === "string" ? name.charAt(0).toUpperCase() + name.slice(1) : ""}</div>
+        <div id="Name">
+          {name ? capitalize(name) : ""}
+        </div>
 
         <div id="UserType"> {userType} </div>
         <div id="Buttons">

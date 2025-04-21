@@ -117,9 +117,10 @@ export const AppProvider = ({ children }) => {
     e.preventDefault();
     if (Loading) return;
     setLoading(true);
-
+  
     try {
-      const response = await axios.post(
+      // Registro
+      await axios.post(
         `${PortToUse}api/auth/registration/`,
         {
           username: Username,
@@ -127,9 +128,12 @@ export const AppProvider = ({ children }) => {
           password1: Password1,
           password2: Password1,
         },
-        { headers: { "X-CSRFToken": getCsrfToken() } }
+        {
+          headers: { "X-CSRFToken": getCsrfToken() },
+          withCredentials: true, // ← NECESARIO
+        }
       );
-
+  
       Swal.fire({
         icon: "success",
         title: "Registration Successful",
@@ -137,14 +141,21 @@ export const AppProvider = ({ children }) => {
         timer: 2000,
         timerProgressBar: true,
       });
-
+  
+      // Login automático
       try {
         const loginResponse = await axios.post(
           `${PortToUse}api/login2/`,
-          { username: Username, password: Password1 },
-          { headers: { "X-CSRFToken": getCsrfToken() } }
+          {
+            username: Username,
+            password: Password1,
+          },
+          {
+            headers: { "X-CSRFToken": getCsrfToken() },
+            withCredentials: true, // ← NECESARIO AQUÍ TAMBIÉN
+          }
         );
-
+  
         if (loginResponse.status === 200) {
           setUsername2("");
           setPassword1("");
@@ -152,8 +163,13 @@ export const AppProvider = ({ children }) => {
           setisActive(true);
           fetchProfile();
         }
-      } catch (e) {
-        alert(e);
+      } catch (loginErr) {
+        console.error("Login failed", loginErr);
+        Swal.fire({
+          icon: "error",
+          title: "Login Failed",
+          text: "Please try to log in manually.",
+        });
       }
     } catch (error) {
       console.error("Registration failed", error);
@@ -162,17 +178,17 @@ export const AppProvider = ({ children }) => {
             .map(([field, messages]) => `${field}: ${messages.join(", ")}`)
             .join("\n")
         : "An unexpected error occurred. Please try again later.";
-
+  
       Swal.fire({
         icon: "error",
         title: "Registration failed",
         text: errorMessages,
       });
     }
-
+  
     setLoading(false);
   };
-
+  
   // Perfil
   const fetchProfile = () => {
     fetchProfileData({
