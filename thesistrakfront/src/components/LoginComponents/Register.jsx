@@ -5,15 +5,13 @@ import Swal from "sweetalert2";
 import { useAppContext } from "../../AppContext";
 import Button from "./Button";
 
-const Register = ({ GoogleIcon }) => {
-
+const Register = ({ GoogleIcon, IsLogin }) => {
   const [usernameFocus, setusernameFocus] = useState(false);
   const [emailFocus, setemailFocus] = useState(false);
   const [password1Focus, setpassword1Focus] = useState(false);
   const {
     isLogged,
     PortToUse,
-    IsLogin,
     handleRegisterForm,
     handleLogin,
     Username,
@@ -23,7 +21,7 @@ const Register = ({ GoogleIcon }) => {
     Password1,
     setPassword1,
     Loading,
-    
+
     WindowWidth,
     WindowHeight,
     setisActive,
@@ -31,7 +29,8 @@ const Register = ({ GoogleIcon }) => {
 
     handleLoginForm,
   } = useAppContext();
-  
+
+  const isTabbable = !IsLogin ? 0 : -1;
 
   const handleRegisterAppear = () => {
     if (WindowWidth > 700) {
@@ -44,7 +43,7 @@ const Register = ({ GoogleIcon }) => {
   return (
     <motion.div
       id="RegisterContainer"
-      className={`${IsLogin ? "" : "InRegister"}`}
+      className={`${IsLogin ? "OutRegister" : "InRegister"}`}
       initial={{ opacity: 0 }}
       animate={{
         opacity: IsLogin ? 0 : 1,
@@ -57,22 +56,28 @@ const Register = ({ GoogleIcon }) => {
       }}
       disabled={IsLogin}
     >
-      <div className="ComboTextGoogle" id="ComboRegister">
+      <div className="ComboTextGoogle" id="ComboRegister" >
         <h1 id="RegisterText">Register</h1>
       </div>
       <div
         className="GoogleButton"
         onClick={handleLogin}
         disabled={IsLogin}
+        tabIndex={isTabbable}
         aria-label="Aria Google"
       >
         <img src={GoogleIcon} id="FaGoogle" />
       </div>
 
-      <form onSubmit={handleRegisterForm} id="RegisterFormContainer">
+      <form
+        onSubmit={handleRegisterForm}
+        id="RegisterFormContainer"
+        
+      >
         <div id="Inputs">
           <div id="RegisterUserLab">
             <input
+              tabIndex={isTabbable}
               id="Username-Input"
               disabled={IsLogin}
               type="text"
@@ -95,6 +100,7 @@ const Register = ({ GoogleIcon }) => {
             <input
               disabled={IsLogin}
               id="Email-Input"
+              tabIndex={isTabbable}
               placeholder="Gmail"
               type="email"
               className="Email-input"
@@ -115,6 +121,7 @@ const Register = ({ GoogleIcon }) => {
           <div id="RegisterPass1Lab">
             <input
               disabled={IsLogin}
+              tabIndex={isTabbable}
               id="Password-Input"
               type="Password"
               placeholder="Password"
@@ -135,6 +142,7 @@ const Register = ({ GoogleIcon }) => {
 
         <div>
           <Button
+            tabIndex={isTabbable}
             IsLogin={!IsLogin}
             Loading={Loading}
             text1={"SIGN UP"}

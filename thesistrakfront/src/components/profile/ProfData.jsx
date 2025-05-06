@@ -64,19 +64,19 @@ const ProfData = ({onEdit}) => {
 
         <div id="UserType"> {userType} </div>
         <div id="Buttons">
-          <button id="wtf" onClick={HandleLogout}>Logout</button> 
-          <button id="Edit" >Edit </button>
+          <button id="wtf" onClick={HandleLogout}>Salir</button> 
+          <button id="Edit" >Editar </button>
         </div>
         {/* <a id='logout' className='ProfCardItem' onClick={HandleLogout}> { capitalize("Logout")}</a> */}
         <div id="Linea"></div>
         <div id="EmailContainer">
-          <div id="EmailLabel"> Email </div>
+          <div id="EmailLabel"> Correo Electrónico </div>
           <div id="Email"> {email}</div>
         </div>
         <div id="Linea"></div>
         <div id="EmailContainer">
-          <div id="EmailLabel"> Carrer </div>
-          <div id="Email"> Software Engenieer</div>
+          <div id="EmailLabel"> Carrera </div>
+          <div id="Email"> Ingeniería Informática </div>
         </div>
         <div id="Linea"></div>
         <div id="EmailContainer">

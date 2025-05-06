@@ -35,7 +35,8 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
   const [error, setError] = useState("");
   const [OnView, setOnView] = useState(false);
 
-  const { PortToUse, getCookie, isMobile } = useAppContext();
+  const { PortToUse, getCookie, isMobile, refreshCsrfToken, getCsrfToken } =
+    useAppContext();
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -54,6 +55,12 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validación de carrera seleccionada
+    if (!carrer) {
+      setError("Por favor, selecciona una carrera.");
+      return; // Detenemos el envío si no se seleccionó una carrera
+    }
+
     if (!file) {
       setError("Por favor, selecciona un archivo.");
       return;
@@ -65,49 +72,91 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
     formData.append("is_visible", visible);
     formData.append("description", description);
     formData.append("year", "2024");
-    formData.append("file", file); // Archivo debe estar presente
+    formData.append("file", file);
     formData.append("progress_percentage", progressPercentage);
     formData.append("document_type", docType);
-    formData.append("carrer", carrer);
+    formData.append("carrer", carrer); // Asegúrate de pasar el ID de la carrera
     formData.append("stage", stage);
 
     try {
+      // Primer intento con token actual
       const response = await axios.post(
-        PortToUse + "api/file_docs/",
+        `${PortToUse}api/file_docs/`,
         formData,
         {
           headers: {
             Accept: "application/json",
-            "X-CSRFToken": getCookie("csrftoken"),
+            "X-CSRFToken": getCsrfToken(),
           },
           withCredentials: true,
         }
       );
 
-      console.log("File uploaded successfully", response.data);
-      setError("");
-      onFileUpload();
+      if (response.status === 200 || response.status === 201) {
+        onFileUpload();
 
-      // 🎉 Aquí va el SweetAlert
-      Swal.fire({
-        icon: "success",
-        title: "Archivo subido",
-        text: "¡Tu documento fue cargado exitosamente!",
-        confirmButtonColor: "#1976d2",
-      });
+        Swal.fire({
+          icon: "success",
+          title: "Archivo subido",
+          text: "¡Tu documento fue cargado exitosamente!",
+          confirmButtonColor: "#1976d2",
+        });
 
-      setupladovisible(false);
+        setupladovisible(false);
+      }
     } catch (error) {
-      console.error("Error uploading file", error);
-      setError("Error al subir el archivo.");
-      setupladovisible(false);
-      // ❌ Alerta de error
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Hubo un problema al subir el archivo.",
-        confirmButtonColor: "#d32f2f",
-      });
+      if (error.response) {
+        console.error("Respuesta del servidor:", error.response.data);
+      }
+
+      if (error.response?.status === 403) {
+        // Reintento con nuevo token
+        const newToken = await refreshCsrfToken();
+        try {
+          const retryResponse = await axios.post(
+            `${PortToUse}api/file_docs/`,
+            formData,
+            {
+              headers: {
+                Accept: "application/json",
+                "X-CSRFToken": newToken,
+              },
+              withCredentials: true,
+            }
+          );
+
+          if (retryResponse.status === 200 || retryResponse.status === 201) {
+            onFileUpload();
+
+            Swal.fire({
+              icon: "success",
+              title: "Archivo subido",
+              text: "¡Tu documento fue cargado exitosamente!",
+              confirmButtonColor: "#1976d2",
+            });
+
+            setupladovisible(false);
+          }
+        } catch (retryError) {
+          console.error("Error al reintentar la subida:", retryError);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "No se pudo subir el archivo.",
+            confirmButtonColor: "#d32f2f",
+          });
+          setupladovisible(false);
+        }
+      } else {
+        console.error("Error al subir el archivo:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Hubo un problema al subir el archivo.",
+          confirmButtonColor: "#d32f2f",
+        });
+        setupladovisible(false);
+      }
     }
   };
 
@@ -122,7 +171,7 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
     }
   };
 
-  const {Carrers}  = useAppContext();
+  const { Carrers } = useAppContext();
 
   useEffect(() => {
     setCarrers(Carrers);
@@ -269,10 +318,10 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
                   fullWidth
                   id="SelectB"
                   sx={{
-                    backgroundColor: '#000000',
-                    color: '#ffffff',
-                    '&:hover': {
-                      backgroundColor: '#333333',
+                    backgroundColor: "#000000",
+                    color: "#ffffff",
+                    "&:hover": {
+                      backgroundColor: "#333333",
                     },
                   }}
                 >
@@ -284,9 +333,10 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
             <Button
               variant="contained"
               type="submit"
-              sx={{ backgroundColor: '#1976d2', '&:hover': { backgroundColor: '#115293' } }}
-
-              
+              sx={{
+                backgroundColor: "#1976d2",
+                "&:hover": { backgroundColor: "#115293" },
+              }}
             >
               Subir Archivo
             </Button>

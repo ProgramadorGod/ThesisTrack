@@ -16,3 +16,4 @@ python-dotenv  # asegúrate que esté aquí para cargar las variables de entorno
 beautifulsoup4==4.11.1  # agrega BeautifulSoup4 para hacer el parsing HTML
 selenium==4.9.1
 webdriver-manager==3.8.4
+dj-database-url6

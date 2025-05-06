@@ -237,6 +237,7 @@ const Login = () => {
 
         <Register
           handleLogin={handleLogin}
+          IsLogin={IsLogin}
           GoogleIcon={GoogleIcon}
 
         />

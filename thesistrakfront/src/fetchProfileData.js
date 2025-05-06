@@ -33,14 +33,8 @@ export const fetchProfileData = async ({
       setEmail(response.data.email);
       fetchCarrers();
 
-      let profilePicUrl = response.data.profile_picture;
-      if (profilePicUrl) {
-        const url = new URL(
-          profilePicUrl.startsWith("http") ? profilePicUrl : "http://" + profilePicUrl
-        );
-        if (!url.port) url.port = "8000";
-        profilePicUrl = url.href;
-      }
+      // Se asigna directamente la URL del profile_picture sin modificaciones
+      const profilePicUrl = response.data.profile_picture;
       setProfilePic(profilePicUrl);
     }
   } catch (error) {

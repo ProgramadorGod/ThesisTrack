@@ -62,8 +62,9 @@
 }
 
 #logo {
-    padding-top: 0.05vw;
+    padding-bottom: 0.6vh;
     color: #FAB73C;
+    margin-right: 0.2vw;
 }
 
 .Title {

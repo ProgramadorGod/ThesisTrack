@@ -52,7 +52,7 @@ const Document = ({ document }) => {
       <div className="ThesisContainer">
         <div id="kind">
           <RxTokens id="logo" />
-          {document.code} {"\u00A0"} / {"\u00A0"} {document.carrer_name}
+          {document.code}  RX-312{"\u00A0"} / {"\u00A0"} {document.carrera}
           <div className="Views">
             <RxEyeOpen id="Eye" />
             {visualizations} views

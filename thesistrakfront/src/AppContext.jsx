@@ -20,7 +20,9 @@ export const AppProvider = ({ children }) => {
   const [isloading, setisloading] = useState(true);
   const [isActive, setisActive] = useState(false);
   const [profile, setProfile] = useState(null);
-  const [ProfilePic, setProfilePic] = useState("media/profile_pictures/einstein.jpg");
+  const [ProfilePic, setProfilePic] = useState(
+    "media/profile_pictures/einstein.jpg"
+  );
   const [role, setRole] = useState("");
   const [name, setname] = useState("");
   const [userid, setUserid] = useState([]);
@@ -68,17 +70,27 @@ export const AppProvider = ({ children }) => {
       ?.split("=")[1];
   };
 
-  const setCsrfToken = (token) => {
-    document.cookie = `csrftoken=${token}; path=/`;
-  };
+  
 
   // Login handler
+  const refreshCsrfToken = async () => {
+    try {
+      const csrfResponse = await axios.get(`${PortToUse}/api/refresh_csrf/`);
+      const newToken = csrfResponse.data.csrfToken;
+      return newToken;
+    } catch (error) {
+      console.error("Error refreshing CSRF token:", error);
+      throw error;
+    }
+  };
+
   const handleLoginForm = async (e) => {
     e.preventDefault();
     if (LoadingFetch) return;
     setLoadingFetch(true);
 
     try {
+      // Primero intentamos realizar el login
       const response = await axios.post(
         `${PortToUse}api/login2/`,
         { username, password },
@@ -93,10 +105,20 @@ export const AppProvider = ({ children }) => {
       }
     } catch (error) {
       if (error.response?.status === 403) {
-        const csrfResponse = await axios.get(`${PortToUse}/api/refresh_csrf/`);
-        const newToken = csrfResponse.data.csrfToken;
-        setCsrfToken(newToken);
-        alert("CSRF token refreshed, please try again.");
+        // Si obtenemos un 403, refrescamos el CSRF y reintentamos el login
+        const newToken = await refreshCsrfToken();
+        const retryResponse = await axios.post(
+          `${PortToUse}api/login2/`,
+          { username, password },
+          { headers: { "X-CSRFToken": newToken } }
+        );
+
+        if (retryResponse.status === 200) {
+          setisActive(true);
+          fetchProfile();
+          setUsername("");
+          setPassword("");
+        }
       } else {
         Swal.fire({
           icon: "error",
@@ -117,9 +139,9 @@ export const AppProvider = ({ children }) => {
     e.preventDefault();
     if (Loading) return;
     setLoading(true);
-  
+
     try {
-      // Registro
+      // Primero, intentamos registrar al usuario
       await axios.post(
         `${PortToUse}api/auth/registration/`,
         {
@@ -133,7 +155,7 @@ export const AppProvider = ({ children }) => {
           withCredentials: true, // ← NECESARIO
         }
       );
-  
+
       Swal.fire({
         icon: "success",
         title: "Registration Successful",
@@ -141,35 +163,29 @@ export const AppProvider = ({ children }) => {
         timer: 2000,
         timerProgressBar: true,
       });
-  
-      // Login automático
-      try {
-        const loginResponse = await axios.post(
-          `${PortToUse}api/login2/`,
-          {
-            username: Username,
-            password: Password1,
-          },
-          {
-            headers: { "X-CSRFToken": getCsrfToken() },
-            withCredentials: true, // ← NECESARIO AQUÍ TAMBIÉN
-          }
-        );
-  
-        if (loginResponse.status === 200) {
-          setUsername2("");
-          setPassword1("");
-          setEmailReg("");
-          setisActive(true);
-          fetchProfile();
+
+      // Refrescamos el token CSRF
+      const newToken = await refreshCsrfToken();
+
+      // Intentamos el login automáticamente después de un registro exitoso
+      const loginResponse = await axios.post(
+        `${PortToUse}api/login2/`,
+        {
+          username: Username,
+          password: Password1,
+        },
+        {
+          headers: { "X-CSRFToken": newToken },
+          withCredentials: true, // ← NECESARIO AQUÍ TAMBIÉN
         }
-      } catch (loginErr) {
-        console.error("Login failed", loginErr);
-        Swal.fire({
-          icon: "error",
-          title: "Login Failed",
-          text: "Please try to log in manually.",
-        });
+      );
+
+      if (loginResponse.status === 200) {
+        setUsername2("");
+        setPassword1("");
+        setEmailReg("");
+        setisActive(true);
+        fetchProfile();
       }
     } catch (error) {
       console.error("Registration failed", error);
@@ -178,17 +194,17 @@ export const AppProvider = ({ children }) => {
             .map(([field, messages]) => `${field}: ${messages.join(", ")}`)
             .join("\n")
         : "An unexpected error occurred. Please try again later.";
-  
+
       Swal.fire({
         icon: "error",
         title: "Registration failed",
         text: errorMessages,
       });
     }
-  
+
     setLoading(false);
   };
-  
+
   // Perfil
   const fetchProfile = () => {
     fetchProfileData({
@@ -207,7 +223,6 @@ export const AppProvider = ({ children }) => {
       fetchCarrers,
     });
   };
-  
 
   // Carreras
   const fetchCarrers = async () => {
@@ -261,6 +276,8 @@ export const AppProvider = ({ children }) => {
         email,
         isMobile,
         API_BASE_URL,
+        refreshCsrfToken,
+        getCsrfToken,
         role,
         handleLoginForm,
         handleRegisterForm,

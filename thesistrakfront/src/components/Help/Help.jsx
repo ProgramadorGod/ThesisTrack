@@ -1,4 +1,7 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import React from 'react';
 import {
   Container,
@@ -31,16 +34,15 @@ const theme = createTheme({
     fontFamily: '"Apple", sans-serif',
   },
 });
-// Componente para la cabecera principal
+
 const Header = () => (
   <Box sx={{ textAlign: 'center', mb: 4 }}>
     <Typography variant="h3" component="h1" color="primary">
-      GUIDE TO DEVELOP YOUR THESIS
+      GUÍA PARA DESARROLLAR TU PROYECTO DE GRADO
     </Typography>
   </Box>
 );
 
-// Componente para la sección "¿Qué es un proyecto de grado?"
 const AboutProject = () => (
   <Box sx={{ mb: 6 }}>
     <Typography variant="h4" component="h2" gutterBottom>
@@ -49,28 +51,34 @@ const AboutProject = () => (
     <Typography variant="body1" paragraph>
       Un proyecto de grado es un trabajo académico que demuestra la capacidad de aplicar conocimientos teóricos y prácticos para resolver un problema o crear una solución innovadora. Puede abarcar desde investigaciones científicas hasta desarrollos tecnológicos.
     </Typography>
+    <Typography variant="h6" gutterBottom fontWeight="bold" align="left">¿PARA QUÉ SIRVE?</Typography>
     <List>
       <ListItem>
-        <strong>Para qué sirve:</strong> Aplicar conocimientos y generar un aporte significativo.
+        <Typography>Aplicar conocimientos y generar un aporte significativo.</Typography>
       </ListItem>
-      <ListItem>
-        <strong>Tipos:</strong> Investigativo, Desarrollo de Software, Propuesta Técnica, Revisión de Literatura.
-      </ListItem>
-      <ListItem>
-        <strong>Criterios de evaluación:</strong> Originalidad, viabilidad, aporte.
-      </ListItem>
+    </List>
+    <Typography variant="h6" gutterBottom fontWeight="bold" align="left">TIPOS</Typography>
+    <List>
+      <ListItem><Typography>Investigativo</Typography></ListItem>
+      <ListItem><Typography>Desarrollo de Software</Typography></ListItem>
+      <ListItem><Typography>Propuesta Técnica</Typography></ListItem>
+      <ListItem><Typography>Revisión de Literatura</Typography></ListItem>
+    </List>
+    <Typography variant="h6" gutterBottom fontWeight="bold" align="left">CRITERIOS DE EVALUACIÓN</Typography>
+    <List>
+      <ListItem><Typography>✅ Originalidad</Typography></ListItem>
+      <ListItem><Typography>✅ Viabilidad</Typography></ListItem>
+      <ListItem><Typography>✅ Aporte o impacto</Typography></ListItem>
     </List>
   </Box>
 );
 
-// Componente para la sección "Tipos de Proyecto de Grado"
 const ProjectTypes = () => (
   <Box sx={{ mb: 6 }}>
     <Typography variant="h4" component="h2" gutterBottom>
       Tipos de Proyecto de Grado
     </Typography>
     <Grid container spacing={2}>
-      {/* Investigativo */}
       <Grid item xs={12} sm={6}>
         <Card variant="outlined">
           <CardContent>
@@ -86,7 +94,6 @@ const ProjectTypes = () => (
           </CardContent>
         </Card>
       </Grid>
-      {/* Desarrollo de Software */}
       <Grid item xs={12} sm={6}>
         <Card variant="outlined">
           <CardContent>
@@ -102,7 +109,6 @@ const ProjectTypes = () => (
           </CardContent>
         </Card>
       </Grid>
-      {/* Propuesta Técnica */}
       <Grid item xs={12} sm={6}>
         <Card variant="outlined">
           <CardContent>
@@ -118,7 +124,6 @@ const ProjectTypes = () => (
           </CardContent>
         </Card>
       </Grid>
-      {/* Revisión de Literatura */}
       <Grid item xs={12} sm={6}>
         <Card variant="outlined">
           <CardContent>
@@ -138,140 +143,64 @@ const ProjectTypes = () => (
   </Box>
 );
 
-// Componente para la sección "Pasos para Desarrollar tu Proyecto"
 const ProjectSteps = () => (
   <Box sx={{ mb: 6 }}>
     <Typography variant="h4" component="h2" gutterBottom>
       Pasos para Desarrollar tu Proyecto
     </Typography>
     <Timeline position="right">
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot color="primary">
-            <EmojiObjectsIcon />
-          </TimelineDot>
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>Elección del tema</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot color="primary" />
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>Planteamiento del problema</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot color="primary" />
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>Justificación y objetivos</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot color="primary" />
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>Marco teórico y referencial</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot color="primary" />
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>Metodología</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot color="primary" />
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>Desarrollo / Ejecución</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot color="primary" />
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>Redacción del documento final</TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot color="primary" />
-        </TimelineSeparator>
-        <TimelineContent>Sustentación</TimelineContent>
-      </TimelineItem>
+      {[
+        "Elección del tema",
+        "Planteamiento del problema",
+        "Justificación y objetivos",
+        "Marco teórico y referencial",
+        "Metodología",
+        "Desarrollo / Ejecución",
+        "Redacción del documento final",
+        "Sustentación"
+      ].map((step, index) => (
+        <TimelineItem key={index}>
+          <TimelineSeparator>
+            <TimelineDot color="primary">
+              {index === 0 ? <EmojiObjectsIcon /> : null}
+            </TimelineDot>
+            {index < 7 && <TimelineConnector />}
+          </TimelineSeparator>
+          <TimelineContent>
+            <Typography>{step}</Typography>
+          </TimelineContent>
+        </TimelineItem>
+      ))}
     </Timeline>
   </Box>
 );
 
-// Componente para la sección "Consejos útiles y buenas prácticas"
 const Tips = () => (
   <Box sx={{ mb: 6 }}>
     <Typography variant="h4" component="h2" gutterBottom>
       Consejos útiles y buenas prácticas
     </Typography>
     <Grid container spacing={2}>
-      <Grid item xs={12} sm={4}>
-        <Card variant="outlined">
-          <CardContent>
-            <Typography variant="body1" align="center">
-              🎯 Elige un tema que te apasione.
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12} sm={4}>
-        <Card variant="outlined">
-          <CardContent>
-            <Typography variant="body1" align="center">
-              🧑‍🏫 Escoge bien a tu tutor.
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12} sm={4}>
-        <Card variant="outlined">
-          <CardContent>
-            <Typography variant="body1" align="center">
-              📅 Usa un calendario de entregas.
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12} sm={4}>
-        <Card variant="outlined">
-          <CardContent>
-            <Typography variant="body1" align="center">
-              📝 Haz respaldos frecuentes de tu trabajo.
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12} sm={4}>
-        <Card variant="outlined">
-          <CardContent>
-            <Typography variant="body1" align="center">
-              📚 Apóyate en normas APA o IEEE.
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12} sm={4}>
-        <Card variant="outlined">
-          <CardContent>
-            <Typography variant="body1" align="center">
-              🤝 Trabaja colaborativamente si es en grupo.
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
+      {[
+        "🎯 Elige un tema que te apasione.",
+        "🧑‍🏫 Escoge bien a tu tutor.",
+        "📅 Usa un calendario de entregas.",
+        "📝 Haz respaldos frecuentes de tu trabajo.",
+        "📚 Apóyate en normas APA o IEEE.",
+        "🤝 Trabaja colaborativamente si es en grupo."
+      ].map((tip, i) => (
+        <Grid item xs={12} sm={4} key={i}>
+          <Card variant="outlined">
+            <CardContent>
+              <Typography variant="body1" align="center">{tip}</Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      ))}
     </Grid>
   </Box>
 );
 
-// Componente para la sección "Recursos y plantillas"
 const Resources = () => (
   <Box sx={{ mb: 6 }}>
     <Typography variant="h4" component="h2" gutterBottom>
@@ -280,29 +209,78 @@ const Resources = () => (
     <List>
       <ListItem>
         <Link href="/plantilla-word" underline="hover" color="primary" target="_blank">
-          📄 Plantilla Word para proyecto
+          <Typography>📄 Plantilla Word para redactar tu proyecto</Typography>
         </Link>
       </ListItem>
       <ListItem>
         <Link href="/ejemplos" underline="hover" color="primary" target="_blank">
-          🧾 Ejemplos de proyectos anteriores
+          <Typography>🧾 Ejemplos reales de proyectos anteriores</Typography>
         </Link>
       </ListItem>
       <ListItem>
         <Link href="/normas-universidad" underline="hover" color="primary" target="_blank">
-          🎓 Normas de la universidad
+          <Typography>🎓 Normas y lineamientos institucionales</Typography>
         </Link>
       </ListItem>
       <ListItem>
         <Link href="/tutoriales" underline="hover" color="primary" target="_blank">
-          📚 Tutoriales y guías adicionales
+          <Typography>📚 Tutoriales y guías prácticas para cada etapa</Typography>
         </Link>
       </ListItem>
     </List>
   </Box>
 );
 
-// Componente para el Footer
+
+
+// Componente para Contacto / Créditos
+const ContactSection = () => (
+  <Box sx={{ mb: 6, textAlign: 'center' }}>
+    <Typography variant="h5" gutterBottom fontWeight="bold">
+      ¿Necesitas ayuda o quieres crear algo similar?
+    </Typography>
+    <Typography variant="body1" paragraph>
+      Este recurso fue creado por Luis Felipe Gutiérrez Camacho. Si deseas más información, apoyo o desarrollar un proyecto parecido para otra universidad, puedes contactarme:
+    </Typography>
+    <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3, flexWrap: 'wrap' }}>
+      <Link
+        href="https://www.linkedin.com/in/luis-felipe-gutierrez-camacho-0373a7233/"
+        target="_blank"
+        rel="noopener noreferrer"
+        color="inherit"
+        underline="hover"
+        sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
+      >
+        <LinkedInIcon color="primary" />
+        LinkedIn
+      </Link>
+      <Link
+        href="https://github.com/ProgramadorGod"
+        target="_blank"
+        rel="noopener noreferrer"
+        color="inherit"
+        underline="hover"
+        sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
+      >
+        <GitHubIcon color="action" />
+        GitHub
+      </Link>
+      <Link
+        href="https://wa.me/573132153738"
+        target="_blank"
+        rel="noopener noreferrer"
+        color="inherit"
+        underline="hover"
+        sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
+      >
+        <WhatsAppIcon sx={{ color: '#25D366' }} />
+        WhatsApp
+      </Link>
+    </Box>
+  </Box>
+);
+
+
 const Footer = () => (
   <Box sx={{ textAlign: 'center', pt: 3, borderTop: '1px solid #ccc' }}>
     <Typography variant="body2" color="textSecondary">
@@ -310,7 +288,6 @@ const Footer = () => (
     </Typography>
   </Box>
 );
-
 
 const Help = () => {
   return (
@@ -326,11 +303,11 @@ const Help = () => {
         <Tips />
         <Divider sx={{ mb: 6 }} />
         <Resources />
+        <ContactSection></ContactSection>
         <Footer />
       </Container>
     </ThemeProvider>
   );
 };
-
 
 export default Help;

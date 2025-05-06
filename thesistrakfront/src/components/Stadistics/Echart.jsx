@@ -168,9 +168,17 @@ const Echart = () => {
     fetch(API_BASE_URL + "api/document-count-by-year/")
       .then((response) => response.json())
       .then((data) => {
-        const sortedData = data.sort((a, b) => a.year - b.year);
+        // Filtrar los elementos donde 'year' es 'undefined'
+        const validData = data.filter(
+          (item) => item.year !== "undefined" && item.year !== undefined
+        );
+
+        // Ordenar los datos por año
+        const sortedData = validData.sort((a, b) => a.year - b.year);
+
         const years = sortedData.map((item) => item.year);
         const totals = sortedData.map((item) => item.total_documents);
+
         setYearData({ years, totals });
       })
       .catch((error) => console.error("Error fetching year data:", error));
@@ -228,8 +236,6 @@ const Echart = () => {
 
   // Configuración del gráfico de pastel (Proyectos por Carrera)
 
-
-
   const option3 = {
     title: { text: "Crecimiento por Carrera", left: "center" },
     tooltip: { trigger: "axis" },
@@ -253,7 +259,17 @@ const Echart = () => {
       labelLayout: { moveOverlap: "shiftY" },
     })),
   };
-  const colors = ["#5470C6", "#91CC75", "#EE6666", "#FAC858", "#73C0DE", "#3BA272", "#FC8452", "#9A60B4", "#EA7CCC"];
+  const colors = [
+    "#5470C6",
+    "#91CC75",
+    "#EE6666",
+    "#FAC858",
+    "#73C0DE",
+    "#3BA272",
+    "#FC8452",
+    "#9A60B4",
+    "#EA7CCC",
+  ];
 
   const trendOption = {
     title: {
@@ -296,9 +312,8 @@ const Echart = () => {
     yAxis: {
       type: "value",
       name: "Total Documentos",
-      nameTextStyle:{
+      nameTextStyle: {
         fontFamily: "Apple",
-        
       },
       axisLabel: {
         textStyle: {
@@ -354,9 +369,7 @@ const Echart = () => {
           // no pongas color aquí para que respete el original
         },
       },
-    }))
-    
-    
+    })),
   };
 
   const option4 = {
@@ -406,9 +419,7 @@ const Echart = () => {
 
           {/* Gráfico u otro contenido */}
           <div className="ChartContainer">
-
             <ProjectsByCareerChart data={carrerData} isMobile={isMobile} />
-
           </div>
         </div>
       </Element>
