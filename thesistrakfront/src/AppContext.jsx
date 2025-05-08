@@ -15,6 +15,13 @@ export const AppProvider = ({ children }) => {
     localStorage.setItem("profiledata", JSON.stringify(itemstosave));
   };
 
+  const [hovered, setHovered] = useState(false); // Estado para detectar hover
+  const [isWriting, setIsWriting] = useState(false); // Estado para escritura
+
+  // Funciones para manejar el estado de hover
+  const handleMouseEnter = () => setHovered(true);
+  const handleMouseLeave = () => setHovered(false);
+
   // Estados generales
   const [isLogged, setisLogged] = useState(false);
   const [isloading, setisloading] = useState(true);
@@ -69,8 +76,6 @@ export const AppProvider = ({ children }) => {
       .find((row) => row.startsWith("csrftoken="))
       ?.split("=")[1];
   };
-
-  
 
   // Login handler
   const refreshCsrfToken = async () => {
@@ -251,6 +256,30 @@ export const AppProvider = ({ children }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+
+  // App.js o en tu `AppContextProvider`
+useEffect(() => {
+  const handleEnter = () => setIsWriting(true);
+  const handleLeave = () => setIsWriting(false);
+
+  const elements = document.querySelectorAll(".writable");
+
+  elements.forEach((el) => {
+    el.addEventListener("mouseenter", handleEnter);
+    el.addEventListener("mouseleave", handleLeave);
+  });
+
+  return () => {
+    elements.forEach((el) => {
+      el.removeEventListener("mouseenter", handleEnter);
+      el.removeEventListener("mouseleave", handleLeave);
+    });
+  };
+}, []);
+
+
+
+
   return (
     <AppContext.Provider
       value={{
@@ -296,6 +325,12 @@ export const AppProvider = ({ children }) => {
         Password2,
         setPassword2,
         Carrers,
+        hovered,
+        setHovered,
+        isWriting,
+        setIsWriting,
+        handleMouseEnter,
+        handleMouseLeave,
       }}
     >
       {children}

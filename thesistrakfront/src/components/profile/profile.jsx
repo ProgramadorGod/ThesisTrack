@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import "./profile.css";
 import { useAppContext } from "../../AppContext";
 import axios from "axios";

@@ -1,5 +1,5 @@
 import React from 'react'
-import {motion} from "framer-motion";
+import {motion} from "motion/react";
 import "./ButtonMov.css"
 
 const ButtonMov = ({IsLogin,Loading, text1,text2}) => {

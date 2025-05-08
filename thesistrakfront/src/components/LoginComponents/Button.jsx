@@ -1,7 +1,13 @@
 import React from 'react'
-import {motion} from "framer-motion";
+import {motion} from "motion/react";
+import { useAppContext } from '../../AppContext';
 
 const Button = ({IsLogin,Loading, text1,text2}) => {
+    const {
+      hovered,
+      setHovered,
+      setIsWriting,
+    } = useAppContext();
   return (
     <div id='ButtonContainer'>
 
@@ -12,7 +18,8 @@ const Button = ({IsLogin,Loading, text1,text2}) => {
         whileInView={{backgroundColor:(Loading ? "#1c2d2e":"#0056b3")}}
         whileFocus={{scale:1.04, backgroundColor: (Loading ? "#1c2d2e":"#024791" )}}
         whileTap={{scale:1.12, transition:{duration:0.001,  type: "spring", stiffness: 200, damping: 8 }}}
-        
+        onMouseEnter={() => setHovered(true)} // Al pasar el mouse
+        onMouseLeave={() => setHovered(false)} 
         className={`SubmitFormButtom  ${Loading ? "Disabled": ""}`}  
         type='submit' 
         aria-label='Aria Login' 

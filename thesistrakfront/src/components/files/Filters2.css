@@ -61,3 +61,30 @@
     align-items: center;
     
 }
+
+#AuthorInputContainer{
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background-color: red; */
+    margin-left: 5vw;
+    font-family: "Apple";
+}
+
+#authorfield{
+    margin-bottom: 0.4vh;
+    font-weight: bold;
+
+}
+
+#AuthorInput{
+    width: 50vw;
+    height: 10vh;
+    border-radius: 10px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.781);
+    padding-left: 10px;
+    font-size: 1.2rem;
+}

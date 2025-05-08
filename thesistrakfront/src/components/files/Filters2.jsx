@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import "./Filters2.css";
 import { HiX } from "react-icons/hi"; // Ícono de cierre (X)
 
-import { Slider, Switch } from "@mui/material";
+import { Slider, Switch, TextField } from "@mui/material";
 
 const Filters2 = ({
   toogleFilters2,
@@ -20,7 +20,10 @@ const Filters2 = ({
   setShowCarrers,
   setShowTitles,
   setShowYears,
+  authorText,
+  setAuthorText,
 }) => {
+
   const [animateState, setAnimateState] = useState("initial");
   const handleFilterChange = (filterName) => (event) => {
     switch (filterName) {
@@ -137,15 +140,11 @@ const Filters2 = ({
                 }}
               >
                 <div id="FilterAndXContainer">
-                  <div id="FilterTitle">
-                    {" "}
-                    Filtros Avanzados{" "}
-
-                  </div>
+                  <div id="FilterTitle"> Filtros Avanzados </div>
                   <div id="HiX" onClick={toogleFilters2}>
-                      {" "}
-                      <HiX></HiX>{" "}
-                    </div>
+                    {" "}
+                    <HiX></HiX>{" "}
+                  </div>
                 </div>
                 <div id="Switches">
                   <div className="FilterOption">
@@ -178,12 +177,27 @@ const Filters2 = ({
                   </div>
                 </div>
 
+                <div id="AuthorInputContainer">
+                  <div id="authorfield">
+                    Buscar por autor específico:
+                  </div>
+                  <TextField
+                    fullWidth
+                    sx={{ width: "60vw", fontFamily:"Apple" }}
+                    variant="outlined"
+                    placeholder="Nombre del autor"
+                    value={authorText}
+                    onChange={(e) => setAuthorText(e.target.value)}
+                    size="small"
+                  />
+                </div>
+
                 <div id="SliderContainer">
                   <div id="YearSubtitle">
                     AÑO DE PUBLICACIÓN |{" "}
                     <div id="Explanaition">
                       <strong>Selección:</strong> {yearRange[0]} -{" "}
-                      {yearRange[1]} 
+                      {yearRange[1]}
                     </div>
                   </div>
                   <div id="Range">
@@ -199,8 +213,9 @@ const Filters2 = ({
                       disableSwap
                     />
                   </div>
-                  <div className="Text"> CARRERAS </div>
-                  <div id="CarrersGroup">
+                  <div className="CarrersOpener"> CARRERAS </div>
+                  
+                  {/* <div id="CarrersGroup">
                     {carrers.map((carrer, index) => (
                       <div className="CarrerButtom" key={index}>
                         {carrer.name.length > 30
@@ -208,7 +223,7 @@ const Filters2 = ({
                           : carrer.name}
                       </div>
                     ))}
-                  </div>
+                  </div> */}
                 </div>
               </motion.div>
             </motion.div>

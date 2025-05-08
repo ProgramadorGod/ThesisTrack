@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import {motion} from "framer-motion"
+import {motion} from "motion/react"
+import { useAppContext } from '../../AppContext';
 
 
 
 const Blocker = ({IsLogin, LoadingFetch,ToggleIsLogin}) => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [WindowHeight, setWindowHeight] = useState(window.innerHeight);
+
+      const {
+
+        setIsWriting,
+        setHovered,
+       
+      } = useAppContext();
+
+
     const [FontSize, setFontSize] = useState("")
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -113,7 +123,8 @@ const Blocker = ({IsLogin, LoadingFetch,ToggleIsLogin}) => {
                         whileInView={{backgroundColor:"#02479100"}}
                         whileFocus={{scale:1.04, backgroundColor: ("#02479100" )}}
                         whileTap={{scale:1.12, transition:{duration:0.001,  type: "spring", stiffness: 200, damping: 8 }}}
-                        
+                        onHoverStart={() => setHovered(true)} // Al pasar el mouse
+                        onHoverEnd={() => setHovered(false)}
                         onClick={ToggleIsLogin} 
                         
                         className='SubmitFormButtom'>

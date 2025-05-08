@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useAppContext } from "../../AppContext";
@@ -13,6 +13,11 @@ const Register = ({ GoogleIcon, IsLogin }) => {
     isLogged,
     PortToUse,
     handleRegisterForm,
+    setIsWriting,
+    hovered,
+    setHovered,
+    text,
+    setText,
     handleLogin,
     Username,
     setUsername2,
@@ -29,6 +34,7 @@ const Register = ({ GoogleIcon, IsLogin }) => {
 
     handleLoginForm,
   } = useAppContext();
+
 
   const isTabbable = !IsLogin ? 0 : -1;
 
@@ -56,11 +62,11 @@ const Register = ({ GoogleIcon, IsLogin }) => {
       }}
       disabled={IsLogin}
     >
-      <div className="ComboTextGoogle" id="ComboRegister" >
+      <div className="ComboTextGoogle" id="ComboRegister">
         <h1 id="RegisterText">Register</h1>
       </div>
       <div
-        className="GoogleButton"
+        className="GoogleButton hoverable"
         onClick={handleLogin}
         disabled={IsLogin}
         tabIndex={isTabbable}
@@ -69,11 +75,7 @@ const Register = ({ GoogleIcon, IsLogin }) => {
         <img src={GoogleIcon} id="FaGoogle" />
       </div>
 
-      <form
-        onSubmit={handleRegisterForm}
-        id="RegisterFormContainer"
-        
-      >
+      <form onSubmit={handleRegisterForm} id="RegisterFormContainer">
         <div id="Inputs">
           <div id="RegisterUserLab">
             <input
@@ -86,6 +88,8 @@ const Register = ({ GoogleIcon, IsLogin }) => {
               onChange={(e) => setUsername2(e.target.value)}
               onFocus={() => setusernameFocus(true)}
               onBlur={() => setusernameFocus(false)}
+              onMouseEnter={() => setIsWriting(true)} // Al pasar el mouse
+              onMouseLeave={() => setIsWriting(false)} //
               required
             />
             <motion.div
@@ -108,6 +112,8 @@ const Register = ({ GoogleIcon, IsLogin }) => {
               onChange={(e) => setEmailReg(e.target.value)}
               onFocus={() => setemailFocus(true)}
               onBlur={() => setemailFocus(false)}
+              onMouseEnter={() => setIsWriting(true)} // Al pasar el mouse
+              onMouseLeave={() => setIsWriting(false)} //
               required
             />
             <motion.div
@@ -129,6 +135,8 @@ const Register = ({ GoogleIcon, IsLogin }) => {
               onChange={(e) => setPassword1(e.target.value)}
               onFocus={() => setpassword1Focus(true)}
               onBlur={() => setpassword1Focus(false)}
+              onMouseEnter={() => setIsWriting(true)} // Al pasar el mouse
+              onMouseLeave={() => setIsWriting(false)} //
               required
             />
             <motion.div
@@ -147,6 +155,9 @@ const Register = ({ GoogleIcon, IsLogin }) => {
             Loading={Loading}
             text1={"SIGN UP"}
             text2={"SIGN UP"}
+            onMouseEnter={() => setHovered(true)} // Al pasar el mouse
+            onMouseLeave={() => setHovered(false)} //
+            
           ></Button>
         </div>
       </form>

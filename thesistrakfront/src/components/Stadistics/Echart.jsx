@@ -4,7 +4,7 @@ import Lottie from "lottie-react"; // Intenta importar así
 import "./Stadistics.css";
 import { Link, Element } from "react-scroll";
 import bookanimation from "../../media/bookanimation.json";
-import { color } from "framer-motion";
+import { color } from "motion/react";
 import ProjectsByCareerChart from "./Charts/ProjectsByCareerChart";
 import ProjectsByYearChart from "./Charts/ProjectsByYear";
 
