@@ -32,53 +32,60 @@ const Files = ({ PortToUse }) => {
 
   const { Carrers } = useAppContext();
   const [carrers, setCarrers] = useState([]);
+  const [selectedCarrers, setSelectedCarrers] = useState([]);
  
   // ✅ Sincronizar carreras desde contexto
   useEffect(() => {
     setCarrers(Carrers);
   }, [Carrers]);
 
-
   useEffect(() => {
-  if (showFilters2) {
-    document.body.style.overflow = "hidden"; // Bloquea el scroll
-  } else {
-    document.body.style.overflow = ""; // Restaura el scroll
-  }
+    if (showFilters2) {
+      document.body.style.overflow = "hidden"; // Bloquea el scroll
+    } else {
+      document.body.style.overflow = ""; // Restaura el scroll
+    }
 
-  // Limpieza por si desmonta el componente con el filtro abierto
-  return () => {
-    document.body.style.overflow = "";
-  };
-}, [showFilters2]);
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showFilters2]);
+
   // ✅ Fetch documents
-  const fetchDocuments = useCallback(async (title, author, yearRange, currentId) => {
-    try {
-      console.log("Fetching with filters:", { title, author, yearRange });
+const fetchDocuments = useCallback(async (title, author, yearRange, selectedCarrers, currentId) => {
+  try {
+    console.log("Fetching with filters:", { title, author, yearRange, selectedCarrers });
 
-      const params = { title };
-      if (author.trim() !== "") params.author = author.trim();
-      if (yearRange.length === 2) {
-        params.year_from = yearRange[0];
-        params.year_to = yearRange[1];
-      }
+    const params = new URLSearchParams();
 
-      const response = await axios.get(PortToUse + "api/documentz/", {
-        params,
-        withCredentials: true,
-      });
+    // Agregar parámetros comunes
+    if (title) params.append("title", title);
+    if (author.trim() !== "") params.append("author", author.trim());
+    if (yearRange.length === 2) {
+      params.append("year_from", yearRange[0]);
+      params.append("year_to", yearRange[1]);
+    }
 
-      if (currentId === fetchRequestIdRef.current) {
-        setAllDocuments(response.data.results);
-        setNextPage(response.data.next);
-        localStorage.setItem("documents", JSON.stringify(response.data.results));
-        setIsLoading(false);
-      }
-    } catch (error) {
-      console.error("Error Trying To Fetch Documents: ", error);
+    // Agregar múltiples parámetros 'carrera'
+    selectedCarrers.forEach((carrera) => {
+      params.append("carrera", carrera); // Se agregan todas las carreras como parámetros separados
+    });
+
+    const url = `${PortToUse}api/documentz/?${params.toString()}`;
+    const response = await axios.get(url, { withCredentials: true });
+
+    if (currentId === fetchRequestIdRef.current) {
+      setAllDocuments(response.data.results);
+      setNextPage(response.data.next);
+      localStorage.setItem("documents", JSON.stringify(response.data.results));
       setIsLoading(false);
     }
-  }, [PortToUse]);
+  } catch (error) {
+    console.error("Error Trying To Fetch Documents: ", error);
+    setIsLoading(false);
+  }
+}, [PortToUse]);
+
 
   // ✅ Debounce input de búsqueda
   useEffect(() => {
@@ -95,14 +102,14 @@ const Files = ({ PortToUse }) => {
   // ✅ Cuando cambian filtros, nueva búsqueda
   useEffect(() => {
     fetchRequestIdRef.current += 1;
-    fetchDocuments(searchQuery, authorText, yearRange, fetchRequestIdRef.current);
-  }, [searchQuery, authorText, yearRange, fetchDocuments]);
+    fetchDocuments(searchQuery, authorText, yearRange, selectedCarrers, fetchRequestIdRef.current);
+  }, [searchQuery, authorText, yearRange, selectedCarrers, fetchDocuments]);
 
   // ✅ Carga inicial
   useEffect(() => {
     fetchRequestIdRef.current += 1;
-    fetchDocuments("", "", yearRange, fetchRequestIdRef.current);
-  }, [fetchDocuments, yearRange]);
+    fetchDocuments("", "", yearRange, selectedCarrers, fetchRequestIdRef.current);
+  }, [fetchDocuments, yearRange, selectedCarrers]);
 
   // ✅ Paginación (load more)
   const AddDocuments = async () => {
@@ -149,6 +156,8 @@ const Files = ({ PortToUse }) => {
     setShowCarrers,
     setShowTitles,
     setShowYears,
+    selectedCarrers,
+    setSelectedCarrers,
   };
 
   if (isLoading) {

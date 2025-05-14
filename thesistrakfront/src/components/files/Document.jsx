@@ -60,7 +60,10 @@ const Document = ({ document, onUpdateVisualizations }) => {
       <div className="ThesisContainer">
         <div id="kind">
           <RxTokens id="logo" />
+          <div>
           {document.carrer} {"\u00A0"} / {"\u00A0"} {document.carrer_name}
+
+          </div>
           <div className="Views" onClick={handleIncreaseViews}>
             <RxEyeOpen id="Eye" />
             {visualizations} views

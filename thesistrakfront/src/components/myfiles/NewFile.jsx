@@ -15,11 +15,12 @@ import {
 } from "@mui/material";
 import "./NewFile.css";
 import { useAppContext } from "../../AppContext";
-import { HiX } from "react-icons/hi";
+import { HiArrowNarrowLeft, HiX } from "react-icons/hi";
 import Swal from "sweetalert2";
 import { set } from "lodash";
+import { FaArrowAltCircleLeft } from "react-icons/fa";
 
-const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
+const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload, uploadVisible }) => {
   const [docTypes, setDocTypes] = useState([]);
   const [carrers, setCarrers] = useState([]);
   const [stages, setStages] = useState([]);
@@ -51,6 +52,32 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [setupladovisible]);
+
+
+
+  useEffect(() => {
+  const handlePopState = (event) => {
+    if (uploadVisible) {
+      event.preventDefault();
+      setupladovisible();
+      // Opcional: empujar de nuevo para que no se "vaya" atrás la app
+      window.history.pushState(null, "", window.location.href);
+    }
+  };
+
+  if (uploadVisible) {
+    // Empujar un nuevo estado al abrir Filters2
+    window.history.pushState(null, "", window.location.href);
+    window.addEventListener("popstate", handlePopState);
+  }
+
+  return () => {
+    window.removeEventListener("popstate", handlePopState);
+  };
+}, [uploadVisible, setupladovisible]);
+
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -228,11 +255,28 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
           position: "fixed",
         }}
       >
-        <div id="HiX" onClick={setupladovisible}>
+        <motion.div id="HiX" onClick={setupladovisible}
+        className="hoverable"
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          transformOrigin: "center center",
+          filter: "drop-shadow(2px 3px 2px #0D0049)",
+        }}
+        initial={{ opacity: 0, marginTop: "6vh", marginLeft: "10vw" }}
+        animate={{ opacity: 1, marginTop: "3vh", marginLeft: "7vw" }}
+        exit={{ opacity: 0 }}
+        transition={{
+          opacity: { duration: 0.4, delay: 0.1, ease: "easeOut" },
+          marginTop: { duration: 0.4, delay: 0.1, ease: "easeOut" },
+
+          marginLeft: { duration: 0.2, delay: 0.1, ease: "easeOut" },
+        }}>
           {" "}
-          <HiX></HiX>{" "}
-        </div>{" "}
-        <div style={{ width: "100%" }}>
+          <HiArrowNarrowLeft></HiArrowNarrowLeft>{" "}
+        </motion.div>{" "}
+        <div style={{ width: "100%" , height: "100%" }}>
           <form onSubmit={handleSubmit} id="AllfieldsContainer">
             {error && <div className="error">{error}</div>}{" "}
             <div>
@@ -240,7 +284,7 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
                 value={carrer}
                 onChange={(e) => setCarrer(e.target.value)}
                 // style={{width:"40%"}}
-                className="CarrerFieldSelect"
+                className="CarrerFieldSelect hoverable"
               >
                 <option value="">Escoge Una Carrera</option>
                 {carrers.map((carrer) => (
@@ -257,7 +301,8 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
             <div>
               <input
                 value={title}
-                className="CarrerField"
+                className="CarrerField writable"
+
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Título"
               />
@@ -267,18 +312,18 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Descripción"
-                className="CarrerField"
+                className="CarrerField writable"
               />
             </div>
             <div>
               <select
                 value={docType}
                 onChange={(e) => setDocType(e.target.value)}
-                className="CarrerFieldSelect"
+                className="CarrerFieldSelect hoverable"
               >
                 <option value="">Tipo De Documento</option>
                 {docTypes.map((type) => (
-                  <option key={type.id} value={type.id} className="CarrerField">
+                  <option key={type.id} value={type.id} className="CarrerField hoverable">
                     {type.name}
                   </option>
                 ))}
@@ -287,12 +332,12 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
             <div>
               <select
                 value={stage}
-                className="CarrerFieldSelect"
+                className="CarrerFieldSelect hoverable"
                 onChange={(e) => setStage(e.target.value)}
               >
                 <option value="">Fase Del Proyecto</option>
                 {stages.map((stage) => (
-                  <option key={stage.id} value={stage.id}>
+                  <option key={stage.id} value={stage.id} >
                     {stage.stage}
                   </option>
                 ))}
@@ -315,6 +360,7 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
                 <Button
                   variant="contained"
                   component="label"
+                  className="hoverable"
                   fullWidth
                   id="SelectB"
                   sx={{
@@ -332,6 +378,7 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
             </div>
             <Button
               variant="contained"
+              className="hoverable"
               type="submit"
               sx={{
                 backgroundColor: "#1976d2",

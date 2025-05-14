@@ -2,8 +2,11 @@
     position: fixed;
     height: 100%;
     width: 100%;
-    background-color: rgba(215, 215, 215, 0.444);
+    background-color: rgba(215, 215, 215, 0.445);
     z-index: 999998;
+
+    backdrop-filter: blur(1px); /* <<--- Aquí el blur */
+    -webkit-backdrop-filter: blur(1px); /* Safari support */
 }
 
 
@@ -21,17 +24,18 @@
 #FiltersInsideCircleContainer{
     display: flex;
     width: 100vw;
+    /* overflow-y: auto; */
     height: 100vh;
     flex-direction: column;
     align-items: flex-start;
 }
 #SliderContainer{
-    width: 63vw;
+    /* width: 63vw; */
     margin-top: 3vh;
     align-items: center;
     /* margin-left: 3vw; */
     margin-right: 3vw;
-    width: 94vw;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -48,13 +52,13 @@
     margin-left: auto;
     cursor: pointer;
     font-size: 3rem;
-    position: fixed;
-    color: rgb(2, 2, 54);
-    margin-right: 30px;
-    right: 0;
-    margin-right: 2vw;
-    top: 20;
-    margin-top: 1.7vh;
+    position: absolute;
+    color: #0D0049;
+    /* margin-right: 10vw; */
+    left: 0;
+    margin-left: 4vw;
+    
+    margin-top: 2vh;
     z-index: 9999999;
     margin-bottom:0vh;
     
@@ -76,17 +80,21 @@
     align-items: center;
     justify-content: center;
     /* background-color: #000000af; */
+    margin-top: 10vh;
+    margin-bottom: 10vh;
     margin-left: 5vw;
     font-family: "Apple";
 }
 
 #authorfield{
-    margin-bottom: 0.4vh;
+    margin-bottom: 1vh;
+    text-shadow: 1px 1px 1px #070141;
     font-weight: bold;
     user-select: none;
     font-size: 1.5rem;
     color: rgb(35, 24, 65);
     display: flex;
+    justify-content: center;
 
 }
 
@@ -99,6 +107,27 @@
     padding-left: 10px;
     font-size: 1.5rem;
 }
+
+#YearsSections{
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+}
+
+
+#YearsTitle{
+    color: rgb(9, 0, 32);
+    text-shadow: 1px 1px 1px #07013b;
+
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+    font-family: "Apple";
+    font-weight: 900;
+    width: 100vw;
+    font-size: 1.5rem;
+}
+
+
 .CarrersOpener{
     display: flex;
 
@@ -123,10 +152,6 @@
     /* margin-bottom: 2vh; */
 }
 
-.slick-slider{
-    width: 100vw;
-
-}
 
 .CareerOption{
     font-family: "Apple";
@@ -141,38 +166,52 @@
     cursor: pointer;
     user-select: none;
 }
-
+#CarrersContainer{
+    width: 80vw;
+    margin-left: 10vw;
+    margin-top: 10vh;
+    display: flex;
+    /* justify-content: center; */
+}
 /* En tu archivo Filters2.css */
+/* ❌ Eliminar estas clases */
+/* .slick-slider { ... }
+.slick-prev, .slick-next { ... }
+.slick-prev:before, .slick-next:before { ... }
+.slick-prev:after, .slick-next:after { ... } */
 
-.slick-prev,
-.slick-next {
-  font-size: 30px; /* Tamaño más grande */
-  color: black;    /* Cambia el color si es necesario */
-  z-index: 10;     /* Asegura que las flechas estén por encima del contenido */
-  background-color: rgba(255, 255, 255, 0.6); /* Fondo semitransparente */
-  border-radius: 50%;
-  padding: 10px;    /* Espaciado dentro del botón */
-  transition: background-color 0.3s ease; /* Transición al pasar el ratón */
+/* ✅ Añade esta para la lista de carreras */
+.CarrersList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
 }
 
-.slick-prev:hover,
-.slick-next:hover {
-  background-color: rgba(255, 255, 255, 1); /* Fondo más opaco al pasar el ratón */
+/* Estilos por defecto */
+.CareerItem {
+  padding: 5px 10px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  font-family: "Apple";
+  height: 10vh;
+  font-size: 1rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.3s ease;
 }
 
-.slick-prev:before,
-.slick-next:before {
-  display: none; /* Ocultar los iconos predeterminados */
+.CareerItem:hover {
+  background: rgba(200, 200, 255, 0.9);
 }
 
-.slick-prev:after,
-.slick-next:after {
-  content: '←'; /* Flecha hacia la izquierda para el anterior */
-  display: block;
-  font-size: 30px;
-  color: black; /* Puedes cambiarlo según el color que prefieras */
+#CarrersContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 6vh;
+    justify-content: center;
 }
 
-.slick-next:after {
-  content: '→'; /* Flecha hacia la derecha para el siguiente */
-}
+
+/* Mobile: reducir fuente en pantallas pequeñas */

@@ -1,91 +1,70 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import "./Filters2.css";
-import { HiArrowRight, HiX, HiXCircle } from "react-icons/hi";
-import { Slider, TextField } from "@mui/material";
-import { useDebounce } from "./UseDebounce"; // importa el hook aquí
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import StickSlider from "react-slick";
+import { HiArrowNarrowLeft } from "react-icons/hi";
+import {
+  Slider,
+  TextField,
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  Checkbox,
+  ListItemText,
+} from "@mui/material";
+import { useDebounce } from "./UseDebounce"; // Make sure the path is correct
+import "./Filters2.css"; // Make sure this CSS file exists and is correctly located
 
 const Filters2 = ({
   toggleFilters2,
   showFilters2,
-  showAuthors,
-  showCarrers,
-  showTitles,
-  showYears,
   yearRange,
   carrers,
   formatYear,
   handleYearChange,
-  setShowAuthors,
-  setShowCarrers,
-  setShowTitles,
   handleAuthorSearch,
-  setShowYears,
   authorText,
-  setAuthorText,
+  selectedCarrers,
+  setSelectedCarrers,
 }) => {
   const [animateState, setAnimateState] = useState("initial");
-  const [selectedCarrers, setSelectedCarrers] = useState([]);
-  const [allowSwipe, setAllowSwipe] = useState(false);
-
-  const enableSwipe = () => setAllowSwipe(true);
-  const disableSwipe = () => setAllowSwipe(false);
-
-  const toggleCareerSelection = (careerId) => {
-    setSelectedCarrers((prev) =>
-      prev.includes(careerId)
-        ? prev.filter((id) => id !== careerId)
-        : [...prev, careerId]
-    );
-  };
-
-  const sliderSettings = {
-    dots: true,
-    infinite:false, // Mejora rendimiento, evita loop innecesario
-    speed: 400, // Más rápido (de 800 a 400ms)
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false, // Quita flechas si no las usas (menos repaints)
-    swipe: allowSwipe, // controlas con hover/touch
-    touchThreshold: 10, // más sensible (por defecto es 5)
-    cssEase: "ease-out", // suaviza la animación
-    waitForAnimate: false, // no bloquea rápido swipe
-
-    swipeToSlide: true, // permite swipe parcial con inercia
-  };
-
-  // Debounced authorText (espera a que termine de escribir)
+  const [isOverflowEnabled, setIsOverflowEnabled] = useState(false);
+  const [isDisplayEnabled, setIsDisplayEnabled] = useState(false);
   const debouncedAuthorText = useDebounce(authorText, 300);
 
-  // Hacer la petición solo cuando deja de escribir
+  if (process.env.NODE_ENV === 'development') {
+  const originalConsoleError = console.error;
+  console.error = (...args) => {
+    if (/Encountered two children with the same key/.test(args[0])) {
+      return; // Ignora los errores relacionados con claves duplicadas
+    }
+    originalConsoleError(...args);
+  };
+}
+
+  // Use useCallback to memoize the toggleFilters2 function if it's coming from a parent component.  This can help with performance.  If it's defined within this component, you don't need useCallback.
+  // const toggleFilters2 = useCallback(() => {
+  //   // Your toggle logic here
+  // }, []);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsDisplayEnabled(true);
+    }, 300);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsOverflowEnabled(true);
+    }, 800);
+    return () => clearTimeout(timeout);
+  }, []);
+
   useEffect(() => {
     if (debouncedAuthorText.trim() !== "") {
       console.log("Petición con autor:", debouncedAuthorText);
-      // Aquí va tu fetch o axios API call
     }
   }, [debouncedAuthorText]);
-
-  const handleFilterChange = (filterName) => (event) => {
-    switch (filterName) {
-      case "showTitles":
-        setShowTitles((prev) => !prev);
-        break;
-      case "showCarrers":
-        setShowCarrers((prev) => !prev);
-        break;
-      case "showAuthors":
-        setShowAuthors((prev) => !prev);
-        break;
-      case "showYears":
-        setShowYears((prev) => !prev);
-        break;
-      default:
-        break;
-    }
-  };
 
   useEffect(() => {
     if (showFilters2) {
@@ -99,15 +78,57 @@ const Filters2 = ({
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        toggleFilters2();
-      }
+      if (event.key === "Escape") toggleFilters2();
     };
-    if (showFilters2) {
-      window.addEventListener("keydown", handleKeyDown);
-    }
+    if (showFilters2) window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [showFilters2, toggleFilters2]);
+
+  useEffect(() => {
+    const handlePopState = (event) => {
+      if (showFilters2) {
+        event.preventDefault();
+        toggleFilters2();
+        window.history.pushState(null, "", window.location.href);
+      }
+    };
+
+    if (showFilters2) {
+      window.history.pushState(null, "", window.location.href);
+      window.addEventListener("popstate", handlePopState);
+    }
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [showFilters2, toggleFilters2]);
+
+  // useEffect(() => {
+  //   console.log("Carreras totales:", carrers);
+  //   carrers.forEach((career, index) => {
+  //     console.log(`Carrera ${index + 1}:`, career); // Muestra la carrera completa
+  //     console.log("ID de la carrera:", career.id); // Muestra el ID
+  //     console.log("Nombre de la carrera:", career.name); // Muestra el nombre
+  //   });
+  // }, [carrers]);
+
+  // ✅ Modificado: ahora guarda nombres en vez de IDs
+  const handleToggleCareer = (id) => {
+    const selectedCareerName = carrers.find((c) => c.id === id)?.name;
+
+    if (!selectedCareerName) return;
+
+    setSelectedCarrers((prev) =>
+      prev.includes(selectedCareerName)
+        ? prev.filter((item) => item !== selectedCareerName)
+        : [...prev, selectedCareerName]
+    );
+  };
+
+  // ✅ Console log para depuración
+  useEffect(() => {
+    console.log("selectedCarrers actual:", selectedCarrers);
+  }, [selectedCarrers]);
 
   return (
     <AnimatePresence>
@@ -119,28 +140,18 @@ const Filters2 = ({
           display: "inline-flex",
           alignItems: "center",
           justifyContent: "center",
-          transformOrigin: "center center", // Asegura el punto de rotación en el centro
+          transformOrigin: "center center",
+          filter: "drop-shadow(2px 3px 2px rgb(8, 0, 44))",
         }}
-        initial={{
-          opacity: 0,
-          top: 20,
-          marginRight: "2.2vw",
-          rotate: 360, // Varias vueltas
-        }}
-        animate={{
-          opacity: 1,
-          top: -7,
-          marginRight: "2vw",
-          rotate: 0, // Termina normal
-        }}
+        initial={{ opacity: 0, marginTop: "6vh" }}
+        animate={{ opacity: 1, marginTop: "3vh" }}
         exit={{ opacity: 0 }}
         transition={{
-          duration: 0.4,
-          delay: 0.8,
-          ease: "easeOut",
+          opacity: { duration: 0.4, delay: 1, ease: "easeOut" },
+          marginTop: { duration: 0.4, delay: 1, ease: "easeOut" },
         }}
       >
-        <HiXCircle />
+        <HiArrowNarrowLeft />
       </motion.div>
 
       {(showFilters2 || animateState !== "initial") && (
@@ -201,108 +212,161 @@ const Filters2 = ({
               exit={{ opacity: 0 }}
               transition={{ delay: 0.4, duration: 0.2 }}
             >
-              <StickSlider {...sliderSettings}>
-                <div>
-                  <motion.div
-                    id="FiltersInsideCircleContainer"
-                    onMouseEnter={enableSwipe}
-                    onMouseLeave={enableSwipe}
-                    onTouchStart={enableSwipe}
-                    onTouchEnd={enableSwipe}
-                    initial={{ opacity: showFilters2 ? 0 : 1 }}
-                    animate={{ opacity: showFilters2 ? 1 : 0 }}
-                    transition={{ opacity: { delay: showFilters2 ? 0.45 : 0 } }}
-                  >
-                    <div id="FilterAndXContainer">
-                      <div id="FilterTitle"> FILTROS </div>
-                    </div>
+              <motion.div
+                id="FiltersInsideCircleContainer"
+                initial={{ overflowY: "hidden", opacity: 0, display: "none" }}
+                animate={{
+                  overflowY: isOverflowEnabled ? "auto" : "hidden",
+                  display: isDisplayEnabled ? "block" : "none",
+                  opacity: 1,
+                }}
+                exit={{ overflowY: "hidden", opacity: 0 }}
+                transition={{ duration: 2, delay: 0.4 }}
+              >
+                {/* Autor Section */}
+                <motion.div id="AuthorInputContainer">
+                  <div id="authorfield">BUSCA UN AUTOR</div>
+                  <TextField
+                    fullWidth
+                    className="writable"
+                    sx={{
+                      width: "80vw",
+                      "& .MuiTypography-root": {
+                        fontFamily: "Apple",
+                        fontWeight: "normal",
+                      },
+                      "& .MuiInputBase-input": {
+                        textAlign: "center",
+                      },
+                      boxShadow: "6px 6px 10px 0px rgba(0, 0, 0, 0.57)",
+                      borderRadius: "7px",
+                      backgroundColor: "#f0f0f0",
+                    }}
+                    variant="outlined"
+                    placeholder="Nombre del autor"
+                    value={authorText}
+                    onChange={handleAuthorSearch}
+                    size="medium"
+                  />
+                </motion.div>
 
-                    <div id="AuthorInputContainer">
-                      <div id="authorfield"> Busca un autor </div>
-                      <TextField
-                        fullWidth
-                        className="writable"
-                        onMouseEnter={disableSwipe}
-                        onMouseLeave={disableSwipe}
-                        onTouchStart={disableSwipe}
-                        onTouchEnd={disableSwipe}
-                        sx={{
-                          width: "60vw",
-                          fontFamily: "Apple",
-                          boxShadow: "6px 6px 10px 0px rgba(0, 0, 0, 0.57)",
-                          borderRadius: "7px",
-                          backgroundColor: "#f0f0f0",
-                          border: "0px !important",
-                          outline: "0px",
-                        }}
-                        variant="outlined"
-                        placeholder="Nombre del autor"
-                        value={authorText}
-                        onChange={(e) => handleAuthorSearch(e)}
-                        size="small"
+                <Divider
+                  sx={{
+                    my: 3,
+                    width: "90%",
+                    margin: "0 auto",
+                    borderColor: "rgba(0, 0, 0, 0.7)",
+                  }}
+                />
+
+                {/* Years Section */}
+                <div id="YearsSections">
+                  <div id="YearsTitle">RANGO DE AÑOS</div>
+                  <motion.div
+                    id="SliderContainer"
+                    initial={{ opacity: 0, display: "none" }}
+                    animate={{ opacity: 1, display: "block" }}
+                    exit={{ opacity: 0, display: "none" }}
+                    transition={{ duration: 0.4, delay: 0.6 }}
+                  >
+                    <div id="YearSubtitle">
+                      <strong>Selección:</strong> &nbsp;
+                      {yearRange[0]} - {yearRange[1]}
+                    </div>
+                    <div id="Range">
+                      <Slider
+                        className="hoverable"
+                        id="RealSlider"
+                        getAriaLabel={() => "Rango de años"}
+                        value={yearRange}
+                        onChange={handleYearChange}
+                        valueLabelDisplay="auto"
+                        getAriaValueText={formatYear}
+                        min={2001}
+                        max={2024}
+                        disableSwap
                       />
                     </div>
-
-                    <div id="SliderContainer">
-                      <div id="YearSubtitle">
-                        AÑO DE PUBLICACIÓN |{" "}
-                        <div id="Explanaition">
-                          {" "}
-                          <strong>Selección:</strong> {yearRange[0]} -{" "}
-                          {yearRange[1]}{" "}
-                        </div>
-                      </div>
-                      <div id="Range">
-                        <Slider
-                          onMouseEnter={disableSwipe}
-                          onMouseLeave={enableSwipe}
-                          onTouchStart={disableSwipe}
-                          onTouchEnd={enableSwipe}
-                          id="RealSlider"
-                          className="hoverable"
-                          getAriaLabel={() => "Rango de años"}
-                          value={yearRange}
-                          onChange={handleYearChange}
-                          valueLabelDisplay="auto"
-                          getAriaValueText={formatYear}
-                          min={2001}
-                          max={2024}
-                          disableSwap
-                        />
-                      </div>
-
-                      {/* Carreras */}
-                      
-                    </div>
-                    <div
-                        id="CarrersCarouselContainer"
-                        onMouseEnter={enableSwipe}
-                        onMouseLeave={disableSwipe}
-                        onTouchStart={enableSwipe}
-                        onTouchEnd={disableSwipe}
-                      >
-                        <h2 className="CareerOption">Carreras <HiArrowRight></HiArrowRight></h2>
-                      </div>
                   </motion.div>
                 </div>
-                <div
-                  id="FiltersInsideCircleContainer"
-                  onMouseEnter={enableSwipe}
-                  onMouseLeave={disableSwipe}
-                  onTouchStart={enableSwipe}
-                  onTouchEnd={disableSwipe}
-                >
-                  <div
-                    id="CarrersCarouselContainer"
-                    onMouseEnter={enableSwipe}
-                    onMouseLeave={disableSwipe}
-                    onTouchStart={enableSwipe}
-                    onTouchEnd={disableSwipe}
+
+                <Divider
+                  sx={{
+                    my: 3,
+                    width: "90%",
+                    margin: "0 auto",
+                    borderColor: "rgba(0, 0, 0, 0.7)",
+                  }}
+                />
+
+                {/* Carreras Section */}
+                <div id="CarrersContainer">
+                  <div id="YearsTitle">SELECCIONA CARRERAS</div>
+                  <List
+                    sx={{
+                      width: "100%",
+                      bgcolor: "background.paper",
+                      borderRadius: 2,
+                      boxShadow: 2,
+                      marginTop: 2,
+                    }}
                   >
-                    <h2 className="CareerOption">Carreras</h2>
-                  </div>
+                    {carrers.map((career) => {
+                      const isSelected = selectedCarrers.includes(career.name);
+
+                      return (
+                        <ListItem
+                          key={career.id} // Use a unique string key
+                          disablePadding
+                          divider
+                          className="hoverable"
+                        >
+                          <ListItemButton
+                            sx={{
+                              paddingLeft: "2vw",
+                              paddingRight: "2vw",
+                              height: "20vh",
+                            }}
+                            role={undefined}
+                            onClick={() => handleToggleCareer(career.id)}
+                            dense
+                          >
+                            <Checkbox
+                              edge="start"
+                              checked={isSelected}
+                              onChange={() => handleToggleCareer(career.id)}
+                              tabIndex={-1}
+                              disableRipple
+                              sx={{ marginRight: "2vw" }}
+                            />
+                            <ListItemText
+                              primary={career.name}
+                              primaryTypographyProps={{
+                                fontFamily: "Apple",
+                                fontSize: {
+                                  xs: "0.8rem",
+                                  sm: "1rem",
+                                  md: "1.1rem",
+                                },
+                                fontWeight: "normal",
+                                color: isSelected
+                                  ? "primary.main"
+                                  : "text.primary",
+                                textAlign: "center",
+                              }}
+                              sx={{
+                                width: "100%",
+                                display: "flex",
+                                justifyContent: "center",
+                              }}
+                            />
+                          </ListItemButton>
+                        </ListItem>
+                      );
+                    })}
+                  </List>
                 </div>
-              </StickSlider>
+              </motion.div>
             </motion.div>
           </motion.div>
         </motion.div>
@@ -310,4 +374,6 @@ const Filters2 = ({
     </AnimatePresence>
   );
 };
+
 export default Filters2;
+

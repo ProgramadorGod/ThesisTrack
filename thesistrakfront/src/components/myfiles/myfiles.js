@@ -64,13 +64,14 @@ const Myfiles = ({ userid }) => {
         <NewFile
           setupladovisible={toggleUpload}
           userid={userid}
-          onFileUpload={fetchMyDocuments} // Pasamos la función fetchMyDocuments
+          onFileUpload={fetchMyDocuments}
+          uploadVisible={UploadVisible} // Pasamos la función fetchMyDocuments
         />
       )}
 
       <div className="MainContainer">
         <div className="MyFilesContainer">
-          <div className="CreateNewFile" onClick={toggleUpload}>
+          <div className="CreateNewFile hoverable" onClick={toggleUpload}>
             <div id="CreateNewText">Crear Nuevo Documento</div>
             <div
               style={{
