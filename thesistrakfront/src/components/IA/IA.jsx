@@ -132,6 +132,7 @@ const IA = () => {
             <TextField
               id="IAContainer"
               fullWidth
+              className="writable"
               variant="outlined"
               placeholder="Escribe tu mensaje..."
               value={input}
@@ -142,6 +143,7 @@ const IA = () => {
             />
             <Button
               variant="contained"
+              className="hoverable"
               color="primary"
               onClick={handleSend}
               id="IAContainer"

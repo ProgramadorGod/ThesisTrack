@@ -127,7 +127,7 @@ const Blocker = ({IsLogin, LoadingFetch,ToggleIsLogin}) => {
                         onHoverEnd={() => setHovered(false)}
                         onClick={ToggleIsLogin} 
                         
-                        className='SubmitFormButtom'>
+                        className='SubmitFormButtom hoverable'>
                             <div id='TextBlockButton'>
                                 {IsLogin ? "REGISTER":"LOGIN" }
                             </div>

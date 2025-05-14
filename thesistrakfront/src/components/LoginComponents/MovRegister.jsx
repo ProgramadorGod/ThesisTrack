@@ -79,12 +79,14 @@ export const MovRegister = ({
           <input
             type="text"
             placeholder="Usuario"
+            className="writable"
             value={Username}
             onChange={(e) => setUsername2(e.target.value)}
             required
           />
           <input
             type="email"
+            className="writable"
             placeholder="Correo electrónico"
             value={EmailReg}
             onChange={(e) => setEmailReg(e.target.value)}
@@ -92,6 +94,7 @@ export const MovRegister = ({
           />
           <input
             type="password"
+            className="writable"
             placeholder="Contraseña"
             value={Password1}
             onChange={(e) => setPassword1(e.target.value)}
@@ -101,6 +104,7 @@ export const MovRegister = ({
             type="password"
             placeholder="Confirmar contraseña"
             value={Password2}
+            className="writable"
             onChange={(e) => setPassword2(e.target.value)}
             required
           />
@@ -112,7 +116,7 @@ export const MovRegister = ({
             
           />
         </motion.form>
-        <button className="register" onClick={handleGoLogin}>
+        <button className="register hoverable" onClick={handleGoLogin}>
           Inicia Sesión
         </button>
       </div>

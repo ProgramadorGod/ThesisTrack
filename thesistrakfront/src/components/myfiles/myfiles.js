@@ -12,6 +12,8 @@ const Myfiles = ({ userid }) => {
   const [MyDocuments, setMyDocuments] = useState([]);
   const [isLoading, setisLoading] = useState(true);
   const { API_BASE_URL } = useAppContext();
+  const [AllDocuments, setAllDocuments] = useState([]);
+  
   useEffect(() => {
     if (UploadVisible) {
       document.body.style.overflow = "hidden";
@@ -30,7 +32,13 @@ const Myfiles = ({ userid }) => {
   const toggleUpload = () => {
     setUploadVisible(!UploadVisible);
   };
-
+  const updateDocumentVisualizations = (id, newCount) => {
+    setAllDocuments((prevDocuments) =>
+      prevDocuments.map((doc) =>
+        doc.id === id ? { ...doc, visualizations: newCount } : doc
+      )
+    );
+  };
   const fetchMyDocuments = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}api/my-docs/`, {
@@ -95,7 +103,7 @@ const Myfiles = ({ userid }) => {
                 <h2 className="Proyects"> MIS PROYECTOS </h2>
                 {MyDocuments.map((document) => (
                   // <Document key={document.id} document={document} />
-                  <Document key={document.id} document={document}></Document>
+                  <Document key={document.id} document={document} onUpdateVisualizations={updateDocumentVisualizations}></Document>
                 ))}
               </>
             )}

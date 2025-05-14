@@ -14,6 +14,7 @@
     font-size: 6vh;
     font-family: "Runtoe";
     font-weight: 500;
+    user-select: none;
     color: #0C195A;
 }
 
@@ -80,6 +81,7 @@
 .forgot-password{
     background-color: none;
     margin-top: 1vh;
+    user-select: none;
     border: none;
     display: flex;
     justify-content: center;

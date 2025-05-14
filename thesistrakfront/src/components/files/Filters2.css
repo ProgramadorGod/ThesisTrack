@@ -21,6 +21,7 @@
 #FiltersInsideCircleContainer{
     display: flex;
     width: 100vw;
+    height: 100vh;
     flex-direction: column;
     align-items: flex-start;
 }
@@ -28,7 +29,7 @@
     width: 63vw;
     margin-top: 3vh;
     align-items: center;
-    margin-left: 3vw;
+    /* margin-left: 3vw; */
     margin-right: 3vw;
     width: 94vw;
     display: flex;
@@ -46,9 +47,15 @@
     /* pegarlo a la derecha del todo */
     margin-left: auto;
     cursor: pointer;
-    font-size: 2rem;
+    font-size: 3rem;
+    position: fixed;
+    color: rgb(2, 2, 54);
     margin-right: 30px;
-    margin-top: 3vh;
+    right: 0;
+    margin-right: 2vw;
+    top: 20;
+    margin-top: 1.7vh;
+    z-index: 9999999;
     margin-bottom:0vh;
     
 }
@@ -68,7 +75,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* background-color: red; */
+    /* background-color: #000000af; */
     margin-left: 5vw;
     font-family: "Apple";
 }
@@ -76,6 +83,10 @@
 #authorfield{
     margin-bottom: 0.4vh;
     font-weight: bold;
+    user-select: none;
+    font-size: 1.5rem;
+    color: rgb(35, 24, 65);
+    display: flex;
 
 }
 
@@ -86,5 +97,82 @@
     border: none;
     background-color: rgba(255, 255, 255, 0.781);
     padding-left: 10px;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+}
+.CarrersOpener{
+    display: flex;
+
+}
+
+#CarrersCarouselContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    /* padding-left: 10vw; */
+    height: 50vh;
+    margin-top: 90vh;
+    /* padding-top: 2vh; */
+    /* padding-bottom: 2vh; */
+    /* padding-right: 10vw; */
+    position: absolute;
+    /* background-color: rgb(2, 1, 59); */
+    /* ponerlo en lo más abajo del todo ayuda copilot */
+    
+    outline: none;
+    /* margin-bottom: 2vh; */
+}
+
+.slick-slider{
+    width: 100vw;
+
+}
+
+.CareerOption{
+    font-family: "Apple";
+    font-weight: 400;
+    color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    align-content: center;
+    height: 5vh;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* En tu archivo Filters2.css */
+
+.slick-prev,
+.slick-next {
+  font-size: 30px; /* Tamaño más grande */
+  color: black;    /* Cambia el color si es necesario */
+  z-index: 10;     /* Asegura que las flechas estén por encima del contenido */
+  background-color: rgba(255, 255, 255, 0.6); /* Fondo semitransparente */
+  border-radius: 50%;
+  padding: 10px;    /* Espaciado dentro del botón */
+  transition: background-color 0.3s ease; /* Transición al pasar el ratón */
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+  background-color: rgba(255, 255, 255, 1); /* Fondo más opaco al pasar el ratón */
+}
+
+.slick-prev:before,
+.slick-next:before {
+  display: none; /* Ocultar los iconos predeterminados */
+}
+
+.slick-prev:after,
+.slick-next:after {
+  content: '←'; /* Flecha hacia la izquierda para el anterior */
+  display: block;
+  font-size: 30px;
+  color: black; /* Puedes cambiarlo según el color que prefieras */
+}
+
+.slick-next:after {
+  content: '→'; /* Flecha hacia la derecha para el siguiente */
 }

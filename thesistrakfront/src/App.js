@@ -101,7 +101,7 @@ function AppContent() {
             top: 0,
             left: 0,
             width: "100%",
-            height: "100%",
+            height: "130%",
             backgroundSize: "128px",
             backgroundRepeat: "repeat",
             opacity: 0.09,

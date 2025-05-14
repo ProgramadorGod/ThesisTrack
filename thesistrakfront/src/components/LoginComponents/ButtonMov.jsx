@@ -12,7 +12,7 @@ const ButtonMov = ({IsLogin,Loading, text1,text2}) => {
         whileInView={{backgroundColor:(Loading ? "#1c2d2e":"#0056b3")}}
         whileFocus={{scale:1.04, backgroundColor: (Loading ? "#1c2d2e":"#024791" )}}
         whileTap={{scale:1.12, transition:{duration:0.001,  type: "spring", stiffness: 200, damping: 8 }}}
-        className={`SubmitFormButtomMov  ${Loading ? "Disabled": ""}`}  
+        className={`SubmitFormButtomMov  ${Loading ? "Disabled": ""} hoverable`}  
         type='submit' 
         aria-label='Aria Login' 
         title='LOGIN'

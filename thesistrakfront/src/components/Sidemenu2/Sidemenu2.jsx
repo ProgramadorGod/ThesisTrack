@@ -46,7 +46,7 @@ const Sidemenu2 = ({ isActive }) => {
           return (
             <button
               key={path}
-              className="item"
+              className="item hoverable"
               onClick={() => navigate(path)}
               tabIndex={2}
             >

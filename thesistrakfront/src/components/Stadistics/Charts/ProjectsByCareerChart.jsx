@@ -10,7 +10,7 @@ const ProjectsByCareerChart = ({ data, isMobile }) => {
     },
     tooltip: {
       trigger: "item",
-      formatter: (params) => `<div style="white-space: normal;">${params.seriesName}<br/>${params.name}: ${params.value} (${params.percent}%)</div>`,
+      formatter: (params) => `<div style="white-space: normal;" className="hoverable">${params.seriesName}<br/>${params.name}: ${params.value} (${params.percent}%)</div>`,
       textStyle: {
         fontSize: isMobile ? 12 : 15,
         lineHeight: 20,
@@ -26,6 +26,7 @@ const ProjectsByCareerChart = ({ data, isMobile }) => {
       ? { show: false }
       : {
           orient: "vertical",
+          className: "hoverable",
           show: true,
           left: "left",
           textStyle: {

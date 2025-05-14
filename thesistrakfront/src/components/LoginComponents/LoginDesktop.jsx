@@ -138,9 +138,9 @@ const Login = () => {
           dragConstraints={{ left: -LimitPixels, right: LimitPixels }}
           style={{ width: "5vh", height: "5vh" }}
         >
-          <div id="LottieContainer1" style={{ width: "5vh", height: "5vh" }}>
+          <motion.div id="LottieContainer1" style={{ width: "5vh", height: "5vh" }} className="hoverable">
             <Lottie animationData={Bird} loop autoplay />
-          </div>
+          </motion.div>
         </motion.div>
 
         <motion.div
@@ -151,7 +151,7 @@ const Login = () => {
           drag="x"
           dragConstraints={{ left: -LimitPixels, right: LimitPixels }}
         >
-          <div id="LottieContainer2" style={{ width: "5vh", height: "5vh" }}>
+          <div id="LottieContainer2" style={{ width: "5vh", height: "5vh" }} className="hoverable">
             <Lottie animationData={Bird2} loop autoplay />
           </div>
         </motion.div>

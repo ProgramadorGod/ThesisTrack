@@ -80,6 +80,7 @@ const Register = ({ GoogleIcon, IsLogin }) => {
           <div id="RegisterUserLab">
             <input
               tabIndex={isTabbable}
+              className="writable"
               id="Username-Input"
               disabled={IsLogin}
               type="text"
@@ -107,7 +108,8 @@ const Register = ({ GoogleIcon, IsLogin }) => {
               tabIndex={isTabbable}
               placeholder="Gmail"
               type="email"
-              className="Email-input"
+              
+              className="Email-input writable"
               value={EmailReg}
               onChange={(e) => setEmailReg(e.target.value)}
               onFocus={() => setemailFocus(true)}
@@ -131,6 +133,7 @@ const Register = ({ GoogleIcon, IsLogin }) => {
               id="Password-Input"
               type="Password"
               placeholder="Password"
+              className="writable"
               value={Password1}
               onChange={(e) => setPassword1(e.target.value)}
               onFocus={() => setpassword1Focus(true)}

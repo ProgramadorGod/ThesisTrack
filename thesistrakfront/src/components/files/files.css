@@ -422,14 +422,15 @@
 
 #FilterTitle{
     /* margin-top: 3vh; */
-    margin-left: 6vw;
+    margin-left: 5vw;
     display: flex;
     justify-content: center;
     font-size: 2rem;
     width: 90vw;
+    color: #080125;
     font-family: "Apple";
     font-weight: 900;
-    text-shadow: 1px 1px 1px #000000;
+    text-shadow: 1px 1px 1px #100383;
     user-select: none;
     padding-top:0vh;
 }
@@ -469,6 +470,7 @@
     width: 95vw;
     margin-top: 1vh;
     align-items: center;
+    margin-left: 3vw;
 }
 
 #TextInRange{

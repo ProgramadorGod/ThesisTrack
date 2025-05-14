@@ -3,13 +3,18 @@ import { RxEyeOpen, RxFile, RxTokens } from "react-icons/rx";
 import { useEffect, useState } from "react";
 import { useAppContext } from "../../AppContext";
 
-const Document = ({ document }) => {
+const Document = ({ document, onUpdateVisualizations }) => {
   const { API_BASE_URL } = useAppContext();
   const NEWAPIBASE = API_BASE_URL.endsWith("/")
     ? API_BASE_URL.slice(0, -1)
     : API_BASE_URL;
 
   const [visualizations, setVisualizations] = useState(document.visualizations);
+  const [isCooldown, setIsCooldown] = useState(false);
+
+  const handleIncreaseViews = useEffect(() => {
+    setVisualizations(visualizations + 1);
+  }, []);
 
   if (!document) {
     return <div>Error: Document data is missing.</div>;
@@ -18,33 +23,36 @@ const Document = ({ document }) => {
   const fileUrl = document.file
     ? `${NEWAPIBASE}${document.file}`
     : document.url;
-
-  const handleDownloadClick = async () => {
-    try {
-      // Incrementar visualizaciones
-      const response = await fetch(
-        `${API_BASE_URL}api/upgradeview/${document.id}/`,
-        {
-          method: "GET",
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        setVisualizations(data.visualizations);
-
-        window.open(fileUrl, "_blank");
-      } else {
-        console.error("Error al agregar la visualización");
-      }
-
-      // Redirigir al archivo para descargar
+    const handleDownloadClick = async () => {
+      if (isCooldown) return;
       
-    } catch (error) {
-      console.error("Error al incrementar visualizaciones:", error);
-    }
-  };
-
+      // 1. Visual update
+      window.open(fileUrl, "_blank");
+      const newCount = visualizations + 1;
+      setVisualizations(newCount);
+      onUpdateVisualizations(document.id, newCount); // 🔥 también actualiza el padre
+  
+      setIsCooldown(true);
+  
+      try {
+        await new Promise((res) => setTimeout(res, 3000)); // espera 2 segundos
+  
+        const response = await fetch(
+          `${API_BASE_URL}api/upgradeview/${document.id}/`,
+          { method: "GET" }
+        );
+  
+        if (response.ok) {
+          const data = await response.json();
+          setVisualizations(data.visualizations);
+          onUpdateVisualizations(document.id, data.visualizations); // 🔄 sincroniza
+        }
+      } catch (error) {
+        console.error("Error al incrementar visualizaciones:", error);
+      } finally {
+        setIsCooldown(false);
+      }
+    };
   // console.log("File URL:", fileUrl);
 
   return (
@@ -52,8 +60,8 @@ const Document = ({ document }) => {
       <div className="ThesisContainer">
         <div id="kind">
           <RxTokens id="logo" />
-          {document.code}  RX-312{"\u00A0"} / {"\u00A0"} {document.carrera}
-          <div className="Views">
+          {document.carrer} {"\u00A0"} / {"\u00A0"} {document.carrer_name}
+          <div className="Views" onClick={handleIncreaseViews}>
             <RxEyeOpen id="Eye" />
             {visualizations} views
           </div>
@@ -76,7 +84,8 @@ const Document = ({ document }) => {
         <div className="DownloadButton">
           <a
             id="DownloadText"
-            href="#"
+            className="hoverable"
+            href={fileUrl}
             onClick={(e) => {
               e.preventDefault(); // evita el comportamiento por defecto del <a>
               handleDownloadClick(); // solo abre una vez desde la función

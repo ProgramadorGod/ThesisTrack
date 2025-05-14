@@ -33,4 +33,6 @@ body, * {
   }
   
 
-  
+  .cursor-ripple {
+    /* mix-blend-mode: difference; */
+  }

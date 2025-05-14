@@ -35,7 +35,7 @@ const InputSpotlightBorderCSS = ({searchQuery, handleSearch}) => {
   };
 
   return (
-    <div className="input-wrapper relative">
+    <div className="input-wrapper relative writable">
       <input
         onMouseMove={handleMouseMove}
         onFocus={handleFocus}

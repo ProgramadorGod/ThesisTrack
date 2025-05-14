@@ -64,7 +64,7 @@ const ProfData = ({onEdit}) => {
 
         <div id="UserType"> {userType} </div>
         <div id="Buttons">
-          <button id="wtf" onClick={HandleLogout}>Salir</button> 
+          <button id="wtf" onClick={HandleLogout} className="hoverable">Salir</button> 
           <button id="Edit" >Editar </button>
         </div>
         {/* <a id='logout' className='ProfCardItem' onClick={HandleLogout}> { capitalize("Logout")}</a> */}

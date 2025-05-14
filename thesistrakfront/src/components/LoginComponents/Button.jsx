@@ -20,7 +20,7 @@ const Button = ({IsLogin,Loading, text1,text2}) => {
         whileTap={{scale:1.12, transition:{duration:0.001,  type: "spring", stiffness: 200, damping: 8 }}}
         onMouseEnter={() => setHovered(true)} // Al pasar el mouse
         onMouseLeave={() => setHovered(false)} 
-        className={`SubmitFormButtom  ${Loading ? "Disabled": ""}`}  
+        className={`SubmitFormButtom  ${Loading ? "Disabled": ""} hoverable`}  
         type='submit' 
         aria-label='Aria Login' 
         title='LOGIN'

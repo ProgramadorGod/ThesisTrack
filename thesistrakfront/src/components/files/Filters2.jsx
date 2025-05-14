@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import "./Filters2.css";
-import { HiX } from "react-icons/hi"; // Ícono de cierre (X)
-
-import { Slider, Switch, TextField } from "@mui/material";
+import { HiArrowRight, HiX, HiXCircle } from "react-icons/hi";
+import { Slider, TextField } from "@mui/material";
+import { useDebounce } from "./UseDebounce"; // importa el hook aquí
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import StickSlider from "react-slick";
 
 const Filters2 = ({
-  toogleFilters2,
+  toggleFilters2,
   showFilters2,
   showAuthors,
   showCarrers,
@@ -19,12 +22,52 @@ const Filters2 = ({
   setShowAuthors,
   setShowCarrers,
   setShowTitles,
+  handleAuthorSearch,
   setShowYears,
   authorText,
   setAuthorText,
 }) => {
-
   const [animateState, setAnimateState] = useState("initial");
+  const [selectedCarrers, setSelectedCarrers] = useState([]);
+  const [allowSwipe, setAllowSwipe] = useState(false);
+
+  const enableSwipe = () => setAllowSwipe(true);
+  const disableSwipe = () => setAllowSwipe(false);
+
+  const toggleCareerSelection = (careerId) => {
+    setSelectedCarrers((prev) =>
+      prev.includes(careerId)
+        ? prev.filter((id) => id !== careerId)
+        : [...prev, careerId]
+    );
+  };
+
+  const sliderSettings = {
+    dots: true,
+    infinite:false, // Mejora rendimiento, evita loop innecesario
+    speed: 400, // Más rápido (de 800 a 400ms)
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false, // Quita flechas si no las usas (menos repaints)
+    swipe: allowSwipe, // controlas con hover/touch
+    touchThreshold: 10, // más sensible (por defecto es 5)
+    cssEase: "ease-out", // suaviza la animación
+    waitForAnimate: false, // no bloquea rápido swipe
+
+    swipeToSlide: true, // permite swipe parcial con inercia
+  };
+
+  // Debounced authorText (espera a que termine de escribir)
+  const debouncedAuthorText = useDebounce(authorText, 300);
+
+  // Hacer la petición solo cuando deja de escribir
+  useEffect(() => {
+    if (debouncedAuthorText.trim() !== "") {
+      console.log("Petición con autor:", debouncedAuthorText);
+      // Aquí va tu fetch o axios API call
+    }
+  }, [debouncedAuthorText]);
+
   const handleFilterChange = (filterName) => (event) => {
     switch (filterName) {
       case "showTitles":
@@ -43,6 +86,7 @@ const Filters2 = ({
         break;
     }
   };
+
   useEffect(() => {
     if (showFilters2) {
       setAnimateState("expanded");
@@ -56,21 +100,49 @@ const Filters2 = ({
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
-        toogleFilters2();
+        toggleFilters2();
       }
     };
-
     if (showFilters2) {
       window.addEventListener("keydown", handleKeyDown);
     }
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [showFilters2, toogleFilters2]);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showFilters2, toggleFilters2]);
 
   return (
     <AnimatePresence>
+      <motion.div
+        id="HiX"
+        onClick={toggleFilters2}
+        className="hoverable"
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          transformOrigin: "center center", // Asegura el punto de rotación en el centro
+        }}
+        initial={{
+          opacity: 0,
+          top: 20,
+          marginRight: "2.2vw",
+          rotate: 360, // Varias vueltas
+        }}
+        animate={{
+          opacity: 1,
+          top: -7,
+          marginRight: "2vw",
+          rotate: 0, // Termina normal
+        }}
+        exit={{ opacity: 0 }}
+        transition={{
+          duration: 0.4,
+          delay: 0.8,
+          ease: "easeOut",
+        }}
+      >
+        <HiXCircle />
+      </motion.div>
+
       {(showFilters2 || animateState !== "initial") && (
         <motion.div
           id="MobileFilters"
@@ -129,103 +201,108 @@ const Filters2 = ({
               exit={{ opacity: 0 }}
               transition={{ delay: 0.4, duration: 0.2 }}
             >
-              <motion.div
-                id="FiltersInsideCircleContainer"
-                initial={{ opacity: showFilters2 ? 0 : 1 }}
-                animate={{
-                  opacity: showFilters2 ? 1 : 0,
-                }}
-                transition={{
-                  opacity: { delay: showFilters2 ? 0.45 : 0 },
-                }}
-              >
-                <div id="FilterAndXContainer">
-                  <div id="FilterTitle"> Filtros Avanzados </div>
-                  <div id="HiX" onClick={toogleFilters2}>
-                    {" "}
-                    <HiX></HiX>{" "}
-                  </div>
-                </div>
-                <div id="Switches">
-                  <div className="FilterOption">
-                    TÍTULOS
-                    <Switch
-                      checked={showTitles} // Estado actual
-                      onClick={handleFilterChange("showTitles")} // Cambios controlados
-                    />
-                  </div>
-                  <div className="FilterOption">
-                    CARRERAS
-                    <Switch
-                      checked={showCarrers} // Estado actual
-                      onClick={handleFilterChange("showCarrers")} // Cambios controlados
-                    />
-                  </div>
-                  <div className="FilterOption">
-                    ÉPOCA
-                    <Switch
-                      checked={showYears} // Estado actual
-                      onClick={handleFilterChange("showYears")} // Cambios controlados
-                    />
-                  </div>
-                  <div className="FilterOption">
-                    AUTORES
-                    <Switch
-                      checked={showAuthors} // Estado actual
-                      onClick={handleFilterChange("showAuthors")} // Cambios controlados
-                    />
-                  </div>
-                </div>
-
-                <div id="AuthorInputContainer">
-                  <div id="authorfield">
-                    Buscar por autor específico:
-                  </div>
-                  <TextField
-                    fullWidth
-                    sx={{ width: "60vw", fontFamily:"Apple" }}
-                    variant="outlined"
-                    placeholder="Nombre del autor"
-                    value={authorText}
-                    onChange={(e) => setAuthorText(e.target.value)}
-                    size="small"
-                  />
-                </div>
-
-                <div id="SliderContainer">
-                  <div id="YearSubtitle">
-                    AÑO DE PUBLICACIÓN |{" "}
-                    <div id="Explanaition">
-                      <strong>Selección:</strong> {yearRange[0]} -{" "}
-                      {yearRange[1]}
+              <StickSlider {...sliderSettings}>
+                <div>
+                  <motion.div
+                    id="FiltersInsideCircleContainer"
+                    onMouseEnter={enableSwipe}
+                    onMouseLeave={enableSwipe}
+                    onTouchStart={enableSwipe}
+                    onTouchEnd={enableSwipe}
+                    initial={{ opacity: showFilters2 ? 0 : 1 }}
+                    animate={{ opacity: showFilters2 ? 1 : 0 }}
+                    transition={{ opacity: { delay: showFilters2 ? 0.45 : 0 } }}
+                  >
+                    <div id="FilterAndXContainer">
+                      <div id="FilterTitle"> FILTROS </div>
                     </div>
-                  </div>
-                  <div id="Range">
-                    <Slider
-                      id="RealSlider"
-                      getAriaLabel={() => "Rango de años"}
-                      value={yearRange}
-                      onChange={handleYearChange}
-                      valueLabelDisplay="auto"
-                      getAriaValueText={formatYear}
-                      min={2001}
-                      max={2024}
-                      disableSwap
-                    />
-                  </div>
-                  <div className="CarrersOpener"> CARRERAS </div>
-                  
-                  {/* <div id="CarrersGroup">
-                    {carrers.map((carrer, index) => (
-                      <div className="CarrerButtom" key={index}>
-                        {carrer.name.length > 30
-                          ? `${carrer.name.slice(0, 30)}...`
-                          : carrer.name}
+
+                    <div id="AuthorInputContainer">
+                      <div id="authorfield"> Busca un autor </div>
+                      <TextField
+                        fullWidth
+                        className="writable"
+                        onMouseEnter={disableSwipe}
+                        onMouseLeave={disableSwipe}
+                        onTouchStart={disableSwipe}
+                        onTouchEnd={disableSwipe}
+                        sx={{
+                          width: "60vw",
+                          fontFamily: "Apple",
+                          boxShadow: "6px 6px 10px 0px rgba(0, 0, 0, 0.57)",
+                          borderRadius: "7px",
+                          backgroundColor: "#f0f0f0",
+                          border: "0px !important",
+                          outline: "0px",
+                        }}
+                        variant="outlined"
+                        placeholder="Nombre del autor"
+                        value={authorText}
+                        onChange={(e) => handleAuthorSearch(e)}
+                        size="small"
+                      />
+                    </div>
+
+                    <div id="SliderContainer">
+                      <div id="YearSubtitle">
+                        AÑO DE PUBLICACIÓN |{" "}
+                        <div id="Explanaition">
+                          {" "}
+                          <strong>Selección:</strong> {yearRange[0]} -{" "}
+                          {yearRange[1]}{" "}
+                        </div>
                       </div>
-                    ))}
-                  </div> */}
+                      <div id="Range">
+                        <Slider
+                          onMouseEnter={disableSwipe}
+                          onMouseLeave={enableSwipe}
+                          onTouchStart={disableSwipe}
+                          onTouchEnd={enableSwipe}
+                          id="RealSlider"
+                          className="hoverable"
+                          getAriaLabel={() => "Rango de años"}
+                          value={yearRange}
+                          onChange={handleYearChange}
+                          valueLabelDisplay="auto"
+                          getAriaValueText={formatYear}
+                          min={2001}
+                          max={2024}
+                          disableSwap
+                        />
+                      </div>
+
+                      {/* Carreras */}
+                      
+                    </div>
+                    <div
+                        id="CarrersCarouselContainer"
+                        onMouseEnter={enableSwipe}
+                        onMouseLeave={disableSwipe}
+                        onTouchStart={enableSwipe}
+                        onTouchEnd={disableSwipe}
+                      >
+                        <h2 className="CareerOption">Carreras <HiArrowRight></HiArrowRight></h2>
+                      </div>
+                  </motion.div>
                 </div>
-              </motion.div>
+                <div
+                  id="FiltersInsideCircleContainer"
+                  onMouseEnter={enableSwipe}
+                  onMouseLeave={disableSwipe}
+                  onTouchStart={enableSwipe}
+                  onTouchEnd={disableSwipe}
+                >
+                  <div
+                    id="CarrersCarouselContainer"
+                    onMouseEnter={enableSwipe}
+                    onMouseLeave={disableSwipe}
+                    onTouchStart={enableSwipe}
+                    onTouchEnd={disableSwipe}
+                  >
+                    <h2 className="CareerOption">Carreras</h2>
+                  </div>
+                </div>
+              </StickSlider>
             </motion.div>
           </motion.div>
         </motion.div>
@@ -233,5 +310,4 @@ const Filters2 = ({
     </AnimatePresence>
   );
 };
-
 export default Filters2;
