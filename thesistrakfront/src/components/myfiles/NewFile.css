@@ -12,7 +12,7 @@
 
 .FileBlock{
     display: flex;
-    width: 93vw;
+    width: 90vw;
     height: 90vh;
     flex-direction: column;
     background-color: rgb(255, 255, 255);
@@ -23,16 +23,20 @@
 }
 
 
+
+
 #AllfieldsContainer{
     display: flex;
     flex-direction: column;
+    height: 100%;
+    justify-content: center;
     align-content: center;
     font-family: "Apple";
     align-items: center;
 }
 
 #SelectB{
-    width: 50vw;
+    width: 55vw;
     margin-bottom: 4vh;
 }
 #Slider{
@@ -41,7 +45,7 @@
 
 
 .CarrerField{
-    height: 8vh;
+    height: 6vh;
     margin-top: 1.5vh;
     margin-bottom: 1.5vh;
     padding-left: 3vw;
@@ -55,7 +59,7 @@
 
 }
 .CarrerFieldSelect{
-    height: 8vh;
+    height: 6vh;
     margin-top: 1.5vh;
     margin-bottom: 1.5vh;
 

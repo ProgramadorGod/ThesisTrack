@@ -12,6 +12,8 @@ const Myfiles = ({ userid }) => {
   const [MyDocuments, setMyDocuments] = useState([]);
   const [isLoading, setisLoading] = useState(true);
   const { API_BASE_URL } = useAppContext();
+  const [AllDocuments, setAllDocuments] = useState([]);
+  
   useEffect(() => {
     if (UploadVisible) {
       document.body.style.overflow = "hidden";
@@ -26,11 +28,17 @@ const Myfiles = ({ userid }) => {
   }, [UploadVisible]);
 
 
-  console.log("WTF")
+
   const toggleUpload = () => {
     setUploadVisible(!UploadVisible);
   };
-
+  const updateDocumentVisualizations = (id, newCount) => {
+    setAllDocuments((prevDocuments) =>
+      prevDocuments.map((doc) =>
+        doc.id === id ? { ...doc, visualizations: newCount } : doc
+      )
+    );
+  };
   const fetchMyDocuments = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}api/my-docs/`, {
@@ -56,14 +64,15 @@ const Myfiles = ({ userid }) => {
         <NewFile
           setupladovisible={toggleUpload}
           userid={userid}
-          onFileUpload={fetchMyDocuments} // Pasamos la función fetchMyDocuments
+          onFileUpload={fetchMyDocuments}
+          uploadVisible={UploadVisible} // Pasamos la función fetchMyDocuments
         />
       )}
 
       <div className="MainContainer">
         <div className="MyFilesContainer">
-          <div className="CreateNewFile" onClick={toggleUpload}>
-            <div id="CreateNewText">Create New File</div>
+          <div className="CreateNewFile hoverable" onClick={toggleUpload}>
+            <div id="CreateNewText">Crear Nuevo Documento</div>
             <div
               style={{
                 _display: "flex",
@@ -86,16 +95,16 @@ const Myfiles = ({ userid }) => {
           <div className="MyDocumentsList">
             {isLoading ? (
               <>
-                <h2 className="Proyects"> MY PROYECTS  </h2>
+                <h2 className="Proyects"> MIS PROYECTOS  </h2>
                 <Loadingrectangle></Loadingrectangle>
 
               </>
             ) : (
               <>
-                <h2 className="Proyects"> MY PROYECTS  </h2>
+                <h2 className="Proyects"> MIS PROYECTOS </h2>
                 {MyDocuments.map((document) => (
                   // <Document key={document.id} document={document} />
-                  <Document key={document.id} document={document}></Document>
+                  <Document key={document.id} document={document} onUpdateVisualizations={updateDocumentVisualizations}></Document>
                 ))}
               </>
             )}

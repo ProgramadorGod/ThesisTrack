@@ -1,21 +1,23 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useAppContext } from "../../AppContext";
 import Button from "./Button";
 
-const Register = ({ GoogleIcon }) => {
-
+const Register = ({ GoogleIcon, IsLogin, handleLogin }) => {
   const [usernameFocus, setusernameFocus] = useState(false);
   const [emailFocus, setemailFocus] = useState(false);
   const [password1Focus, setpassword1Focus] = useState(false);
   const {
     isLogged,
     PortToUse,
-    IsLogin,
     handleRegisterForm,
-    handleLogin,
+    setIsWriting,
+    hovered,
+    setHovered,
+    text,
+    setText,
     Username,
     setUsername2,
     EmailReg,
@@ -23,7 +25,7 @@ const Register = ({ GoogleIcon }) => {
     Password1,
     setPassword1,
     Loading,
-    
+
     WindowWidth,
     WindowHeight,
     setisActive,
@@ -31,7 +33,9 @@ const Register = ({ GoogleIcon }) => {
 
     handleLoginForm,
   } = useAppContext();
-  
+
+
+  const isTabbable = !IsLogin ? 0 : -1;
 
   const handleRegisterAppear = () => {
     if (WindowWidth > 700) {
@@ -44,7 +48,7 @@ const Register = ({ GoogleIcon }) => {
   return (
     <motion.div
       id="RegisterContainer"
-      className={`${IsLogin ? "" : "InRegister"}`}
+      className={`${IsLogin ? "OutRegister" : "InRegister"}`}
       initial={{ opacity: 0 }}
       animate={{
         opacity: IsLogin ? 0 : 1,
@@ -61,9 +65,10 @@ const Register = ({ GoogleIcon }) => {
         <h1 id="RegisterText">Register</h1>
       </div>
       <div
-        className="GoogleButton"
+        className="GoogleButton hoverable"
         onClick={handleLogin}
         disabled={IsLogin}
+        tabIndex={isTabbable}
         aria-label="Aria Google"
       >
         <img src={GoogleIcon} id="FaGoogle" />
@@ -73,6 +78,8 @@ const Register = ({ GoogleIcon }) => {
         <div id="Inputs">
           <div id="RegisterUserLab">
             <input
+              tabIndex={isTabbable}
+              className="writable"
               id="Username-Input"
               disabled={IsLogin}
               type="text"
@@ -81,6 +88,8 @@ const Register = ({ GoogleIcon }) => {
               onChange={(e) => setUsername2(e.target.value)}
               onFocus={() => setusernameFocus(true)}
               onBlur={() => setusernameFocus(false)}
+              onMouseEnter={() => setIsWriting(true)} // Al pasar el mouse
+              onMouseLeave={() => setIsWriting(false)} //
               required
             />
             <motion.div
@@ -95,13 +104,17 @@ const Register = ({ GoogleIcon }) => {
             <input
               disabled={IsLogin}
               id="Email-Input"
+              tabIndex={isTabbable}
               placeholder="Gmail"
               type="email"
-              className="Email-input"
+              
+              className="Email-input writable"
               value={EmailReg}
               onChange={(e) => setEmailReg(e.target.value)}
               onFocus={() => setemailFocus(true)}
               onBlur={() => setemailFocus(false)}
+              onMouseEnter={() => setIsWriting(true)} // Al pasar el mouse
+              onMouseLeave={() => setIsWriting(false)} //
               required
             />
             <motion.div
@@ -115,13 +128,17 @@ const Register = ({ GoogleIcon }) => {
           <div id="RegisterPass1Lab">
             <input
               disabled={IsLogin}
+              tabIndex={isTabbable}
               id="Password-Input"
               type="Password"
               placeholder="Password"
+              className="writable"
               value={Password1}
               onChange={(e) => setPassword1(e.target.value)}
               onFocus={() => setpassword1Focus(true)}
               onBlur={() => setpassword1Focus(false)}
+              onMouseEnter={() => setIsWriting(true)} // Al pasar el mouse
+              onMouseLeave={() => setIsWriting(false)} //
               required
             />
             <motion.div
@@ -135,10 +152,14 @@ const Register = ({ GoogleIcon }) => {
 
         <div>
           <Button
+            tabIndex={isTabbable}
             IsLogin={!IsLogin}
             Loading={Loading}
             text1={"SIGN UP"}
             text2={"SIGN UP"}
+            onMouseEnter={() => setHovered(true)} // Al pasar el mouse
+            onMouseLeave={() => setHovered(false)} //
+            
           ></Button>
         </div>
       </form>

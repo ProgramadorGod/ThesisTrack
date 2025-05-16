@@ -1,149 +1,163 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import "./files.css";
 import axios from "axios";
-import Loadingrectangle from "../loading/loading";
 import Document from "./Document";
-import { RxDoubleArrowDown, RxZoomIn } from "react-icons/rx";
+import { RxZoomIn } from "react-icons/rx";
+import { FaFilter } from "react-icons/fa";
+
 import InputSpotlightBorderCSS from "./effect";
-import { debounce, delay } from "lodash";
 import LoadingFiles from "./LoadingFiles";
-import { FaFilter, FaPlus } from "react-icons/fa";
-import { motion, spring } from "framer-motion";
-import { duration, Slider, Switch } from "@mui/material";
-import Filters from "./Filters";
 import Filters2 from "./Filters2";
+import { useAppContext } from "../../AppContext";
+import { motion } from "motion/react";
 
 const Files = ({ PortToUse }) => {
   const [AllDocuments, setAllDocuments] = useState([]);
   const [NextPage, setNextPage] = useState(null);
-  const [isLoading, setisLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [showFilters, setShowFilters] = useState(false);
-  const [showFilters2, setShowFilters2] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
+  const [searchQueryInput, setSearchQueryInput] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [authorInput, setAuthorInput] = useState("");
+  const [authorText, setAuthorText] = useState("");
+  const [yearRange, setYearRange] = useState([2001, 2024]);
+
+  const fetchRequestIdRef = useRef(0);
+
+  const [showFilters2, setShowFilters2] = useState(false);
   const [showTitles, setShowTitles] = useState(true);
   const [showCarrers, setShowCarrers] = useState(true);
   const [showAuthors, setShowAuthors] = useState(true);
   const [showYears, setShowYears] = useState(true);
+
+  const { Carrers } = useAppContext();
   const [carrers, setCarrers] = useState([]);
+  const [selectedCarrers, setSelectedCarrers] = useState([]);
+ 
+  // ✅ Sincronizar carreras desde contexto
+  useEffect(() => {
+    setCarrers(Carrers);
+  }, [Carrers]);
 
-  const [yearRange, setYearRange] = useState([2001, 2024]);
-
-  const fetchCarrers = async (query = "") => {
-    try {
-      const response = await axios.get(PortToUse + "api/carrers/", {
-        withCredentials: true,
-      });
-      setCarrers(response.data);
-    } catch (error) {
-      console.error("Error fetching carrers", error);
+  useEffect(() => {
+    if (showFilters2) {
+      document.body.style.overflow = "hidden"; // Bloquea el scroll
+    } else {
+      document.body.style.overflow = ""; // Restaura el scroll
     }
-  };
 
-  useEffect(() => {
-    fetchCarrers();
-  }, []);
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showFilters2]);
 
-  const handleYearChange = (event, newValue) => {
-    setYearRange(newValue);
-  };
+  // ✅ Fetch documents
+const fetchDocuments = useCallback(async (title, author, yearRange, selectedCarrers, currentId) => {
+  try {
+    console.log("Fetching with filters:", { title, author, yearRange, selectedCarrers });
 
-  const formatYear = (value) => {
-    return `${value}`;
-  };
+    const params = new URLSearchParams();
 
-  const toogleFilters = () => {
-    setShowFilters((prevState) => !prevState);
-  };
+    // Agregar parámetros comunes
+    if (title) params.append("title", title);
+    if (author.trim() !== "") params.append("author", author.trim());
+    if (yearRange.length === 2) {
+      params.append("year_from", yearRange[0]);
+      params.append("year_to", yearRange[1]);
+    }
 
-  const toogleFilters2 = () => {
-    setShowFilters2((prevState) => !prevState);
-  };
+    // Agregar múltiples parámetros 'carrera'
+    selectedCarrers.forEach((carrera) => {
+      params.append("carrera", carrera); // Se agregan todas las carreras como parámetros separados
+    });
 
-  useEffect(() => {
-    fetchDocuments(searchQuery); // Llamar a la función cuando cambian los filtros
-    setisLoading(false);
-  }, [showTitles, showCarrers, showAuthors, showYears, yearRange]); // Dependencias de los filtros
+    const url = `${PortToUse}api/documentz/?${params.toString()}`;
+    const response = await axios.get(url, { withCredentials: true });
 
-  const fetchDocuments = async (query = "") => {
-    try {
-      console.log("Valores actuales del filtro:", {
-        showTitles,
-        showYears,
-        showAuthors,
-        showCarrers,
-        yearRange,
-      });
-  
-      const params = {
-        query,
-        sort_by: "title",
-        show_titles: showTitles,
-        show_authors: showAuthors,
-        show_carrers: showCarrers,
-        show_years: showYears,
-      };
-  
-      // Agregar los años individualmente
-      if (showYears && yearRange.length === 2) {
-        params.year = [yearRange[0], yearRange[1]];
-      }
-  
-      const response = await axios.get(PortToUse + "api/documentz/", {
-        params,
-        paramsSerializer: (params) => {
-          return Object.entries(params)
-            .map(([key, value]) =>
-              Array.isArray(value)
-                ? value.map((v) => `${key}=${encodeURIComponent(v)}`).join("&")
-                : `${key}=${encodeURIComponent(value)}`
-            )
-            .join("&");
-        },
-        withCredentials: true,
-      });
-  
+    if (currentId === fetchRequestIdRef.current) {
       setAllDocuments(response.data.results);
       setNextPage(response.data.next);
       localStorage.setItem("documents", JSON.stringify(response.data.results));
-    } catch (error) {
-      console.error("Error Trying To Fetch Documents: ", error);
+      setIsLoading(false);
     }
-  };
-  
+  } catch (error) {
+    console.error("Error Trying To Fetch Documents: ", error);
+    setIsLoading(false);
+  }
+}, [PortToUse]);
 
+
+  // ✅ Debounce input de búsqueda
+  useEffect(() => {
+    const timer = setTimeout(() => setSearchQuery(searchQueryInput), 500);
+    return () => clearTimeout(timer);
+  }, [searchQueryInput]);
+
+  // ✅ Debounce input de autor
+  useEffect(() => {
+    const timer = setTimeout(() => setAuthorText(authorInput), 500);
+    return () => clearTimeout(timer);
+  }, [authorInput]);
+
+  // ✅ Cuando cambian filtros, nueva búsqueda
+  useEffect(() => {
+    fetchRequestIdRef.current += 1;
+    fetchDocuments(searchQuery, authorText, yearRange, selectedCarrers, fetchRequestIdRef.current);
+  }, [searchQuery, authorText, yearRange, selectedCarrers, fetchDocuments]);
+
+  // ✅ Carga inicial
+  useEffect(() => {
+    fetchRequestIdRef.current += 1;
+    fetchDocuments("", "", yearRange, selectedCarrers, fetchRequestIdRef.current);
+  }, [fetchDocuments, yearRange, selectedCarrers]);
+
+  // ✅ Paginación (load more)
   const AddDocuments = async () => {
     if (NextPage) {
       try {
-        const response = await axios.get(NextPage, {
-          withCredentials: true,
-        });
-        setAllDocuments((prevDocuments) => [
-          ...prevDocuments,
-          ...response.data.results,
-        ]);
+        const response = await axios.get(NextPage, { withCredentials: true });
+        setAllDocuments((prev) => [...prev, ...response.data.results]);
         setNextPage(response.data.next);
-        localStorage.setItem(
-          "documents",
-          JSON.stringify([...AllDocuments, ...response.data.results])
-        );
+        localStorage.setItem("documents", JSON.stringify([...AllDocuments, ...response.data.results]));
       } catch (error) {
         console.error("Error Trying To Fetch Documents: ", error);
       }
     }
   };
 
-  const debouncedFetchDocuments = useCallback(
-    debounce((query) => {
-      fetchDocuments(query);
-    }, 200),
-    [showAuthors, showCarrers, showTitles, showYears]
-  );
+  // ✅ Handlers
+  const handleSearch = (e) => setSearchQueryInput(e.target.value);
+  const handleAuthorSearch = (e) => setAuthorInput(e.target.value);
+  const handleYearChange = (event, newValue) => setYearRange(newValue);
 
-  const handleSearch = async (e) => {
-    const query = e.target.value;
-    setSearchQuery(query);
-    debouncedFetchDocuments(query);
+  const toggleFilters2 = () => setShowFilters2((prev) => !prev);
+
+  const updateDocumentVisualizations = (id, newCount) => {
+    setAllDocuments((prev) =>
+      prev.map((doc) => (doc.id === id ? { ...doc, visualizations: newCount } : doc))
+    );
+  };
+
+  const filterProps = {
+    toggleFilters2,
+    showFilters2,
+    showAuthors,
+    showCarrers,
+    handleAuthorSearch,
+    showTitles,
+    showYears,
+    yearRange,
+    carrers,
+    formatYear: (value) => `${value}`,
+    handleYearChange,
+    authorText: authorInput,
+    setAuthorText: handleAuthorSearch,
+    setShowAuthors,
+    setShowCarrers,
+    setShowTitles,
+    setShowYears,
+    selectedCarrers,
+    setSelectedCarrers,
   };
 
   if (isLoading) {
@@ -152,109 +166,59 @@ const Files = ({ PortToUse }) => {
         <div id="BrowserContainer">
           <div id="SearchInputContainer">
             <InputSpotlightBorderCSS
-              searchQuery={searchQuery}
+              searchQuery={searchQueryInput}
               handleSearch={handleSearch}
               id="PersonalBrowser"
               type="text"
-            ></InputSpotlightBorderCSS>
-
-            {/* <input
-            id="PersonalBrowser"
-            type="text"
-            placeholder="   Buscar Documentos, Tesis, Investigaciones, Pasantias y más "
-            value={searchQuery}
-            onChange={handleSearch}
-          /> */}
-
-            <div id="ZoomIcon">
-              <RxZoomIn></RxZoomIn>
-            </div>
-
-            <div id="FilterButtom">
-              <FaFilter />
-            </div>
+            />
+            <div id="ZoomIcon"><RxZoomIn /></div>
+            <div id="FilterButtom" className="hoverable"><FaFilter /></div>
           </div>
-          <div id="WaitingContainer">
-            <LoadingFiles></LoadingFiles>
-          </div>
+          <div id="WaitingContainer"><LoadingFiles /></div>
         </div>
-
-        {/* <div id="FiltersContainer">
-        <div id="FiltersText">
-          Filters
-        </div>
-        <div>lol</div>
-
-      </div> */}
       </div>
     );
   }
 
-  const filterProps = {
-    toogleFilters2,
-    showFilters2,
-    showAuthors,
-    showCarrers,
-    showTitles,
-    showYears,
-    yearRange,
-    carrers,
-    formatYear,
-    handleYearChange,
-    setShowAuthors,
-    setShowCarrers,
-    setShowTitles,
-    setShowYears,
-  };
-
   return (
     <div>
-      <div id="">{showFilters2 && <Filters2 {...filterProps} />}</div>
+      {showFilters2 && <Filters2 {...filterProps} />}
+
       <div id="totaldocumentscontainer">
         <div id="BrowserContainer">
           <div id="SearchInputContainer">
             <InputSpotlightBorderCSS
-              searchQuery={searchQuery}
+              searchQuery={searchQueryInput}
               handleSearch={handleSearch}
               id="PersonalBrowser"
               type="text"
-            ></InputSpotlightBorderCSS>
-
-            {/* <input
-            id="PersonalBrowser"
-            type="text"
-            placeholder="   Buscar Documentos, Tesis, Investigaciones, Pasantias y más "
-            value={searchQuery}
-            onChange={handleSearch}
-          /> */}
-
-            <div id="ZoomIcon">
-              <RxZoomIn></RxZoomIn>
-            </div>
-            <div id="FilterButtom" onClick={toogleFilters2}>
+            />
+            <div id="ZoomIcon"><RxZoomIn /></div>
+            <div id="FilterButtom" className="hoverable" onClick={toggleFilters2}>
               <FaFilter />
             </div>
           </div>
 
-          <>
-            {AllDocuments.map((document) => (
-              <Document key={document.id} document={document} />
-            ))}
+          {AllDocuments.map((document) => (
+            <Document
+              key={document.id}
+              document={document}
+              onUpdateVisualizations={updateDocumentVisualizations}
+            />
+          ))}
 
-            {NextPage && (
-              <button onClick={AddDocuments} className="load-more-button">
-                Cargar más
-              </button>
-            )}
-          </>
+          {NextPage && (
+            <button onClick={AddDocuments} className="load-more-button">
+              Cargar más
+            </button>
+          )}
         </div>
 
         <motion.div
           className="FiltersSection"
           initial={{ x: 0, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          transition={{}}
-        ></motion.div>
+        />
       </div>
     </div>
   );

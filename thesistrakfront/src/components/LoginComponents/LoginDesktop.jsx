@@ -5,7 +5,7 @@ import { useAppContext } from "../../AppContext";
 import "./login.css";
 import "./loginMov.css";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Lottie from "lottie-react";
 import Bird from "../../media/Pigeon4.json";
 import Bird2 from "../../media/Pigeon3.json";
@@ -15,6 +15,7 @@ import Blocker from "./Blocker";
 import Register from "./Register";
 import Button from "./Button";
 import MovLogin from "./MovLogin";
+import Writable from "../../Writable";
 
 axios.defaults.withCredentials = true;
 
@@ -37,7 +38,6 @@ const Login = () => {
   const [UsernameFocus, setUsernameFocus] = useState(false);
   const [PasswordFocus, setPasswordFocus] = useState(false);
 
-
   const [IsLogin, setIsLogin] = useState(true);
   const navigate = useNavigate(); // Inicializar el hook useNavigate
 
@@ -56,8 +56,6 @@ const Login = () => {
   const setCsrfToken = (token) => {
     document.cookie = `csrftoken=${token}; path=/`;
   };
-
-  
 
   const handleLogin = () => {
     const googleLoginUrl = PortToUse + "/accounts/google/login/?next=/";
@@ -109,6 +107,7 @@ const Login = () => {
     return (
       <div>
         <MovLogin
+          GoogleIcon={GoogleIcon}
           IsLogin={IsLogin}
           LoadingFetch={LoadingFetch}
           handleLoginForm={handleLoginForm}
@@ -128,11 +127,11 @@ const Login = () => {
     <div id="SessionContainer" className={`${LoadingFetch ? "Disabled" : ""}`}>
       <div
         id="MotionContainer"
-        className={`${LoadingFetch ? "Disabled" : ""}`}
+        className={`${LoadingFetch ? "Disabled" : ""} `}
         style={{ width: "5vh", height: "5vh" }}
       >
         <motion.div
-          className="Motiondiv"
+          className="Motiondiv hoverable"
           animate={{ scale: 1.2, x: WidthPixels }}
           whileDrag={{ scale: 1.5 }}
           whileHover={{ scale: 1.3, cursor: "pointer" }}
@@ -140,20 +139,20 @@ const Login = () => {
           dragConstraints={{ left: -LimitPixels, right: LimitPixels }}
           style={{ width: "5vh", height: "5vh" }}
         >
-          <div id="LottieContainer1" style={{ width: "5vh", height: "5vh" }}>
+          <motion.div id="LottieContainer1" style={{ width: "5vh", height: "5vh" }} className="hoverable">
             <Lottie animationData={Bird} loop autoplay />
-          </div>
+          </motion.div>
         </motion.div>
 
         <motion.div
-          className="Motiondiv"
+          className="Motiondiv hoverable"
           animate={{ scale: 1.2, x: -WidthPixels }}
           whileDrag={{ scale: 1.5 }}
           whileHover={{ scale: 1.3, cursor: "pointer" }}
           drag="x"
           dragConstraints={{ left: -LimitPixels, right: LimitPixels }}
         >
-          <div id="LottieContainer2" style={{ width: "5vh", height: "5vh" }}>
+          <div id="LottieContainer2" style={{ width: "5vh", height: "5vh" }} className="hoverable">
             <Lottie animationData={Bird2} loop autoplay />
           </div>
         </motion.div>
@@ -173,31 +172,40 @@ const Login = () => {
           className={`${IsLogin ? "InLogin" : ""}`}
         >
           <div className="ComboTextGoogle">
-            <h1 id="LoginText">Sign In</h1>
+            <h1 id="LoginText" >Sign In</h1>
           </div>
           <div
-            className="GoogleButton"
+            className="GoogleButton hoverable"
             onClick={handleLogin}
             aria-label="Aria Google"
             tabIndex={IsLogin ? 1 : -1}
             disabled={!IsLogin}
           >
-            <img src={GoogleIcon} alt="GoogleIcon" id="FaGoogle" />
+            <img
+              src={GoogleIcon}
+              alt="GoogleIcon"
+              id="FaGoogle"
+              className="hoverable"
+            />
           </div>
           <form onSubmit={handleLoginForm} id="FormularyContainer">
             <div id="Inputs" className="InputsLogin">
               <div id="UserLab-Cont">
-                <input
-                  disabled={!IsLogin}
-                  id="Username-Input"
-                  placeholder={`Username`}
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  onFocus={() => setUsernameFocus(true)}
-                  onBlur={() => setUsernameFocus(false)}
-                  required
-                />
+                <Writable>
+                  <input
+                    disabled={!IsLogin}
+                    id="Username-Input"
+                    placeholder={`Username`}
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    onFocus={() => setUsernameFocus(true)}
+                    onBlur={() => setUsernameFocus(false)}
+                    className="writable"
+                    required
+                  />
+                </Writable>
+
                 <motion.div
                   className="input-underline"
                   initial={{ scaleX: 0 }}
@@ -207,17 +215,21 @@ const Login = () => {
               </div>
 
               <div id="PassLab-Cont">
-                <input
-                  id="Password-Input"
-                  placeholder={`Password`}
-                  disabled={!IsLogin}
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  onFocus={() => setPasswordFocus(true)}
-                  onBlur={() => setPasswordFocus(false)}
-                  required
-                />
+                <Writable>
+                  <input
+                    id="Password-Input"
+                    placeholder={`Password`}
+                    disabled={!IsLogin}
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    onFocus={() => setPasswordFocus(true)}
+                    onBlur={() => setPasswordFocus(false)}
+                    className="writable"
+                    required
+                  />
+                </Writable>
+
                 <motion.div
                   className="input-underline2"
                   initial={{ scaleX: 0 }}
@@ -229,6 +241,7 @@ const Login = () => {
             <Button
               IsLogin={IsLogin}
               Loading={LoadingFetch}
+              //
               text1={"LOGIN"}
               text2={"LOGIN"}
             ></Button>
@@ -237,8 +250,8 @@ const Login = () => {
 
         <Register
           handleLogin={handleLogin}
+          IsLogin={IsLogin}
           GoogleIcon={GoogleIcon}
-
         />
 
         <Blocker

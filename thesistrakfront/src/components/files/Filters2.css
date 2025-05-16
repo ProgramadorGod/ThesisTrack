@@ -2,8 +2,11 @@
     position: fixed;
     height: 100%;
     width: 100%;
-    background-color: rgba(215, 215, 215, 0.444);
+    background-color: rgba(215, 215, 215, 0.445);
     z-index: 999998;
+
+    backdrop-filter: blur(1px); /* <<--- Aquí el blur */
+    -webkit-backdrop-filter: blur(1px); /* Safari support */
 }
 
 
@@ -21,16 +24,18 @@
 #FiltersInsideCircleContainer{
     display: flex;
     width: 100vw;
+    /* overflow-y: auto; */
+    height: 100vh;
     flex-direction: column;
     align-items: flex-start;
 }
 #SliderContainer{
-    width: 63vw;
+    /* width: 63vw; */
     margin-top: 3vh;
     align-items: center;
-    margin-left: 3vw;
+    /* margin-left: 3vw; */
     margin-right: 3vw;
-    width: 94vw;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -46,10 +51,16 @@
     /* pegarlo a la derecha del todo */
     margin-left: auto;
     cursor: pointer;
-    font-size: 2rem;
-    margin-right: 30px;
-    margin-top: 3vh;
-    margin-bottom:1vh;
+    font-size: 3rem;
+    position: absolute;
+    color: #0D0049;
+    /* margin-right: 10vw; */
+    left: 0;
+    margin-left: 4vw;
+    
+    margin-top: 2vh;
+    z-index: 9999999;
+    margin-bottom:0vh;
     
 }
 
@@ -61,3 +72,146 @@
     align-items: center;
     
 }
+
+#AuthorInputContainer{
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #000000af; */
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    margin-left: 5vw;
+    font-family: "Apple";
+}
+
+#authorfield{
+    margin-bottom: 1vh;
+    text-shadow: 1px 1px 1px #070141;
+    font-weight: bold;
+    user-select: none;
+    font-size: 1.5rem;
+    color: rgb(35, 24, 65);
+    display: flex;
+    justify-content: center;
+
+}
+
+#AuthorInput{
+    width: 50vw;
+    height: 10vh;
+    border-radius: 10px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.781);
+    padding-left: 10px;
+    font-size: 1.5rem;
+}
+
+#YearsSections{
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+}
+
+
+#YearsTitle{
+    color: rgb(9, 0, 32);
+    text-shadow: 1px 1px 1px #07013b;
+
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+    font-family: "Apple";
+    font-weight: 900;
+    width: 100vw;
+    font-size: 1.5rem;
+}
+
+
+.CarrersOpener{
+    display: flex;
+
+}
+
+#CarrersCarouselContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    /* padding-left: 10vw; */
+    height: 50vh;
+    margin-top: 90vh;
+    /* padding-top: 2vh; */
+    /* padding-bottom: 2vh; */
+    /* padding-right: 10vw; */
+    position: absolute;
+    /* background-color: rgb(2, 1, 59); */
+    /* ponerlo en lo más abajo del todo ayuda copilot */
+    
+    outline: none;
+    /* margin-bottom: 2vh; */
+}
+
+
+.CareerOption{
+    font-family: "Apple";
+    font-weight: 400;
+    color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    align-content: center;
+    height: 5vh;
+    cursor: pointer;
+    user-select: none;
+}
+#CarrersContainer{
+    width: 80vw;
+    margin-left: 10vw;
+    margin-top: 10vh;
+    display: flex;
+    /* justify-content: center; */
+}
+/* En tu archivo Filters2.css */
+/* ❌ Eliminar estas clases */
+/* .slick-slider { ... }
+.slick-prev, .slick-next { ... }
+.slick-prev:before, .slick-next:before { ... }
+.slick-prev:after, .slick-next:after { ... } */
+
+/* ✅ Añade esta para la lista de carreras */
+.CarrersList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Estilos por defecto */
+.CareerItem {
+  padding: 5px 10px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  font-family: "Apple";
+  height: 10vh;
+  font-size: 1rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.3s ease;
+}
+
+.CareerItem:hover {
+  background: rgba(200, 200, 255, 0.9);
+}
+
+#CarrersContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 6vh;
+    justify-content: center;
+}
+
+
+/* Mobile: reducir fuente en pantallas pequeñas */

@@ -29,7 +29,7 @@ const IA = () => {
   const [input, setInput] = useState("");
   // Reemplaza con tu nueva clave de API segura
   const API_KEY =
-    "sk-QXZgiIh9Cc5fRQMESLypuqwGmc4A6KJjnvjwQ_IUeIT3BlbkFJInWBm-8TeyQa9I-o1LM03Nj9fTFFlOIud5YTUBmjgA";
+    "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";
 
   // Guardar conversaciones en localStorage al cambiar
   useEffect(() => {
@@ -70,7 +70,7 @@ const IA = () => {
             Authorization: `Bearer ${API_KEY}`,
           },
           body: JSON.stringify({
-            model: "gpt-4-turbo", // Usando GPT-4
+            model: "gpt-3.5-turbo", // Usando GPT barato
             messages: formattedMessages,
           }),
         }
@@ -132,6 +132,7 @@ const IA = () => {
             <TextField
               id="IAContainer"
               fullWidth
+              className="writable"
               variant="outlined"
               placeholder="Escribe tu mensaje..."
               value={input}
@@ -142,6 +143,7 @@ const IA = () => {
             />
             <Button
               variant="contained"
+              className="hoverable"
               color="primary"
               onClick={handleSend}
               id="IAContainer"

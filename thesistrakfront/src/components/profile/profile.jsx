@@ -1,11 +1,10 @@
-import React from "react";
-import Loadingrectangle from "../loading/loading";
-import profilepic from "../../media/perfil.png";
+import React, { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import "./profile.css";
 import { useAppContext } from "../../AppContext";
 import axios from "axios";
-import ProgressBar from "@ramonak/react-progress-bar";
 import ProfData from "./ProfData";
+import EditProfile from "./EditProfile";
 
 const Profile = () => {
   const {
@@ -24,14 +23,11 @@ const Profile = () => {
     PortToUse,
   } = useAppContext();
 
+  const [isEditing, setIsEditing] = useState(false);
+
   const capitalize = (text) => {
     if (typeof text !== "string") return "";
     return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
-  };
-
-  const toUpperCase = (text) => {
-    if (typeof text !== "string") return "";
-    return text.toUpperCase();
   };
 
   const HandleLogout = async (e) => {
@@ -44,28 +40,38 @@ const Profile = () => {
   };
 
   return (
-    <div>
-      <ProfData></ProfData>
+    <div className="ProfileWrapper">
+      <AnimatePresence initial={false}>
+        {/* ProfData Component */}
+        {!isEditing && (
+          <motion.div
+            key="profData"
+            initial={{ x: -500, y: 100, opacity: 0 }} // Aparece subiendo y desde la izquierda
+            animate={{ x: 0, y: 0, opacity: 1 }}    // Se queda en su posición normal
+            exit={{ x: -500, y: 100, opacity: 0 }}   // Desaparece hacia la izquierda y hacia abajo
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="MotionWrapper"
+            style={{ position: "absolute", width: "100%", height: "100%" }}
+          >
+            <ProfData onEdit={() => setIsEditing(true)} />
+          </motion.div>
+        )}
 
-      <div id="ProfileComponent">
-        {/*         
-        <div id="ProfileContainer">
-          <div id='profpicdiv'  className='ProfCardItem'>
-            <img src={profilepic} id='ProfileMenuPic'/>
-          </div>
-          
-          <h5 id='ProfEmail' className='ProfCardItem'>{capitalize(profile.UserType)}</h5>
-          <h5 className='ProfCardItem'>{capitalize(name)}</h5>
-          
-          <h5 className='ProfCardItem'>{capitalize(profile.UserMail)}</h5>
-          
-
-          <h5  className='ProfCardItem'>carrers</h5>
-         
-          <a id='logout' className='ProfCardItem' onClick={HandleLogout}> { capitalize("Logout")}</a>
-
-        </div> */}
-      </div>
+        {/* EditProfile Component */}
+        {isEditing && (
+          <motion.div
+            key="editProfile"
+            initial={{ x: 300, y: 300, opacity: 0 }} // Aparece subiendo y desde la derecha
+            animate={{ x: 0, y: 0, opacity: 1 }}    // Se queda en su posición normal
+            exit={{ x: 300, y: 300, opacity: 0 }}    // Desaparece hacia la derecha y hacia abajo
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="MotionWrapper"
+            style={{ position: "absolute", width: "100%", height: "100%" }}
+          >
+            <EditProfile onCancel={() => setIsEditing(false)} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

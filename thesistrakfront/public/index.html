@@ -1,48 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" content="#00837B" />
+
+    <title>ThesisTrack | Tesis y Proyectos de Grado - UNIPAZ</title>
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="Plataforma para gestionar, consultar y documentar tesis, trabajos de grado y proyectos académicos de UNIPAZ."
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.svg" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+    <link rel="canonical" href="https://www.tesistrack.unipaz.edu.co/" />
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>ThesisTrack</title>
+    <!-- ✅ OpenGraph (Facebook, LinkedIn) -->
+    <meta property="og:title" content="ThesisTrack | Tesis y Proyectos de Grado - UNIPAZ" />
+    <meta property="og:description" content="Consulta y gestiona tesis y proyectos de grado de UNIPAZ en una sola plataforma." />
+    <meta property="og:image" content="%PUBLIC_URL%/og-image.jpg" />
+    <meta property="og:url" content="https://www.tesistrack.unipaz.edu.co/" />
+    <meta property="og:type" content="website" />
+
+    <!-- ✅ Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ThesisTrack | Tesis y Proyectos de Grado - UNIPAZ" />
+    <meta name="twitter:description" content="Consulta y gestiona tesis y proyectos de grado de UNIPAZ en una sola plataforma." />
+    <meta name="twitter:image" content="%PUBLIC_URL%/og-image.jpg" />
+
+    <!-- Mantener fuentes como lo tienes -->
+    <link rel="preload" href="/src/fonts/Catrinity.otf" as="font" type="font/otf" crossorigin="anonymous" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.svg" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "ThesisTrack - UNIPAZ",
+        "url": "https://www.tesistrack.unipaz.edu.co/",
+        "logo": "%PUBLIC_URL%/logo.svg",
+        "sameAs": [
+          "https://www.unipaz.edu.co/",
+          "https://www.facebook.com/unipaz",
+          "https://twitter.com/unipaz"
+        ],
+        "description": "Plataforma para gestión de tesis y proyectos académicos de UNIPAZ."
+      }
+      </script>
+      
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>Necesitas habilitar JavaScript para usar esta aplicación.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <!-- Scripts intactos -->
+    <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/prop-types/prop-types.min.js"></script>
+    <script src="https://unpkg.com/recharts/umd/Recharts.js"></script>
   </body>
-  <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/prop-types/prop-types.min.js"></script>
-  <script src="https://unpkg.com/recharts/umd/Recharts.js"></script>
-
 </html>

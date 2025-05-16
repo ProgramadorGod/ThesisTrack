@@ -1,6 +1,7 @@
 .ThesisContainer {
     width: 90vw;
     display: grid;
+    padding-bottom: 3vh;
     border-bottom: 1px solid #D7D8DA;
     background-color: rgba(89, 151, 202, 0);
 }
@@ -42,12 +43,28 @@
 }
 
 #kind {
-    display: flex;
+    display: grid;
     align-content: center;
+    grid-template-columns: 4fr 80fr 30fr;
     font-size: 0.8rem;
     padding-top: 2vh;
     align-items: center;
     color: #67696E;
+}
+#kind > :nth-child(2) {
+    justify-self: start;
+}
+
+@media (max-width:600px){
+    #kind {
+        display: grid;
+        align-content: center;
+        grid-template-columns: 10fr 80fr 30fr;
+        font-size: 0.8rem;
+        padding-top: 2vh;
+        align-items: center;
+        color: #67696E;
+    }
 }
 
 .Views{
@@ -62,8 +79,9 @@
 }
 
 #logo {
-    padding-top: 0.05vw;
+    padding-bottom: 0.6vh;
     color: #FAB73C;
+    margin-right: 0.2vw;
 }
 
 .Title {
@@ -421,14 +439,15 @@
 
 #FilterTitle{
     /* margin-top: 3vh; */
-    margin-left: 6vw;
+    margin-left: 5vw;
     display: flex;
     justify-content: center;
     font-size: 2rem;
     width: 90vw;
+    color: #080125;
     font-family: "Apple";
     font-weight: 900;
-    text-shadow: 1px 1px 1px #000000;
+    text-shadow: 1px 1px 1px #100383;
     user-select: none;
     padding-top:0vh;
 }
@@ -451,9 +470,9 @@
 
 #YearSubtitle{
     font-weight: 600;
-    width: 90vw;
+    width: 100vw;
 
-    margin-left: 2vw;
+    /* margin-left: 2vw; */
     font-family: "Apple";
     display: flex;
     justify-content: center;
@@ -468,6 +487,7 @@
     width: 95vw;
     margin-top: 1vh;
     align-items: center;
+    margin-left: 3vw;
 }
 
 #TextInRange{

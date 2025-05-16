@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./ProfData.css";
 import { FaUserCircle } from "react-icons/fa";
 import { useAppContext } from "../../AppContext";
 import ReactRoundedImage from "react-rounded-image";
 import axios from "axios";
 
-const ProfData = () => {
+const ProfData = ({onEdit}) => {
   const {
     isloading,
     setisloading,
     isLogged,
+    fetchProfile,
     setisLogged,
     profile,
     setProfile,
@@ -25,6 +26,10 @@ const ProfData = () => {
     ProfilePic,
     email,
   } = useAppContext();
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
 
   const HandleLogout = async (e) => {
     setisLogged(false);
@@ -53,23 +58,25 @@ const ProfData = () => {
           imageHeight="100"
           
         />
-        <div id="Name">{name.charAt(0).toUpperCase() + name.slice(1)}</div>
+        <div id="Name">
+          {name ? capitalize(name) : ""}
+        </div>
 
         <div id="UserType"> {userType} </div>
         <div id="Buttons">
-          <button id="wtf" onClick={HandleLogout}>Logout</button> 
-          <button id="Edit">Edit </button>
+          <button id="wtf" onClick={HandleLogout} className="hoverable">Salir</button> 
+          <button id="Edit" >Editar </button>
         </div>
         {/* <a id='logout' className='ProfCardItem' onClick={HandleLogout}> { capitalize("Logout")}</a> */}
         <div id="Linea"></div>
         <div id="EmailContainer">
-          <div id="EmailLabel"> Email </div>
+          <div id="EmailLabel"> Correo Electrónico </div>
           <div id="Email"> {email}</div>
         </div>
         <div id="Linea"></div>
         <div id="EmailContainer">
-          <div id="EmailLabel"> Carrer </div>
-          <div id="Email"> Software Engenieer</div>
+          <div id="EmailLabel"> Carrera </div>
+          <div id="Email"> Ingeniería Informática </div>
         </div>
         <div id="Linea"></div>
         <div id="EmailContainer">

@@ -1,45 +1,71 @@
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import "./Filters2.css";
-import { HiX } from "react-icons/hi"; // Ícono de cierre (X)
-
-import { Slider, Switch } from "@mui/material";
+import React, { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { HiArrowNarrowLeft } from "react-icons/hi";
+import {
+  Slider,
+  TextField,
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  Checkbox,
+  ListItemText,
+} from "@mui/material";
+import { useDebounce } from "./UseDebounce"; // Make sure the path is correct
+import "./Filters2.css"; // Make sure this CSS file exists and is correctly located
 
 const Filters2 = ({
-  toogleFilters2,
+  toggleFilters2,
   showFilters2,
-  showAuthors,
-  showCarrers,
-  showTitles,
-  showYears,
   yearRange,
   carrers,
   formatYear,
   handleYearChange,
-  setShowAuthors,
-  setShowCarrers,
-  setShowTitles,
-  setShowYears,
+  handleAuthorSearch,
+  authorText,
+  selectedCarrers,
+  setSelectedCarrers,
 }) => {
   const [animateState, setAnimateState] = useState("initial");
-  const handleFilterChange = (filterName) => (event) => {
-    switch (filterName) {
-      case "showTitles":
-        setShowTitles((prev) => !prev);
-        break;
-      case "showCarrers":
-        setShowCarrers((prev) => !prev);
-        break;
-      case "showAuthors":
-        setShowAuthors((prev) => !prev);
-        break;
-      case "showYears":
-        setShowYears((prev) => !prev);
-        break;
-      default:
-        break;
+  const [isOverflowEnabled, setIsOverflowEnabled] = useState(false);
+  const [isDisplayEnabled, setIsDisplayEnabled] = useState(false);
+  const debouncedAuthorText = useDebounce(authorText, 300);
+
+  if (process.env.NODE_ENV === 'development') {
+  const originalConsoleError = console.error;
+  console.error = (...args) => {
+    if (/Encountered two children with the same key/.test(args[0])) {
+      return; // Ignora los errores relacionados con claves duplicadas
     }
+    originalConsoleError(...args);
   };
+}
+
+  // Use useCallback to memoize the toggleFilters2 function if it's coming from a parent component.  This can help with performance.  If it's defined within this component, you don't need useCallback.
+  // const toggleFilters2 = useCallback(() => {
+  //   // Your toggle logic here
+  // }, []);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsDisplayEnabled(true);
+    }, 300);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsOverflowEnabled(true);
+    }, 800);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  useEffect(() => {
+    if (debouncedAuthorText.trim() !== "") {
+      console.log("Petición con autor:", debouncedAuthorText);
+    }
+  }, [debouncedAuthorText]);
+
   useEffect(() => {
     if (showFilters2) {
       setAnimateState("expanded");
@@ -52,22 +78,82 @@ const Filters2 = ({
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        toogleFilters2();
+      if (event.key === "Escape") toggleFilters2();
+    };
+    if (showFilters2) window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showFilters2, toggleFilters2]);
+
+  useEffect(() => {
+    const handlePopState = (event) => {
+      if (showFilters2) {
+        event.preventDefault();
+        toggleFilters2();
+        window.history.pushState(null, "", window.location.href);
       }
     };
 
     if (showFilters2) {
-      window.addEventListener("keydown", handleKeyDown);
+      window.history.pushState(null, "", window.location.href);
+      window.addEventListener("popstate", handlePopState);
     }
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("popstate", handlePopState);
     };
-  }, [showFilters2, toogleFilters2]);
+  }, [showFilters2, toggleFilters2]);
+
+  // useEffect(() => {
+  //   console.log("Carreras totales:", carrers);
+  //   carrers.forEach((career, index) => {
+  //     console.log(`Carrera ${index + 1}:`, career); // Muestra la carrera completa
+  //     console.log("ID de la carrera:", career.id); // Muestra el ID
+  //     console.log("Nombre de la carrera:", career.name); // Muestra el nombre
+  //   });
+  // }, [carrers]);
+
+  // ✅ Modificado: ahora guarda nombres en vez de IDs
+  const handleToggleCareer = (id) => {
+    const selectedCareerName = carrers.find((c) => c.id === id)?.name;
+
+    if (!selectedCareerName) return;
+
+    setSelectedCarrers((prev) =>
+      prev.includes(selectedCareerName)
+        ? prev.filter((item) => item !== selectedCareerName)
+        : [...prev, selectedCareerName]
+    );
+  };
+
+  // ✅ Console log para depuración
+  useEffect(() => {
+    console.log("selectedCarrers actual:", selectedCarrers);
+  }, [selectedCarrers]);
 
   return (
     <AnimatePresence>
+      <motion.div
+        id="HiX"
+        onClick={toggleFilters2}
+        className="hoverable"
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          transformOrigin: "center center",
+          filter: "drop-shadow(2px 3px 2px rgb(8, 0, 44))",
+        }}
+        initial={{ opacity: 0, marginTop: "6vh" }}
+        animate={{ opacity: 1, marginTop: "3vh" }}
+        exit={{ opacity: 0 }}
+        transition={{
+          opacity: { duration: 0.4, delay: 1, ease: "easeOut" },
+          marginTop: { duration: 0.4, delay: 1, ease: "easeOut" },
+        }}
+      >
+        <HiArrowNarrowLeft />
+      </motion.div>
+
       {(showFilters2 || animateState !== "initial") && (
         <motion.div
           id="MobileFilters"
@@ -128,87 +214,158 @@ const Filters2 = ({
             >
               <motion.div
                 id="FiltersInsideCircleContainer"
-                initial={{ opacity: showFilters2 ? 0 : 1 }}
+                initial={{ overflowY: "hidden", opacity: 0, display: "none" }}
                 animate={{
-                  opacity: showFilters2 ? 1 : 0,
+                  overflowY: isOverflowEnabled ? "auto" : "hidden",
+                  display: isDisplayEnabled ? "block" : "none",
+                  opacity: 1,
                 }}
-                transition={{
-                  opacity: { delay: showFilters2 ? 0.45 : 0 },
-                }}
+                exit={{ overflowY: "hidden", opacity: 0 }}
+                transition={{ duration: 2, delay: 0.4 }}
               >
-                <div id="FilterAndXContainer">
-                  <div id="FilterTitle">
-                    {" "}
-                    Filtros Avanzados{" "}
+                {/* Autor Section */}
+                <motion.div id="AuthorInputContainer">
+                  <div id="authorfield">BUSCA UN AUTOR</div>
+                  <TextField
+                    fullWidth
+                    className="writable"
+                    sx={{
+                      width: "80vw",
+                      "& .MuiTypography-root": {
+                        fontFamily: "Apple",
+                        fontWeight: "normal",
+                      },
+                      "& .MuiInputBase-input": {
+                        textAlign: "center",
+                      },
+                      boxShadow: "6px 6px 10px 0px rgba(0, 0, 0, 0.57)",
+                      borderRadius: "7px",
+                      backgroundColor: "#f0f0f0",
+                    }}
+                    variant="outlined"
+                    placeholder="Nombre del autor"
+                    value={authorText}
+                    onChange={handleAuthorSearch}
+                    size="medium"
+                  />
+                </motion.div>
 
-                  </div>
-                  <div id="HiX" onClick={toogleFilters2}>
-                      {" "}
-                      <HiX></HiX>{" "}
+                <Divider
+                  sx={{
+                    my: 3,
+                    width: "90%",
+                    margin: "0 auto",
+                    borderColor: "rgba(0, 0, 0, 0.7)",
+                  }}
+                />
+
+                {/* Years Section */}
+                <div id="YearsSections">
+                  <div id="YearsTitle">RANGO DE AÑOS</div>
+                  <motion.div
+                    id="SliderContainer"
+                    initial={{ opacity: 0, display: "none" }}
+                    animate={{ opacity: 1, display: "block" }}
+                    exit={{ opacity: 0, display: "none" }}
+                    transition={{ duration: 0.4, delay: 0.6 }}
+                  >
+                    <div id="YearSubtitle">
+                      <strong>Selección:</strong> &nbsp;
+                      {yearRange[0]} - {yearRange[1]}
                     </div>
-                </div>
-                <div id="Switches">
-                  <div className="FilterOption">
-                    TÍTULOS
-                    <Switch
-                      checked={showTitles} // Estado actual
-                      onClick={handleFilterChange("showTitles")} // Cambios controlados
-                    />
-                  </div>
-                  <div className="FilterOption">
-                    CARRERAS
-                    <Switch
-                      checked={showCarrers} // Estado actual
-                      onClick={handleFilterChange("showCarrers")} // Cambios controlados
-                    />
-                  </div>
-                  <div className="FilterOption">
-                    ÉPOCA
-                    <Switch
-                      checked={showYears} // Estado actual
-                      onClick={handleFilterChange("showYears")} // Cambios controlados
-                    />
-                  </div>
-                  <div className="FilterOption">
-                    AUTORES
-                    <Switch
-                      checked={showAuthors} // Estado actual
-                      onClick={handleFilterChange("showAuthors")} // Cambios controlados
-                    />
-                  </div>
+                    <div id="Range">
+                      <Slider
+                        className="hoverable"
+                        id="RealSlider"
+                        getAriaLabel={() => "Rango de años"}
+                        value={yearRange}
+                        onChange={handleYearChange}
+                        valueLabelDisplay="auto"
+                        getAriaValueText={formatYear}
+                        min={2001}
+                        max={2024}
+                        disableSwap
+                      />
+                    </div>
+                  </motion.div>
                 </div>
 
-                <div id="SliderContainer">
-                  <div id="YearSubtitle">
-                    AÑO DE PUBLICACIÓN |{" "}
-                    <div id="Explanaition">
-                      <strong>Selección:</strong> {yearRange[0]} -{" "}
-                      {yearRange[1]} 
-                    </div>
-                  </div>
-                  <div id="Range">
-                    <Slider
-                      id="RealSlider"
-                      getAriaLabel={() => "Rango de años"}
-                      value={yearRange}
-                      onChange={handleYearChange}
-                      valueLabelDisplay="auto"
-                      getAriaValueText={formatYear}
-                      min={2001}
-                      max={2024}
-                      disableSwap
-                    />
-                  </div>
-                  <div className="Text"> CARRERAS </div>
-                  <div id="CarrersGroup">
-                    {carrers.map((carrer, index) => (
-                      <div className="CarrerButtom" key={index}>
-                        {carrer.name.length > 30
-                          ? `${carrer.name.slice(0, 30)}...`
-                          : carrer.name}
-                      </div>
-                    ))}
-                  </div>
+                <Divider
+                  sx={{
+                    my: 3,
+                    width: "90%",
+                    margin: "0 auto",
+                    borderColor: "rgba(0, 0, 0, 0.7)",
+                  }}
+                />
+
+                {/* Carreras Section */}
+                <div id="CarrersContainer">
+                  <div id="YearsTitle">SELECCIONA CARRERAS</div>
+                  <List
+                    sx={{
+                      width: "100%",
+                      bgcolor: "background.paper",
+                      borderRadius: 2,
+                      boxShadow: 2,
+                      marginTop: 2,
+                    }}
+                  >
+                    {carrers.map((career) => {
+                      const isSelected = selectedCarrers.includes(career.name);
+
+                      return (
+                        <ListItem
+                          key={career.id} // Use a unique string key
+                          disablePadding
+                          divider
+                          className="hoverable"
+                        >
+                          <ListItemButton
+                            sx={{
+                              paddingLeft: "2vw",
+                              paddingRight: "2vw",
+                              height: "20vh",
+                            }}
+                            role={undefined}
+                            onClick={() => handleToggleCareer(career.id)}
+                            dense
+                          >
+                            <Checkbox
+                              edge="start"
+                              checked={isSelected}
+                              onChange={() => handleToggleCareer(career.id)}
+                              tabIndex={-1}
+                              disableRipple
+                              sx={{ marginRight: "2vw" }}
+                            />
+                            <ListItemText
+                              primary={career.name}
+                              primaryTypographyProps={{
+                                fontFamily: "Apple",
+                                fontSize: {
+                                  xs: "0.8rem",
+                                  sm: "1rem",
+                                  md: "1.1rem",
+                                },
+                                
+                                fontWeight: "bold",
+                                color: isSelected
+                                  ? "primary.main"
+                                  : "text.primary",
+                                textAlign: "center",
+                              }}
+                              sx={{
+                                width: "100%",
+                                display: "flex",
+                                justifyContent: "center",
+                              }}
+                            />
+                          </ListItemButton>
+                        </ListItem>
+                      );
+                    })}
+                  </List>
                 </div>
               </motion.div>
             </motion.div>
@@ -220,3 +377,4 @@ const Filters2 = ({
 };
 
 export default Filters2;
+

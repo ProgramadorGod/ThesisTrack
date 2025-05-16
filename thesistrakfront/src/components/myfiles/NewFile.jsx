@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import {
   Button,
   TextField,
@@ -15,11 +15,12 @@ import {
 } from "@mui/material";
 import "./NewFile.css";
 import { useAppContext } from "../../AppContext";
-import { HiX } from "react-icons/hi";
+import { HiArrowNarrowLeft, HiX } from "react-icons/hi";
 import Swal from "sweetalert2";
 import { set } from "lodash";
+import { FaArrowAltCircleLeft } from "react-icons/fa";
 
-const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
+const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload, uploadVisible }) => {
   const [docTypes, setDocTypes] = useState([]);
   const [carrers, setCarrers] = useState([]);
   const [stages, setStages] = useState([]);
@@ -35,7 +36,8 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
   const [error, setError] = useState("");
   const [OnView, setOnView] = useState(false);
 
-  const { PortToUse, getCookie } = useAppContext();
+  const { PortToUse, getCookie, isMobile, refreshCsrfToken, getCsrfToken } =
+    useAppContext();
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -51,8 +53,40 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
     };
   }, [setupladovisible]);
 
+
+
+  useEffect(() => {
+  const handlePopState = (event) => {
+    if (uploadVisible) {
+      event.preventDefault();
+      setupladovisible();
+      // Opcional: empujar de nuevo para que no se "vaya" atrás la app
+      window.history.pushState(null, "", window.location.href);
+    }
+  };
+
+  if (uploadVisible) {
+    // Empujar un nuevo estado al abrir Filters2
+    window.history.pushState(null, "", window.location.href);
+    window.addEventListener("popstate", handlePopState);
+  }
+
+  return () => {
+    window.removeEventListener("popstate", handlePopState);
+  };
+}, [uploadVisible, setupladovisible]);
+
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validación de carrera seleccionada
+    if (!carrer) {
+      setError("Por favor, selecciona una carrera.");
+      return; // Detenemos el envío si no se seleccionó una carrera
+    }
 
     if (!file) {
       setError("Por favor, selecciona un archivo.");
@@ -65,49 +99,91 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
     formData.append("is_visible", visible);
     formData.append("description", description);
     formData.append("year", "2024");
-    formData.append("file", file); // Archivo debe estar presente
+    formData.append("file", file);
     formData.append("progress_percentage", progressPercentage);
     formData.append("document_type", docType);
-    formData.append("carrer", carrer);
+    formData.append("carrer", carrer); // Asegúrate de pasar el ID de la carrera
     formData.append("stage", stage);
 
     try {
+      // Primer intento con token actual
       const response = await axios.post(
-        PortToUse + "api/file_docs/",
+        `${PortToUse}api/file_docs/`,
         formData,
         {
           headers: {
             Accept: "application/json",
-            "X-CSRFToken": getCookie("csrftoken"),
+            "X-CSRFToken": getCsrfToken(),
           },
           withCredentials: true,
         }
       );
 
-      console.log("File uploaded successfully", response.data);
-      setError("");
-      onFileUpload();
+      if (response.status === 200 || response.status === 201) {
+        onFileUpload();
 
-      // 🎉 Aquí va el SweetAlert
-      Swal.fire({
-        icon: "success",
-        title: "Archivo subido",
-        text: "¡Tu documento fue cargado exitosamente!",
-        confirmButtonColor: "#1976d2",
-      });
+        Swal.fire({
+          icon: "success",
+          title: "Archivo subido",
+          text: "¡Tu documento fue cargado exitosamente!",
+          confirmButtonColor: "#1976d2",
+        });
 
-      setupladovisible(false);
+        setupladovisible(false);
+      }
     } catch (error) {
-      console.error("Error uploading file", error);
-      setError("Error al subir el archivo.");
-      setupladovisible(false);
-      // ❌ Alerta de error
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Hubo un problema al subir el archivo.",
-        confirmButtonColor: "#d32f2f",
-      });
+      if (error.response) {
+        console.error("Respuesta del servidor:", error.response.data);
+      }
+
+      if (error.response?.status === 403) {
+        // Reintento con nuevo token
+        const newToken = await refreshCsrfToken();
+        try {
+          const retryResponse = await axios.post(
+            `${PortToUse}api/file_docs/`,
+            formData,
+            {
+              headers: {
+                Accept: "application/json",
+                "X-CSRFToken": newToken,
+              },
+              withCredentials: true,
+            }
+          );
+
+          if (retryResponse.status === 200 || retryResponse.status === 201) {
+            onFileUpload();
+
+            Swal.fire({
+              icon: "success",
+              title: "Archivo subido",
+              text: "¡Tu documento fue cargado exitosamente!",
+              confirmButtonColor: "#1976d2",
+            });
+
+            setupladovisible(false);
+          }
+        } catch (retryError) {
+          console.error("Error al reintentar la subida:", retryError);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "No se pudo subir el archivo.",
+            confirmButtonColor: "#d32f2f",
+          });
+          setupladovisible(false);
+        }
+      } else {
+        console.error("Error al subir el archivo:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Hubo un problema al subir el archivo.",
+          confirmButtonColor: "#d32f2f",
+        });
+        setupladovisible(false);
+      }
     }
   };
 
@@ -122,16 +198,11 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
     }
   };
 
-  const fetchCarrers = async () => {
-    try {
-      const response = await axios.get(PortToUse + "api/carrers/", {
-        withCredentials: true,
-      });
-      setCarrers(response.data);
-    } catch (error) {
-      console.error("Error fetching carrers", error);
-    }
-  };
+  const { Carrers } = useAppContext();
+
+  useEffect(() => {
+    setCarrers(Carrers);
+  }, [Carrers]);
 
   const fetchStages = async () => {
     try {
@@ -150,7 +221,7 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
 
   useEffect(() => {
     fetchDocTypes();
-    fetchCarrers();
+
     fetchStages();
   }, []); // Lista de dependencias vacía para ejecutar solo una vez
 
@@ -166,7 +237,7 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
     >
       <motion.div
         initial={{ opacity: 0, height: 0 }}
-        animate={{ opacity: 1, height: "90vh" }}
+        animate={{ opacity: 1, height: "80vh", y: isMobile ? -55 : 0 }}
         transition={{
           type: "spring",
           opacity: { duration: 0.3 },
@@ -184,11 +255,28 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
           position: "fixed",
         }}
       >
-        <div id="HiX" onClick={setupladovisible}>
+        <motion.div id="HiX" onClick={setupladovisible}
+        className="hoverable"
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          transformOrigin: "center center",
+          filter: "drop-shadow(2px 3px 2px #0D0049)",
+        }}
+        initial={{ opacity: 0, marginTop: "6vh", marginLeft: "10vw" }}
+        animate={{ opacity: 1, marginTop: "3vh", marginLeft: "7vw" }}
+        exit={{ opacity: 0 }}
+        transition={{
+          opacity: { duration: 0.4, delay: 0.1, ease: "easeOut" },
+          marginTop: { duration: 0.4, delay: 0.1, ease: "easeOut" },
+
+          marginLeft: { duration: 0.2, delay: 0.1, ease: "easeOut" },
+        }}>
           {" "}
-          <HiX></HiX>{" "}
-        </div>{" "}
-        <div style={{ width: "100%" }}>
+          <HiArrowNarrowLeft></HiArrowNarrowLeft>{" "}
+        </motion.div>{" "}
+        <div style={{ width: "100%" , height: "100%" }}>
           <form onSubmit={handleSubmit} id="AllfieldsContainer">
             {error && <div className="error">{error}</div>}{" "}
             <div>
@@ -196,7 +284,7 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
                 value={carrer}
                 onChange={(e) => setCarrer(e.target.value)}
                 // style={{width:"40%"}}
-                className="CarrerFieldSelect"
+                className="CarrerFieldSelect hoverable"
               >
                 <option value="">Escoge Una Carrera</option>
                 {carrers.map((carrer) => (
@@ -213,7 +301,8 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
             <div>
               <input
                 value={title}
-                className="CarrerField"
+                className="CarrerField writable"
+
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Título"
               />
@@ -223,18 +312,18 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Descripción"
-                className="CarrerField"
+                className="CarrerField writable"
               />
             </div>
             <div>
               <select
                 value={docType}
                 onChange={(e) => setDocType(e.target.value)}
-                className="CarrerFieldSelect"
+                className="CarrerFieldSelect hoverable"
               >
                 <option value="">Tipo De Documento</option>
                 {docTypes.map((type) => (
-                  <option key={type.id} value={type.id} className="CarrerField">
+                  <option key={type.id} value={type.id} className="CarrerField hoverable">
                     {type.name}
                   </option>
                 ))}
@@ -243,12 +332,12 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
             <div>
               <select
                 value={stage}
-                className="CarrerFieldSelect"
+                className="CarrerFieldSelect hoverable"
                 onChange={(e) => setStage(e.target.value)}
               >
                 <option value="">Fase Del Proyecto</option>
                 {stages.map((stage) => (
-                  <option key={stage.id} value={stage.id}>
+                  <option key={stage.id} value={stage.id} >
                     {stage.stage}
                   </option>
                 ))}
@@ -271,15 +360,31 @@ const NewFile = ({ setupladovisible, userid, toogleUpload, onFileUpload }) => {
                 <Button
                   variant="contained"
                   component="label"
+                  className="hoverable"
                   fullWidth
                   id="SelectB"
+                  sx={{
+                    backgroundColor: "#000000",
+                    color: "#ffffff",
+                    "&:hover": {
+                      backgroundColor: "#333333",
+                    },
+                  }}
                 >
                   {file ? file.name : "Seleccionar Archivo"}
                   <input type="file" hidden onChange={handleFileChange} />
                 </Button>
               </div>{" "}
             </div>
-            <Button variant="contained" type="submit">
+            <Button
+              variant="contained"
+              className="hoverable"
+              type="submit"
+              sx={{
+                backgroundColor: "#1976d2",
+                "&:hover": { backgroundColor: "#115293" },
+              }}
+            >
               Subir Archivo
             </Button>
           </form>

@@ -8,7 +8,7 @@ import InputSpotlightBorderCSS from "./effect";
 import { debounce, delay } from "lodash";
 import LoadingFiles from "./LoadingFiles";
 import { FaFilter, FaPlus } from "react-icons/fa";
-import { motion, spring } from "framer-motion";
+import { motion, spring } from "motion/react";
 import { duration, Slider, Switch } from "@mui/material";
 
 const Filters = ({

@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import "./MovLogin.css";
 import ButtonMov from "./ButtonMov";
 import Button from "./Button";
 import { useAppContext } from "../../AppContext";
 
-const MovLogin = ({
-  IsLogin,
-
-}) => {
+const MovLogin = ({ IsLogin, handleLogin, GoogleIcon }) => {
   const navigate = useNavigate();
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
@@ -44,7 +41,7 @@ const MovLogin = ({
 
   return (
     <div id="MainContainerMovile">
-      <div id="FirstText">ThesisTrack</div>
+      <div id="FirstText">THESISTRACK</div>
       <div id="SubTitleText">
         Con ThesisTrack, descubrir los proyectos de grado de la Unipaz se siente
         tan fácil y gratificante como debería ser.
@@ -53,11 +50,25 @@ const MovLogin = ({
       <motion.form
         className="FormMov"
         onSubmit={handleLoginForm}
-        animate={{ y: isKeyboardVisible ? "-30vh" : 0 }}
+        animate={{ y: isKeyboardVisible ? "-10vh" : 0 }}
         transition={{ type: "tween", duration: 0.1, ease: "easeOut" }}
       >
+        <div
+          className="GoogleButton hoverable"
+          onClick={handleLogin}
+          aria-label="Aria Google"
+          tabIndex={IsLogin ? 1 : -1}
+          disabled={!IsLogin}
+        >
+          <img
+            src={GoogleIcon}
+            alt="GoogleIcon"
+            id="FaGoogle"
+            className="hoverable"
+          />
+        </div>
         <input
-          className="MailMov"
+          className="MailMov writable"
           type="text"
           placeholder="Usuario"
           value={username}
@@ -65,7 +76,7 @@ const MovLogin = ({
           required
         />
         <input
-          className="PassMov"
+          className="PassMov writable"
           type="password"
           placeholder="Contraseña"
           value={password}
@@ -79,7 +90,10 @@ const MovLogin = ({
           text2={"Iniciar Sesión"}
         />
         <div id="ForgotPasswordContainer">
-          <div onClick={handleForgotPassword} className="forgot-password">
+          <div
+            onClick={handleForgotPassword}
+            className="forgot-password hoverable"
+          >
             ¿Olvidaste tu contraseña?
           </div>
         </div>
@@ -90,7 +104,7 @@ const MovLogin = ({
         animate={{ y: isKeyboardVisible ? "-30vh" : 0 }}
         transition={{ type: "tween", duration: 0.1, ease: "easeOut" }}
       >
-        <button onClick={handleRegister} className="register">
+        <button onClick={handleRegister} className="register hoverable">
           Crear una cuenta
         </button>
       </motion.div>

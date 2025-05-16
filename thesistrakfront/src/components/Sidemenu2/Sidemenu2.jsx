@@ -1,5 +1,5 @@
 import "./Sidemenu2.css";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useAppContext } from "../../AppContext";
 import React, { useState, useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -46,7 +46,7 @@ const Sidemenu2 = ({ isActive }) => {
           return (
             <button
               key={path}
-              className="item"
+              className="item hoverable"
               onClick={() => navigate(path)}
               tabIndex={2}
             >

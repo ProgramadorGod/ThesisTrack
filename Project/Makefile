@@ -4,6 +4,9 @@ build:
 up:
 	docker-compose up
 
+down: 
+	docker-compose down
+
 run:
 	docker-compose up
 

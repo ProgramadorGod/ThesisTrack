@@ -4,13 +4,15 @@ import Lottie from "lottie-react"; // Intenta importar así
 import "./Stadistics.css";
 import { Link, Element } from "react-scroll";
 import bookanimation from "../../media/bookanimation.json";
-import { color } from "framer-motion";
+import { color } from "motion/react";
+import ProjectsByCareerChart from "./Charts/ProjectsByCareerChart";
+import ProjectsByYearChart from "./Charts/ProjectsByYear";
 
 const Echart = () => {
   const [carrerData, setCarrerData] = useState([]);
   const [yearData, setYearData] = useState([]);
   // const API_BASE_URL = "http://127.0.0.1:8000/";
-  const API_BASE_URL =  process.env.REACT_APP_API_URL;
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
   const [carrersList, setCarrersList] = useState([]);
   const [documentsByYear, setDocumentsByYear] = useState({});
   const [trendData, setTrendData] = useState([]); // Para la nueva gráfica de tendencias
@@ -121,13 +123,14 @@ const Echart = () => {
           }, {});
 
         setDocumentsByYear(sortedData);
-        console.log("Datos organizados y ordenados: ", sortedData);
+        // console.log("Datos organizados y ordenados: ", sortedData);
       })
       .catch((error) => console.error("Error al obtener los datos:", error));
   }, []);
 
-  console.log(trendData);
+  // console.log(trendData);
 
+  // Fetch de los datos para Proyectos por Carrera
   useEffect(() => {
     fetch(API_BASE_URL + "api/document-count-by-carrer/")
       .then((response) => response.json())
@@ -145,12 +148,13 @@ const Echart = () => {
           ...topFour.map((item) => ({
             value: item.total_documents,
             name: item.carrer__name,
-            label: { show: true }, // Mostrar etiquetas para las 4 carreras principales
+            label: { show: true },
+            // Mostrar etiquetas para las 4 carreras principales
           })),
           ...others.map((item) => ({
             value: item.total_documents,
             name: item.carrer__name,
-            label: { show: false },
+            label: { show: false, fontFamily: "Apple" },
           })),
         ];
 
@@ -164,9 +168,17 @@ const Echart = () => {
     fetch(API_BASE_URL + "api/document-count-by-year/")
       .then((response) => response.json())
       .then((data) => {
-        const sortedData = data.sort((a, b) => a.year - b.year);
+        // Filtrar los elementos donde 'year' es 'undefined'
+        const validData = data.filter(
+          (item) => item.year !== "undefined" && item.year !== undefined
+        );
+
+        // Ordenar los datos por año
+        const sortedData = validData.sort((a, b) => a.year - b.year);
+
         const years = sortedData.map((item) => item.year);
         const totals = sortedData.map((item) => item.total_documents);
+
         setYearData({ years, totals });
       })
       .catch((error) => console.error("Error fetching year data:", error));
@@ -215,7 +227,7 @@ const Echart = () => {
         });
 
         setTrendData(filledData);
-        console.log("Datos completos con años faltantes: ", filledData);
+        // console.log("Datos completos con años faltantes: ", filledData);
       })
       .catch((error) =>
         console.error("Error al obtener los datos de tendencia:", error)
@@ -223,79 +235,6 @@ const Echart = () => {
   }, []);
 
   // Configuración del gráfico de pastel (Proyectos por Carrera)
-  const option = {
-    title: {
-      text: "Proyectos Por Carrera",
-      left: "center",
-    },
-    tooltip: {
-      trigger: "item",
-      show: true,
-    },
-
-
-    legend: isMobile
-      ? { show: false }
-      : {
-          orient: "vertical",
-          show: true,
-          left: "left",
-          textStyle: {
-            fontSize: 9,
-            color: "#333",
-          },
-          itemGap: 10,
-          type: "scroll",
-          formatter: (name) =>
-            name.length > 25 ? name.substring(0, 25) + "..." : name,
-        },
-    
-        
-    series: [
-      {
-        name: "Proyectos",
-        type: "pie",
-        radius: isMobile ? ["20%", "50%"] : ["35%", "85%"],
-        avoidLabelOverlap: true,
-        data: carrerData,
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: "rgba(0, 0, 0, 0.5)",
-          },
-        },
-      },
-    ],
-  };
-
-  // Configuración del gráfico de línea (Tendencia Por Año)
-  const option2 = { 
-    title: {
-      text: "Cantidad De Proyectos Por Año",
-      left: "center",
-    },
-    tooltip: {
-      trigger: "axis",
-    },
-    xAxis: {
-      type: "category",
-      data: yearData.years || [],
-    },
-    yAxis: {
-      type: "value",
-    },
-    grid: {
-      left: 50,
-    },
-    series: [
-      {
-        name: "Proyectos",
-        type: "line",
-        data: yearData.totals || [],
-      },
-    ],
-  };
 
   const option3 = {
     title: { text: "Crecimiento por Carrera", left: "center" },
@@ -320,38 +259,80 @@ const Echart = () => {
       labelLayout: { moveOverlap: "shiftY" },
     })),
   };
-
+  const colors = [
+    "#5470C6",
+    "#91CC75",
+    "#EE6666",
+    "#FAC858",
+    "#73C0DE",
+    "#3BA272",
+    "#FC8452",
+    "#9A60B4",
+    "#EA7CCC",
+  ];
   const trendOption = {
     title: {
       text: "Tendencia por Carrera y Año",
       left: "center",
+      textStyle: { fontFamily: "Apple" },
     },
+    animationDuration: 1000,
+    animationEasing: "cubicOut",
     tooltip: {
       trigger: "axis",
       textStyle: {
-        fontSize: 13,
+        fontSize: isMobile ? 12 : 13,
+        lineHeight: 20,
+        fontFamily: "Apple",
       },
+      extraCssText: `
+      white-space: normal;
+      max-width: ${isMobile ? "400px" : "300px"};
+      padding: 8px;
+    `,
       formatter: function (params) {
-        let tooltipContent = "";
-        params.forEach((param) => {
-          const [year, totalDocuments] = param.value; // Desestructuramos el array en año y cantidad
+        if (!params) return "Sin datos";
 
-          if (totalDocuments !== 0) {
-            tooltipContent += `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background-color:${param.color};margin-right:5px;"></span> ${param.seriesName} : ${totalDocuments}<br>`;
-          }
-        });
-        return tooltipContent ? tooltipContent : "Sin datos";
+        const paramList = Array.isArray(params) ? params : [params];
+
+        const items = paramList
+          .filter((param) => param && Array.isArray(param.value))
+          .filter((param) => param.value[1] !== 0)
+          .map((param) => {
+            const [year, totalDocuments] = param.value;
+            const shortName =
+              param.seriesName.length > 15
+                ? param.seriesName.substring(0, 15) + "..."
+                : param.seriesName;
+
+            return `<div style="display: flex; align-items: center; margin-bottom: 4px; width: 50%;">
+        <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background-color:${param.color};margin-right:5px;"></span>
+        ${shortName}: ${totalDocuments}
+      </div>`;
+          });
+
+        if (items.length === 0) return "Sin datos";
+
+        return `<div style="display: flex; flex-wrap: wrap; max-width: 300px;">${items.join(
+          ""
+        )}</div>`;
       },
     },
     xAxis: {
       type: "category",
       name: "Año",
+      axisLabel: {
+        textStyle: { fontFamily: "Apple", fontSize: isMobile ? 10 : 12 },
+      },
     },
     yAxis: {
       type: "value",
       name: "Total Documentos",
+      nameTextStyle: { fontFamily: "Apple" },
+      axisLabel: {
+        textStyle: { fontFamily: "Apple", fontSize: isMobile ? 10 : 12 },
+      },
     },
-
     ...(isMobile
       ? { legend: { show: false } }
       : {
@@ -363,43 +344,59 @@ const Echart = () => {
             top: "top",
             type: "scroll",
             textStyle: {
-              fontSize: 8, // Cambia el tamaño de la fuente aquí
-              color: "#000", // Opcional: establece el color de la leyenda
+              fontSize: 9,
+              color: "#000",
+              fontFamily: "Apple",
             },
-
-            formatter: function (carrera) {
-              return carrera.length > 25
-                ? carrera.substring(0, 25) + "..."
-                : carrera; // Limitar a 20 caracteres
-            },
+            itemGap: 10,
+            formatter: (carrera) =>
+              carrera.length > 25 ? carrera.substring(0, 25) + "..." : carrera,
           },
         }),
     grid: {
-      left: isMobile ? 56:190,
+      left: isMobile ? 56 : 190,
       right: 56,
-      top: 40 , // Ajusta este valor según el espacio que quieras entre el título y el gráfico
+      top: 40,
     },
     series: trendData.map((carrera) => ({
       name: carrera.carrera,
       type: "line",
       showSymbol: false,
       data: carrera.data.map((d) => [d.year, d.total_documents]),
+      lineStyle: { width: 2 },
+      emphasis: {
+        focus: "series",
+        blurScope: "coordinateSystem",
+        lineStyle: { width: 4 },
+      },
     })),
   };
-
   const option4 = {
     title: {
       text: "Promedio De Páginas Por Año",
+      textStyle: { fontFamily: "Apple" },
     },
     tooltip: {
       trigger: "item",
+      textStyle: { fontFamily: "Apple", fontSize: isMobile ? 12 : 13 },
+      extraCssText: `
+      white-space: normal;
+      max-width: ${isMobile ? "120px" : "300px"};
+      padding: 8px;
+    `,
     },
     xAxis: {
       data: dataAxis,
+      axisLabel: {
+        textStyle: { fontFamily: "Apple", fontSize: isMobile ? 10 : 12 },
+      },
     },
-
     yAxis: {
       type: "value",
+      nameTextStyle: { fontFamily: "Apple" },
+      axisLabel: {
+        textStyle: { fontFamily: "Apple", fontSize: isMobile ? 10 : 12 },
+      },
     },
     series: [
       {
@@ -410,7 +407,14 @@ const Echart = () => {
           formatter: function (params) {
             return `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background-color:${params.color};margin-right:5px;"></span> Promedio: ${params.value}`;
           },
+          textStyle: { fontFamily: "Apple", fontSize: isMobile ? 12 : 13 },
+          extraCssText: `
+          white-space: normal;
+          max-width: ${isMobile ? "120px" : "300px"};
+          padding: 8px;
+        `,
         },
+        lineStyle: { width: 2 },
       },
       {
         type: "bar",
@@ -418,9 +422,7 @@ const Echart = () => {
         itemStyle: { color: "#000000c5" },
       },
     ],
-    grid: {
-      left: 50,
-    },
+    grid: { left: 50 },
   };
 
   return (
@@ -434,10 +436,7 @@ const Echart = () => {
 
           {/* Gráfico u otro contenido */}
           <div className="ChartContainer">
-            <ReactEcharts
-              option={option}
-              style={{ height: "70vh", width: "100vw" }}
-            />
+            <ProjectsByCareerChart data={carrerData} isMobile={isMobile} />
           </div>
         </div>
       </Element>
@@ -445,10 +444,7 @@ const Echart = () => {
       {/* Elemento 2 */}
       <Element name="section2" className="StadisticItem" id="TimeLapse">
         {/* Gráfico u otro contenido */}
-        <ReactEcharts
-          option={option2}
-          style={{ height: "80vh", width: "80vw" }}
-        />
+        <ProjectsByYearChart yearData={yearData} />
       </Element>
       <Element name="section3" className="StadisticItem" id="Combination">
         {/* Gráfico u otro contenido */}

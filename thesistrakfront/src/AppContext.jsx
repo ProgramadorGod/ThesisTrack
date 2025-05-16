@@ -1,142 +1,154 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { fetchProfileData } from "./fetchProfileData";
 
 const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
+  // Configuración general
+  const PortToUse = process.env.REACT_APP_API_URL;
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
+
+  // Función para guardar datos localmente
   const LocalData = (itemstosave) => {
     localStorage.setItem("profiledata", JSON.stringify(itemstosave));
   };
 
-  const [ProfilePic, setProfilePic] = useState(
-    "media/profile_pictures/einstein.jpg"
-  );
+  const [hovered, setHovered] = useState(false); // Estado para detectar hover
+  const [isWriting, setIsWriting] = useState(false); // Estado para escritura
+
+  // Funciones para manejar el estado de hover
+  const handleMouseEnter = () => setHovered(true);
+  const handleMouseLeave = () => setHovered(false);
+
+  // Estados generales
   const [isLogged, setisLogged] = useState(false);
   const [isloading, setisloading] = useState(true);
   const [isActive, setisActive] = useState(false);
   const [profile, setProfile] = useState(null);
-  const [role, setRole] = useState("")
+  const [ProfilePic, setProfilePic] = useState(
+    "media/profile_pictures/einstein.jpg"
+  );
+  const [role, setRole] = useState("");
   const [name, setname] = useState("");
   const [userid, setUserid] = useState([]);
-
-  const PortToUse = process.env.REACT_APP_API_URL;
-  // let PortToUse = "http://127.0.0.1:8000/";
   const [userType, setUserType] = useState("Guest");
   const [email, setEmail] = useState("There's no Email Address");
-  const [Loading, setLoading] = useState(false);
+  const [Carrers, setCarrers] = useState([]);
 
-  // || "http://127.0.0.1:8000"
+  // Estado para tamaño de ventana
+  const [WindowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [WindowHeight, setWindowHeight] = useState(window.innerHeight);
+  const isMobile = WindowWidth <= 799;
 
-  const API_BASE_URL = process.env.REACT_APP_API_URL;
-  // const API_BASE_URL = "http://127.0.0.1:8000/"
-
-  // PortToUse = API_BASE_URL
-
+  // Registro
   const [Username, setUsername2] = useState("");
   const [EmailReg, setEmailReg] = useState("");
   const [Password1, setPassword1] = useState("");
   const [Password2, setPassword2] = useState("");
+  const [Loading, setLoading] = useState(false);
 
-  // LOGIN FORM
-  // ===========================================================================================================
-  // ===========================================================================================================
+  // Login
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [LoadingFetch, setLoadingFetch] = useState(false);
 
-  function getCookie(name) {
+  // CSRF
+  const getCookie = (name) => {
     let cookieValue = null;
     if (document.cookie && document.cookie !== "") {
       const cookies = document.cookie.split(";");
       for (let i = 0; i < cookies.length; i++) {
         const cookie = cookies[i].trim();
-        if (cookie.substring(0, name.length + 1) === name + "=") {
+        if (cookie.startsWith(name + "=")) {
           cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
           break;
         }
       }
     }
     return cookieValue;
-  }
+  };
 
-  const [LoadingFetch, setLoadingFetch] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const getCsrfToken = () => {
-    const csrfToken = document.cookie
+    return document.cookie
       .split("; ")
       .find((row) => row.startsWith("csrftoken="))
       ?.split("=")[1];
-    return csrfToken;
   };
-  const setCsrfToken = (token) => {
-    document.cookie = `csrftoken=${token}; path=/`;
+
+  // Login handler
+  const refreshCsrfToken = async () => {
+    try {
+      const csrfResponse = await axios.get(`${PortToUse}/api/refresh_csrf/`);
+      const newToken = csrfResponse.data.csrfToken;
+      return newToken;
+    } catch (error) {
+      console.error("Error refreshing CSRF token:", error);
+      throw error;
+    }
   };
 
   const handleLoginForm = async (e) => {
     e.preventDefault();
-    if (LoadingFetch) return; // Evitar enviar si ya hay una petición en proceso
-
+    if (LoadingFetch) return;
     setLoadingFetch(true);
 
     try {
+      // Primero intentamos realizar el login
       const response = await axios.post(
-        PortToUse + "api/login2/",
-        {
-          username,
-          password,
-        },
-        {
-          headers: {
-            "X-CSRFToken": getCsrfToken(),
-          },
-        }
+        `${PortToUse}api/login2/`,
+        { username, password },
+        { headers: { "X-CSRFToken": getCsrfToken() } }
       );
 
       if (response.status === 200) {
-        console.log("worked");
         setisActive(true);
-        console.log(isLogged);
-        setLoadingFetch(false);
         fetchProfile();
         setUsername("");
         setPassword("");
       }
-      setLoadingFetch(false);
     } catch (error) {
-      if (error.response && error.response.status === 403) {
-        // Refresh CSRF token
-        const csrfResponse = await axios.get(PortToUse + "/api/refresh_csrf/");
-        const NewCsrfToken = csrfResponse.data.csrfToken;
-        setLoadingFetch(false);
+      if (error.response?.status === 403) {
+        // Si obtenemos un 403, refrescamos el CSRF y reintentamos el login
+        const newToken = await refreshCsrfToken();
+        const retryResponse = await axios.post(
+          `${PortToUse}api/login2/`,
+          { username, password },
+          { headers: { "X-CSRFToken": newToken } }
+        );
 
-        setCsrfToken(NewCsrfToken);
-
-        alert("CSRF token refreshed, please try again.");
+        if (retryResponse.status === 200) {
+          setisActive(true);
+          fetchProfile();
+          setUsername("");
+          setPassword("");
+        }
       } else {
         Swal.fire({
           icon: "error",
-          title: error.response.data.Detail,
+          title: error.response?.data?.Detail || "Login failed",
           text: "Try Again!",
           timer: 1500,
           timerProgressBar: true,
         });
       }
-      console.log("ERROR TRYING TO LOGIN, ", error);
+      console.error("Error logging in:", error);
+    } finally {
+      setLoadingFetch(false);
     }
-    setLoadingFetch(false);
   };
-  // ===========================================================================================================
-  // ===========================================================================================================
 
-  // ============================================================================================================
-  // ============================================================================================================
+  // Registro handler
   const handleRegisterForm = async (e) => {
     e.preventDefault();
     if (Loading) return;
-
     setLoading(true);
+
     try {
-      const response = await axios.post(
-        PortToUse + "api/auth/registration/",
+      // Primero, intentamos registrar al usuario
+      await axios.post(
+        `${PortToUse}api/auth/registration/`,
         {
           username: Username,
           email: EmailReg,
@@ -144,9 +156,8 @@ export const AppProvider = ({ children }) => {
           password2: Password1,
         },
         {
-          headers: {
-            "X-CSRFToken": getCsrfToken(),
-          },
+          headers: { "X-CSRFToken": getCsrfToken() },
+          withCredentials: true, // ← NECESARIO
         }
       );
 
@@ -158,106 +169,116 @@ export const AppProvider = ({ children }) => {
         timerProgressBar: true,
       });
 
-      try {
-        const response2 = await axios.post(
-          PortToUse + "api/login2/",
-          {
-            username: Username,
-            password: Password1,
-          },
-          {
-            headers: {
-              "X-CSRFToken": getCsrfToken(),
-            },
-          }
-        );
+      // Refrescamos el token CSRF
+      const newToken = await refreshCsrfToken();
 
-        if (response2.status === 200) {
-          console.log("worked");
-          setUsername2("");
-          setPassword1("");
-          setEmailReg("");
-          setisActive(true);
-          fetchProfile();
+      // Intentamos el login automáticamente después de un registro exitoso
+      const loginResponse = await axios.post(
+        `${PortToUse}api/login2/`,
+        {
+          username: Username,
+          password: Password1,
+        },
+        {
+          headers: { "X-CSRFToken": newToken },
+          withCredentials: true, // ← NECESARIO AQUÍ TAMBIÉN
         }
-      } catch (e) {
-        alert(e);
+      );
+
+      if (loginResponse.status === 200) {
+        setUsername2("");
+        setPassword1("");
+        setEmailReg("");
+        setisActive(true);
+        fetchProfile();
       }
     } catch (error) {
-      console.log("Register failed");
-      if (error.response) {
-        const errorMessages = Object.entries(error.response.data)
-          .map(([field, messages]) => `${field}: ${messages.join(", ")}`)
-          .join("\n");
+      console.error("Registration failed", error);
+      const errorMessages = error.response
+        ? Object.entries(error.response.data)
+            .map(([field, messages]) => `${field}: ${messages.join(", ")}`)
+            .join("\n")
+        : "An unexpected error occurred. Please try again later.";
 
-        Swal.fire({
-          icon: "error",
-          title: "Registration failed",
-          text: errorMessages,
-        });
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Registration failed",
-          text: "An unexpected error occurred. Please try again later.",
-        });
-      }
+      Swal.fire({
+        icon: "error",
+        title: "Registration failed",
+        text: errorMessages,
+      });
     }
 
     setLoading(false);
   };
 
-  const fetchProfile = async () => {
+  // Perfil
+  const fetchProfile = () => {
+    fetchProfileData({
+      API_BASE_URL,
+      LocalData,
+      setisloading,
+      setisActive,
+      setUserid,
+      setProfile,
+      setname,
+      setRole,
+      setisLogged,
+      setUserType,
+      setEmail,
+      setProfilePic,
+      fetchCarrers,
+    });
+  };
+
+  // Carreras
+  const fetchCarrers = async () => {
     try {
-      // const token = localStorage.getItem('authToken');
-      const response = await axios.get(API_BASE_URL + "api/accounts/", {
-        withCredentials: true, // Importante para enviar cookies de sesión
-
-        // headers:{
-        // Authorization:`Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE5NjQxMTg3LCJpYXQiOjE3MTk2NDA4ODcsImp0aSI6IjFjMDE0YTIxZjNiMTRmMjZhYmFkZWQzZjhmYWZiOGU2IiwidXNlcl9pZCI6MX0.y5hUZPjyxVmy1bDG_NkABBqSgZEEEfKGbA8SN3-AzfI`
-        // },
+      const response = await axios.get(`${PortToUse}api/carrers/`, {
+        withCredentials: true,
       });
-
-      if (response.status === 200) {
-        console.log("Logged");
-        LocalData(response.data);
-        setisloading(false);
-        setisActive("Active");
-      } else {
-        console.log("not logged");
-      }
-
-      setUserid(response.data.ID);
-      setProfile(response.data);
-      // setCarrers(response.data.careers)
-      setname(response.data.Username);
-      setRole(response.data.Role);
-      setisLogged(true);
-      setProfilePic(response.data.ProfilePicture);
-      setUserType(response.data.UserType);
-      setEmail(response.data.UserMail);
-      // handleCloseWindow()
+      setCarrers(response.data);
     } catch (error) {
-      console.error("Error fetching profile:", error);
-      setisLogged(false);
-      console.log("Not Logged");
-    } finally {
-      setisloading(false);
+      console.error("Error fetching carrers", error);
     }
   };
 
-  const [WindowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [WindowHeight, setWindowHeight] = useState(window.innerHeight);
-
-  const handleResize = () => {
-    setWindowWidth(window.innerWidth);
-    setWindowHeight(window.innerHeight);
-  };
-
   useEffect(() => {
+    fetchCarrers();
+  }, []);
+
+  // Resize
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      setWindowHeight(window.innerHeight);
+    };
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+
+  // App.js o en tu `AppContextProvider`
+useEffect(() => {
+  const handleEnter = () => setIsWriting(true);
+  const handleLeave = () => setIsWriting(false);
+
+  const elements = document.querySelectorAll(".writable");
+
+  elements.forEach((el) => {
+    el.addEventListener("mouseenter", handleEnter);
+    el.addEventListener("mouseleave", handleLeave);
+  });
+
+  return () => {
+    elements.forEach((el) => {
+      el.removeEventListener("mouseenter", handleEnter);
+      el.removeEventListener("mouseleave", handleLeave);
+    });
+  };
+}, []);
+
+
+
 
   return (
     <AppContext.Provider
@@ -282,7 +303,10 @@ export const AppProvider = ({ children }) => {
         ProfilePic,
         userType,
         email,
+        isMobile,
         API_BASE_URL,
+        refreshCsrfToken,
+        getCsrfToken,
         role,
         handleLoginForm,
         handleRegisterForm,
@@ -291,25 +315,27 @@ export const AppProvider = ({ children }) => {
         username,
         setUsername,
         password,
-        Username,
         setPassword,
-        setPassword1,
-        setPassword2,
+        Username,
         setUsername2,
-        setEmailReg,
         EmailReg,
+        setEmailReg,
         Password1,
+        setPassword1,
         Password2,
         setPassword2,
+        Carrers,
+        hovered,
+        setHovered,
+        isWriting,
+        setIsWriting,
+        handleMouseEnter,
+        handleMouseLeave,
       }}
     >
       {children}
     </AppContext.Provider>
-    
   );
-  
 };
-
-
 
 export const useAppContext = () => useContext(AppContext);
