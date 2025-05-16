@@ -107,6 +107,7 @@ const Login = () => {
     return (
       <div>
         <MovLogin
+          GoogleIcon={GoogleIcon}
           IsLogin={IsLogin}
           LoadingFetch={LoadingFetch}
           handleLoginForm={handleLoginForm}

@@ -21,15 +21,18 @@ import Help from "./components/Help/Help";
 import { MovRegister } from "./components/LoginComponents/MovRegister";
 import { useEffect } from "react";
 import CustomCursor from "./CustomCursor";
+import FontLoader from "./FontObserver"; // o donde lo guardes
+
 
 const App = () => {
   return (
     <AppProvider>
-      <AppContent />
+      <FontLoader>
+        <AppContent />
+      </FontLoader>
     </AppProvider>
   );
 };
-
 function AppContent() {
   const {
     isloading,

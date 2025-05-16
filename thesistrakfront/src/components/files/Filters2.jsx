@@ -348,7 +348,8 @@ const Filters2 = ({
                                   sm: "1rem",
                                   md: "1.1rem",
                                 },
-                                fontWeight: "normal",
+                                
+                                fontWeight: "bold",
                                 color: isSelected
                                   ? "primary.main"
                                   : "text.primary",

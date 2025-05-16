@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { useAppContext } from "../../AppContext";
 import Button from "./Button";
 
-const Register = ({ GoogleIcon, IsLogin }) => {
+const Register = ({ GoogleIcon, IsLogin, handleLogin }) => {
   const [usernameFocus, setusernameFocus] = useState(false);
   const [emailFocus, setemailFocus] = useState(false);
   const [password1Focus, setpassword1Focus] = useState(false);
@@ -18,7 +18,6 @@ const Register = ({ GoogleIcon, IsLogin }) => {
     setHovered,
     text,
     setText,
-    handleLogin,
     Username,
     setUsername2,
     EmailReg,

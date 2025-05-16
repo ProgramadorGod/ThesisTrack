@@ -6,10 +6,7 @@ import ButtonMov from "./ButtonMov";
 import Button from "./Button";
 import { useAppContext } from "../../AppContext";
 
-const MovLogin = ({
-  IsLogin,
-
-}) => {
+const MovLogin = ({ IsLogin, handleLogin, GoogleIcon }) => {
   const navigate = useNavigate();
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
@@ -53,9 +50,23 @@ const MovLogin = ({
       <motion.form
         className="FormMov"
         onSubmit={handleLoginForm}
-        animate={{ y: isKeyboardVisible ? "-30vh" : 0 }}
+        animate={{ y: isKeyboardVisible ? "-10vh" : 0 }}
         transition={{ type: "tween", duration: 0.1, ease: "easeOut" }}
       >
+        <div
+          className="GoogleButton hoverable"
+          onClick={handleLogin}
+          aria-label="Aria Google"
+          tabIndex={IsLogin ? 1 : -1}
+          disabled={!IsLogin}
+        >
+          <img
+            src={GoogleIcon}
+            alt="GoogleIcon"
+            id="FaGoogle"
+            className="hoverable"
+          />
+        </div>
         <input
           className="MailMov writable"
           type="text"
@@ -79,7 +90,10 @@ const MovLogin = ({
           text2={"Iniciar Sesión"}
         />
         <div id="ForgotPasswordContainer">
-          <div onClick={handleForgotPassword} className="forgot-password hoverable">
+          <div
+            onClick={handleForgotPassword}
+            className="forgot-password hoverable"
+          >
             ¿Olvidaste tu contraseña?
           </div>
         </div>
