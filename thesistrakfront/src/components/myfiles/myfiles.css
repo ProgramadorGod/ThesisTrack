@@ -50,6 +50,7 @@
     margin-left: 5vw;
     justify-content: center;
     transform: translateY(0.2vh);
+    user-select: none;
 }
 
 @media (min-width:800px){
@@ -74,7 +75,11 @@
     margin-bottom: 0.5vh;
     font-family: "Apple";
     display: flex;
+    user-select: none;
     justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
 }
 
 #NewFileText{

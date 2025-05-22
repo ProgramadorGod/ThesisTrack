@@ -6,6 +6,7 @@ import NewFile from "./NewFile";
 import { useAppContext } from "../../AppContext";
 import Document from "../files/Document";
 import Loadingrectangle from "../loading/loading";
+import GraduationIllustration from "../../media/undraw_graduation_u7uc.svg";
 
 const Myfiles = ({ userid }) => {
   const [UploadVisible, setUploadVisible] = useState(false);
@@ -13,7 +14,7 @@ const Myfiles = ({ userid }) => {
   const [isLoading, setisLoading] = useState(true);
   const { API_BASE_URL } = useAppContext();
   const [AllDocuments, setAllDocuments] = useState([]);
-  
+
   useEffect(() => {
     if (UploadVisible) {
       document.body.style.overflow = "hidden";
@@ -26,8 +27,6 @@ const Myfiles = ({ userid }) => {
       document.body.style.overflow = "auto";
     };
   }, [UploadVisible]);
-
-
 
   const toggleUpload = () => {
     setUploadVisible(!UploadVisible);
@@ -56,7 +55,7 @@ const Myfiles = ({ userid }) => {
     fetchMyDocuments();
   }, []); // Arreglo de dependencias vacío para ejecutar solo una vez
 
-// Arreglo de dependencias vacío para ejecutar solo una vez
+  // Arreglo de dependencias vacío para ejecutar solo una vez
 
   return (
     <div className={`${UploadVisible ? "Uploading" : ""}`}>
@@ -95,17 +94,35 @@ const Myfiles = ({ userid }) => {
           <div className="MyDocumentsList">
             {isLoading ? (
               <>
-                <h2 className="Proyects"> MIS PROYECTOS  </h2>
-                <Loadingrectangle></Loadingrectangle>
-
+                <h2 className="Proyects">
+                  {" "}
+                  MIS PROYECTOS
+                  <Loadingrectangle></Loadingrectangle>
+                </h2>
               </>
             ) : (
               <>
                 <h2 className="Proyects"> MIS PROYECTOS </h2>
                 {MyDocuments.map((document) => (
                   // <Document key={document.id} document={document} />
-                  <Document key={document.id} document={document} onUpdateVisualizations={updateDocumentVisualizations}></Document>
+                  <Document
+                    key={document.id}
+                    document={document}
+                    onUpdateVisualizations={updateDocumentVisualizations}
+                  ></Document>
                 ))}
+                {MyDocuments.length === 0 && (
+                  <div className="NoDocuments">
+                    <img
+                      src={GraduationIllustration}
+                      alt="Graduation Illustration"
+                      className="GraduationIllustration"
+                    />
+                    <h2 className="NoDocumentsText">
+                      No tienes documentos creados
+                    </h2>
+                  </div>
+                )}
               </>
             )}
           </div>

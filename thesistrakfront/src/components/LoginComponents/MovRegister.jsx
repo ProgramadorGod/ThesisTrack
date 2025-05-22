@@ -53,7 +53,7 @@ export const MovRegister = ({
     handleLoginForm,
   } = useAppContext();
 
-  const handleGoLogin = () => navigate("/");
+  const handleGoLogin = () => navigate("/login");
 
   const ToggleIsLogin = () => {
     setIsLogin((prevIsLogin) => !prevIsLogin);

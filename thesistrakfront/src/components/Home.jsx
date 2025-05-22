@@ -18,11 +18,15 @@ const Home = () => {
     <div>
 
 
-        <div id='BasicGroup'>
+        <div id='HomePage'>
             {/* <Sidebar/> */}
+      
 
-            {/* {isloading ? (<Loadingrectangle/> ): (isLogged ? <Profile /> : <Login />)} */}
-            {isloading ? (<Loadingrectangle/> ): (isLogged ? <Files PortToUse={PortToUse}/> : <Login/>)}
+            {isloading ? (<Loadingrectangle/> ): (isLogged ? <Files PortToUse={PortToUse}/> : <Login/>)}  
+
+
+
+
         </div>
 
     </div>

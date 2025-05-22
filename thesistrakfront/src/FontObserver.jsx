@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import FontFaceObserver from "fontfaceobserver";
+import Atlas from "./media/atlas-Splash.png";
+// import Atlas from "../../media/atlas-Splash.png";
+
+import Loadingrectangle from "./components/loading/loading";
 
 const FontLoader = ({ children }) => {
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -7,6 +11,7 @@ const FontLoader = ({ children }) => {
   useEffect(() => {
     // La familia debe coincidir con la que usas en CSS (Apple)
     const appleFont = new FontFaceObserver("Apple");
+    const runtoeFont = new FontFaceObserver("Runtoe");
 
     appleFont.load(null, 10000).then(
       () => {
@@ -14,6 +19,16 @@ const FontLoader = ({ children }) => {
       },
       () => {
         console.error("La fuente Apple no pudo cargarse a tiempo.");
+        setFontLoaded(true); // igual continuar para no bloquear
+      }
+    );
+
+    runtoeFont.load(null, 10000).then(
+      () => {
+        setFontLoaded(true);
+      },
+      () => {
+        console.error("La fuente Runtoe no pudo cargarse a tiempo.");
         setFontLoaded(true); // igual continuar para no bloquear
       }
     );
@@ -32,7 +47,7 @@ const FontLoader = ({ children }) => {
           fontFamily: "sans-serif",
         }}
       >
-        Cargando fuente...
+        {<Loadingrectangle ></Loadingrectangle>}
       </div>
     );
   }

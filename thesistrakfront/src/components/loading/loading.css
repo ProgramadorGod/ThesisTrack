@@ -3,10 +3,20 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  /* padding-top: 90px; */
+  padding-top: 0px;
+  margin-top:0px;
   align-items: center;
   height: 100vh;
   background-color: #f5f5f5; /* Fondo gris claro */
+}
+
+.loading-splash{
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .loading-rectangle {
@@ -14,7 +24,7 @@
   
   max-width: 600px;
   height: 50px; /* Ajusta la altura de los rectángulos */
-  margin: 10px 0;
+  /* margin: 10px 0; */
   background: linear-gradient(90deg, #e2e0e0ea 25%, #f5f5f5 50%, #e2e0e0d7 75%);
   background-size: 200% 100%;
   border-radius: 4px;
@@ -37,4 +47,13 @@
   100% {
     background-position: -200% 0;
   }
+}
+
+.atlas-logo {
+  height: 20px;
+  width: 100px;
+  height: auto;
+  margin-top: 1.5vh;
+  margin-bottom: 20px; /* Espacio entre el logo y los rectángulos */
+  
 }

@@ -53,20 +53,8 @@ const MovLogin = ({ IsLogin, handleLogin, GoogleIcon }) => {
         animate={{ y: isKeyboardVisible ? "-10vh" : 0 }}
         transition={{ type: "tween", duration: 0.1, ease: "easeOut" }}
       >
-        <div
-          className="GoogleButton hoverable"
-          onClick={handleLogin}
-          aria-label="Aria Google"
-          tabIndex={IsLogin ? 1 : -1}
-          disabled={!IsLogin}
-        >
-          <img
-            src={GoogleIcon}
-            alt="GoogleIcon"
-            id="FaGoogle"
-            className="hoverable"
-          />
-        </div>
+
+
         <input
           className="MailMov writable"
           type="text"
@@ -89,6 +77,22 @@ const MovLogin = ({ IsLogin, handleLogin, GoogleIcon }) => {
           text1={"Iniciando Sesión"}
           text2={"Iniciar Sesión"}
         />
+                <div id="ButtonContainer">
+          <div
+            className="GoogleButton hoverable"
+            onClick={handleLogin}
+            aria-label="Aria Google"
+            tabIndex={IsLogin ? 1 : -1}
+            disabled={!IsLogin}
+          >
+            <img
+              src={GoogleIcon}
+              alt="GoogleIcon"
+              id="FaGoogle"
+              className="hoverable"
+            />
+          </div>
+        </div>
         <div id="ForgotPasswordContainer">
           <div
             onClick={handleForgotPassword}
@@ -97,6 +101,7 @@ const MovLogin = ({ IsLogin, handleLogin, GoogleIcon }) => {
             ¿Olvidaste tu contraseña?
           </div>
         </div>
+        
       </motion.form>
 
       <motion.div

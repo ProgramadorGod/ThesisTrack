@@ -6,6 +6,8 @@ import "./login.css";
 import "./loginMov.css";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import GoogleIcon from "../../media/google.png";
+
 import MovLogin from "./MovLogin";
 import LoginDesktop from "./LoginDesktop";
 
@@ -27,6 +29,15 @@ const Login = () => {
   const [IsLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
 
+
+  const handleLogin = () => {
+    const googleLoginUrl = PortToUse + "/accounts/google/login/?next=/";
+    window.location.href = googleLoginUrl;
+  };
+
+  
+
+
   const ToggleIsLogin = () => {
     setIsLogin((prevIsLogin) => !prevIsLogin);
   };
@@ -46,6 +57,8 @@ const Login = () => {
         setUsername={setUsername}
         password={password}
         setPassword={setPassword}
+        handleLogin={handleLogin}
+        GoogleIcon={GoogleIcon}
       />
     );
   }

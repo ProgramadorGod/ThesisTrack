@@ -90,11 +90,11 @@
         border: 0px;
         cursor: pointer;
         background-color: rgba(207, 206, 205, 0.884);
-        border-radius: 50%;
+        border-radius: 1vh;
         height: 5vh;
         display: flex;
         justify-content: center;
-        width: 5vh;
+        width: 7vh;
     }
     #ButtonContainer{
         display: flex;
